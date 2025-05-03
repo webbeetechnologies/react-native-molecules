@@ -35,6 +35,8 @@ export type PopoverProps = {
     showArrow?: boolean;
     /** Size of the arrow */
     arrowSize?: number;
+    withBackdropDismiss?: boolean;
+    offset?: number;
 };
 
 // --- Positioning Helper Functions ---
@@ -336,6 +338,7 @@ interface UsePopoverProps {
     align: Align | undefined;
     showArrow: boolean | undefined;
     arrowSize: number;
+    offset?: number;
 }
 
 export const usePopover = ({
@@ -344,55 +347,69 @@ export const usePopover = ({
     align = 'center',
     showArrow = true,
     arrowSize = DEFAULT_ARROW_SIZE,
+    offset = 0,
 }: UsePopoverProps) => {
     const popoverLayoutRef = useRef<LayoutRectangle | null>(null);
     const targetLayoutRef = useRef<LayoutRectangle | null>(null);
     const actualPositionRef = useRef<Position | undefined>(position);
-    const [calculatedPosition, setCalculatedPosition] = useState<ViewStyle | null>(null);
+    const [calculatedPosition, setCalculatedPosition] = useState<ViewStyle>(popoverDefaultStyles);
 
     const calculateAndSetPosition = useCallback(() => {
         if (!targetLayoutRef.current || !popoverLayoutRef.current) {
-            if (calculatedPosition?.opacity !== 0) {
-                setCalculatedPosition({
-                    position: 'absolute',
-                    top: -9999,
-                    left: -9999,
-                    opacity: 0,
-                });
-            }
+            setCalculatedPosition(popoverDefaultStyles); // Hide if layouts are not ready
             return;
         }
 
-        const targetLayout = targetLayoutRef.current;
-        const popoverLayout = popoverLayoutRef.current;
         const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
         const effectiveArrowSize = showArrow ? arrowSize : 0;
 
-        const { top: initialTop, left: initialLeft } = getInitialPosition(
+        let { top: initialTop, left: initialLeft } = getInitialPosition(
             position,
             align,
-            targetLayout,
-            popoverLayout,
+            targetLayoutRef.current,
+            popoverLayoutRef.current,
             effectiveArrowSize,
         );
 
+        // Apply offset based on the initial intended position
+        switch (position) {
+            case 'top':
+                initialTop -= offset;
+                break;
+            case 'bottom':
+                initialTop += offset;
+                break;
+            case 'left':
+                initialLeft -= offset;
+                break;
+            case 'right':
+                initialLeft += offset;
+                break;
+        }
+
         const { finalTop, finalLeft, finalPosition } = adjustPositionForBoundaries(
-            position,
-            initialTop,
-            initialLeft,
-            targetLayout,
-            popoverLayout,
+            position, // Pass initial intended position for boundary check logic
+            initialTop, // Pass offset-adjusted top
+            initialLeft, // Pass offset-adjusted left
+            targetLayoutRef.current,
+            popoverLayoutRef.current,
             screenHeight,
             screenWidth,
             effectiveArrowSize,
         );
 
-        actualPositionRef.current = finalPosition;
-        setCalculatedPosition({ position: 'absolute', top: finalTop, left: finalLeft, opacity: 1 });
-    }, [align, arrowSize, position, showArrow, calculatedPosition?.opacity]);
+        actualPositionRef.current = finalPosition; // Store the actual position after adjustments
+
+        setCalculatedPosition({
+            position: 'absolute',
+            top: finalTop,
+            left: finalLeft,
+            opacity: 1,
+        });
+    }, [position, align, showArrow, arrowSize, offset]); // Add offset to dependency array
 
     const handlePopoverLayout = useCallback(
-        (event: any) => {
+        (event: { nativeEvent: { layout: LayoutRectangle } }) => {
             const layout = event.nativeEvent.layout;
             if (layout.width > 0 && layout.height > 0) {
                 const changed =
@@ -423,7 +440,7 @@ export const usePopover = ({
             targetLayoutRef.current = null;
             popoverLayoutRef.current = null;
             // Optionally reset calculatedPosition here too, though the initial measure effect also handles hiding
-            setCalculatedPosition({ position: 'absolute', top: -9999, left: -9999, opacity: 0 });
+            setCalculatedPosition(popoverDefaultStyles);
         }
     }, [isOpen]);
 

@@ -57,12 +57,14 @@ const ListItem = (
     const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
     const hoverable = hoverableProp || !!onPress;
 
+    const state = resolveStateVariant({
+        selected,
+        disabled,
+        hovered: hoverable && hovered,
+    }) as any;
+
     listItemStyles.useVariants({
-        state: resolveStateVariant({
-            selected,
-            disabled,
-            hovered: hoverable && hovered,
-        }) as any,
+        state,
         variant: variant as any,
     });
 
@@ -81,7 +83,8 @@ const ListItem = (
             leftElementStyle: leftElement,
             rightElementStyle: rightElement,
         };
-    }, [styleProp]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [styleProp, state]);
 
     const contextValue = useMemo(
         () => ({ disabled, hovered: hoverable && hovered, selected, variant }),

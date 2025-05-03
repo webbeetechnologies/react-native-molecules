@@ -1,5 +1,5 @@
 import { useRef, useLayoutEffect, useCallback, useEffect, memo, Fragment } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { ScopedTheme, StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 import {
     PopoverProps,
@@ -23,6 +23,8 @@ const Popover = ({
     inverted = false,
     // @ts-ignore
     dataSet,
+    withBackdropDismiss = false,
+    offset = 0,
     ...rest
 }: PopoverProps) => {
     const {
@@ -38,6 +40,7 @@ const Popover = ({
         align,
         showArrow,
         arrowSize,
+        offset,
     });
 
     const popoverRef = useRef<View>(null);
@@ -94,7 +97,7 @@ const Popover = ({
     }, [isOpen, measureTarget, triggerRef]);
 
     useEffect(() => {
-        if (!isOpen || !onClose) return;
+        if (!isOpen || !onClose || withBackdropDismiss) return;
         const handleClickOutside = (event: MouseEvent) => {
             const popoverElement = popoverRef.current as any as HTMLElement;
             const targetElement = triggerRef.current as any as HTMLElement;
@@ -111,7 +114,7 @@ const Popover = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside, { capture: true });
         };
-    }, [isOpen, onClose, popoverRef, triggerRef]);
+    }, [isOpen, onClose, popoverRef, triggerRef, withBackdropDismiss]);
 
     const arrowStyles = useArrowStyles({
         showArrow,
@@ -138,6 +141,7 @@ const Popover = ({
                     ? { name: UnistylesRuntime.themeName === 'dark' ? 'light' : 'dark' }
                     : ({} as { name: 'light' }))}
                 {...{ dataSet }}>
+                {withBackdropDismiss && <Pressable style={styles.backdrop} onPress={onClose} />}
                 <View
                     onLayout={handlePopoverLayout}
                     style={[styles.popoverContainer, style, popoverStyle]}
@@ -162,6 +166,16 @@ const styles = StyleSheet.create(theme => ({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         zIndex: 100,
+    },
+    backdrop: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        _web: {
+            cursor: 'default',
+        },
     },
 }));
 
