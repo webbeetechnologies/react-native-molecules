@@ -1,9 +1,9 @@
 import { memo, useMemo } from 'react';
+import { View } from 'react-native';
 
+import { Text } from '../Text';
 import { circleSize } from './timeUtils';
 import { timePickerClockMinutesStyles } from './utils';
-import { Text, View } from 'react-native';
-
 function AnalogClockMinutes({ minutes }: { minutes: number }) {
     const range = getMinuteNumbers(circleSize, 12);
 

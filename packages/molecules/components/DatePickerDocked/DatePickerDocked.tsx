@@ -1,5 +1,4 @@
-import { memo, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
+import { memo } from 'react';
 
 import type { DatePickerDockedProps } from './types';
 import DatePickerInlineBase from '../DatePickerInline/DatePickerInlineBase';
@@ -10,23 +9,12 @@ import { Popover } from '../Popover';
 const DatePickerDocked = (props: DatePickerDockedProps) => {
     const { triggerRef, isOpen, onToggle, onClose } = props;
 
-    const { backDropStyle } = useMemo(() => {
-        const { backDropStyle: _backDropStyle } = datePickerDockedMonthStyles;
-
-        return {
-            backDropStyle: _backDropStyle,
-        };
-    }, []);
-
     return (
         <Popover
-            placement="bottom right"
-            backdropStyles={backDropStyle}
-            contentStyles={styles.popoverContainer}
             triggerRef={triggerRef}
             isOpen={isOpen}
             onClose={onClose}
-            popoverContentProps={props.popoverContentProps}>
+            {...props.popoverContentProps}>
             <DatePickerInlineBase
                 {...props}
                 // TODO - fix ts issues
@@ -38,10 +26,5 @@ const DatePickerDocked = (props: DatePickerDockedProps) => {
         </Popover>
     );
 };
-
-const styles = StyleSheet.create({
-    root: { flex: 1 },
-    popoverContainer: { padding: 0 },
-});
 
 export default memo(DatePickerDocked);
