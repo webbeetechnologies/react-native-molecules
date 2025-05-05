@@ -310,10 +310,70 @@ const defaultStylesDefault = StyleSheet.create(theme => {
         labelText: {
             marginVertical: theme.spacings['2l'],
             marginHorizontal: theme.spacings['3'],
+
+            variants: {
+                variant: {
+                    text: {
+                        color: theme.colors.primary,
+                    },
+                },
+                state: {
+                    disabled: {
+                        color: theme.colors.onSurfaceDisabled,
+                    },
+                    hovered: {},
+                    default: {},
+                },
+                size: {
+                    lg: {},
+                    sm: {},
+                    md: {},
+                },
+            },
+
+            compoundVariants: [
+                {
+                    variant: 'text',
+                    state: 'disabled',
+                    styles: {
+                        color: theme.colors.stateLayer.disabled.onSurface_Level4,
+                    },
+                },
+            ],
         },
         labelTextAddons: {
             marginVertical: theme.spacings['2l'],
             marginHorizontal: theme.spacings['4'],
+
+            variants: {
+                variant: {
+                    text: {
+                        color: theme.colors.primary,
+                    },
+                },
+                state: {
+                    disabled: {
+                        color: theme.colors.onSurfaceDisabled,
+                    },
+                    hovered: {},
+                    default: {},
+                },
+                size: {
+                    lg: {},
+                    sm: {},
+                    md: {},
+                },
+            },
+
+            compoundVariants: [
+                {
+                    variant: 'text',
+                    state: 'disabled',
+                    styles: {
+                        color: theme.colors.stateLayer.disabled.onSurface_Level4,
+                    },
+                },
+            ],
         },
     };
 });
