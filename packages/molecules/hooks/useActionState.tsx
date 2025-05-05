@@ -14,7 +14,9 @@ export const useActionState = (
     props: UseActionStateProps & { ref?: RefObject<any> | React.ForwardedRef<any> } = {},
 ) => {
     const ref = useRef(null);
-    const actionsRef = (props.ref === undefined ? ref : props.ref) as RefObject<any>;
+    const actionsRef = (
+        (props.ref as any)?.current === undefined ? ref : props.ref
+    ) as RefObject<any>;
     const hovered =
         useHover(actionsRef, props.actionsToListen?.includes('hover')) || !!props.hovered;
     const pressed =
