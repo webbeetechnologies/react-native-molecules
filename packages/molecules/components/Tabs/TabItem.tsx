@@ -49,6 +49,7 @@ export type TabItemProps = Omit<TouchableRippleProps, 'children' | 'ref'> & {
             variant: 'primary' | 'secondary';
         }>
     >;
+    stateLayerProps?: ViewProps;
 };
 
 const TabItem = (
@@ -62,6 +63,7 @@ const TabItem = (
         contentsContainerProps,
         accessibilityLabel,
         children,
+        stateLayerProps,
         ...rest
     }: TabItemProps,
     ref: any,
@@ -132,7 +134,10 @@ const TabItem = (
                     })}
                 </View>
 
-                <StateLayer style={tabsItemStyles.stateLayer} />
+                <StateLayer
+                    {...stateLayerProps}
+                    style={[tabsItemStyles.stateLayer, stateLayerProps?.style]}
+                />
             </>
         </TouchableRipple>
     );
