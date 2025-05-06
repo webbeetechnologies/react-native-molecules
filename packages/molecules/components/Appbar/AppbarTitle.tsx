@@ -1,4 +1,4 @@
-import { ComponentType, memo, useContext, useMemo } from 'react';
+import { ComponentType, memo, useContext } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import type { TextProps } from 'react-native';
 import { AppbarContext } from './AppbarBase';
@@ -18,10 +18,11 @@ const AppbarTitle = memo(({ style, children, Wrapper: WrapperProp, ...rest }: Pr
         size: type === 'large' ? 'lg' : type === 'medium' ? 'md' : 'sm',
     });
 
-    const titleStyles = useMemo(() => [styles[type], appbarTitle.root, style], [style, type]);
-
     return (
-        <Wrapper style={titleStyles} accessibilityRole="header" {...rest}>
+        <Wrapper
+            style={[styles[type], appbarTitle.root, style]}
+            accessibilityRole="header"
+            {...rest}>
             {children}
         </Wrapper>
     );

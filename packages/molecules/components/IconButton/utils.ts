@@ -52,6 +52,7 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 selected: {},
                 selectedAndHovered: {},
                 hovered: {},
+                default: {},
             },
 
             variant: {
@@ -210,9 +211,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
         ],
     },
     stateLayer: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'transparent',
-        zIndex: -1,
         variants: {
             state: {
                 disabled: {},
@@ -221,6 +219,9 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 selectedAndHovered: {},
                 hovered: {},
                 default: {},
+            },
+            size: {
+                undefined: {},
             },
 
             variant: {

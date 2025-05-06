@@ -44,10 +44,11 @@ function TimeInput(
 
     const highlighted = inputType === inputTypes.picker ? pressed : inputFocused;
 
+    const state = resolveStateVariant({
+        highlighted,
+    });
     timePickerInputStyles.useVariants({
-        state: resolveStateVariant({
-            highlighted,
-        }),
+        state: state as any,
     });
 
     const formattedValue = useMemo(() => {
@@ -71,7 +72,8 @@ function TimeInput(
                 textInputStyle: [input, inputStyle],
                 buttonStyle: [StyleSheet.absoluteFill, button],
             };
-        }, [inputStyle, style]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [inputStyle, style, state]);
 
     const onFocus = useCallback(() => setInputFocused(true), []);
     const onBlur = useCallback(() => setInputFocused(false), []);

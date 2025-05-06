@@ -127,11 +127,13 @@ const RadioButtonItem = (
         [context?.value, status, value],
     );
 
+    const state = resolveStateVariant({
+        disabled: !!disabled,
+        checked,
+    });
+
     radioButtonItemStyles.useVariants({
-        state: resolveStateVariant({
-            disabled: !!disabled,
-            checked,
-        }) as any,
+        state: state as any,
     });
 
     // const componentStyles = useComponentStyles('RadioButton_Item', styleProp, {
@@ -168,6 +170,7 @@ const RadioButtonItem = (
                 style: styleProp,
             },
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         checked,
         color,
@@ -179,6 +182,7 @@ const RadioButtonItem = (
         styleProp,
         uncheckedColor,
         value,
+        state,
     ]);
 
     const onRadioPress = useCallback(

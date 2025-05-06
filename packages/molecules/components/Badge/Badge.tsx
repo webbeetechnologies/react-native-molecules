@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { type ViewProps, type TextProps, View } from 'react-native';
 import { badgeStyles } from './utils';
 import { Text } from '../Text';
@@ -14,19 +14,10 @@ const Badge = ({ style, label, size = 'md', labelProps = {}, ...rest }: Props) =
         size: !label ? 'sm' : size,
     });
 
-    const componentStyles = useMemo(() => [badgeStyles.root, style], [style]);
-
-    const { containerStyle, labelStyle } = useMemo(() => {
-        return {
-            containerStyle: componentStyles,
-            labelStyle: [badgeStyles.label, labelProps?.style],
-        };
-    }, [componentStyles, labelProps?.style]);
-
     return (
-        <View style={containerStyle} {...rest}>
+        <View style={[badgeStyles.root, style]} {...rest}>
             {label && size !== 'sm' && (
-                <Text {...labelProps} style={labelStyle}>
+                <Text {...labelProps} style={[badgeStyles.label, labelProps?.style]}>
                     {label}
                 </Text>
             )}

@@ -164,15 +164,17 @@ const Chip = (
 ) => {
     const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
 
+    const state = resolveStateVariant({
+        disabled: !!disabled,
+        selected,
+        selectedAndHovered: selected && hovered,
+        hovered,
+    });
+
     styles.useVariants({
         variant,
         size,
-        state: resolveStateVariant({
-            disabled: !!disabled,
-            selected,
-            selectedAndHovered: selected && hovered,
-            hovered,
-        }) as States,
+        state: state as States,
     });
 
     const iconSize = size === 'sm' ? 15 : 18;
@@ -216,6 +218,7 @@ const Chip = (
             ],
             stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         leftElementContainerStyle,
         rightElementContainerStyle,
@@ -226,6 +229,9 @@ const Chip = (
         style,
         containerStyleProp,
         labelStyleProp,
+        state,
+        size,
+        variant,
     ]);
 
     const { accessibilityState, elevation } = useMemo(

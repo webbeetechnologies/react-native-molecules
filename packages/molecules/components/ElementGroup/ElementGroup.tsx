@@ -17,7 +17,7 @@ export type Props = Omit<ViewProps, 'style'> & {
 
 export const ElementGroup = (
     {
-        orientation = Orientation.Horizontal,
+        orientation: orientationProp = Orientation.Horizontal,
         children,
         style,
         borderRadius: borderRadiusProp,
@@ -25,8 +25,9 @@ export const ElementGroup = (
     }: Props,
     ref: any,
 ) => {
+    const orientation = orientationProp === Orientation.Vertical ? 'vertial' : 'horizontal';
     elementGroupStyles.useVariants({
-        orientation: (orientation === Orientation.Vertical ? 'vertial' : 'horizontal') as any,
+        orientation: orientation as any,
     });
     // const componentStyles = useComponentStyles(
     //     'ElementGroup',
@@ -63,7 +64,8 @@ export const ElementGroup = (
                 borderBottomRightRadius: borderBottomRightRadius || _borderBottomRightRadius,
             },
         };
-    }, [style, borderRadiusProp]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [style, borderRadiusProp, orientation]);
 
     const modifiedChildren = useMemo(() => {
         if (!children) return null;

@@ -10,10 +10,11 @@ const DrawerCollapsibleItemHeader = memo(
     forwardRef(({ style, ...rest }: Props, ref: any) => {
         const { active } = useContext(DrawerCollapsibleItemContext);
 
+        const state = resolveStateVariant({
+            active,
+        });
         drawerCollapsibleItemHeaderStyles.useVariants({
-            state: resolveStateVariant({
-                active,
-            }) as any,
+            state: state as any,
         });
 
         const { leftElementStyle, rightElementStyle, contentStyle, headerStyle } = useMemo(() => {
@@ -25,7 +26,8 @@ const DrawerCollapsibleItemHeader = memo(
                 rightElementStyle: rightElement,
                 contentStyle: content,
             };
-        }, [style]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [style, state]);
 
         return (
             <AccordionItem.Header

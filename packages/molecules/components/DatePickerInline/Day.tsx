@@ -37,13 +37,14 @@ function Day(props: {
         isToday,
         disabled,
     } = props;
+    const state = resolveStateVariant({
+        disabled,
+        selected,
+        inRange,
+        today: isToday,
+    });
     datePickerDayStyles.useVariants({
-        state: resolveStateVariant({
-            disabled,
-            selected,
-            inRange,
-            today: isToday,
-        }) as any,
+        state: state as any,
     });
 
     const onPress = useCallback(() => {
@@ -60,7 +61,8 @@ function Day(props: {
             ] as StyleProp<ViewStyle>,
             textStyle: datePickerDayStyles.text,
         };
-    }, [isToday]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isToday, state]);
 
     return (
         <View style={containerStyle}>

@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { type ViewStyle, type StyleProp, type ViewProps, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
@@ -64,17 +64,18 @@ const VerticalDivider = ({
         isBold: bold,
     });
 
-    const memoizedStyles = useMemo(() => {
-        return [
-            verticalDividerStyles.root,
-            style,
-            topInset && { marginTop: topInset },
-            bottomInset && { marginBottom: bottomInset },
-            spacing && { marginHorizontal: spacing },
-        ] as StyleProp<ViewStyle>;
-    }, [bottomInset, style, spacing, topInset]);
-
-    return <View {...rest} style={memoizedStyles} />;
+    return (
+        <View
+            {...rest}
+            style={[
+                verticalDividerStyles.root,
+                style,
+                topInset && { marginTop: topInset },
+                bottomInset && { marginBottom: bottomInset },
+                spacing && { marginHorizontal: spacing },
+            ]}
+        />
+    );
 };
 
 export const verticalDividerStylesDefault = StyleSheet.create(theme => ({

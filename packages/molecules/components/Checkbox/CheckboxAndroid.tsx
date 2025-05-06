@@ -41,14 +41,16 @@ const CheckboxAndroid = (
 
     const { actionsRef, hovered } = useActionState({ ref, actionsToListen: ['hover'] });
 
+    const state = resolveStateVariant({
+        disabled,
+        checkedAndHovered: checked && !indeterminate && hovered,
+        checked: checked && !indeterminate,
+        hovered,
+    });
+
     styles.useVariants({
         variant: 'android',
-        state: resolveStateVariant({
-            disabled,
-            checkedAndHovered: checked && !indeterminate && hovered,
-            checked: checked && !indeterminate,
-            hovered,
-        }) as States,
+        state: state as States,
         size,
     });
 
@@ -124,6 +126,7 @@ const CheckboxAndroid = (
             ],
             stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         borderWidth,
         checked,
@@ -132,6 +135,8 @@ const CheckboxAndroid = (
         stateLayerProps?.style,
         style,
         uncheckedColorProp,
+        state,
+        size,
     ]);
 
     useEffect(() => {

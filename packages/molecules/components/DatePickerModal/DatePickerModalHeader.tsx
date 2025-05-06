@@ -18,10 +18,11 @@ export interface DatePickerModalHeaderProps {
 export default function DatePickerModalHeader(props: DatePickerModalHeaderProps) {
     const { disableSafeTop, closeIcon = 'close' } = props;
 
+    const state = resolveStateVariant({
+        disableSafeTop: !!disableSafeTop,
+    });
     datePickerModalHeaderStyles.useVariants({
-        state: resolveStateVariant({
-            disableSafeTop: !!disableSafeTop,
-        }) as any,
+        state: state as any,
     });
 
     const saveLabel = props.saveLabel || 'Save';
@@ -42,7 +43,8 @@ export default function DatePickerModalHeader(props: DatePickerModalHeaderProps)
             safeContentStyle: safeContent,
             appBarHeaderStyle: appbarHeader,
         };
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state]);
 
     return (
         <>

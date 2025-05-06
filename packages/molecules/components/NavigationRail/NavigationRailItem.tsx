@@ -112,12 +112,14 @@ const NavigationRailItem = memo(
         ) => {
             const { hovered, actionsRef } = useActionState({ actionsToListen: ['hover'] });
 
+            const state = resolveStateVariant({
+                activeAndHovered: active && hovered,
+                active,
+                hovered,
+            });
+
             navigationRailItemStyles.useVariants({
-                state: resolveStateVariant({
-                    activeAndHovered: active && hovered,
-                    active,
-                    hovered,
-                }) as any,
+                state: state as any,
                 size,
             });
 
@@ -148,6 +150,8 @@ const NavigationRailItem = memo(
                 iconContainerProps.style,
                 iconProps.style,
                 label,
+                state,
+                size,
                 stateLayerProps.style,
             ]);
 

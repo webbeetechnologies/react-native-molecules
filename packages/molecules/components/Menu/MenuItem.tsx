@@ -50,12 +50,14 @@ const _MenuItem = (
 
     const { closeOnSelect, onClose } = useContext(MenuContext);
 
+    const state = resolveStateVariant({
+        disabled,
+        hovered,
+    });
+
     menuItemStyles.useVariants({
         size: size as any,
-        state: resolveStateVariant({
-            disabled,
-            hovered,
-        }) as any,
+        state: state as any,
     });
 
     const onPressItem = useCallback(
@@ -78,7 +80,8 @@ const _MenuItem = (
                 rightElementStyle: [rightElement, _rightElementStyle],
                 stateLayerStyle: stateLayer,
             };
-        }, [_leftElementStyle, _rightElementStyle, style, textProps?.style]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [_leftElementStyle, _rightElementStyle, style, textProps?.style, state, size]);
 
     return (
         <TouchableRipple

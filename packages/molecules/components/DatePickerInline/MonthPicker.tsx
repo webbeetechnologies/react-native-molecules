@@ -92,10 +92,11 @@ function MonthPure({
     onPressMonth: (newMonth: number) => any;
     monthStyles: ViewStyle;
 }) {
+    const state = resolveStateVariant({
+        selected,
+    });
     datePickerDockedMonthItemStyles.useVariants({
-        state: resolveStateVariant({
-            selected,
-        }) as any,
+        state: state as any,
     });
     // const montLocalStyles = useComponentStyles('DatePickerDocked_MonthItem', monthStyles, {
     //     state: resolveStateVariant({
@@ -112,7 +113,8 @@ function MonthPure({
                 monthButtonStyle: [monthButton, monthStyles],
                 accessibilityState: { selected },
             };
-        }, [selected, monthStyles]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [selected, monthStyles, state]);
 
     const handleMonthPress = useCallback(() => {
         onPressMonth(month);

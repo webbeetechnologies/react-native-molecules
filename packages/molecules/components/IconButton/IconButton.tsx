@@ -76,6 +76,8 @@ export type Props = Omit<TouchableRippleProps, 'children' | 'style'> & {
     stateLayerProps?: ViewProps;
 };
 
+const emptyObject = {};
+
 const IconButton = (
     {
         name,
@@ -89,9 +91,9 @@ const IconButton = (
         animated = false,
         variant = 'default',
         style,
-        innerContainerStyle: innerContainerStyleProp = {},
+        innerContainerStyle: innerContainerStyleProp = emptyObject,
         testID,
-        stateLayerProps = {},
+        stateLayerProps = emptyObject,
         ...rest
     }: Props,
     ref: any,
@@ -100,15 +102,17 @@ const IconButton = (
 
     const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
 
+    const state = resolveStateVariant({
+        selectedAndDisabled: selected && disabled,
+        selectedAndHovered: hovered && selected,
+        disabled,
+        hovered,
+        selected,
+    });
+
     defaultStyles.useVariants({
         variant,
-        state: resolveStateVariant({
-            selectedAndDisabled: selected && disabled,
-            selectedAndHovered: hovered && selected,
-            disabled,
-            hovered,
-            selected,
-        }),
+        state,
         size: typeof size === 'string' && size ? size : undefined,
     });
 
@@ -151,7 +155,17 @@ const IconButton = (
             accessibilityState: { disabled },
             stateLayerStyle: [defaultStyles.stateLayer, stateLayerProps?.style],
         };
-    }, [_iconColor, disabled, innerContainerStyleProp, size, stateLayerProps?.style, style]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        _iconColor,
+        disabled,
+        innerContainerStyleProp,
+        size,
+        stateLayerProps?.style,
+        style,
+        state,
+        variant,
+    ]);
 
     return (
         <Surface style={containerStyle} elevation={0}>

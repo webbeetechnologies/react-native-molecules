@@ -46,12 +46,13 @@ const DrawerItem = (
     ref: any,
 ) => {
     const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
+    const state = resolveStateVariant({
+        activeAndHovered: active && hovered,
+        active,
+        hovered,
+    });
     drawerItemStyles.useVariants({
-        state: resolveStateVariant({
-            activeAndHovered: active && hovered,
-            active,
-            hovered,
-        }) as any,
+        state: state as any,
     });
 
     const {
@@ -81,13 +82,12 @@ const DrawerItem = (
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
-        active,
-        hovered,
         contentStyleProp,
         labelStyleProp,
         leftElementContainerStyle,
         rightElementContainerStyle,
         style,
+        state,
     ]);
 
     const _hoveredForLeftElement = typeof left === 'function' ? hovered : false;

@@ -120,7 +120,8 @@ function Modal(
             ],
             contentStyle: [modalContent, { width: dimensions.width, opacity: 1 }, style],
         };
-    }, [backdropStyleProp, contentContainerStyleProp, dimensions.width, style]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [backdropStyleProp, contentContainerStyleProp, dimensions.width, style, size]);
 
     const handleBack = useCallback(() => {
         if (dismissible) {

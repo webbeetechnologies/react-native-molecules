@@ -91,13 +91,15 @@ const FAB = (
         [elevationProp],
     );
 
+    const state = resolveStateVariant({
+        disabled,
+        hovered,
+    });
+
     fabStyles.useVariants({
         variant,
         size,
-        state: resolveStateVariant({
-            disabled,
-            hovered,
-        }) as any,
+        state: state as any,
     });
 
     const {
@@ -119,12 +121,16 @@ const FAB = (
             iconSize: _iconSize,
             stateLayerStyle: [fabStyles.stateLayer, stateLayerProps?.style],
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         iconProps?.style,
         innerContainerStyleProp,
         labelProps?.style,
         stateLayerProps?.style,
         style,
+        state,
+        variant,
+        size,
     ]);
     // TODO: abstract the stateLayer
     return (

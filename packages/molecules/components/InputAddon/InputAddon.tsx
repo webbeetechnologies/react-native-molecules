@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { View, type ViewProps } from 'react-native';
 import { inputAddonStyles } from './utils';
 
@@ -16,10 +16,8 @@ const InputAddon = ({ variant, style, children, ...rest }: Props) => {
         variant,
     });
 
-    const componentStyles = useMemo(() => [inputAddonStyles.root, style], [style]);
-
     return (
-        <View style={componentStyles} {...rest}>
+        <View style={[inputAddonStyles.root, style]} {...rest}>
             {children}
         </View>
     );

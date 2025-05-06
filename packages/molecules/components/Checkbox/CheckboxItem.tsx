@@ -60,10 +60,11 @@ const CheckboxItem = (
     });
 
     const isLeading = position === 'leading';
+    const state = resolveStateVariant({ disabled, checked: value && !indeterminate });
 
     styles.useVariants({
         variant: 'item',
-        state: resolveStateVariant({ disabled, checked: value && !indeterminate }) as States,
+        state: state as States,
         isLeading,
         size,
     });
@@ -97,7 +98,8 @@ const CheckboxItem = (
         };
 
         return <Checkbox {...checkboxProps} />;
-    }, [props, indeterminate, value, onChange, disabled, size, style]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props, indeterminate, value, onChange, disabled, size, style, state]);
 
     const accessibilityState = useMemo(
         () => ({

@@ -65,13 +65,15 @@ const RadioButtonAndroid = (
 
     const isFirstRendering = useRef<boolean>(true);
 
+    const state = resolveStateVariant({
+        disabled,
+        checkedAndHovered: checked && hovered,
+        checked,
+        hovered,
+    });
+
     radioButtonStyles.useVariants({
-        state: resolveStateVariant({
-            disabled,
-            checkedAndHovered: checked && hovered,
-            checked,
-            hovered,
-        }) as any,
+        state: state as any,
     });
 
     const {
@@ -119,6 +121,7 @@ const RadioButtonAndroid = (
             ],
             stateLayerStyle: [radioButtonStyles.stateLayer, stateLayerProps?.style],
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         borderAnim,
         checked,
@@ -127,6 +130,7 @@ const RadioButtonAndroid = (
         stateLayerProps?.style,
         uncheckedColorProp,
         style,
+        state,
     ]);
 
     useEffect(() => {

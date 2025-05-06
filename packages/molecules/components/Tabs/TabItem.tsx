@@ -69,13 +69,14 @@ const TabItem = (
     const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
     const [itemHeight, setItemHeight] = useState(0);
 
+    const state = resolveStateVariant({
+        activeAndHovered: active && hovered,
+        hovered,
+        active,
+    });
     tabsItemStyles.useVariants({
         variant,
-        state: resolveStateVariant({
-            activeAndHovered: active && hovered,
-            hovered,
-            active,
-        }),
+        state,
     });
 
     const { containerStyle } = useMemo(() => {
@@ -103,7 +104,8 @@ const TabItem = (
             accessibilityValue:
                 typeof accessibilityLabel === 'string' ? { text: accessibilityLabel } : undefined,
         }),
-        [active, accessibilityLabel],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [active, accessibilityLabel, state],
     );
 
     return (

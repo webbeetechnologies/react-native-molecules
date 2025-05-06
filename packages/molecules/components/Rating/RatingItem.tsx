@@ -56,14 +56,15 @@ const RatingItem = (
     //         }),
     //     },
     // );
+    const state = resolveStateVariant({
+        activeAndDisabled: active && disabled,
+        activeAndReadonly: active && readonly,
+        active,
+        disabled,
+        readonly,
+    });
     ratingItemStyles.useVariants({
-        state: resolveStateVariant({
-            activeAndDisabled: active && disabled,
-            activeAndReadonly: active && readonly,
-            active,
-            disabled,
-            readonly,
-        }) as any,
+        state: state as any,
     });
     const componentStyles = useMemo(
         () => [
@@ -71,7 +72,8 @@ const RatingItem = (
             active ? { color: activeColor } : color ? { color } : {},
             style,
         ],
-        [active, activeColor, color, style],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [active, activeColor, color, style, state],
     );
 
     const onPress = useCallback(() => {

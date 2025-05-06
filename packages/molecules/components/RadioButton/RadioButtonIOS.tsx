@@ -35,11 +35,12 @@ const RadioButtonIOS = (
     { disabled, style, color: colorProp, checked, onPress, ...rest }: Props,
     ref: any,
 ) => {
+    const state = resolveStateVariant({
+        disabled: !!disabled,
+        checked,
+    });
     radioButtonStyles.useVariants({
-        state: resolveStateVariant({
-            disabled: !!disabled,
-            checked,
-        }) as any,
+        state: state as any,
     });
 
     const { containerStyle, iconContainerStyle, checkedColor, rippleColor } = useMemo(() => {
@@ -56,7 +57,8 @@ const RadioButtonIOS = (
             checkedColor: colorProp || color,
             rippleColor: setColor(color).fade(0.32).rgb().string(),
         };
-    }, [checked, colorProp, style]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checked, colorProp, style, state]);
 
     return (
         <TouchableRipple

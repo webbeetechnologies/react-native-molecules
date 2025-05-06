@@ -26,12 +26,14 @@ const CheckboxIOS = (
     }: Props,
     ref: any,
 ) => {
+    const state = resolveStateVariant({
+        disabled,
+        checked: checked && !indeterminate,
+    });
+
     styles.useVariants({
         variant: 'ios',
-        state: resolveStateVariant({
-            disabled,
-            checked: checked && !indeterminate,
-        }) as States,
+        state: state as States,
         size,
     });
 
@@ -62,7 +64,8 @@ const CheckboxIOS = (
                 ],
                 iconContainerStyles: { opacity: indeterminate || checked ? 1 : 0 },
             };
-        }, [checked, colorProp, indeterminate, style]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [checked, colorProp, indeterminate, style, state, size]);
 
     const onChange = useCallback(() => {
         onChangeProp?.(!checked);

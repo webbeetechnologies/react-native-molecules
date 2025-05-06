@@ -45,15 +45,15 @@ const AccordionItemHeader = memo(
 
             const { expanded, onExpandedChange } = useContext(AccordionItemContext);
 
+            const state = resolveStateVariant({
+                expandedAndHovered: expanded && hovered,
+                expanded,
+                hovered,
+            });
+
             // @ts-ignore // TODO - fix this issue
             accordionItemHeaderStyles.useVariants({
-                state: {
-                    states: resolveStateVariant({
-                        expandedAndHovered: expanded && hovered,
-                        expanded,
-                        hovered,
-                    }),
-                },
+                state,
             });
 
             const onPress = useCallback(
@@ -65,30 +65,19 @@ const AccordionItemHeader = memo(
                 [expanded, onPressProp, onExpandedChange],
             );
 
-            const {
-                containerStyle,
-                leftElementStyle,
-                rightElementStyle,
-                labelStyle,
-                elementColor,
-            } = useMemo(() => {
-                const { leftElement, rightElement, content } = accordionItemHeaderStyles;
-
+            const { containerStyle } = useMemo(() => {
                 return {
                     containerStyle: [accordionItemHeaderStyles.root, style],
-                    leftElementStyle: [leftElement, leftElementStyleProp],
-                    rightElementStyle: [rightElement, rightElementStyleProp],
-                    labelStyle: [content, contentStyleProp],
-                    elementColor: accordionItemHeaderStyles.root.elementColor,
                 };
-            }, [contentStyleProp, leftElementStyleProp, rightElementStyleProp, style]);
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+            }, [style, state]);
 
             const elementProps = useMemo(
                 () => ({
-                    color: elementColor,
+                    color: accordionItemHeaderStyles.root.elementColor,
                     expanded,
                 }),
-                [elementColor, expanded],
+                [expanded],
             );
 
             return (
@@ -99,15 +88,25 @@ const AccordionItemHeader = memo(
                     ref={actionsRef}>
                     <>
                         {left && (
-                            <View style={leftElementStyle}>
+                            <View
+                                style={[
+                                    accordionItemHeaderStyles.leftElement,
+                                    leftElementStyleProp,
+                                ]}>
                                 {typeof left === 'function' ? left(elementProps) : left}
                             </View>
                         )}
-                        <Text style={labelStyle} selectable={false}>
+                        <Text
+                            style={[accordionItemHeaderStyles.content, contentStyleProp]}
+                            selectable={false}>
                             {children}
                         </Text>
                         {right && (
-                            <View style={rightElementStyle}>
+                            <View
+                                style={[
+                                    accordionItemHeaderStyles.rightElement,
+                                    rightElementStyleProp,
+                                ]}>
                                 {typeof right === 'function' ? right(elementProps) : right}
                             </View>
                         )}

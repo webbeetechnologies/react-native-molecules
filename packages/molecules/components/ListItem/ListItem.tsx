@@ -84,7 +84,7 @@ const ListItem = (
             rightElementStyle: rightElement,
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [styleProp, state]);
+    }, [styleProp, state, variant]);
 
     const contextValue = useMemo(
         () => ({ disabled, hovered: hoverable && hovered, selected, variant }),

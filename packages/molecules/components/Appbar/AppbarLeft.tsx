@@ -1,4 +1,4 @@
-import { memo, ReactElement, useContext, useMemo } from 'react';
+import { memo, ReactElement, useContext } from 'react';
 import { View, type ViewProps } from 'react-native';
 import { AppbarContext } from './AppbarBase';
 import { appbarLeft } from './utils';
@@ -13,10 +13,8 @@ const AppbarLeft = memo(({ children, style, ...rest }: Props) => {
     appbarLeft.useVariants({
         size: type,
     });
-    const componentStyles = useMemo(() => [appbarLeft.root, style], [style]);
-
     return (
-        <View {...rest} style={componentStyles}>
+        <View {...rest} style={[appbarLeft.root, style]}>
             {children}
         </View>
     );
