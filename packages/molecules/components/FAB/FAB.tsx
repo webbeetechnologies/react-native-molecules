@@ -10,7 +10,7 @@ import { Icon, type IconProps, type IconType } from '../Icon';
 import { FABVariant } from './types';
 import { resolveStateVariant } from '../../utils';
 import { StateLayer } from '../StateLayer';
-import { fabStyles } from './utils';
+import { fabStyles, iconSizeMap } from './utils';
 
 export type Props = Omit<TouchableRippleProps, 'children'> & {
     /**
@@ -110,15 +110,13 @@ const FAB = (
         iconSize,
         stateLayerStyle,
     } = useMemo(() => {
-        const { iconSize: _iconSize, ...restStyle } = fabStyles.root;
-
         return {
-            containerStyle: [restStyle, style],
+            containerStyle: [fabStyles.root, style],
             innerContainerStyle: [fabStyles.innerContainer, innerContainerStyleProp],
             iconStyle: [fabStyles.icon, iconProps?.style],
             // @ts-ignore
             labelStyle: [fabStyles.label, labelProps?.style],
-            iconSize: _iconSize,
+            iconSize: iconSizeMap[size],
             stateLayerStyle: [fabStyles.stateLayer, stateLayerProps?.style],
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps

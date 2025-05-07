@@ -1,6 +1,13 @@
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
 
+export const iconSizeMap = {
+    xs: 18,
+    sm: 24,
+    md: 28,
+    lg: 36,
+};
+
 const fabStylesDefault = StyleSheet.create(theme => ({
     root: {
         ...{ iconSize: 24 },
@@ -28,20 +35,22 @@ const fabStylesDefault = StyleSheet.create(theme => ({
             },
 
             size: {
+                xs: {
+                    minHeight: 32,
+                    minWidth: 32,
+                    borderRadius: theme.shapes.corner.small,
+                },
                 sm: {
-                    iconSize: 24,
                     minHeight: 40,
                     minWidth: 40,
                     borderRadius: theme.shapes.corner.medium,
                 },
                 md: {
-                    iconSize: 24,
                     minHeight: 56,
                     minWidth: 56,
                     borderRadius: theme.shapes.corner.large,
                 },
                 lg: {
-                    iconSize: 36,
                     minHeight: 96,
                     minWidth: 96,
                     borderRadius: theme.shapes.corner.extraLarge,
@@ -56,18 +65,23 @@ const fabStylesDefault = StyleSheet.create(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
 
-        size: {
-            sm: {
-                padding: theme.spacings['3'],
-                borderRadius: theme.shapes.corner.medium,
-            },
-            md: {
-                padding: theme.spacings['4'],
-                borderRadius: theme.shapes.corner.large,
-            },
-            lg: {
-                padding: theme.spacings['7'],
-                borderRadius: theme.shapes.corner.extraLarge,
+        variants: {
+            size: {
+                xs: {
+                    borderRadius: theme.shapes.corner.small,
+                },
+                sm: {
+                    padding: theme.spacings['3'],
+                    borderRadius: theme.shapes.corner.medium,
+                },
+                md: {
+                    padding: theme.spacings['4'],
+                    borderRadius: theme.shapes.corner.large,
+                },
+                lg: {
+                    padding: theme.spacings['7'],
+                    borderRadius: theme.shapes.corner.extraLarge,
+                },
             },
         },
     },
@@ -81,6 +95,9 @@ const fabStylesDefault = StyleSheet.create(theme => ({
             },
 
             size: {
+                xs: {
+                    borderRadius: theme.shapes.corner.small,
+                },
                 sm: {
                     borderRadius: theme.shapes.corner.medium,
                 },
@@ -150,6 +167,10 @@ const fabStylesDefault = StyleSheet.create(theme => ({
     },
 
     label: {
+        fontSize: theme.typescale.labelSmall.fontSize,
+        lineHeight: theme.typescale.labelSmall.lineHeight,
+        fontWeight: theme.typescale.labelMedium.labelSmall,
+        marginLeft: theme.spacings['1'],
         variants: {
             state: {
                 disabled: {
