@@ -41,7 +41,7 @@
     "typescript": "^5.3.3"
   },
   "resolutions": {
-    "react-native-unistyles": "3.0.0-nightly-20250425",
+    "react-native-unistyles": "3.0.0-rc.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.0",
