@@ -1,6 +1,7 @@
 import { memo, useCallback, useMemo, useState } from 'react';
-import { Animated, LayoutChangeEvent, StyleSheet } from 'react-native';
+import { Animated, LayoutChangeEvent } from 'react-native';
 
+import { StyleSheet } from 'react-native-unistyles';
 import type { InputLabelProps } from './types';
 
 const InputLabel = (props: InputLabelProps) => {
@@ -19,7 +20,7 @@ const InputLabel = (props: InputLabelProps) => {
         maxFontSizeMultiplier,
         required,
         testID,
-        floatingSyle,
+        floatingStyle,
     } = props;
 
     const [containerLayout, setContainerLayout] = useState<{
@@ -107,7 +108,7 @@ const InputLabel = (props: InputLabelProps) => {
                     }),
                 },
                 style,
-                isLabelFloating ? floatingSyle : {},
+                isLabelFloating ? floatingStyle : {},
             ],
             normalLabelStyle: [
                 // {
@@ -137,7 +138,7 @@ const InputLabel = (props: InputLabelProps) => {
         // theme.colors.onSurface,
         paddingOffset,
         style,
-        floatingSyle,
+        floatingStyle,
     ]);
 
     // Position colored placeholder and gray placeholder on top of each other and crossfade them
@@ -171,11 +172,14 @@ const InputLabel = (props: InputLabelProps) => {
     );
 };
 
-export const inputLabelStyles = StyleSheet.create({
+export const inputLabelStyles = StyleSheet.create(theme => ({
     labelContainer: {
         zIndex: 3,
         justifyContent: 'center',
     },
-});
+    floatingLabel: {
+        backgroundColor: theme.colors.surface,
+    },
+}));
 
 export default memo(InputLabel);

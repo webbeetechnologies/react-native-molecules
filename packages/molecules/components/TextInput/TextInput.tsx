@@ -641,7 +641,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
                             <InputLabel
                                 parentState={parentState}
                                 label={rest.label}
-                                floatingSyle={styles.floatingLabel}
+                                floatingStyle={styles.floatingLabel}
                                 floatingLabelVerticalOffset={
                                     computedStyles.floatingLabelVerticalOffset
                                 }

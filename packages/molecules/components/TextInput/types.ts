@@ -78,7 +78,7 @@ export type InputLabelProps = {
     required?: boolean;
     testID?: string;
     style?: StyleProp<TextStyle>;
-    floatingSyle?: StyleProp<TextStyle>;
+    floatingStyle?: StyleProp<TextStyle>;
 };
 
 export type LabelBackgroundProps = {
