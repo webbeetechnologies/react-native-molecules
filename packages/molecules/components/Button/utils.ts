@@ -2,7 +2,7 @@ import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from 
 import { StyleSheet } from 'react-native-unistyles';
 
 export const sizeToIconSizeMap = {
-    xs: 20,
+    xs: 18,
     sm: 22,
     md: 24,
     lg: 26,

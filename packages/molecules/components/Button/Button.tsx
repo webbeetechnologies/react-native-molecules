@@ -88,6 +88,7 @@ export type Props = Omit<SurfaceProps, 'style'> & {
      * Style for the Icon
      */
     iconContainerStyle?: StyleProp<ViewStyle>;
+    iconStyle?: StyleProp<TextStyle>;
     /*
      * Size
      * */
@@ -144,6 +145,7 @@ const Button = (
         elevation: elevationProp,
         iconSize: _iconSizeProp,
         textRelatedStyle,
+        iconStyle: _iconStyleProp,
         ...rest
     }: Props,
     ref: any,
@@ -230,7 +232,7 @@ const Button = (
                 styleProp,
             ],
 
-            iconStyle: [_iconStyle, textRelatedStyle] as unknown as ViewStyle,
+            iconStyle: [_iconStyle, textRelatedStyle, _iconStyleProp] as unknown as ViewStyle,
             viewStyle: [
                 content,
                 { flexGrow: 1 },
@@ -301,7 +303,7 @@ const Button = (
                             <Icon
                                 type={iconType}
                                 name={iconName}
-                                size={customLabelSize ?? iconSize}
+                                size={iconSize ?? customLabelSize}
                                 color={
                                     typeof customLabelColor === 'string'
                                         ? customLabelColor
