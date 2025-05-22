@@ -1,30 +1,34 @@
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
 
+const PADDING = 6;
+
+export const iconSizeMap = {
+    sm: 20,
+    md: 24,
+    lg: 28,
+};
+
 const checkboxStylesDefault = StyleSheet.create(theme => ({
     root: {
         color: theme.colors.onSurfaceVariant,
-        ...{
-            uncheckedColor: theme.colors.onSurfaceVariant,
-            animationDuration: theme.animation.durations['1'],
-        },
 
         variants: {
             size: {
                 sm: {
-                    padding: 6,
+                    padding: PADDING,
                     borderRadius: 16,
-                    iconSize: 20,
+                    iconSize: iconSizeMap.sm,
                 },
                 md: {
-                    padding: 6,
+                    padding: PADDING,
                     borderRadius: 18,
-                    iconSize: 24,
+                    iconSize: iconSizeMap.md,
                 },
                 lg: {
-                    padding: 6,
+                    padding: PADDING,
                     borderRadius: 20,
-                    iconSize: 28,
+                    iconSize: iconSizeMap.lg,
                 },
             },
 
@@ -152,6 +156,49 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    animatedFill: (color: string) => ({
+        width: 24 / 2 + (PADDING - 2),
+        height: 24 / 2 + (PADDING - 2),
+        ...(color ? { borderColor: theme.colors[color] ?? color } : {}),
+
+        variants: {
+            size: {
+                sm: {
+                    width: iconSizeMap.sm / 2 + (PADDING - 2),
+                    height: iconSizeMap.sm / 2 + (PADDING - 2),
+                },
+                md: {
+                    width: iconSizeMap.md / 2 + (PADDING - 2),
+                    height: iconSizeMap.md / 2 + (PADDING - 2),
+                },
+                lg: {
+                    width: iconSizeMap.lg / 2 + (PADDING - 2),
+                    height: iconSizeMap.lg / 2 + (PADDING - 2),
+                },
+            },
+        },
+    }),
+    icon: {
+        color: theme.colors.onSurfaceVariant,
+
+        variants: {
+            state: {
+                checked: {
+                    color: theme.colors.primary,
+                },
+                checkedAndHovered: {
+                    color: theme.colors.primary,
+                },
+                disabled: {
+                    color: theme.colors.onSurfaceDisabled,
+                },
+                hovered: {},
+            },
+        },
+    },
+    color: (color: string) => ({
+        ...(color ? { color: theme.colors[color] ?? color } : {}),
+    }),
     // compoundVariantStyles: (variant: 'android' | 'ios' | 'item', size: Size, state: States) => {
     //     if (variant === 'android') {
     //         return {

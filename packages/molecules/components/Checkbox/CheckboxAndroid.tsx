@@ -9,7 +9,7 @@ import { resolveStateVariant } from '../../utils';
 import { TouchableRipple } from '../TouchableRipple';
 import { Icon } from '../Icon';
 import { StateLayer } from '../StateLayer';
-import { styles } from './utils';
+import { styles, iconSizeMap } from './utils';
 import { useActionState } from '../../hooks';
 
 export type Props = Omit<CheckBoxBaseProps, 'value' | 'defaultValue'> & {
@@ -72,7 +72,6 @@ const CheckboxAndroid = (
 
     const {
         iconSize,
-        color,
         rippleColor,
         scale,
         animationDuration,
@@ -81,47 +80,39 @@ const CheckboxAndroid = (
         animatedContainerStyles,
         animatedFillStyles,
         stateLayerStyle,
+        iconStyle,
     } = useMemo(() => {
-        const {
-            color: checkedColor,
-            uncheckedColor,
-            animationScale: _scale,
-            animationDuration: _animationDuration,
-            iconSize: _iconSize,
-            padding,
-            width,
-            height,
-            borderRadius,
-            ...checkboxStyles
-            // @ts-ignore
-        } = styles.root;
+        // const {
+        //     color: checkedColor,
+        //     uncheckedColor,
+        //     animationScale: _scale,
+        //     animationDuration: _animationDuration,
+        //     iconSize: _iconSize,
+        //     padding,
+        //     width,
+        //     height,
+        //     borderRadius,
+        //     ...checkboxStyles
+        //     // @ts-ignore
+        // } = styles.root;
 
-        const _color = checked ? colorProp || checkedColor : uncheckedColorProp || uncheckedColor;
+        const _color = styles.color(checked ? colorProp : uncheckedColorProp);
 
         return {
-            color: _color,
-            iconSize: _iconSize,
+            iconStyle: [styles.icon, _color],
+            iconSize: iconSizeMap[size],
             // TODO - fix this on web
             rippleColor:
                 Platform.OS === 'web' ? undefined : setColor(_color).fade(0.32).rgb().string(),
-            checkboxStyle: [checkboxStyles, style],
-            scale: _scale,
-            animationDuration: _animationDuration,
-            rippleContainerStyles: [
-                {
-                    borderRadius,
-                    width,
-                    height,
-                    padding,
-                },
-                checkboxStyles,
-            ],
+            checkboxStyle: [styles.root, style],
+            scale: 1,
+            animationDuration: 100,
+            rippleContainerStyles: [styles.root],
             animatedContainerStyles: { transform: [{ scale: scaleAnim }] },
             filledContainerStyles: [StyleSheet.absoluteFill, styles.fillContainer],
             // for toggle animation // This needs to be computed because it's opinionated animation
             animatedFillStyles: [
-                { width: _iconSize / 2 + (padding - 2), height: _iconSize / 2 + (padding - 2) }, // 4 because padding - border(which is 1px each side)
-                { borderColor: _color },
+                styles.animatedFill(checked ? colorProp : uncheckedColorProp), // 4 because padding - border(which is 1px each side)
                 { borderWidth },
             ],
             stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],
@@ -192,7 +183,7 @@ const CheckboxAndroid = (
                         type="material-community"
                         name={icon}
                         size={iconSize}
-                        color={color}
+                        style={iconStyle}
                     />
                     <View style={filledContainerStyles}>
                         <Animated.View style={animatedFillStyles} />
