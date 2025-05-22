@@ -141,7 +141,10 @@ const DropdownList = <TItem extends DefaultItemT = DefaultItemT>({
             case DropdownListMode.Dialog:
                 return [Dialog, { ...dialogProps, isOpen, onClose }];
             default:
-                return [DropdownListPopover, { ...popoverProps, triggerRef, isOpen, onClose }];
+                return [
+                    DropdownListPopover,
+                    { offset: 4, ...popoverProps, triggerRef, isOpen, onClose },
+                ];
         }
     }, [
         Wrapper,
