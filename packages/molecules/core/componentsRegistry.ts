@@ -97,13 +97,21 @@ export const componentsStylesRepository = new Repository<Record<string, any>>({
     maxListeners: 0,
 });
 
+export const componentsUtilsRepository = new Repository<Record<string, any>>({
+    name: 'Components_Utils_Repository',
+    maxListeners: 0,
+});
+
 export const registerMoleculesComponent = componentsRepository.registerOne;
 export const registerMoleculesComponents = componentsRepository.register;
 export const registerComponentStyles = componentsStylesRepository.registerOne;
 export const registerComponentsStyles = componentsStylesRepository.register;
+export const registerComponentUtils = componentsUtilsRepository.registerOne;
+export const registerComponentsUtils = componentsUtilsRepository.register;
 
 export const getRegisteredMoleculesComponent = componentsRepository.get;
 export const getRegisteredMoleculesComponentStyles = componentsStylesRepository.get;
+export const getRegisteredComponentUtils = componentsUtilsRepository.get;
 
 /**
  * Gets a registered component with a fallback to the default component

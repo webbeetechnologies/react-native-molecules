@@ -1,5 +1,10 @@
 import { StyleSheet } from 'react-native-unistyles';
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import {
+    getRegisteredMoleculesComponentStyles,
+    registerComponentsStyles,
+    registerComponentUtils,
+    getRegisteredComponentUtils,
+} from '../../core';
 
 export type States =
     | 'disabled'
@@ -12,7 +17,7 @@ export type States =
     | 'errorHovered'
     | 'errorDisabled';
 
-export const getInputMinHeight = (variant: string, size: string) => {
+const getInputMinHeightDefault = (variant: string, size: string) => {
     switch (true) {
         case variant === 'outlined' && size === 'lg':
             return 64;
@@ -30,6 +35,13 @@ export const getInputMinHeight = (variant: string, size: string) => {
             return 0;
     }
 };
+
+registerComponentUtils('TextInput', {
+    getInputMinHeight: getInputMinHeightDefault,
+});
+
+export const getInputMinHeight =
+    getRegisteredComponentUtils('TextInput').getInputMinHeight ?? getInputMinHeightDefault;
 
 const textInputStylesDefault = StyleSheet.create(theme => ({
     root: {
