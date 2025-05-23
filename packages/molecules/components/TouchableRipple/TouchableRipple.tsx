@@ -5,6 +5,7 @@ import {
     ViewStyle,
     Pressable,
     PressableProps,
+    View,
 } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
@@ -251,10 +252,12 @@ const TouchableRipple = (
         [onPressOutProp, disabled],
     );
 
+    const Component = onPress ? Pressable : View;
+
     return (
-        <Pressable
-            {...rest}
+        <Component
             role="button"
+            {...rest}
             style={containerStyle}
             ref={ref}
             onPress={onPress}
@@ -262,7 +265,7 @@ const TouchableRipple = (
             onPressOut={handlePressOut}
             disabled={disabled}>
             {Children.only(children)}
-        </Pressable>
+        </Component>
     );
 };
 
