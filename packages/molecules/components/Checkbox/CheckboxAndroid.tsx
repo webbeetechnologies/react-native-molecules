@@ -11,6 +11,7 @@ import { Icon } from '../Icon';
 import { StateLayer } from '../StateLayer';
 import { styles, iconSizeMap } from './utils';
 import { useActionState } from '../../hooks';
+import { tokenStylesParser } from '../../utils/tokenStylesParser';
 
 export type Props = Omit<CheckBoxBaseProps, 'value' | 'defaultValue'> & {
     value: boolean;
@@ -96,7 +97,7 @@ const CheckboxAndroid = (
         //     // @ts-ignore
         // } = styles.root;
 
-        const _color = styles.color(checked ? colorProp : uncheckedColorProp);
+        const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
 
         return {
             iconStyle: [styles.icon, _color],
@@ -112,7 +113,8 @@ const CheckboxAndroid = (
             filledContainerStyles: [StyleSheet.absoluteFill, styles.fillContainer],
             // for toggle animation // This needs to be computed because it's opinionated animation
             animatedFillStyles: [
-                styles.animatedFill(checked ? colorProp : uncheckedColorProp), // 4 because padding - border(which is 1px each side)
+                styles.animatedFill, // 4 because padding - border(which is 1px each side)
+                tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp, 'borderColor'),
                 { borderWidth },
             ],
             stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],

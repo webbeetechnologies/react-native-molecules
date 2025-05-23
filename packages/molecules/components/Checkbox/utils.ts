@@ -156,10 +156,9 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    animatedFill: (color: string) => ({
+    animatedFill: {
         width: 24 / 2 + (PADDING - 2),
         height: 24 / 2 + (PADDING - 2),
-        ...(color ? { borderColor: theme.colors[color] ?? color } : {}),
 
         variants: {
             size: {
@@ -177,7 +176,7 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
                 },
             },
         },
-    }),
+    },
     icon: {
         color: theme.colors.onSurfaceVariant,
 
@@ -196,9 +195,6 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
-    color: (color: string) => ({
-        ...(color ? { color: theme.colors[color] ?? color } : {}),
-    }),
     // compoundVariantStyles: (variant: 'android' | 'ios' | 'item', size: Size, state: States) => {
     //     if (variant === 'android') {
     //         return {

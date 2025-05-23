@@ -12,6 +12,8 @@ import { Text } from '../Text';
 
 import { Icon, type IconProps } from '../Icon';
 import { avatarStyles } from './utils';
+import { tokenStylesParser } from '../../utils/tokenStylesParser';
+
 export type Props = Omit<ViewProps, 'children'> & {
     source?: ImageProps['source'];
     /**
@@ -69,7 +71,7 @@ const Avatar = (
             {...rest}
             style={[
                 avatarStyles.root,
-                color ? { backgroundColor: color } : {},
+                tokenStylesParser.getColor(color as string, 'backgroundColor'),
                 style,
                 { width: +size, height: +size },
             ]}>

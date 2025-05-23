@@ -22,7 +22,7 @@ const avatarStylesDefault = StyleSheet.create(theme => ({
         fontSize: theme.typescale.titleMedium.fontSize,
         fontWeight: theme.typescale.titleMedium.fontWeight,
         lineHeight: theme.typescale.titleMedium.lineHeight,
-        textTransform: 'capitalize',
+        textTransform: 'uppercase',
         color: '#ffffff',
     },
 }));
