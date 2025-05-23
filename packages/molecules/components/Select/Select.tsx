@@ -191,7 +191,7 @@ const Select = <TItem extends DefaultItemT = DefaultItemT>(
     const popoverProps = useMemo(
         () => ({
             showArrow: false,
-            offset: 4 + (searchable && onQueryChange ? -inputLayout.height : 0),
+            offset: searchable && onQueryChange ? -inputLayout.height : 0,
             ..._popoverProps,
             style: [{ width: inputLayout.width }, _popoverProps?.style],
         }),
