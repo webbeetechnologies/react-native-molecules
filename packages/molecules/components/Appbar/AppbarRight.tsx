@@ -10,28 +10,25 @@ export type Props = Omit<ViewProps, 'children'> & {
 };
 
 const AppbarRight = memo(({ children, spacing, style, ...rest }: Props) => {
-    const componentStyles = useMemo(() => [appbarRight.root, style], [style]);
-
-    const { appbarRightStyle } = useMemo(() => {
-        return {
-            appbarRightStyle: componentStyles,
-        };
-    }, [componentStyles]);
-
     const content = useMemo(
         () =>
             Children.map(children, child => {
                 return cloneElement(child, {
-                    style: {
-                        marginLeft: spacing,
-                    },
+                    // @ts-expect-error // TODO: fix this
+                    style: [
+                        {
+                            marginLeft: spacing,
+                        },
+                        // @ts-expect-error // TODO: fix this
+                        child.props?.style,
+                    ],
                 });
             }),
         [children, spacing],
     );
 
     return (
-        <View {...rest} style={appbarRightStyle}>
+        <View {...rest} style={[appbarRight.root, style]}>
             {content}
         </View>
     );
