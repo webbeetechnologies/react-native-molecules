@@ -62,6 +62,7 @@ export type Props = Omit<TouchableRippleProps, 'children' | 'style'> & {
      * backgroundColor and color will be extracted from here and act as buttonBackgroundColor and iconColor
      */
     style?: StyleProp<TextStyle>;
+    iconStyle?: StyleProp<TextStyle>;
     /**
      * color of the icon
      */
@@ -94,6 +95,7 @@ const IconButton = (
         innerContainerStyle: innerContainerStyleProp = emptyObject,
         testID,
         stateLayerProps = emptyObject,
+        iconStyle,
         ...rest
     }: Props,
     ref: any,
@@ -190,7 +192,13 @@ const IconButton = (
                 testID={testID}
                 {...rest}>
                 <>
-                    <IconComponent color={iconColor} name={name} size={iconSize} type={type} />
+                    <IconComponent
+                        color={iconColor}
+                        name={name}
+                        size={iconSize}
+                        type={type}
+                        style={iconStyle}
+                    />
                     <StateLayer
                         testID={testID ? `${testID}-stateLayer` : ''}
                         {...stateLayerProps}
