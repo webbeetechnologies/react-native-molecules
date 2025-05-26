@@ -8,6 +8,7 @@ import { resolveStateVariant } from '../../utils';
 import { StateLayer } from '../StateLayer';
 import { ANIMATION_DURATION, radioButtonStyles } from './utils';
 import { useActionState } from '../../hooks';
+import { tokenStylesParser } from '../../utils/tokenStylesParser';
 
 export type Props = Omit<TouchableRippleProps, 'children'> & {
     /**
@@ -84,13 +85,7 @@ const RadioButtonAndroid = (
         dotContainerStyles,
         stateLayerStyle,
     } = useMemo(() => {
-        const {
-            color: checkedColor,
-            uncheckedColor,
-            ..._radioButtonStyles
-        } = radioButtonStyles.root;
-
-        const _color = checked ? colorProp || checkedColor : uncheckedColorProp || uncheckedColor;
+        const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
 
         let _rippleColor: string | undefined;
 
@@ -101,23 +96,25 @@ const RadioButtonAndroid = (
         }
 
         return {
-            containerStyles: [radioButtonStyles.container, _radioButtonStyles, style],
-            color: _color,
+            containerStyles: [radioButtonStyles.container, radioButtonStyles.root, style],
             rippleColor: _rippleColor,
             radioStyles: [
                 radioButtonStyles.radio,
                 {
-                    borderColor: _color,
                     borderWidth: borderAnim,
                 },
+                tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp, 'borderColor'),
             ],
             dotContainerStyles: [StyleSheet.absoluteFill, radioButtonStyles.radioContainer],
             dotStyles: [
                 radioButtonStyles.dot,
                 {
-                    backgroundColor: _color,
                     transform: [{ scale: radioAnim }],
                 },
+                tokenStylesParser.getColor(
+                    checked ? colorProp : uncheckedColorProp,
+                    'backgroundColor',
+                ),
             ],
             stateLayerStyle: [radioButtonStyles.stateLayer, stateLayerProps?.style],
         };

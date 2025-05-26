@@ -6,6 +6,7 @@ import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import { resolveStateVariant } from '../../utils';
 import { Icon } from '../Icon';
 import { DEFAULT_ICON_SIZE, radioButtonStyles } from './utils';
+import { tokenStylesParser } from '../../utils/tokenStylesParser';
 
 export type Props = Omit<TouchableRippleProps, 'children'> & {
     /**
@@ -16,6 +17,10 @@ export type Props = Omit<TouchableRippleProps, 'children'> & {
      * Whether radio is disabled.
      */
     disabled?: boolean;
+    /**
+     * Custom color for unchecked radio.
+     */
+    uncheckedColor?: string;
     /**
      * Custom color for radio.
      */
@@ -32,7 +37,15 @@ export type Props = Omit<TouchableRippleProps, 'children'> & {
 };
 
 const RadioButtonIOS = (
-    { disabled, style, color: colorProp, checked, onPress, ...rest }: Props,
+    {
+        disabled,
+        style,
+        color: colorProp,
+        checked,
+        onPress,
+        uncheckedColor: uncheckedColorProp,
+        ...rest
+    }: Props,
     ref: any,
 ) => {
     const state = resolveStateVariant({
@@ -43,22 +56,24 @@ const RadioButtonIOS = (
         state: state as any,
     });
 
-    const { containerStyle, iconContainerStyle, checkedColor, rippleColor } = useMemo(() => {
-        const {
-            color,
-            // removing unwanted styles
-            uncheckedColor: _uncheckedColor,
-            ...checkboxStyles
-        } = radioButtonStyles.root;
+    const { containerStyle, iconContainerStyle, iconStyle, rippleColor } = useMemo(() => {
+        const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
+        let _rippleColor: string | undefined;
+
+        try {
+            _rippleColor = setColor(_color).alpha(0.32).rgb().string();
+        } catch (e) {
+            _rippleColor = undefined;
+        }
 
         return {
-            containerStyle: [styles.container, checkboxStyles, style],
+            containerStyle: [styles.container, radioButtonStyles.root, style],
             iconContainerStyle: { opacity: checked ? 1 : 0 },
-            checkedColor: colorProp || color,
-            rippleColor: setColor(color).fade(0.32).rgb().string(),
+            iconStyle: [radioButtonStyles.icon, _color],
+            rippleColor: _rippleColor,
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checked, colorProp, style, state]);
+    }, [checked, colorProp, style, state, uncheckedColorProp]);
 
     return (
         <TouchableRipple
@@ -72,7 +87,7 @@ const RadioButtonIOS = (
                     allowFontScaling={false}
                     name="check"
                     size={DEFAULT_ICON_SIZE}
-                    color={checkedColor}
+                    style={iconStyle}
                 />
             </View>
         </TouchableRipple>

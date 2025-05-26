@@ -8,20 +8,19 @@ export const ANIMATION_DURATION = 100;
 
 const radioButtonStylesDefault = StyleSheet.create(theme => ({
     root: {
-        color: theme.colors.onSurfaceVariant,
-        uncheckedColor: theme.colors.onSurfaceVariant,
-
-        variants: {
-            state: {
-                checked: {
-                    color: theme.colors.primary,
-                },
-                disabled: {
-                    color: theme.colors.onSurfaceDisabled,
-                    uncheckedColor: theme.colors.onSurfaceDisabled,
-                },
-            },
-        },
+        // color: theme.colors.onSurfaceVariant,
+        // uncheckedColor: theme.colors.onSurfaceVariant,
+        // variants: {
+        //     state: {
+        //         checked: {
+        //             color: theme.colors.primary,
+        //         },
+        //         disabled: {
+        //             color: theme.colors.onSurfaceDisabled,
+        //             uncheckedColor: theme.colors.onSurfaceDisabled,
+        //         },
+        //     },
+        // },
     },
 
     container: {
@@ -36,11 +35,49 @@ const radioButtonStylesDefault = StyleSheet.create(theme => ({
         width: 20,
         borderRadius: 10,
         margin: 8,
+        borderColor: theme.colors.onSurfaceVariant,
+
+        variants: {
+            state: {
+                checked: {
+                    borderColor: theme.colors.primary,
+                },
+                disabled: {
+                    borderColor: theme.colors.onSurfaceDisabled,
+                },
+            },
+        },
     },
     dot: {
         height: 10,
         width: 10,
         borderRadius: 5,
+        backgroundColor: theme.colors.onSurfaceVariant,
+
+        variants: {
+            state: {
+                checked: {
+                    backgroundColor: theme.colors.primary,
+                },
+                disabled: {
+                    backgroundColor: theme.colors.onSurfaceDisabled,
+                },
+            },
+        },
+    },
+    icon: {
+        backgroundColor: theme.colors.onSurfaceVariant,
+
+        variants: {
+            state: {
+                checked: {
+                    backgroundColor: theme.colors.primary,
+                },
+                disabled: {
+                    backgroundColor: theme.colors.onSurfaceDisabled,
+                },
+            },
+        },
     },
     stateLayer: {
         variants: {
