@@ -133,7 +133,7 @@ const Chip = (
     {
         style,
         containerStyle: containerStyleProp,
-        label,
+        label: _label,
         labelCharacterLimit = 20,
         variant = 'outlined',
         size = 'md',
@@ -244,6 +244,7 @@ const Chip = (
         }),
         [disabled, elevationProp, selected, variant],
     );
+    const label = `${_label}`.trim();
 
     return (
         <Surface
@@ -277,7 +278,7 @@ const Chip = (
                         style={labelStyle as TextProps['style']}
                         invert={invertLabelColor}>
                         {label.length < labelCharacterLimit
-                            ? `${label}`
+                            ? label
                             : `${label.substring(0, labelCharacterLimit - 3)}...`}
                     </Label>
                     <RightElement
