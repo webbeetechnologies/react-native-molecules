@@ -18,18 +18,14 @@ const defaultStylesDefault = StyleSheet.create(theme => {
                     sm: {
                         minWidth: 64,
                         borderRadius: theme.shapes.corner.full,
-                        ...theme.typescale.labelMedium,
                     },
                     md: {
                         minWidth: 64,
                         borderRadius: theme.shapes.corner.full,
-                        ...theme.typescale.labelLarge,
                     },
                     lg: {
                         minWidth: 64,
                         borderRadius: theme.shapes.corner.full,
-                        ...theme.typescale.labelLarge,
-                        fontSize: theme.typescale.bodyLarge.fontSize,
                     },
                 },
 
@@ -239,8 +235,21 @@ const defaultStylesDefault = StyleSheet.create(theme => {
             textAlign: 'center',
             marginVertical: theme.spacings['2l'],
             marginHorizontal: theme.spacings['6'],
+            ...theme.typescale.labelLarge,
 
             variants: {
+                size: {
+                    sm: {
+                        ...theme.typescale.labelMedium,
+                    },
+                    md: {
+                        ...theme.typescale.labelLarge,
+                    },
+                    lg: {
+                        ...theme.typescale.labelLarge,
+                        fontSize: theme.typescale.bodyLarge.fontSize,
+                    },
+                },
                 variant: {
                     outlined: {
                         color: theme.colors.primary,
@@ -310,6 +319,7 @@ const defaultStylesDefault = StyleSheet.create(theme => {
         labelText: {
             marginVertical: theme.spacings['2l'],
             marginHorizontal: theme.spacings['3'],
+            ...theme.typescale.labelLarge,
 
             variants: {
                 variant: {
@@ -325,9 +335,16 @@ const defaultStylesDefault = StyleSheet.create(theme => {
                     default: {},
                 },
                 size: {
-                    lg: {},
-                    sm: {},
-                    md: {},
+                    sm: {
+                        ...theme.typescale.labelMedium,
+                    },
+                    md: {
+                        ...theme.typescale.labelLarge,
+                    },
+                    lg: {
+                        ...theme.typescale.labelLarge,
+                        fontSize: theme.typescale.bodyLarge.fontSize,
+                    },
                 },
             },
 
@@ -359,9 +376,16 @@ const defaultStylesDefault = StyleSheet.create(theme => {
                     default: {},
                 },
                 size: {
-                    lg: {},
-                    sm: {},
-                    md: {},
+                    sm: {
+                        ...theme.typescale.labelMedium,
+                    },
+                    md: {
+                        ...theme.typescale.labelLarge,
+                    },
+                    lg: {
+                        ...theme.typescale.labelLarge,
+                        fontSize: theme.typescale.bodyLarge.fontSize,
+                    },
                 },
             },
 
