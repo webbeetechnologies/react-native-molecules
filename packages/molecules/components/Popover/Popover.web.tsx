@@ -25,6 +25,7 @@ const Popover = ({
     dataSet,
     withBackdropDismiss = false,
     offset = 0,
+    backdropStyles,
     ...rest
 }: PopoverProps) => {
     const {
@@ -141,7 +142,9 @@ const Popover = ({
                     ? { name: UnistylesRuntime.themeName === 'dark' ? 'light' : 'dark' }
                     : ({} as { name: 'light' }))}
                 {...{ dataSet }}>
-                {withBackdropDismiss && <Pressable style={styles.backdrop} onPress={onClose} />}
+                {withBackdropDismiss && (
+                    <Pressable style={[styles.backdrop, backdropStyles]} onPress={onClose} />
+                )}
                 <View
                     onLayout={handlePopoverLayout}
                     style={[styles.popoverContainer, style, popoverStyle]}

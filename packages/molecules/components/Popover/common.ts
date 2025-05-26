@@ -37,6 +37,7 @@ export type PopoverProps = {
     arrowSize?: number;
     withBackdropDismiss?: boolean;
     offset?: number;
+    backdropStyles?: StyleProp<ViewStyle>;
 };
 
 // --- Positioning Helper Functions ---
