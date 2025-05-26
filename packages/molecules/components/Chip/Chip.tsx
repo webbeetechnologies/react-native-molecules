@@ -380,7 +380,10 @@ const RightElement = memo(
 );
 
 const withInvertColorResolved =
-    <T extends { style?: TextProps['style'] } = {}>(Component: ComponentType<T>) =>
+    <T extends { style?: TextProps['style'] } = {}>(
+        Component: ComponentType<T>,
+        prop: string = 'style',
+    ) =>
     ({ invert, ...props }: T & { invert?: boolean }) => {
         const { color: contrastColor } = useContext(BackgroundContext);
 
@@ -391,7 +394,7 @@ const withInvertColorResolved =
 
         const normalizedProps = {
             ...props,
-            style: componentStyle,
+            [prop]: componentStyle,
         } as unknown as T;
 
         return <Component {...normalizedProps} />;
@@ -407,6 +410,6 @@ const IconWithContrastColor = withInvertColorResolved((props: IconProps) => {
 
 const IconButtonWithContrastColor = withInvertColorResolved((props: IconButtonProps) => {
     return <IconButton {...props} />;
-});
+}, 'iconStyle');
 
 export default memo(forwardRef(Chip));
