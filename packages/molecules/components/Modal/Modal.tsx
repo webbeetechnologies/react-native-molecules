@@ -57,6 +57,7 @@ export type Props = ViewProps & {
      */
     style?: StyleProp<ViewStyle>;
     backdropStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
     // /**
     //  * Duration of the animations in the modal
     //  * @default 220
@@ -81,6 +82,7 @@ function Modal(
         elevation,
         size = 'md',
         style,
+        containerStyle,
         // animationDuration = DEFAULT_DURATION,
         testID = 'modal',
         backdropStyle: backdropStyleProp,
@@ -100,12 +102,10 @@ function Modal(
     const dimensions = useWindowDimensions();
 
     const { backdropStyle, contentContainerStyle, contentStyle } = useMemo(() => {
-        const { backdrop, contentContainer, modalContent } = modalStyles;
-
         return {
             animationScale: 1,
             backdropStyle: [
-                backdrop,
+                modalStyles.backdrop,
                 {
                     // @ts-ignore to resolve maximum callstack exceeded issue
                     // TODO - find out why this is happening(it isn't happening on contentStyle)
@@ -115,10 +115,14 @@ function Modal(
             ],
             contentContainerStyle: [
                 StyleSheet.absoluteFill,
-                contentContainer,
+                modalStyles.contentContainer,
                 contentContainerStyleProp,
             ],
-            contentStyle: [modalContent, { width: dimensions.width, opacity: 1 }, style],
+            contentStyle: [
+                modalStyles.modalContent,
+                { width: dimensions.width, opacity: 1 },
+                style,
+            ],
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [backdropStyleProp, contentContainerStyleProp, dimensions.width, style, size]);
@@ -191,7 +195,7 @@ function Modal(
             pointerEvents={isOpen ? 'auto' : 'none'}
             accessibilityViewIsModal
             accessibilityLiveRegion="polite"
-            style={StyleSheet.absoluteFill}
+            style={[StyleSheet.absoluteFill, modalStyles.container, containerStyle]}
             onAccessibilityEscape={hideModal}
             testID={testID}
             ref={ref}

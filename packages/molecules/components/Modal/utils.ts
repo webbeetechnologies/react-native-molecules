@@ -3,6 +3,9 @@ import { StyleSheet } from 'react-native-unistyles';
 
 const modalStylesDefault = StyleSheet.create(theme => ({
     root: {},
+    container: {
+        zIndex: 100,
+    },
 
     backdrop: {
         flex: 1,
@@ -22,7 +25,7 @@ const modalStylesDefault = StyleSheet.create(theme => ({
         variants: {
             size: {
                 md: {
-                    maxWidth: 560,
+                    maxWidth: 448,
                     borderRadius: 10,
                 },
                 lg: {
