@@ -24,7 +24,7 @@ const Card = (
         variant = 'elevated',
         disabled,
         style,
-        elevation: elevationProp,
+        elevation: elevationProp = 0,
         children,
         touchableContainerStyle = emptyObj,
         disableOnHoverElevation = false,
@@ -60,9 +60,11 @@ const Card = (
         <Surface
             style={styles.container}
             elevation={
-                (!(disableOnHoverElevation && hovered)
-                    ? (elevationProp || 0) + elevationLevel
-                    : elevation) as MD3Elevation
+                variant === 'outlined'
+                    ? elevationProp
+                    : ((!(disableOnHoverElevation && hovered)
+                          ? (elevationProp || 0) + elevationLevel
+                          : elevation) as MD3Elevation)
             }>
             <TouchableRipple style={styles.innerContainer} {...rest} disabled={disabled} ref={ref}>
                 <>{children}</>
@@ -106,7 +108,10 @@ const cardStylesDefault = StyleSheet.create(theme => ({
                     backgroundColor: theme.colors.surfaceVariant,
                 },
 
-                outlined: {},
+                outlined: {
+                    borderWidth: 1,
+                    borderColor: theme.colors.outlineVariant,
+                },
             },
         },
 
@@ -126,6 +131,20 @@ const cardStylesDefault = StyleSheet.create(theme => ({
                 styles: {
                     backgroundColor: theme.colors.surface,
                     opacity: 0.38,
+                },
+            },
+            {
+                variant: 'outlined',
+                state: 'disabled',
+                styles: {
+                    opacity: 0.38,
+                },
+            },
+            {
+                variant: 'outlined',
+                state: 'hovered',
+                styles: {
+                    borderColor: theme.colors.outline,
                 },
             },
         ],
