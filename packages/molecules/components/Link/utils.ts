@@ -10,6 +10,12 @@ const linkStylesDefault = StyleSheet.create(theme => ({
         color: theme.colors.primary,
         ...theme.typescale.labelLarge,
 
+        _web: {
+            _hover: {
+                textDecorationLine: 'underline',
+            },
+        },
+
         variants: {
             state: {
                 disabled: {
@@ -17,9 +23,7 @@ const linkStylesDefault = StyleSheet.create(theme => ({
                     opacity: 0.38,
                     ...getCursorStyle('pointer'),
                 },
-                hovered: {
-                    textDecorationLine: 'underline',
-                },
+                default: {},
             },
         },
     },

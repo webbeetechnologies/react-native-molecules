@@ -3,7 +3,6 @@ import { Linking, Platform, type GestureResponderEvent, type TextProps } from 'r
 
 import { Text } from '../Text';
 
-import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { linkStyles } from './utils';
 
@@ -16,12 +15,9 @@ const Link = (
     { style, children, onPress: onPressProp, href, disabled = false, ...rest }: Props,
     ref: any,
 ) => {
-    const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
-
     linkStyles.useVariants({
         state: resolveStateVariant({
             disabled,
-            hovered,
         }) as any,
     });
 
@@ -31,6 +27,7 @@ const Link = (
 
             onPressProp?.(e);
 
+            if (Platform.OS === 'web') return;
             if (href) Linking.openURL(href);
         },
         [disabled, onPressProp, href],
@@ -38,11 +35,12 @@ const Link = (
 
     return (
         <Text
-            ref={actionsRef}
             style={[linkStyles.root, style]}
-            {...(Platform.OS === 'web' ? { href } : { onPress })}
+            {...(Platform.OS === 'web' ? { href } : {})}
+            onPress={onPress}
             accessibilityRole="link"
-            {...rest}>
+            {...rest}
+            ref={ref}>
             {children}
         </Text>
     );
