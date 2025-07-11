@@ -1,6 +1,6 @@
 import {
     ComponentType,
-    MutableRefObject,
+    RefObject,
     forwardRef,
     memo,
     useCallback,
@@ -29,8 +29,8 @@ export type Props = Omit<ViewProps, 'style'> & {
         'value' | 'onChangeText' | 'date' | 'onTimeChange'
     >;
     datePickerInputProps?: Omit<Partial<DatePickerInputProps>, 'value' | 'onChange'>;
-    datePickerInputRef?: MutableRefObject<TextInputHandles | null>;
-    timePickerInputRef?: MutableRefObject<TextInputHandles | null>;
+    datePickerInputRef?: RefObject<TextInputHandles | null>;
+    timePickerInputRef?: RefObject<TextInputHandles | null>;
     Wrapper?: ComponentType<any>;
     style?: ViewStyle;
 };
@@ -82,6 +82,8 @@ const DateTimePicker = (
 
     const onDateChange = useCallback(
         (newDate: Date | null) => {
+            if (newDate === date || (!isValid(newDate) && !isValid(date))) return;
+
             if (!newDate) {
                 onChange(null);
 
