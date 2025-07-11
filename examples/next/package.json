@@ -11,7 +11,7 @@
   "dependencies": {
     "@bambooapp-workspace/examples-common": "workspace:*",
     "@bambooapp/bamboo-molecules": "workspace:*",
-    "react-native-unistyles": "3.0.0-rc.4",
+    "react-native-unistyles": "3.0.3",
     "next": "14.2.26",
     "react": "^18",
     "react-dom": "^18"
