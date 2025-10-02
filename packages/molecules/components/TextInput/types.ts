@@ -64,7 +64,6 @@ export type InputBaseProps = {
 >;
 
 export type InputLabelProps = {
-    parentState: State;
     baseLabelTranslateX: number;
     wiggleOffsetX: number;
     labelScale: number;
@@ -79,6 +78,11 @@ export type InputLabelProps = {
     testID?: string;
     style?: StyleProp<TextStyle>;
     floatingStyle?: StyleProp<TextStyle>;
+    hasValue: boolean;
+    labelLayout: { measured: boolean; width: number; height: number };
+    labelAnimation: Animated.Value;
+    errorAnimation: Animated.Value;
+    focused: boolean;
 };
 
 export type LabelBackgroundProps = {

@@ -248,7 +248,7 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
     },
     inputText: {
         color: theme.colors.onSurface,
-        typescale: theme.typescale.bodyLarge,
+        ...theme.typescale.bodyLarge,
         flexGrow: 1,
 
         variants: {

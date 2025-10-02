@@ -344,12 +344,14 @@ const TextInput = forwardRef<TextInputHandles, Props>(
             };
         }, [focused, rest.label, rest.placeholder]);
 
+        const hasValue = !!value || focused;
+
         useEffect(() => {
             // The label should be minimized if the text input is focused, or has text
             // In minimized mode, the label moves up and becomes small
             // workaround for animated regression for react native > 0.61
             // https://github.com/callstack/react-native-paper/pull/1440
-            if (value || focused) {
+            if (hasValue) {
                 // minimize label
                 Animated.timing(labelAnimation, {
                     toValue: 0,
@@ -366,7 +368,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
                     useNativeDriver: true,
                 }).start();
             }
-        }, [focused, value, labelAnimation]);
+        }, [focused, hasValue, labelAnimation]);
 
         const handleFocus = useCallback(
             (args: any) => {
@@ -411,18 +413,6 @@ const TextInput = forwardRef<TextInputHandles, Props>(
 
         const forceFocus = useCallback(() => inputRefLocal.current?.focus(), []);
 
-        const parentState = useMemo(
-            () => ({
-                labelAnimation,
-                errorAnimation,
-                focused,
-                placeholder,
-                value,
-                labelLayout,
-            }),
-            [errorAnimation, focused, labelLayout, labelAnimation, placeholder, value],
-        );
-
         const inputMinHeight = getInputMinHeight(variant, size);
 
         // This is because of a bug in react 18 doesn't trigger onBlur when the component is unmounted // we can remove it when it's fixed
@@ -450,8 +440,8 @@ const TextInput = forwardRef<TextInputHandles, Props>(
 
         const componentStyles = styles.root;
 
-        const labelWidth = parentState.labelLayout.width;
-        const labelHeight = parentState.labelLayout.height;
+        const labelWidth = labelLayout.width;
+        const labelHeight = labelLayout.height;
         const labelHalfWidth = labelWidth / 2;
         const labelScale =
             minimizedLabelFontSize / (componentStyles.fontSize || maximizedLabelFontSize);
@@ -514,6 +504,9 @@ const TextInput = forwardRef<TextInputHandles, Props>(
                             ? 'right'
                             : 'left',
                     },
+                    Platform.OS === 'ios' && !multiline
+                        ? { lineHeight: undefined, textAlign: undefined }
+                        : {},
                     Platform.OS === 'web' && { outline: 'none' },
                     inputStyle,
                 ],
@@ -639,7 +632,11 @@ const TextInput = forwardRef<TextInputHandles, Props>(
 
                         {variant !== 'plain' && (
                             <InputLabel
-                                parentState={parentState}
+                                hasValue={!!value}
+                                focused={focused}
+                                labelAnimation={labelAnimation}
+                                errorAnimation={errorAnimation}
+                                labelLayout={labelLayout}
                                 label={rest.label}
                                 floatingStyle={styles.floatingLabel}
                                 floatingLabelVerticalOffset={
@@ -663,7 +660,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
                             style: computedStyles.textInputStyle,
                             ref: inputRefLocal,
                             onChangeText: onChangeValue,
-                            placeholder: rest.label ? parentState.placeholder : rest.placeholder,
+                            placeholder: rest.label ? placeholder : rest.placeholder,
                             placeholderTextColor: computedStyles.placeholderTextColor,
                             editable: !disabled && editable,
                             selectionColor: computedStyles.selectionColor,

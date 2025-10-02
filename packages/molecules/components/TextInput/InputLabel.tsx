@@ -6,7 +6,11 @@ import type { InputLabelProps } from './types';
 
 const InputLabel = (props: InputLabelProps) => {
     const {
-        parentState,
+        labelAnimation,
+        errorAnimation,
+        hasValue,
+        focused,
+        labelLayout,
         style,
         label,
         floatingLabelVerticalOffset,
@@ -42,20 +46,20 @@ const InputLabel = (props: InputLabelProps) => {
     }, []);
 
     const { containerStyle, minimizedLabelStyle, normalLabelStyle } = useMemo(() => {
-        const isLabelFloating = parentState.value || parentState.focused;
+        const isLabelFloating = hasValue || focused;
 
         const labelStyle = {
             transform: [
                 {
                     // Wiggle the label when there's an error
-                    translateX: parentState.errorAnimation.interpolate({
+                    translateX: errorAnimation.interpolate({
                         inputRange: [0, 0.5, 1],
-                        outputRange: [0, parentState.value && error ? wiggleOffsetX : 0, 0],
+                        outputRange: [0, hasValue && error ? wiggleOffsetX : 0, 0],
                     }),
                 },
                 {
                     // Move label to top
-                    translateY: parentState.labelAnimation.interpolate({
+                    translateY: labelAnimation.interpolate({
                         inputRange: [0, 1],
                         outputRange: [
                             (floatingLabelVerticalOffset || 0) - containerLayout.height / 2,
@@ -65,7 +69,7 @@ const InputLabel = (props: InputLabelProps) => {
                 },
                 {
                     // Make label smaller
-                    scale: parentState.labelAnimation.interpolate({
+                    scale: labelAnimation.interpolate({
                         inputRange: [0, 1],
                         outputRange: [labelScale, 1],
                     }),
@@ -76,7 +80,7 @@ const InputLabel = (props: InputLabelProps) => {
             transform: [
                 {
                     // Offset label scale since RN doesn't support transform origin
-                    translateX: parentState.labelAnimation.interpolate({
+                    translateX: labelAnimation.interpolate({
                         inputRange: [0, 1],
                         outputRange: [baseLabelTranslateX, labelTranslationXOffset || 0],
                     }),
@@ -91,7 +95,7 @@ const InputLabel = (props: InputLabelProps) => {
                 {
                     opacity:
                         // Hide the label in minimized state until we measure it's width
-                        !isLabelFloating || parentState.labelLayout.measured ? 1 : 0,
+                        !isLabelFloating || labelLayout.measured ? 1 : 0,
                 },
                 labelTranslationX,
             ],
@@ -102,7 +106,7 @@ const InputLabel = (props: InputLabelProps) => {
                 labelStyle,
                 paddingOffset || {},
                 {
-                    opacity: parentState.labelAnimation.interpolate({
+                    opacity: labelAnimation.interpolate({
                         inputRange: [0, 1],
                         outputRange: [isLabelFloating ? 1 : 0, 0],
                     }),
@@ -123,19 +127,18 @@ const InputLabel = (props: InputLabelProps) => {
             ],
         };
     }, [
-        parentState.value,
-        parentState.focused,
-        parentState.errorAnimation,
-        parentState.labelAnimation,
-        parentState.labelLayout.measured,
+        hasValue,
+        focused,
+        errorAnimation,
         error,
         wiggleOffsetX,
+        labelAnimation,
         floatingLabelVerticalOffset,
         containerLayout.height,
         labelScale,
         baseLabelTranslateX,
         labelTranslationXOffset,
-        // theme.colors.onSurface,
+        labelLayout.measured,
         paddingOffset,
         style,
         floatingStyle,
