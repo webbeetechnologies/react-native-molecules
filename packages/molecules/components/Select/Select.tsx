@@ -110,6 +110,7 @@ export type Props<
      * maxHeight of the list
      * */
     maxHeight?: number;
+    unmountDropdownListOnClose?: boolean;
 };
 
 export type SelectHandles = {
@@ -134,6 +135,7 @@ const Select = <TItem extends DefaultItemT = DefaultItemT>(
         containerStyle: containerStyleProp,
         dropdownListStyle,
         labelKey = 'label',
+        unmountDropdownListOnClose = false,
         ...rest
     }: Props<TItem>,
     ref: any,
@@ -271,7 +273,7 @@ const Select = <TItem extends DefaultItemT = DefaultItemT>(
                 />
             </Pressable>
 
-            {isOpen && (
+            {(unmountDropdownListOnClose ? isOpen : true) && (
                 <DropdownList
                     popoverProps={popoverProps}
                     {...rest}
