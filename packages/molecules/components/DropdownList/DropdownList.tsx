@@ -1,4 +1,5 @@
 import {
+    ComponentProps,
     ComponentType,
     memo,
     PropsWithoutRef,
@@ -56,7 +57,7 @@ export type Props<
     setIsOpen?: (isOpen: boolean) => void;
     hideOnSelect?: boolean;
 
-    popoverProps?: Omit<PopoverProps, 'triggerRef' | 'onOpen' | 'onClose' | 'isOpen'>;
+    popoverProps?: Omit<PopoverProps, 'triggerRef' | 'onOpen' | 'onClose' | 'isOpen' | 'children'>;
     actionSheetProps?: Omit<ActionSheetProps, 'children' | 'isOpen' | 'onClose' | 'onOpen'>;
     dialogProps?: Omit<DialogProps, 'isOpen' | 'children'>;
     triggerRef: any;
@@ -69,6 +70,7 @@ export type Props<
         children: ReactNode;
         [key: string]: any;
     }>;
+    wrapperComponentProps?: ComponentProps<any>;
 };
 
 const DropdownList = <TItem extends DefaultItemT = DefaultItemT>({
@@ -89,6 +91,7 @@ const DropdownList = <TItem extends DefaultItemT = DefaultItemT>({
     onQueryChange,
     onCancel,
     WrapperComponent: Wrapper,
+    wrapperComponentProps,
     ...optionListProps
 }: Props<TItem>) => {
     const scrollRef = useRef(null);
@@ -134,7 +137,8 @@ const DropdownList = <TItem extends DefaultItemT = DefaultItemT>({
     );
 
     const [WrapperComponent, props] = useMemo(() => {
-        if (Wrapper) return [Wrapper, { isOpen, onClose, onOpen, scrollRef }];
+        if (Wrapper)
+            return [Wrapper, { ...wrapperComponentProps, isOpen, onClose, onOpen, scrollRef }];
         switch (resolvedMode) {
             case DropdownListMode.ActionSheet:
                 return [ActionSheet, { ...actionSheetProps, isOpen, onClose, onOpen }];
@@ -156,6 +160,7 @@ const DropdownList = <TItem extends DefaultItemT = DefaultItemT>({
         dialogProps,
         popoverProps,
         triggerRef,
+        wrapperComponentProps,
     ]);
 
     return (
