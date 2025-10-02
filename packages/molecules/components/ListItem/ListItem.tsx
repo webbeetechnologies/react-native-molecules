@@ -11,6 +11,7 @@ import { StateLayer } from '../StateLayer';
 
 export type Props = Omit<TouchableRippleProps, 'children'> &
     WithElements<ReactNode | ((renderArgs: { hovered: boolean }) => ReactNode)> & {
+        hovered?: boolean;
         /**
          * Description text for the list item or callback which returns a React element to display the description.
          */
@@ -50,12 +51,14 @@ const ListItem = (
         selected = false,
         onPress,
         hoverable: hoverableProp = false,
+        hovered: hoveredProp = false,
         ...props
     }: Props,
     ref: any,
 ) => {
-    const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
+    const { hovered: _hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
     const hoverable = hoverableProp || !!onPress;
+    const hovered = hoveredProp || _hovered;
 
     const state = resolveStateVariant({
         selected,
