@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
 
@@ -194,10 +195,15 @@ const defaultStylesDefault = StyleSheet.create(theme => {
             justifyContent: 'center',
             flexGrow: 1,
         },
+        iconContainer: {
+            ...(Platform.OS !== 'web'
+                ? { marginLeft: theme.spacings['4'], marginRight: theme.spacings._4 }
+                : {}),
+        },
         icon: {
-            marginLeft: theme.spacings['4'],
-            marginRight: theme.spacings._4,
-
+            ...(Platform.OS === 'web'
+                ? { marginLeft: theme.spacings['4'], marginRight: theme.spacings._4 }
+                : {}),
             variants: {
                 state: {
                     disabled: {

@@ -239,7 +239,7 @@ const Button = (
                 borderRadius ? { borderRadius } : {},
                 contentStyle,
             ],
-            iconContainerStyle: [iconContainerStyleProp],
+            iconContainerStyle: [defaultStyles.iconContainer, iconContainerStyleProp],
             textStyle: [
                 isVariant('text') ? (iconName || loading ? labelTextAddons : labelText) : label,
                 textRelatedStyle,
