@@ -33,6 +33,7 @@ export const useSwitchColors = (state: States) => {
                 checkedColor: theme.colors.primary,
             },
             disabled: {
+                thumbColor: theme.colors.onSurfaceDisabled,
                 uncheckedColor: theme.colors.surfaceContainerHighest,
             },
             selected_disabled: {
@@ -93,6 +94,7 @@ const switchStylesDefault = StyleSheet.create(theme => ({
                     checkedColor: theme.colors.primary,
                 },
                 disabled: {
+                    thumbColor: theme.colors.onSurfaceDisabled,
                     uncheckedColor: theme.colors.surfaceContainerHighest,
                 },
                 selected_disabled: {
@@ -133,36 +135,38 @@ const switchStylesDefault = StyleSheet.create(theme => ({
         backgroundColor: theme.colors.surfaceContainerHighest,
         borderColor: theme.colors.outline,
 
-        state: {
-            selected: {
-                borderWidth: 0,
+        variants: {
+            state: {
+                selected: {
+                    borderWidth: 0,
+                },
+                selected_hovered: {
+                    borderWidth: 0,
+                },
+                selected_focused: {
+                    borderWidth: 0,
+                },
+                disabled: {
+                    opacity: 0.2,
+                    borderColor: theme.colors.onSurface,
+                },
+                selected_disabled: {
+                    opacity: 0.2,
+                },
+                selected_pressed: {
+                    borderWidth: 0,
+                },
+                selected_hovered_pressed: {
+                    borderWidth: 0,
+                },
+                selected_focused_pressed: {
+                    borderWidth: 0,
+                },
+                hovered_pressed: {},
+                pressed: {},
+                hovered: {},
+                focused: {},
             },
-            selected_hovered: {
-                borderWidth: 0,
-            },
-            selected_focused: {
-                borderWidth: 0,
-            },
-            disabled: {
-                opacity: 0.12,
-                borderColor: theme.colors.onSurface,
-            },
-            selected_disabled: {
-                opacity: 0.12,
-            },
-            selected_pressed: {
-                borderWidth: 0,
-            },
-            selected_hovered_pressed: {
-                borderWidth: 0,
-            },
-            selected_focused_pressed: {
-                borderWidth: 0,
-            },
-            hovered_pressed: {},
-            pressed: {},
-            hovered: {},
-            focused: {},
         },
     },
 
@@ -173,45 +177,47 @@ const switchStylesDefault = StyleSheet.create(theme => ({
         position: 'absolute',
         right: 0,
 
-        state: {
-            selected: {},
-            selected_hovered: {
-                backgroundColor: theme.colors.stateLayer.hover.primary,
-                display: 'flex',
-            },
-            selected_focused: {
-                backgroundColor: theme.colors.stateLayer.focussed.primary,
-                display: 'flex',
-            },
-            disabled: {},
-            selected_disabled: {},
-            selected_pressed: {
-                backgroundColor: theme.colors.stateLayer.pressed.primary,
-                display: 'flex',
-            },
-            selected_hovered_pressed: {
-                backgroundColor: theme.colors.stateLayer.pressed.primary,
-                display: 'flex',
-            },
-            selected_focused_pressed: {
-                backgroundColor: theme.colors.stateLayer.pressed.primary,
-                display: 'flex',
-            },
-            hovered_pressed: {
-                backgroundColor: theme.colors.stateLayer.pressed.onSurface,
-                display: 'flex',
-            },
-            pressed: {
-                backgroundColor: theme.colors.stateLayer.pressed.onSurface,
-                display: 'flex',
-            },
-            hovered: {
-                backgroundColor: theme.colors.stateLayer.hover.onSurface,
-                display: 'flex',
-            },
-            focused: {
-                backgroundColor: theme.colors.stateLayer.focussed.onSurface,
-                display: 'flex',
+        variants: {
+            state: {
+                selected: {},
+                selected_hovered: {
+                    backgroundColor: theme.colors.stateLayer.hover.primary,
+                    display: 'flex',
+                },
+                selected_focused: {
+                    backgroundColor: theme.colors.stateLayer.focussed.primary,
+                    display: 'flex',
+                },
+                disabled: {},
+                selected_disabled: {},
+                selected_pressed: {
+                    backgroundColor: theme.colors.stateLayer.pressed.primary,
+                    display: 'flex',
+                },
+                selected_hovered_pressed: {
+                    backgroundColor: theme.colors.stateLayer.pressed.primary,
+                    display: 'flex',
+                },
+                selected_focused_pressed: {
+                    backgroundColor: theme.colors.stateLayer.pressed.primary,
+                    display: 'flex',
+                },
+                hovered_pressed: {
+                    backgroundColor: theme.colors.stateLayer.pressed.onSurface,
+                    display: 'flex',
+                },
+                pressed: {
+                    backgroundColor: theme.colors.stateLayer.pressed.onSurface,
+                    display: 'flex',
+                },
+                hovered: {
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
+                    display: 'flex',
+                },
+                focused: {
+                    backgroundColor: theme.colors.stateLayer.focussed.onSurface,
+                    display: 'flex',
+                },
             },
         },
     },
@@ -221,12 +227,14 @@ const switchStylesDefault = StyleSheet.create(theme => ({
         justifyContent: 'center',
         elevation: 1.5,
 
-        state: {
-            disabled: {
-                opacity: 0.38,
-            },
-            selected_disabled: {
-                opacity: 1,
+        variants: {
+            state: {
+                disabled: {
+                    // opacity: 0.38,
+                },
+                selected_disabled: {
+                    opacity: 1,
+                },
             },
         },
     },
@@ -234,32 +242,34 @@ const switchStylesDefault = StyleSheet.create(theme => ({
     icon: {
         color: theme.colors.surfaceContainerHighest,
 
-        state: {
-            selected: {
-                color: theme.colors.onPrimaryContainer,
-            },
-            selected_hovered: {
-                color: theme.colors.onPrimaryContainer,
-            },
-            selected_focused: {
-                color: theme.colors.onPrimaryContainer,
-            },
-            disabled: {
-                color: theme.colors.surfaceContainerHighest,
-                opacity: 0.38,
-            },
-            selected_disabled: {
-                color: theme.colors.onSurface,
-                opacity: 0.38,
-            },
-            selected_pressed: {
-                color: theme.colors.onPrimaryContainer,
-            },
-            selected_hovered_pressed: {
-                color: theme.colors.onPrimaryContainer,
-            },
-            selected_focused_pressed: {
-                color: theme.colors.onPrimaryContainer,
+        variants: {
+            state: {
+                selected: {
+                    color: theme.colors.onPrimaryContainer,
+                },
+                selected_hovered: {
+                    color: theme.colors.onPrimaryContainer,
+                },
+                selected_focused: {
+                    color: theme.colors.onPrimaryContainer,
+                },
+                disabled: {
+                    color: theme.colors.surfaceContainerHighest,
+                    opacity: 0.38,
+                },
+                selected_disabled: {
+                    color: theme.colors.onSurface,
+                    opacity: 0.38,
+                },
+                selected_pressed: {
+                    color: theme.colors.onPrimaryContainer,
+                },
+                selected_hovered_pressed: {
+                    color: theme.colors.onPrimaryContainer,
+                },
+                selected_focused_pressed: {
+                    color: theme.colors.onPrimaryContainer,
+                },
             },
         },
     },
