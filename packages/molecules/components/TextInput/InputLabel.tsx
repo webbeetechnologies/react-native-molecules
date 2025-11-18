@@ -91,7 +91,10 @@ const InputLabel = (props: InputLabelProps) => {
         return {
             containerStyle: [
                 StyleSheet.absoluteFill,
-                inputLabelStyles.labelContainer,
+                {
+                    zIndex: 3,
+                    justifyContent: 'center' as const,
+                },
                 {
                     opacity:
                         // Hide the label in minimized state until we measure it's width
@@ -174,15 +177,5 @@ const InputLabel = (props: InputLabelProps) => {
         </>
     );
 };
-
-export const inputLabelStyles = StyleSheet.create(theme => ({
-    labelContainer: {
-        zIndex: 3,
-        justifyContent: 'center',
-    },
-    floatingLabel: {
-        backgroundColor: theme.colors.surface,
-    },
-}));
 
 export default memo(InputLabel);

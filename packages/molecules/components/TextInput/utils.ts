@@ -181,7 +181,13 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
         },
     },
     floatingLabel: {
-        backgroundColor: theme.colors.surface,
+        variants: {
+            variant: {
+                outlined: {
+                    backgroundColor: theme.colors.surface,
+                },
+            },
+        },
     },
     labelText: {
         position: 'absolute',

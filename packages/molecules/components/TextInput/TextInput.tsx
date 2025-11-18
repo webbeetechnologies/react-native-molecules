@@ -472,12 +472,6 @@ const TextInput = forwardRef<TextInputHandles, Props>(
                 height: componentStyles.height,
                 textAlign: componentStyles.textAlign,
                 backgroundColor,
-                labelBackground:
-                    variant === 'outlined'
-                        ? parentBackground ||
-                          backgroundColor ||
-                          (styles as any).root.defaultLabelBackground
-                        : 'transparent',
                 activeColor: (styles as any).root.activeColor,
                 baseLabelTranslateX:
                     variant === 'outlined' ? baseLabelTranslateXOutline : baseLabelTranslateX,
