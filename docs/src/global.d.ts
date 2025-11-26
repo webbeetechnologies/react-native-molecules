@@ -1,6 +1,6 @@
 /// <reference types="@docusaurus/module-type-aliases" />
 
-import type { MD3DarkTheme, MD3LightTheme } from '@bambooapp/bamboo-molecules/styles';
+import type { MD3DarkTheme, MD3LightTheme } from 'react-native-molecules/styles';
 
 // if you defined themes
 type AppThemes = {

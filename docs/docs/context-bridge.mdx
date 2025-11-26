@@ -37,7 +37,7 @@ Creates a new context bridge.
 ### Basic Usage with Portal
 
 ```tsx
-import { createContextBridge } from '@bambooapp/bamboo-molecules/context-bridge';
+import { createContextBridge } from 'react-native-molecules/context-bridge';
 import { Portal as GorhomPortal } from '@gorhom/portal';
 import { createContext } from 'react';
 
@@ -88,7 +88,7 @@ const ThemedComponent = () => {
 ### Registering Multiple Contexts
 
 ```tsx
-import { createContextBridge } from '@bambooapp/bamboo-molecules/context-bridge';
+import { createContextBridge } from 'react-native-molecules/context-bridge';
 
 const ThemeContext = createContext('light');
 const LanguageContext = createContext('en');
@@ -113,8 +113,8 @@ registerContextToBridge(UserContext);
 ContextBridge works seamlessly with FastContext:
 
 ```tsx
-import { createFastContext } from '@bambooapp/bamboo-molecules/fast-context';
-import { createContextBridge } from '@bambooapp/bamboo-molecules/context-bridge';
+import { createFastContext } from 'react-native-molecules/fast-context';
+import { createContextBridge } from 'react-native-molecules/context-bridge';
 
 type Store = {
     count: number;
@@ -148,7 +148,7 @@ export const App = () => {
 You can use any component as a wrapper:
 
 ```tsx
-import { createContextBridge } from '@bambooapp/bamboo-molecules/context-bridge';
+import { createContextBridge } from 'react-native-molecules/context-bridge';
 
 const CustomWrapper = ({ children, name }) => {
     return (
@@ -200,8 +200,8 @@ export const App = () => {
 This is the most common use case - bridging contexts through portals:
 
 ```tsx
-import { Portal } from '@bambooapp/bamboo-molecules';
-import { registerPortalContext } from '@bambooapp/bamboo-molecules';
+import { Portal } from 'react-native-molecules';
+import { registerPortalContext } from 'react-native-molecules';
 
 const MyContext = createContext('default');
 

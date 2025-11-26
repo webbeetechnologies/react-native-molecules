@@ -11,7 +11,7 @@
     "lint": "expo lint"
   },
   "dependencies": {
-    "@bambooapp/bamboo-molecules": "workspace:*",
+    "react-native-molecules": "workspace:*",
     "react-native-unistyles": "3.0.18",
     "react-native-nitro-modules": "0.31.9",
     "@expo/vector-icons": "^15.0.3",

@@ -1,6 +1,6 @@
 import '../unistyles';
 
-import { PortalProvider } from '@bambooapp/bamboo-molecules/core';
+import { PortalProvider } from 'react-native-molecules/core';
 import { Slot } from 'expo-router';
 import { View } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';

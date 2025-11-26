@@ -7,11 +7,11 @@ import {
     ScrollView,
     TextInput,
 } from 'react-native';
-// import { Switch } from '@bambooapp/bamboo-molecules/components/Switch';
+// import { Switch } from 'react-native-molecules/components/Switch';
 import { useRef, useState } from 'react';
 import { StyleSheet } from 'react-native-unistyles';
-import { Select } from '@bambooapp/bamboo-molecules/components/Select';
-// import { TextInput } from '@bambooapp/bamboo-molecules/components/TextInput';
+import { Select } from 'react-native-molecules/components/Select';
+// import { TextInput } from 'react-native-molecules/components/TextInput';
 
 export default function Index() {
     const [isOn, setIsOn] = useState(false);

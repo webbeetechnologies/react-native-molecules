@@ -1,7 +1,7 @@
 [
   {
     "name": "Accordion",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Accordion",
+    "sourcePath": "react-native-molecules/components/Accordion",
     "props": [
       {
         "name": "children",
@@ -42,7 +42,7 @@
   },
   {
     "name": "ActivityIndicator",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/ActivityIndicator",
+    "sourcePath": "react-native-molecules/components/ActivityIndicator",
     "props": [
       {
         "name": "animating",
@@ -83,12 +83,12 @@
   },
   {
     "name": "Appbar",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Appbar",
+    "sourcePath": "react-native-molecules/components/Appbar",
     "props": []
   },
   {
     "name": "Avatar",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Avatar",
+    "sourcePath": "react-native-molecules/components/Avatar",
     "props": [
       {
         "name": "source",
@@ -157,12 +157,12 @@
   },
   {
     "name": "Backdrop",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Backdrop",
+    "sourcePath": "react-native-molecules/components/Backdrop",
     "props": []
   },
   {
     "name": "Badge",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Badge",
+    "sourcePath": "react-native-molecules/components/Badge",
     "props": [
       {
         "name": "label",
@@ -189,7 +189,7 @@
   },
   {
     "name": "Button",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Button",
+    "sourcePath": "react-native-molecules/components/Button",
     "props": [
       {
         "name": "children",
@@ -363,7 +363,7 @@
   },
   {
     "name": "Card",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Card",
+    "sourcePath": "react-native-molecules/components/Card",
     "props": [
       {
         "name": "variant",
@@ -397,7 +397,7 @@
   },
   {
     "name": "Checkbox",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Checkbox",
+    "sourcePath": "react-native-molecules/components/Checkbox",
     "props": [
       {
         "name": "hitSlop",
@@ -1257,7 +1257,7 @@
   },
   {
     "name": "Chip",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Chip",
+    "sourcePath": "react-native-molecules/components/Chip",
     "props": [
       {
         "name": "testID",
@@ -1445,27 +1445,27 @@
   },
   {
     "name": "DatePickerDocked",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerDocked",
+    "sourcePath": "react-native-molecules/components/DatePickerDocked",
     "props": []
   },
   {
     "name": "DatePickerInline",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerInline",
+    "sourcePath": "react-native-molecules/components/DatePickerInline",
     "props": []
   },
   {
     "name": "DatePickerInput",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerInput",
+    "sourcePath": "react-native-molecules/components/DatePickerInput",
     "props": []
   },
   {
     "name": "DatePickerModal",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerModal",
+    "sourcePath": "react-native-molecules/components/DatePickerModal",
     "props": []
   },
   {
     "name": "DateTimePicker",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/DateTimePicker",
+    "sourcePath": "react-native-molecules/components/DateTimePicker",
     "props": [
       {
         "name": "is24Hour",
@@ -1541,7 +1541,7 @@
   },
   {
     "name": "Dialog",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Dialog",
+    "sourcePath": "react-native-molecules/components/Dialog",
     "props": [
       {
         "name": "children",
@@ -1582,7 +1582,7 @@
   },
   {
     "name": "Drawer",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Drawer",
+    "sourcePath": "react-native-molecules/components/Drawer",
     "props": [
       {
         "name": "children",
@@ -1595,7 +1595,7 @@
   },
   {
     "name": "ElementGroup",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/ElementGroup",
+    "sourcePath": "react-native-molecules/components/ElementGroup",
     "props": [
       {
         "name": "orientation",
@@ -1622,7 +1622,7 @@
   },
   {
     "name": "FAB",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/FAB",
+    "sourcePath": "react-native-molecules/components/FAB",
     "props": [
       {
         "name": "iconName",
@@ -1705,7 +1705,7 @@
   },
   {
     "name": "FilePicker",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/FilePicker",
+    "sourcePath": "react-native-molecules/components/FilePicker",
     "props": [
       {
         "name": "onChange",
@@ -1760,7 +1760,7 @@
   },
   {
     "name": "HelperText",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/HelperText",
+    "sourcePath": "react-native-molecules/components/HelperText",
     "props": [
       {
         "name": "children",
@@ -1801,7 +1801,7 @@
   },
   {
     "name": "HorizontalDivider",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/HorizontalDivider",
+    "sourcePath": "react-native-molecules/components/HorizontalDivider",
     "props": [
       {
         "name": "style",
@@ -1842,12 +1842,12 @@
   },
   {
     "name": "Icon",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Icon",
+    "sourcePath": "react-native-molecules/components/Icon",
     "props": []
   },
   {
     "name": "IconButton",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/IconButton",
+    "sourcePath": "react-native-molecules/components/IconButton",
     "props": [
       {
         "name": "accessibilityLabel",
@@ -1951,12 +1951,12 @@
   },
   {
     "name": "If",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/If",
+    "sourcePath": "react-native-molecules/components/If",
     "props": []
   },
   {
     "name": "InputAddon",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/InputAddon",
+    "sourcePath": "react-native-molecules/components/InputAddon",
     "props": [
       {
         "name": "variant",
@@ -1969,7 +1969,7 @@
   },
   {
     "name": "Link",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Link",
+    "sourcePath": "react-native-molecules/components/Link",
     "props": [
       {
         "name": "disabled",
@@ -1989,7 +1989,7 @@
   },
   {
     "name": "ListItem",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/ListItem",
+    "sourcePath": "react-native-molecules/components/ListItem",
     "props": [
       {
         "name": "style",
@@ -2044,7 +2044,7 @@
   },
   {
     "name": "Menu",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Menu",
+    "sourcePath": "react-native-molecules/components/Menu",
     "props": [
       {
         "name": "style",
@@ -2078,7 +2078,7 @@
   },
   {
     "name": "Modal",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Modal",
+    "sourcePath": "react-native-molecules/components/Modal",
     "props": [
       {
         "name": "children",
@@ -2168,7 +2168,7 @@
   },
   {
     "name": "NavigationRail",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/NavigationRail",
+    "sourcePath": "react-native-molecules/components/NavigationRail",
     "props": [
       {
         "name": "children",
@@ -2181,7 +2181,7 @@
   },
   {
     "name": "NavigationStack",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/NavigationStack",
+    "sourcePath": "react-native-molecules/components/NavigationStack",
     "props": [
       {
         "name": "initialRouteName",
@@ -2201,17 +2201,17 @@
   },
   {
     "name": "Popover",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Popover",
+    "sourcePath": "react-native-molecules/components/Popover",
     "props": []
   },
   {
     "name": "Portal",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Portal",
+    "sourcePath": "react-native-molecules/components/Portal",
     "props": []
   },
   {
     "name": "RadioButton",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/RadioButton",
+    "sourcePath": "react-native-molecules/components/RadioButton",
     "props": [
       {
         "name": "value",
@@ -2266,7 +2266,7 @@
   },
   {
     "name": "Rating",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Rating",
+    "sourcePath": "react-native-molecules/components/Rating",
     "props": [
       {
         "name": "count",
@@ -2391,12 +2391,12 @@
   },
   {
     "name": "Select",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Select",
+    "sourcePath": "react-native-molecules/components/Select",
     "props": []
   },
   {
     "name": "StateLayer",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/StateLayer",
+    "sourcePath": "react-native-molecules/components/StateLayer",
     "props": [
       {
         "name": "children",
@@ -3032,7 +3032,7 @@
   },
   {
     "name": "Surface",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Surface",
+    "sourcePath": "react-native-molecules/components/Surface",
     "props": [
       {
         "name": "children",
@@ -3073,7 +3073,7 @@
   },
   {
     "name": "Switch",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Switch",
+    "sourcePath": "react-native-molecules/components/Switch",
     "props": [
       {
         "name": "checkedIcon",
@@ -3142,17 +3142,17 @@
   },
   {
     "name": "Tabs",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Tabs",
+    "sourcePath": "react-native-molecules/components/Tabs",
     "props": []
   },
   {
     "name": "Text",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Text",
+    "sourcePath": "react-native-molecules/components/Text",
     "props": []
   },
   {
     "name": "TextInput",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/TextInput",
+    "sourcePath": "react-native-molecules/components/TextInput",
     "props": [
       {
         "name": "style",
@@ -3340,12 +3340,12 @@
   },
   {
     "name": "TextInputWithMask",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/TextInputWithMask",
+    "sourcePath": "react-native-molecules/components/TextInputWithMask",
     "props": []
   },
   {
     "name": "TimePicker",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/TimePicker",
+    "sourcePath": "react-native-molecules/components/TimePicker",
     "props": [
       {
         "name": "time",
@@ -3407,7 +3407,7 @@
   },
   {
     "name": "TimePickerField",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/TimePickerField",
+    "sourcePath": "react-native-molecules/components/TimePickerField",
     "props": [
       {
         "name": "time",
@@ -3455,7 +3455,7 @@
   },
   {
     "name": "TimePickerModal",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/TimePickerModal",
+    "sourcePath": "react-native-molecules/components/TimePickerModal",
     "props": [
       {
         "name": "is24Hour",
@@ -3531,12 +3531,12 @@
   },
   {
     "name": "Toast",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Toast",
+    "sourcePath": "react-native-molecules/components/Toast",
     "props": []
   },
   {
     "name": "Tooltip",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/Tooltip",
+    "sourcePath": "react-native-molecules/components/Tooltip",
     "props": [
       {
         "name": "children",
@@ -3584,7 +3584,7 @@
   },
   {
     "name": "TouchableRipple",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/TouchableRipple",
+    "sourcePath": "react-native-molecules/components/TouchableRipple",
     "props": [
       {
         "name": "onPress",
@@ -3660,7 +3660,7 @@
   },
   {
     "name": "VerticalDivider",
-    "sourcePath": "@bambooapp/bamboo-molecules/components/VerticalDivider",
+    "sourcePath": "react-native-molecules/components/VerticalDivider",
     "props": [
       {
         "name": "style",

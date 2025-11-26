@@ -9,10 +9,10 @@ description: Tune Bamboo Molecules to match your tokens, typography, and interac
 
 ## Theme tokens & typography
 
-Bamboo Molecules exposes the Material 3 token set through `@bambooapp/bamboo-molecules/styles`. Extend or override those tokens to align with your brand:
+Bamboo Molecules exposes the Material 3 token set through `react-native-molecules/styles`. Extend or override those tokens to align with your brand:
 
 ```ts title="theme.ts"
-import { MD3LightTheme } from '@bambooapp/bamboo-molecules/styles';
+import { MD3LightTheme } from 'react-native-molecules/styles';
 
 export const AppTheme = {
     ...MD3LightTheme,
@@ -39,7 +39,7 @@ Provide the theme via `ThemeProvider` (or your preferred context) so every compo
 Most components accept style props (e.g., `contentStyle`, `labelStyle`, `iconColor`). Compose your own wrappers to encode common patterns:
 
 ```tsx
-import { Button, ButtonProps } from '@bambooapp/bamboo-molecules';
+import { Button, ButtonProps } from 'react-native-molecules';
 
 export function PrimaryButton(props: ButtonProps) {
     return (

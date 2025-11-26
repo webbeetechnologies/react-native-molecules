@@ -1,4 +1,4 @@
-import { MD3DarkTheme, MD3LightTheme } from '@bambooapp/bamboo-molecules/styles';
+import { MD3DarkTheme, MD3LightTheme } from 'react-native-molecules/styles';
 import { StyleSheet } from 'react-native-unistyles';
 
 // if you defined themes

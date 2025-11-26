@@ -6,7 +6,7 @@ module.exports = function (api) {
             // this is not repetition, this is for when linking the molecules
             'packages/molecules',
             // this is for when molecules is installed normally
-            '@bambooapp/bamboo-molecules',
+            'react-native-molecules',
             "@react-native-vector-icons/common"
         ],
     };

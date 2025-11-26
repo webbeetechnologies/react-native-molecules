@@ -417,8 +417,8 @@ function generateComponentProps() {
     
     const props = extractProps(component.name, componentFile);
     
-    // Format sourcePath as @bambooapp/bamboo-molecules/components/ComponentName
-    const sourcePath = `@bambooapp/bamboo-molecules/components/${component.name}`;
+    // Format sourcePath as react-native-molecules/components/ComponentName
+    const sourcePath = `react-native-molecules/components/${component.name}`;
     
     componentData.push({
       name: component.name,

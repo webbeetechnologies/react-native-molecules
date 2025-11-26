@@ -7,7 +7,7 @@ module.exports = {
                 root: 'src',
                 autoProcessPaths: [
                     'packages/molecules',
-                    '@bambooapp/bamboo-molecules',
+                    'react-native-molecules',
                     '@react-native-vector-icons/common',
                     '@react-native-vector-icons/feather',
                     '@react-native-vector-icons/material-design-icons',
