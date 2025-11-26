@@ -52,7 +52,6 @@
         "lodash.keyby": "^4.6.0",
         "lodash.memoize": "^4.1.2",
         "lodash.omitby": "^4.6.0",
-        "react-native-toast-message": "^2.1.6",
         "use-sync-external-store": "^1.2.0"
     },
     "peerDependencies": {
