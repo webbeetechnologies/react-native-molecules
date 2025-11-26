@@ -1,6 +1,6 @@
 {
     "name": "@bambooapp/bamboo-molecules",
-    "version": "0.5.0-alpha.30",
+    "version": "0.5.0-beta.0",
     "author": "Thet Aung <thetaung.dev@gmail.com>",
     "license": "MIT",
     "main": "index.ts",
