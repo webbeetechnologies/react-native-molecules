@@ -4,10 +4,7 @@
  * work well for content-centric websites.
  */
 
-@font-face {
-  font-family: 'MaterialDesignIcons';
-  src: url('/fonts/MaterialDesignIcons.ttf');
-}
+/* Font-face rule is injected via theme/FontLoader.tsx React component */
 
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0');
 
