@@ -11,7 +11,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'Bamboo Molecules',
+    title: 'React Native Molecules',
     tagline: 'React Native + Web components built on Material 3',
     favicon: 'img/favicon.ico',
 
@@ -24,12 +24,12 @@ const config = {
     url: 'https://webbeetechnologies.github.io',
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
-    baseUrl: '/bamboo-molecules/',
+    baseUrl: '/react-native-molecules/',
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: 'webbeetechnologies', // Usually your GitHub org/user name.
-    projectName: 'bamboo-molecules', // Usually your repo name.
+    projectName: 'react-native-molecules', // Usually your repo name.
     trailingSlash: false,
 
     onBrokenLinks: 'throw',
@@ -70,9 +70,9 @@ const config = {
                 respectPrefersColorScheme: true,
             },
             navbar: {
-                title: 'Bamboo Molecules',
+                title: 'React Native Molecules',
                 logo: {
-                    alt: 'Bamboo Molecules Logo',
+                    alt: 'React Native Molecules Logo',
                     src: 'img/logo.svg',
                 },
                 items: [
@@ -90,7 +90,7 @@ const config = {
                     //     label: 'Components',
                     // },
                     {
-                        href: 'https://github.com/webbeetechnologies/bamboo-molecules',
+                        href: 'https://github.com/webbeetechnologies/react-native-molecules',
                         label: 'GitHub',
                         position: 'right',
                     },
@@ -130,12 +130,12 @@ const config = {
                         items: [
                             {
                                 label: 'GitHub',
-                                href: 'https://github.com/webbeetechnologies/bamboo-molecules',
+                                href: 'https://github.com/webbeetechnologies/react-native-molecules',
                             },
                         ],
                     },
                 ],
-                copyright: `Copyright © ${new Date().getFullYear()} Bamboo Molecules. Built with Docusaurus.`,
+                copyright: `Copyright © ${new Date().getFullYear()} React Native Molecules. Built with Docusaurus.`,
             },
             prism: {
                 theme: prismThemes.github,
