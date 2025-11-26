@@ -116,3 +116,7 @@ export const defaultScope = {
     ShortcutsManager,
     useHandleNumberFormat,
 };
+
+if ((defaultScope as any).default) {
+    delete (defaultScope as any).default;
+}
