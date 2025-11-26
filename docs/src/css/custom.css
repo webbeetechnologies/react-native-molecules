@@ -4,9 +4,9 @@
  * work well for content-centric websites.
  */
 
- @font-face {
+@font-face {
   font-family: 'MaterialDesignIcons';
-  src: url('../../../node_modules/@react-native-vector-icons/material-design-icons/Fonts/MaterialDesignIcons.ttf');
+  src: url('/fonts/MaterialDesignIcons.ttf');
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0');
