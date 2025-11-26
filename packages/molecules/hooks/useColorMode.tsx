@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { ColorMode, resolveColorMode } from '../utils/resolveColorMode';
 import { UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+
+import { type ColorMode, resolveColorMode } from '../utils/resolveColorMode';
 
 const useColorMode = () => {
     const themeName = useUnistyles().theme.dark ? 'dark' : 'light';

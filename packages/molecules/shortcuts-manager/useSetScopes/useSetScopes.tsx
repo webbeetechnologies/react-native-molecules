@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { keyBy } from '../../utils';
+import { keyBy } from '../../utils/lodash';
 import { useShortcutsManagerStoreRef } from '../ShortcutsManager/utils';
 import type { Scope } from '../types';
 

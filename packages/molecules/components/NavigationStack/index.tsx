@@ -15,6 +15,6 @@ export const NavigationStack = getRegisteredComponentWithFallback(
     NavigationStackDefault,
 );
 
-export { Props as NavigationStackProps, NavigationStackHandle } from './NavigationStack';
-export { Props as NavigationStackItemProps } from './NavigationStackItem';
-export { useNavigation, useRoute, navigationStackItemStyles } from './utils';
+export type { NavigationStackHandle, Props as NavigationStackProps } from './NavigationStack';
+export type { Props as NavigationStackItemProps } from './NavigationStackItem';
+export { navigationStackItemStyles, useNavigation, useRoute } from './utils';

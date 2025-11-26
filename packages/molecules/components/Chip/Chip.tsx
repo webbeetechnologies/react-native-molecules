@@ -1,34 +1,34 @@
 import {
-    ComponentType,
+    type ComponentType,
     forwardRef,
     memo,
-    PropsWithoutRef,
-    ReactNode,
+    type PropsWithoutRef,
+    type ReactNode,
     useContext,
     useMemo,
 } from 'react';
 import {
     type GestureResponderEvent,
-    type TextStyle,
-    type ViewStyle,
+    type StyleProp,
     type TextProps,
-    type ViewProps,
+    type TextStyle,
     View,
-    StyleProp,
+    type ViewProps,
+    type ViewStyle,
 } from 'react-native';
-import { Text } from '../Text';
 
-import type { MD3Elevation } from '../../types/theme';
 import { useActionState } from '../../hooks';
 import type { WithElements } from '../../types';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { IconButton, type IconButtonProps } from '../IconButton';
+import type { MD3Elevation } from '../../types/theme';
+import { BackgroundContext, resolveStateVariant } from '../../utils';
 import { ActivityIndicator, type ActivityIndicatorProps } from '../ActivityIndicator';
 import { Icon, type IconProps } from '../Icon';
-import { BackgroundContext, resolveStateVariant } from '../../utils';
-import { Surface } from '../Surface';
+import { IconButton, type IconButtonProps } from '../IconButton';
 import { StateLayer } from '../StateLayer';
-import { States, styles } from './utils';
+import { Surface } from '../Surface';
+import { Text } from '../Text';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import { type States, styles } from './utils';
 
 export type Props = Omit<TouchableRippleProps, 'children'> &
     WithElements<ReactNode> & {

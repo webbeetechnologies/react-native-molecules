@@ -1,1 +1,1 @@
-export const getCursorStyle = (_cursor: string) => ({});
+export const getCursorStyle = (cursor: string) => ({ cursor });

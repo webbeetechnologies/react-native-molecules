@@ -1,4 +1,5 @@
 import color from 'color';
+
 import { MD3Colors, tokens, typescale } from './tokens';
 
 const ref = tokens.md.ref;

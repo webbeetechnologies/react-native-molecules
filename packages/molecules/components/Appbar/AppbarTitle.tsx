@@ -1,6 +1,7 @@
-import { ComponentType, memo, useContext } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { type ComponentType, memo, useContext } from 'react';
 import type { TextProps } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+
 import { AppbarContext } from './AppbarBase';
 import { appbarTitle } from './utils';
 

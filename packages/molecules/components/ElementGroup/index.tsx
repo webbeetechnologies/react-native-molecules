@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const ElementGroup = getRegisteredComponentWithFallback('ElementGroup', ElementGroupDefault);
 
-export { Props as ElementGroupProps } from './ElementGroup';
+export type { Props as ElementGroupProps } from './ElementGroup';
 export { elementGroupStyles } from './utils';

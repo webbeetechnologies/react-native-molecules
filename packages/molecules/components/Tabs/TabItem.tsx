@@ -1,22 +1,22 @@
 import {
     Children,
-    JSXElementConstructor,
-    ReactElement,
     cloneElement,
     forwardRef,
     isValidElement,
+    type JSXElementConstructor,
     memo,
+    type ReactElement,
     useCallback,
     useMemo,
     useRef,
     useState,
 } from 'react';
-import { type LayoutChangeEvent, type ViewStyle, type ViewProps, View } from 'react-native';
+import { type LayoutChangeEvent, View, type ViewProps, type ViewStyle } from 'react-native';
 
 import { useActionState } from '../../hooks';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import { resolveStateVariant } from '../../utils';
 import { StateLayer } from '../StateLayer';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import { tabsItemStyles } from './utils';
 
 export type TabItemProps = Omit<TouchableRippleProps, 'children' | 'ref'> & {

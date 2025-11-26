@@ -1,5 +1,6 @@
-import { Portal } from '../components/Portal';
 import { type ComponentType } from 'react';
+
+import { Portal } from '../components/Portal';
 
 const withPortal =
     <T,>(Component: ComponentType<T>) =>

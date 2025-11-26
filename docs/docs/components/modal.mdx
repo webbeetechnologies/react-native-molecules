@@ -1,0 +1,57 @@
+---
+title: "Modal"
+description: "Low-level modal primitive leveraging Portal, Backdrop, and focus trapping."
+sidebar_position: 32
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Modal" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+import { Modal } from '@bambooapp/bamboo-molecules/components/Modal';
+import { Portal } from '@bambooapp/bamboo-molecules/components/Portal';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    container: {
+        width: 320,
+        padding: 24,
+        borderRadius: 24,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        gap: 12,
+    },
+});
+
+export default function Example() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <Button onPress={() => setOpen(true)}>Show Modal</Button>
+            <Portal>
+                <Modal isOpen={open} onClose={() => setOpen(false)}>
+                    <View style={styles.container}>
+                        <Text>Modal Content</Text>
+                        <Button variant="text" onPress={() => setOpen(false)}>
+                            Close
+                        </Button>
+                    </View>
+                </Modal>
+            </Portal>
+        </>
+    );
+}`}
+/>
+
+<ComponentProps name="Modal" />

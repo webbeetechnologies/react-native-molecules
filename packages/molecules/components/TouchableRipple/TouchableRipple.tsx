@@ -1,11 +1,11 @@
-import { forwardRef, memo, useCallback, useMemo, Children, ReactNode } from 'react';
+import { Children, forwardRef, memo, type ReactNode, useCallback, useMemo } from 'react';
 import {
-    StyleProp,
-    GestureResponderEvent,
-    ViewStyle,
+    type GestureResponderEvent,
     Pressable,
-    PressableProps,
+    type PressableProps,
+    type StyleProp,
     View,
+    type ViewStyle,
 } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
@@ -256,7 +256,7 @@ const TouchableRipple = (
 
     return (
         <Component
-            role="button"
+            {...(onPress ? { role: 'button' } : {})}
             {...rest}
             style={containerStyle}
             ref={ref}

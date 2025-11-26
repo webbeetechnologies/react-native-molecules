@@ -1,5 +1,6 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 // type States = 'disabled' | 'checked' | 'hovered' | 'checkedAndHovered';
 

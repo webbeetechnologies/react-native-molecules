@@ -1,7 +1,8 @@
 import { memo } from 'react';
-import { type ViewProps, type TextProps, View } from 'react-native';
-import { badgeStyles } from './utils';
+import { type TextProps, View, type ViewProps } from 'react-native';
+
 import { Text } from '../Text';
+import { badgeStyles } from './utils';
 
 export type Props = Omit<ViewProps, 'children'> & {
     label?: string | number;

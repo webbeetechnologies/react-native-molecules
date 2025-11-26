@@ -1,0 +1,33 @@
+---
+title: "DatePickerInline"
+description: "Inline calendar grid with year and month pickers for rich scheduling flows."
+sidebar_position: 12
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="DatePickerInline" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DatePickerInline } from '@bambooapp/bamboo-molecules/components/DatePickerInline';
+
+export default function Example() {
+    const [data, setData] = useState({
+        date: new Date(),
+        dates: [new Date()],
+        startDate: new Date(),
+        endDate: undefined,
+    });
+
+    return <DatePickerInline mode="single" locale="en" {...data} onChange={setData} />;
+}`}
+/>
+
+<ComponentProps name="DatePickerInline" />

@@ -1,0 +1,42 @@
+---
+title: "useHandleNumberFormat"
+description: "Hook to format number input with customizable prefix, suffix, delimiter, and precision."
+sidebar_position: 2
+---
+
+# useHandleNumberFormat Hook
+
+The `useHandleNumberFormat` hook provides a convenient way to format number inputs with customizable formatting options including prefix, suffix, delimiter, separator, and precision.
+
+## Examples
+
+### Default
+
+```tsx
+import { useState } from 'react';
+import { useMolecules, useHandleNumberFormat } from '@bambooapp/bamboo-molecules';
+
+const config = {
+    prefix: 'Rs.',
+    suffix: '',
+    separator: '.',
+    delimiter: ',',
+    precision: 2,
+    allowNegative: true,
+};
+
+export const Example = (props) => {
+    const { TextInput } = useMolecules();
+    const [number, setNumber] = useState<number | null>(null);
+    
+    const numberInputProps = useHandleNumberFormat({
+        ...props,
+        value: number,
+        onChangeText: setNumber,
+        config,
+    });
+
+    return <TextInput {...numberInputProps} />;
+};
+```
+

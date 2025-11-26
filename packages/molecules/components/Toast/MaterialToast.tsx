@@ -1,18 +1,18 @@
-import { ComponentType, useCallback, useMemo } from 'react';
-import { type ViewStyle, type TextProps, type ViewProps, View } from 'react-native';
-import { Text } from '../Text';
-
-// import { ProvideTheme } from '../../core/theme/ProvideTheme';
-// import { extendTheme } from '../../core/theme/extendTheme';
-import { Surface, type SurfaceProps } from '../Surface';
-import { Button, type ButtonProps } from '../Button';
-import { IconButton, type IconButtonProps } from '../IconButton';
+import { type ComponentType, useCallback, useMemo } from 'react';
+import { type TextProps, View, type ViewProps, type ViewStyle } from 'react-native';
 import type {
     ToastHideParams,
     ToastPosition,
     ToastShowParams,
     ToastType,
 } from 'react-native-toast-message/lib/src/types';
+
+import { Button, type ButtonProps } from '../Button';
+import { IconButton, type IconButtonProps } from '../IconButton';
+// import { ProvideTheme } from '../../core/theme/ProvideTheme';
+// import { extendTheme } from '../../core/theme/extendTheme';
+import { Surface, type SurfaceProps } from '../Surface';
+import { Text } from '../Text';
 import { styles } from './utils';
 
 type CustomProps = Omit<SurfaceProps, 'children'> & {

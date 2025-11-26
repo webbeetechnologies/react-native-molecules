@@ -1,5 +1,5 @@
-import { ComponentType, createContext, forwardRef, memo, useContext } from 'react';
-import { Text, TextProps } from 'react-native';
+import { type ComponentType, createContext, forwardRef, memo, useContext } from 'react';
+import { Text, type TextProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 const HasAncestorContext = createContext(false);

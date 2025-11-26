@@ -1,0 +1,28 @@
+---
+title: "TimePicker"
+description: "Analog + digital time picker offering hours/minutes selection."
+sidebar_position: 50
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="TimePicker" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { TimePicker } from '@bambooapp/bamboo-molecules/components/TimePicker';
+
+export default function Example() {
+    const [time, setTime] = useState('10:15');
+
+    return <TimePicker time={time} onTimeChange={({ time: value }) => setTime(value)} />;
+}`}
+/>
+
+<ComponentProps name="TimePicker" />

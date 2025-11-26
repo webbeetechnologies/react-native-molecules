@@ -1,5 +1,12 @@
-import { forwardRef, memo, ReactNode, ComponentPropsWithRef, ComponentType } from 'react';
-import { Text, type StyleProp, type TextProps, type TextStyle } from 'react-native';
+import {
+    type ComponentPropsWithRef,
+    type ComponentType,
+    forwardRef,
+    memo,
+    type ReactNode,
+} from 'react';
+import { type StyleProp, Text, type TextProps, type TextStyle } from 'react-native';
+
 import { dialogTitleStyles } from './utils';
 
 export type Props = ComponentPropsWithRef<ComponentType<TextProps>> & {

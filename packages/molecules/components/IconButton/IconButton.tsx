@@ -8,15 +8,15 @@ import {
     type ViewStyle,
 } from 'react-native';
 
+import { useActionState } from '../../hooks/useActionState';
 import { resolveStateVariant } from '../../utils';
-import { type IconType, Icon } from '../Icon';
+import { Icon, type IconType } from '../Icon';
 import CrossFadeIcon from '../Icon/CrossFadeIcon';
 import { StateLayer } from '../StateLayer';
 import { Surface } from '../Surface';
-import { type TouchableRippleProps, TouchableRipple } from '../TouchableRipple';
-import { IconButtonVariant } from './types';
-import { defaultStyles } from './utils';
-import { useActionState } from '../../hooks/useActionState';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import type { IconButtonVariant } from './types';
+import { defaultStyles, iconButtonSizeToIconSizeMap } from './utils';
 
 const whiteSpace = 12;
 
@@ -128,7 +128,9 @@ const IconButton = (
         // accessibilityTraits,
         stateLayerStyle,
     } = useMemo(() => {
-        const iconSizeInNum = typeof size === 'number' && size ? size : undefined;
+        const iconSizeInNum =
+            iconButtonSizeToIconSizeMap[size as keyof typeof iconButtonSizeToIconSizeMap] ??
+            (typeof size === 'number' && size ? (size as number) : undefined);
 
         let _rippleColor: string | undefined;
 

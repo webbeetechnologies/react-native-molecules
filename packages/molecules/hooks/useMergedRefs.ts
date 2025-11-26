@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { mergeRefs } from '../utils';
 import useLatest from './useLatest';
 

@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const Icon = getRegisteredComponentWithFallback('Icon', IconDefault);
 
-export type { IconProps, IconPacks, IconType } from './types';
 export { registerCustomIconType } from './iconFactory';
+export type { IconPacks, IconProps, IconType } from './types';

@@ -1,5 +1,5 @@
-import { ListItem } from '../../index';
 import { renderWithWrapper } from '../../../../testHelpers';
+import { ListItem } from '../../index';
 
 it('should render ListItem', () => {
     const tree = renderWithWrapper(

@@ -1,6 +1,7 @@
+import { StyleSheet } from 'react-native-unistyles';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { daySize } from './dateUtils';
-import { StyleSheet } from 'react-native-unistyles';
 
 export const dayNamesHeight = 44;
 
@@ -14,10 +15,11 @@ export const monthHeaderSingleHeight = monthHeaderSingleMarginTop + monthHeaderS
 
 const datePickerStylesDefault = StyleSheet.create(theme => ({
     root: {
-        ...({
-            roundness: theme.shapes.corner.extraSmall,
-            headerBackgroundColor: theme.colors.surface,
-        } as any),
+        backgroundColor: theme.colors.surface,
+        // ...({
+        //     roundness: theme.shapes.corner.extraSmall,
+        //     headerBackgroundColor: theme.colors.surface,
+        // } as any),
     },
 
     container: {

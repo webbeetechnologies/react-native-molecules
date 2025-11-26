@@ -1,33 +1,32 @@
-import { useMemo, memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
+import { View } from 'react-native';
 
-import { format } from '../../utils';
+import { format } from '../../utils/date-fns';
+import { Text } from '../Text';
+import { useDatePickerStoreValue } from './DatePickerContext';
+import { getCalendarHeaderHeight } from './DatePickerInlineHeader';
 import {
-    getGridCount,
-    gridCounts,
-    startAtIndex,
+    addMonths,
     beginOffset,
     estimatedMonthHeight,
-    useRangeChecker,
     generateCalendarGrid,
+    getGridCount,
     getRealIndex,
-    addMonths,
+    gridCounts,
+    startAtIndex,
+    useRangeChecker,
 } from './dateUtils';
-import { getCalendarHeaderHeight } from './DatePickerInlineHeader';
 import type { MonthMultiProps, MonthRangeProps, MonthSingleProps } from './types';
-import Week from './Week';
-import { useDatePickerStoreValue } from './DatePickerContext';
-import { View } from 'react-native';
-import { Text } from '../Text';
-
 import {
     datePickerMonthStyles,
+    dayNamesHeight,
+    montHeaderHeight,
+    monthHeaderSingleHeight,
+    monthHeaderSingleMarginBottom,
     monthHeaderSingleMarginTop,
     weekSize,
-    montHeaderHeight,
-    monthHeaderSingleMarginBottom,
-    monthHeaderSingleHeight,
-    dayNamesHeight,
 } from './utils';
+import Week from './Week';
 
 export type Props = MonthSingleProps | MonthRangeProps | MonthMultiProps;
 

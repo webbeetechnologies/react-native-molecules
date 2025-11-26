@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { IconButton, type IconButtonProps } from '../IconButton';
 
 export type Props = Omit<IconButtonProps, 'ref'> & {};

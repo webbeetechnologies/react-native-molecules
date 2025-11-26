@@ -1,16 +1,16 @@
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import {
+    type ActivityIndicatorProps,
     Animated,
     Easing,
     Platform,
     View,
-    ViewStyle,
-    type ActivityIndicatorProps,
+    type ViewStyle,
 } from 'react-native';
-
-import AnimatedSpinner from './AnimatedSpinner';
 import { StyleSheet } from 'react-native-unistyles';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import AnimatedSpinner from './AnimatedSpinner';
 
 export type Props = ActivityIndicatorProps & {
     /**
@@ -83,29 +83,18 @@ const ActivityIndicator = ({
 
     const size = mapIndicatorSize(indicatorSize);
 
-    const { color, animationScale, viewStyle, animatedViewStyle } = useMemo(() => {
-        const { color: defaultIndicatorColor, animationScale: _animationScale } =
-            componentStyles.root;
-
+    const { color, viewStyle, animatedViewStyle } = useMemo(() => {
         return {
-            color: indicatorColorProp || defaultIndicatorColor,
-            animationScale: _animationScale,
+            color: indicatorColorProp,
             viewStyle: [componentStyles.container, styleProp],
             animatedViewStyle: [{ width: size, height: size, opacity: fade }],
         };
-    }, [
-        componentStyles.container,
-        componentStyles.root,
-        fade,
-        indicatorColorProp,
-        size,
-        styleProp,
-    ]);
+    }, [componentStyles.container, fade, indicatorColorProp, size, styleProp]);
 
     const startRotation = useCallback(() => {
         // Show indicator
         Animated.timing(fade, {
-            duration: 200 * +animationScale,
+            duration: 200,
             toValue: 1,
             isInteraction: false,
             useNativeDriver: true,
@@ -117,7 +106,7 @@ const ActivityIndicator = ({
             // $FlowFixMe
             Animated.loop(rotation.current).start();
         }
-    }, [animationScale, fade, timer]);
+    }, [fade, timer]);
 
     const stopRotation = () => {
         if (rotation.current) {
@@ -143,7 +132,7 @@ const ActivityIndicator = ({
         } else if (hidesWhenStopped) {
             // Hide indicator first and then stop rotation
             Animated.timing(fade, {
-                duration: 200 * +animationScale,
+                duration: 200,
                 toValue: 0,
                 useNativeDriver: true,
                 isInteraction: false,
@@ -155,7 +144,7 @@ const ActivityIndicator = ({
         return () => {
             if (animating) stopRotation();
         };
-    }, [animating, fade, hidesWhenStopped, startRotation, animationScale, timer]);
+    }, [animating, fade, hidesWhenStopped, startRotation, timer]);
 
     // console.log({ layer: defaultStyles.layer });
 
@@ -172,6 +161,7 @@ const ActivityIndicator = ({
                     return (
                         <AnimatedSpinner
                             key={index}
+                            style={componentStyles.root}
                             index={index}
                             size={size}
                             color={color}
@@ -187,10 +177,9 @@ const ActivityIndicator = ({
 };
 
 export const activityIndicatorStylesDefault = StyleSheet.create(theme => ({
-    root: {
-        animationScale: theme.animation.scale,
-        color: theme.colors.primary,
-    } as any,
+    spinner: {
+        borderColor: theme.colors.primary,
+    },
     container: {
         justifyContent: 'center',
         alignItems: 'center',

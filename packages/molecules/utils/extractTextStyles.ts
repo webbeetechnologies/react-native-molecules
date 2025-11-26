@@ -1,4 +1,5 @@
 import type { TextStyle } from 'react-native';
+
 import { memoize } from './lodash';
 
 const textStyleProps = [

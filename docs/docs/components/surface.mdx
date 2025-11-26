@@ -1,0 +1,41 @@
+---
+title: "Surface"
+description: "Themed surface primitive with elevation, shape, and background tokens."
+sidebar_position: 44
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Surface" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { StyleSheet } from 'react-native';
+import { Surface } from '@bambooapp/bamboo-molecules/components/Surface';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    surface: {
+        width: 140,
+        height: 120,
+        borderRadius: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
+
+export default function Example() {
+    return (
+        <Surface style={styles.surface} elevation={3}>
+            <Text>Surface</Text>
+        </Surface>
+    );
+}`}
+/>
+
+<ComponentProps name="Surface" />

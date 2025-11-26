@@ -10,5 +10,5 @@ export const DateTimePicker = getRegisteredComponentWithFallback(
     DateTimePickerDefault,
 );
 
-export { Props as DateTimePickerProps } from './DateTimePicker';
+export type { Props as DateTimePickerProps } from './DateTimePicker';
 export { dateTimePickerStyles } from './utils';

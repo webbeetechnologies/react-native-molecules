@@ -1,9 +1,10 @@
 import { forwardRef, memo, useMemo } from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
+
 import { useControlledValue } from '../../hooks';
 import type { IconProps, IconType } from '../Icon';
-import RatingItem from './RatingItem';
 import type { TooltipProps } from '../Tooltip';
+import RatingItem from './RatingItem';
 import { ratingStyles } from './utils';
 
 export type Props = ViewProps & {

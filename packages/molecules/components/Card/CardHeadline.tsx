@@ -1,5 +1,6 @@
 import { forwardRef, memo } from 'react';
-import CardTypography, { Props as TypographyProps } from './CardTypography';
+
+import CardTypography, { type Props as TypographyProps } from './CardTypography';
 
 export type Props = Omit<TypographyProps, 'variant'>;
 

@@ -1,15 +1,22 @@
-import type { Mask } from 'react-native-mask-input/lib/typescript/src/formatWithMask.types';
-import type { CreateNumberMaskProps } from 'react-native-mask-input/lib/typescript/src/createNumberMask.types';
-import type { MaskArray } from 'react-native-mask-input';
 import { escapeRegex } from '../escapeRegex';
 
-export interface Props extends Partial<Omit<CreateNumberMaskProps, 'prefix'>> {
+export type Mask = MaskArray | ((value?: string) => MaskArray);
+export type MaskArray = Array<MaskItem>;
+export type MaskItem = string | RegExp | [RegExp];
+
+export type Props = {
+    /** Character for thousands delimiter. Defaults to `"."` */
+    delimiter?: string;
+    /** Decimal precision. Defaults to `2` */
+    precision?: number;
+    /** Decimal separator character. Defaults to `","`  */
+    separator?: string;
     prefix?: string | string[];
     suffix?: string | string[];
     getDelimiterOffset?: (index: number) => number;
     allowNegative?: boolean;
     optionalPrefix?: string | string[];
-}
+};
 
 const joinIfStringArr = (value: string | string[]) =>
     Array.isArray(value) ? value.join('') : value || '';

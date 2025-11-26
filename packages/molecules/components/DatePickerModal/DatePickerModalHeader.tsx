@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { Animated, SafeAreaView, View } from 'react-native';
 
 import { resolveStateVariant } from '../../utils';
-import { IconButton } from '../IconButton';
 import { Button } from '../Button';
+import { IconButton } from '../IconButton';
 import { datePickerModalHeaderStyles } from './utils';
 
 export interface DatePickerModalHeaderProps {

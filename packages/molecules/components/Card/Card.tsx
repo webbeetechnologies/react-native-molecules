@@ -1,14 +1,14 @@
 import { forwardRef, memo, useMemo } from 'react';
-import { ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { useActionState } from '../../hooks';
 import type { MD3Elevation } from '../../types/theme';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { CardVariant } from './types';
 import { resolveStateVariant } from '../../utils';
 import { Surface } from '../Surface';
-import { useActionState } from '../../hooks';
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import type { CardVariant } from './types';
 
 export type Props = TouchableRippleProps & {
     variant?: CardVariant;

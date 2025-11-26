@@ -1,5 +1,5 @@
-import { ComponentType, memo } from 'react';
-import { ScrollViewProps, ScrollView } from 'react-native';
+import { type ComponentType, memo } from 'react';
+import { ScrollView, type ScrollViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';

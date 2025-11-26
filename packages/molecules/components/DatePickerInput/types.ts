@@ -1,6 +1,7 @@
-import type { TextInputProps } from '../TextInput';
-import type { ValidRangeType } from '../DatePickerInline';
 import type { ViewProps } from 'react-native';
+
+import type { ValidRangeType } from '../DatePickerInline';
+import type { TextInputProps } from '../TextInput';
 
 export interface DatePickerInputProps
     extends Omit<TextInputProps, 'value' | 'onChange' | 'onChangeText' | 'inputMode'> {

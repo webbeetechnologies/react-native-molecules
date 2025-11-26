@@ -1,5 +1,6 @@
-import { formatWithMask, MaskArray } from 'react-native-mask-input';
-import createNumberMask, { Props as CreateNumberMaskProps } from '../createNumberMask';
+import { formatWithMask } from '../../formatNumberWithMask/formatWithMask';
+import type { MaskArray } from '../createNumberMask';
+import createNumberMask, { type Props as CreateNumberMaskProps } from '../createNumberMask';
 
 interface Props extends Partial<CreateNumberMaskProps> {
     value: string;

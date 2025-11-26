@@ -1,5 +1,6 @@
 import { memo, useMemo } from 'react';
 import { View, type ViewStyle } from 'react-native';
+
 import { Icon, type IconProps } from '../Icon';
 import { dialogIconStyles } from './utils';
 

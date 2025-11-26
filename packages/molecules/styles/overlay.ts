@@ -1,5 +1,6 @@
 import color from 'color';
 import { Animated } from 'react-native';
+
 import { MD3DarkTheme } from './themes/DarkTheme';
 
 export const isAnimatedValue = (

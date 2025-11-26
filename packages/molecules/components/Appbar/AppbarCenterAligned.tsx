@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+
 import { default as AppbarBase } from './AppbarBase';
 import type { AppbarProps } from './types';
 import { appbarCenterAlignedStyles } from './utils';

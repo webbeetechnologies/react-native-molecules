@@ -1,12 +1,12 @@
+import setColor from 'color';
 import { forwardRef, memo, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import setColor from 'color';
 
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import { resolveStateVariant } from '../../utils';
-import { Icon } from '../Icon';
-import { DEFAULT_ICON_SIZE, radioButtonStyles } from './utils';
 import { tokenStylesParser } from '../../utils/tokenStylesParser';
+import { Icon } from '../Icon';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import { DEFAULT_ICON_SIZE, radioButtonStyles } from './utils';
 
 export type Props = Omit<TouchableRippleProps, 'children'> & {
     /**

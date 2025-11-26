@@ -1,10 +1,10 @@
 import { memo } from 'react';
 
-import type { DatePickerDockedProps } from './types';
 import DatePickerInlineBase from '../DatePickerInline/DatePickerInlineBase';
-import DatePickerDockedHeader from './DatePickerDockedHeader';
-import { datePickerDockedMonthStyles } from './utils';
 import { Popover } from '../Popover';
+import DatePickerDockedHeader from './DatePickerDockedHeader';
+import type { DatePickerDockedProps } from './types';
+import { datePickerDockedMonthStyles } from './utils';
 
 const DatePickerDocked = (props: DatePickerDockedProps) => {
     const { triggerRef, isOpen, onToggle, onClose } = props;

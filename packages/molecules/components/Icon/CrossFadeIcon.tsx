@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-import type { IconProps } from './types';
+
 import Icon, { styles as iconStyles } from './Icon';
+import type { IconProps } from './types';
 
 type Props = IconProps;
 

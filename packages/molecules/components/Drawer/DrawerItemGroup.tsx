@@ -1,10 +1,10 @@
-import { memo, ReactNode, useMemo } from 'react';
-import { TextProps, View, type ViewProps } from 'react-native';
-import { Text } from '../Text';
-
+import { memo, type ReactNode, useMemo } from 'react';
+import { type TextProps, View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { HorizontalDivider, type HorizontalDividerProps } from '../HorizontalDivider';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { HorizontalDivider, type HorizontalDividerProps } from '../HorizontalDivider';
+import { Text } from '../Text';
 
 export type Props = ViewProps & {
     title?: ReactNode;

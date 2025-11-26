@@ -1,0 +1,35 @@
+---
+title: "Tooltip"
+description: "Popover-based tooltip with arrow pointing to the trigger."
+sidebar_position: 54
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Tooltip" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { IconButton } from '@bambooapp/bamboo-molecules/components/IconButton';
+import { Tooltip } from '@bambooapp/bamboo-molecules/components/Tooltip';
+
+export default function Example() {
+    return (
+        <Tooltip>
+            <Tooltip.Trigger>
+                <IconButton name="star-outline" />
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+                mark as favorite
+            </Tooltip.Content>
+        </Tooltip>
+    );
+}`}
+/>
+
+<ComponentProps name="Tooltip" />

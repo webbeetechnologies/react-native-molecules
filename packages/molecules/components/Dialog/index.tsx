@@ -23,15 +23,15 @@ registerMoleculesComponents({
 
 export const Dialog = getRegisteredComponentWithFallback('Dialog', DialogDefault);
 
-export { Props as DialogProps } from './Dialog';
-export { Props as DialogActionsProps } from './DialogActions';
-export { Props as DialogContentProps } from './DialogContent';
-export { Props as DialogTitleProps } from './DialogTitle';
+export type { Props as DialogProps } from './Dialog';
+export type { Props as DialogActionsProps } from './DialogActions';
+export type { Props as DialogContentProps } from './DialogContent';
+export type { Props as DialogTitleProps } from './DialogTitle';
 export {
-    dialogStyles,
     dialogActionsStyles,
     dialogContentStyles,
     dialogIconStyles,
-    dialogTitleStyles,
     dialogScrollAreaStyles,
+    dialogStyles,
+    dialogTitleStyles,
 } from './utils';

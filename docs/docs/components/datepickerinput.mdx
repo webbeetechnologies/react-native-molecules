@@ -1,0 +1,28 @@
+---
+title: "DatePickerInput"
+description: "Text input wrapper that provides masking, formatting, and shortcuts for dates."
+sidebar_position: 13
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="DatePickerInput" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DatePickerInput } from '@bambooapp/bamboo-molecules/components/DatePickerInput';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | undefined>(new Date());
+
+    return <DatePickerInput value={date} onChange={setDate} label="Reminder date" />;
+}`}
+/>
+
+<ComponentProps name="DatePickerInput" />

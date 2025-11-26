@@ -1,6 +1,6 @@
-import { formatWithMask } from 'react-native-mask-input';
-import { CreateNumberMaskProps, createNumberMask } from '../createNumberMask';
+import { createNumberMask, type CreateNumberMaskProps } from '../createNumberMask';
 import { isNil } from '../lodash';
+import { formatWithMask } from './formatWithMask';
 
 export type FormatNumberWithMaskProps = CreateNumberMaskProps & {
     number: number | string | undefined | null;

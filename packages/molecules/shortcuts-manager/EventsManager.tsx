@@ -4,8 +4,8 @@ import {
     useShortcutsManagerContextValueSelector,
     useShortcutsManagerStoreRef,
 } from './ShortcutsManager/utils';
-import { calculateShortcutEventName, getPressedModifierKeys, normalizeKeys } from './utils';
 import type { ShortcutEventDetail } from './types';
+import { calculateShortcutEventName, getPressedModifierKeys, normalizeKeys } from './utils';
 
 const defaultMatcher = (_e: KeyboardEvent, key: string | string[], details: ShortcutEventDetail) =>
     normalizeKeys(key) === details.normalizedKey;

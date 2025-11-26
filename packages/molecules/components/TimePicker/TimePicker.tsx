@@ -1,13 +1,18 @@
-import { memo, useState, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
+import { type StyleProp, View, type ViewStyle } from 'react-native';
 
 import { useControlledValue } from '../../hooks';
-import { format, parse } from '../../utils';
-import { inputTypes, PossibleClockTypes, PossibleInputTypes, toHourInputFormat } from './timeUtils';
+import { format, parse } from '../../utils/date-fns';
 import AnalogClock from './AnalogClock';
-import TimeInputs from './TimeInputs';
-import { StyleProp, View, ViewStyle } from 'react-native';
-import { timePickerStyles } from './utils';
 import { DisplayModeContext } from './DisplayModeContext';
+import TimeInputs from './TimeInputs';
+import {
+    inputTypes,
+    type PossibleClockTypes,
+    type PossibleInputTypes,
+    toHourInputFormat,
+} from './timeUtils';
+import { timePickerStyles } from './utils';
 
 type onChangeFunc = ({
     hours,

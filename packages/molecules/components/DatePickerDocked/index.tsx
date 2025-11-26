@@ -10,12 +10,12 @@ export const DatePickerDocked = getRegisteredComponentWithFallback(
     DatePickerDockedDefault,
 );
 
+export type { DatePickerDockedProps } from './types';
 export {
-    datePickerDockedStyles,
-    datePickerMonthPickerStyles,
     datePickerDockedHeaderStyles,
     datePickerDockedMonthItemStyles,
     datePickerDockedMonthStyles,
+    datePickerDockedStyles,
     datePickerHeaderItemStyles,
+    datePickerMonthPickerStyles,
 } from './utils';
-export { DatePickerDockedProps } from './types';

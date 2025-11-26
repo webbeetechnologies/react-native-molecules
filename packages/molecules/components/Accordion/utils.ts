@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native-unistyles';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 const accordionStylesDefault = StyleSheet.create({

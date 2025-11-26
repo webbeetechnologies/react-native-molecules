@@ -1,0 +1,38 @@
+/**
+ * Custom sidebar link styles with icon support.
+ */
+
+.menuExternalLink {
+  align-items: center;
+}
+
+.linkLabel {
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  flex: 1;
+}
+
+.linkContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.linkIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  flex-shrink: 0;
+  color: hsl(var(--muted-foreground));
+  transition: color 0.2s ease;
+}
+
+:global(.menu__link--active) .linkIcon {
+  color: var(--ifm-color-primary);
+}
+

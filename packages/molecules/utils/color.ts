@@ -1,4 +1,5 @@
 import color from 'color';
+
 import { weakMemoized } from './lodash';
 
 export const resolveContrastColor = weakMemoized(

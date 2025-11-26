@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
-import { clockTypes, PossibleClockTypes } from './timeUtils';
+import { clockTypes, type PossibleClockTypes } from './timeUtils';
 
 export default function AnimatedClockSwitcher({
     focused,

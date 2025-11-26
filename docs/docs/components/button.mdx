@@ -1,0 +1,89 @@
+---
+title: "Button"
+description: "Material 3 button set with text, outlined, contained, tonal, and elevated variants."
+sidebar_position: 7
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Button" />
+
+## Examples
+
+### Text Button
+
+<LiveCodeExample
+    code={`import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+
+export default function Example() {
+    const handlePress = () => {
+        console.log('Pressed text button');
+    };
+
+    return (
+        <Button variant="text" onPress={handlePress}>
+            Default Button
+        </Button>
+    );
+}`}
+/>
+
+### Contained Button
+
+<LiveCodeExample
+    code={`import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <Button variant="contained" onPress={() => console.log('Pressed contained')}>
+            Contained Button
+        </Button>
+    );
+}`}
+/>
+
+### Outlined Button
+
+<LiveCodeExample
+    code={`import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <Button variant="outlined" onPress={() => console.log('Pressed outlined')}>
+            Outlined Button
+        </Button>
+    );
+}`}
+/>
+
+### Contained Tonal Button
+
+<LiveCodeExample
+    code={`import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <Button variant="contained-tonal" onPress={() => console.log('Pressed tonal')}>
+            Contained Tonal Button
+        </Button>
+    );
+}`}
+/>
+
+### Elevated Button
+
+<LiveCodeExample
+    code={`import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <Button variant="elevated" onPress={() => console.log('Pressed elevated')}>
+            Elevated Button
+        </Button>
+    );
+}`}
+/>
+
+<ComponentProps name="Button" />

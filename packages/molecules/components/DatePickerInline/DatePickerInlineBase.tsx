@@ -1,21 +1,21 @@
-import { memo, useCallback, useMemo, useEffect } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useLatest } from '../../hooks';
+import { defaultValue, Provider, useDatePickerStore } from './DatePickerContext';
 import { areDatesOnSameDay, dateToUnix, getEndOfDay, getInitialIndex } from './dateUtils';
-import Swiper from './Swiper';
 import Month from './Month';
-import YearPicker from './YearPicker';
-import type {
-    DatePickerInlineBaseProps,
-    SingleChange,
-    CalendarDate,
-    RangeChange,
-    MultiChange,
-    CalendarDates,
-} from './types';
 import MonthPicker from './MonthPicker';
-import { Provider, defaultValue, useDatePickerStore } from './DatePickerContext';
+import Swiper from './Swiper';
+import type {
+    CalendarDate,
+    CalendarDates,
+    DatePickerInlineBaseProps,
+    MultiChange,
+    RangeChange,
+    SingleChange,
+} from './types';
+import YearPicker from './YearPicker';
 
 function DatePickerInlineBase(props: DatePickerInlineBaseProps) {
     return (

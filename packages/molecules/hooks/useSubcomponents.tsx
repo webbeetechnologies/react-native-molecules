@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import { Children, FC, isValidElement, useMemo } from 'react';
+import { Children, type FC, isValidElement, useMemo } from 'react';
 
 export type UseSubcomponentsProps<T extends string> = {
     children: ReactElement | ReactElement[];

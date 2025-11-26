@@ -1,13 +1,13 @@
 import { forwardRef, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import type { BlurEvent, FocusEvent } from 'react-native';
 
 import { useToggle } from '../../hooks';
-import type { TimePickerModalProps } from '../TimePickerModal';
-import { TextInput, type TextInputProps } from '../TextInput';
-import { timeFormat, getFormattedTime, getOutputTime, styles } from './utils';
 import { IconButton, type IconButtonProps } from '../IconButton';
-import { sanitizeTime } from './sanitizeTime';
+import { TextInput, type TextInputProps } from '../TextInput';
+import type { TimePickerModalProps } from '../TimePickerModal';
 import { TimePickerModal } from '../TimePickerModal/TimePickerModal';
+import { sanitizeTime } from './sanitizeTime';
+import { getFormattedTime, getOutputTime, styles, timeFormat } from './utils';
 
 export type Props = TextInputProps & {
     time: string;
@@ -67,7 +67,7 @@ const TimePickerField = (
     );
 
     const onBlur = useCallback(
-        (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        (e: BlurEvent) => {
             isBlurredRef.current = true;
             onBlurProp?.(e);
 
@@ -84,7 +84,7 @@ const TimePickerField = (
     );
 
     const onFocus = useCallback(
-        (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        (e: FocusEvent) => {
             isBlurredRef.current = false;
 
             onFocusProp?.(e);

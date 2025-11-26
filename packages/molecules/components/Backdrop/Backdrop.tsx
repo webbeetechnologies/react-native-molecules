@@ -1,6 +1,7 @@
 import { memo } from 'react';
-import type { BackdropProps } from './types';
 import { Pressable } from 'react-native';
+
+import type { BackdropProps } from './types';
 import { backdropStyles } from './utils';
 
 const Backdrop = ({ style, ...rest }: BackdropProps) => {

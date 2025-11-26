@@ -25,7 +25,7 @@ import {
 } from 'react-native';
 import type { TabItemProps } from './TabItem';
 import { useControlledValue } from '../../hooks';
-import { noop } from '../../utils';
+import { noop } from '../../utils/lodash';
 import { HorizontalDivider, type HorizontalDividerProps } from '../HorizontalDivider';
 import { tabsStyles } from './utils';
 

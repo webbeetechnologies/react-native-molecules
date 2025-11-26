@@ -1,16 +1,16 @@
-import { useState, forwardRef, useMemo, memo, useCallback } from 'react';
+import { forwardRef, memo, useCallback, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { useCurrentTheme } from '../../hooks';
-import { NumberInput, type NumberInputProps } from '../NumberInput';
-import { inputTypes, PossibleClockTypes, PossibleInputTypes } from './timeUtils';
+import { useTheme } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
+import { TextInput, type TextInputProps } from '../TextInput';
 import { TouchableRipple } from '../TouchableRipple';
+import { inputTypes, type PossibleClockTypes, type PossibleInputTypes } from './timeUtils';
 import { timePickerInputStyles } from './utils';
 
 interface TimeInputProps
     extends Omit<
-        Omit<NumberInputProps, 'value' | 'variant' | 'onChangeText' | 'onPress'>,
+        Omit<TextInputProps, 'value' | 'variant' | 'onChangeText' | 'onPress'>,
         'onFocus'
     > {
     value: number;
@@ -39,7 +39,7 @@ function TimeInput(
         onChanged(Number(text));
     };
 
-    const theme = useCurrentTheme();
+    const theme = useTheme();
     const [inputFocused, setInputFocused] = useState<boolean>(false);
 
     const highlighted = inputType === inputTypes.picker ? pressed : inputFocused;
@@ -81,7 +81,7 @@ function TimeInput(
 
     return (
         <View style={containerStyle}>
-            <NumberInput
+            <TextInput
                 variant="plain"
                 ref={ref}
                 inputStyle={textInputStyle}

@@ -1,18 +1,18 @@
+import color from 'color';
 import { memo, useMemo } from 'react';
 import {
-    StyleSheet,
-    useWindowDimensions,
     Platform,
     StatusBar,
-    StatusBarStyle,
+    type StatusBarStyle,
+    StyleSheet,
+    useWindowDimensions,
     View,
 } from 'react-native';
-import color from 'color';
 
+import { Modal } from '../Modal';
+import { Portal } from '../Portal';
 import { DatePickerModalContent } from './DatePickerModalContent';
 import type { DatePickerModalProps } from './types';
-import { Portal } from '../Portal';
-import { Modal } from '../Modal';
 import { datePickerModalStyles } from './utils';
 
 export function DatePickerModal(props: DatePickerModalProps) {

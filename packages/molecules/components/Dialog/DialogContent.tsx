@@ -1,5 +1,12 @@
-import { ComponentPropsWithRef, ReactNode, ComponentType, memo, forwardRef } from 'react';
-import { type ViewStyle, type StyleProp, type ViewProps, View } from 'react-native';
+import {
+    type ComponentPropsWithRef,
+    type ComponentType,
+    forwardRef,
+    memo,
+    type ReactNode,
+} from 'react';
+import { type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
+
 import { dialogContentStyles } from './utils';
 
 export type Props = ViewProps &

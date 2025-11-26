@@ -1,10 +1,10 @@
-import { ReactNode, memo, useMemo, forwardRef } from 'react';
-import { View, StyleProp, ViewStyle, ViewProps } from 'react-native';
+import { forwardRef, memo, type ReactNode, useMemo } from 'react';
+import { type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
 
-import type { MD3Elevation } from '../../types/theme';
 import shadow from '../../styles/shadow';
-import { defaultStyles } from './utils';
+import type { MD3Elevation } from '../../types/theme';
 import { BackgroundContextWrapper } from './BackgroundContextWrapper';
+import { defaultStyles } from './utils';
 
 export type Props = ViewProps & {
     /**

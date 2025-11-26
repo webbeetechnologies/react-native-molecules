@@ -11,7 +11,7 @@ export const ActivityIndicator = getRegisteredComponentWithFallback(
 );
 
 export {
-    Props as ActivityIndicatorProps,
-    activityIndicatorStylesDefault,
+    type Props as ActivityIndicatorProps,
     activityIndicatorStyles,
+    activityIndicatorStylesDefault,
 } from './ActivityIndicator';

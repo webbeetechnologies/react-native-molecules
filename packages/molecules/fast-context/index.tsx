@@ -1,16 +1,17 @@
 import {
+    type Context,
     createContext,
-    MutableRefObject,
-    ReactNode,
+    type ReactNode,
+    type RefObject,
     useCallback,
     useContext,
-    useRef,
-    Context,
     useEffect,
     useMemo,
+    useRef,
 } from 'react';
-import typedMemo from '../hocs/typedMemo';
 import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/with-selector';
+
+import typedMemo from '../hocs/typedMemo';
 import { usePrevious } from '../hooks';
 import { shallowCompare } from '../utils';
 
@@ -21,7 +22,7 @@ type SelectorOutputType<IStore, SelectorOutput> = (store: IStore) => SelectorOut
 type UseStoreDataReturnType<T> = {
     get: () => T;
     set: (value: (prev: T) => Partial<T>) => void;
-    store: MutableRefObject<T>;
+    store: RefObject<T>;
     subscribe: (callback: () => void) => () => void;
 };
 

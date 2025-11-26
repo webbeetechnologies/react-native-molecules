@@ -1,14 +1,14 @@
 import React, { forwardRef, memo, useMemo } from 'react';
 import {
-    BackgroundPropType,
+    type BackgroundPropType,
     Platform,
     Pressable,
-    StyleProp,
+    type StyleProp,
     StyleSheet,
     TouchableNativeFeedback,
     TouchableWithoutFeedback,
     View,
-    ViewStyle,
+    type ViewStyle,
 } from 'react-native';
 import { withUnistyles } from 'react-native-unistyles';
 

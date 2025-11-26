@@ -1,18 +1,19 @@
-import { useRef, useEffect, ReactNode, useCallback, useMemo, memo, forwardRef } from 'react';
+import { forwardRef, memo, type ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import {
     Animated,
+    Platform,
     Pressable,
     // Easing,
-    StyleProp,
-    StyleSheet,
+    type StyleProp,
     useWindowDimensions,
     View,
-    ViewProps,
-    ViewStyle,
+    type ViewProps,
+    type ViewStyle,
 } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-import type { MD3Elevation } from '../../types/theme';
 import { useBackHandler } from '../../hooks';
+import type { MD3Elevation } from '../../types/theme';
 import { Surface } from '../Surface';
 import { modalStyles } from './utils';
 
@@ -95,6 +96,7 @@ function Modal(
     });
 
     const visibleRef = useRef<boolean>(isOpen);
+    const originalBodyOverflowRef = useRef<string | null>(null);
     // const prevVisible = useRef<boolean | null>(null);
     // const opacityRef = useRef(new Animated.Value(isOpen ? 1 : 0));
     const hideModalRef = useRef<() => void>(() => {});
@@ -114,7 +116,7 @@ function Modal(
                 backdropStyleProp,
             ],
             contentContainerStyle: [
-                StyleSheet.absoluteFill,
+                styles.baseFill,
                 modalStyles.contentContainer,
                 contentContainerStyleProp,
             ],
@@ -177,6 +179,29 @@ function Modal(
         visibleRef.current = isOpen;
     });
 
+    useEffect(() => {
+        if (Platform.OS !== 'web' || globalThis.document === undefined) return;
+
+        const body = document.body;
+
+        if (isOpen) {
+            if (originalBodyOverflowRef.current === null) {
+                originalBodyOverflowRef.current = body.style.overflow;
+            }
+            body.style.overflow = 'hidden';
+        } else if (originalBodyOverflowRef.current !== null) {
+            body.style.overflow = originalBodyOverflowRef.current;
+            originalBodyOverflowRef.current = null;
+        }
+
+        return () => {
+            if (originalBodyOverflowRef.current !== null) {
+                body.style.overflow = originalBodyOverflowRef.current;
+                originalBodyOverflowRef.current = null;
+            }
+        };
+    }, [isOpen]);
+
     // useEffect(() => {
     //     if (prevVisible.current !== isOpen) {
     //         if (isOpen) {
@@ -195,13 +220,13 @@ function Modal(
             pointerEvents={isOpen ? 'auto' : 'none'}
             accessibilityViewIsModal
             accessibilityLiveRegion="polite"
-            style={[StyleSheet.absoluteFill, modalStyles.container, containerStyle]}
+            style={[styles.baseFill, modalStyles.container, containerStyle]}
             onAccessibilityEscape={hideModal}
             testID={testID}
             ref={ref}
             {...rest}>
             <Pressable
-                style={StyleSheet.absoluteFill}
+                style={styles.baseFill}
                 accessibilityLabel={overlayAccessibilityLabel}
                 accessibilityRole="button"
                 disabled={!dismissible}
@@ -220,5 +245,17 @@ function Modal(
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    baseFill: {
+        _web: {
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+        },
+    },
+});
 
 export default memo(forwardRef(Modal));

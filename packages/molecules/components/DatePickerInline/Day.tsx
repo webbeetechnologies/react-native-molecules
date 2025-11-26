@@ -1,11 +1,11 @@
 import { memo, useCallback, useMemo } from 'react';
-import { StyleProp, View, type ViewStyle } from 'react-native';
-import { Text } from '../Text';
+import { type StyleProp, View, type ViewStyle } from 'react-native';
 
-import DayRange from './DayRange';
 import { resolveStateVariant } from '../../utils';
-import { datePickerDayEmptyStyles, datePickerDayStyles } from './utils';
+import { Text } from '../Text';
 import { TouchableRipple } from '../TouchableRipple';
+import DayRange from './DayRange';
+import { datePickerDayEmptyStyles, datePickerDayStyles } from './utils';
 
 function EmptyDayPure() {
     return <View style={datePickerDayEmptyStyles.root} />;

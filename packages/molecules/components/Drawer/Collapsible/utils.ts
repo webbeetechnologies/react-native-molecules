@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native-unistyles';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../../core';
 
 export const drawerCollapsibleStylesDefault = StyleSheet.create({

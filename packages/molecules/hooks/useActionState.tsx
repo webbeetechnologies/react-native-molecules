@@ -1,7 +1,8 @@
-import { RefObject, useRef } from 'react';
-import { useHover } from './useHover';
+import { type RefObject, useRef } from 'react';
+
 import { useActive } from './useActive';
 import { useFocus } from './useFocus';
+import { useHover } from './useHover';
 
 export type UseActionStateProps = {
     pressed?: boolean;

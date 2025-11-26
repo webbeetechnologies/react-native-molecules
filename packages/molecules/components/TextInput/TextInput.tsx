@@ -1,9 +1,9 @@
 import React, {
     forwardRef,
     memo,
-    PropsWithoutRef,
-    ReactNode,
-    RefObject,
+    type PropsWithoutRef,
+    type ReactNode,
+    type RefObject,
     useCallback,
     useContext,
     useEffect,
@@ -13,6 +13,8 @@ import React, {
     useState,
 } from 'react';
 import type {
+    BlurEvent,
+    FocusEvent,
     LayoutChangeEvent,
     StyleProp,
     TextInputProps,
@@ -122,14 +124,6 @@ export type Props = Omit<TextInputProps, 'ref'> &
          * To display the required indicator in Supporting Text and in the Label
          */
         required?: boolean;
-        /**
-         * Callback that is called when the text input is focused.
-         */
-        onFocus?: (args: any) => void;
-        /**
-         * Callback that is called when the text input is blurred.
-         */
-        onBlur?: (args: any) => void;
         /**
          *
          * Callback to render a custom input component such as `react-native-text-input-mask`
@@ -371,7 +365,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
         }, [focused, hasValue, labelAnimation]);
 
         const handleFocus = useCallback(
-            (args: any) => {
+            (args: FocusEvent) => {
                 if (disabled || !editable) {
                     return;
                 }
@@ -384,7 +378,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
         );
 
         const handleBlur = useCallback(
-            (args: Object) => {
+            (args: BlurEvent) => {
                 if (!editable) {
                     return;
                 }
@@ -434,7 +428,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
                 const syntheticEvent = createSyntheticEvent(
                     event,
                 ) as React.ChangeEvent<HTMLInputElement>;
-                _onBlurRef.current?.(syntheticEvent);
+                _onBlurRef.current?.(syntheticEvent as any);
             };
         }, [onBlurRef]);
 
@@ -463,6 +457,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
         const finalHeight =
             (+(componentStyles.height ?? 0) > 0 ? componentStyles.height : +labelHeight) ?? 0;
         const inputHeight = finalHeight < inputMinHeight ? inputMinHeight : finalHeight;
+        const hasLabel = !!rest.label;
 
         const computedStyles = useMemo(
             () => ({
@@ -486,6 +481,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
                 labelWiggleXOffset,
                 textInputStyle: [
                     styles.inputText,
+                    variant === 'flat' && hasLabel && { paddingTop: 12 },
                     !multiline || (multiline && componentStyles.height)
                         ? { height: inputHeight || labelHeight }
                         : {},
@@ -546,6 +542,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
             // forcing useMemo to recompute when state, size or variant change
             // eslint-disable-next-line
             [
+                hasLabel,
                 state,
                 size,
                 componentStyles,

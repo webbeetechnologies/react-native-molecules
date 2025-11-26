@@ -1,0 +1,102 @@
+---
+title: "Portal"
+description: "Context-aware portal built on @gorhom/portal with bridge support."
+sidebar_position: 38
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Portal" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { StyleSheet, View } from 'react-native';
+import { Portal, PortalProvider } from '@bambooapp/bamboo-molecules/components/Portal';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+        borderWidth: 1,
+        borderColor: '#10b981',
+        borderRadius: 12,
+        gap: 12,
+    },
+});
+
+export default function Example() {
+    return (
+        <View style={{ gap: 10 }}>
+            <PortalProvider>
+                <View style={styles.container}>
+                    <Text>This child is placed in the parent view.</Text>
+
+                    <Portal>
+                        <Text>This child is rendered outside of the root parent.</Text>
+                    </Portal>
+                </View>
+            </PortalProvider>
+        </View>
+    );
+}`}
+/>
+
+### With Context Bridge
+
+<LiveCodeExample
+    code={`import { createContext, useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Portal, registerPortalContext } from '@bambooapp/bamboo-molecules/components/Portal';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const NumberContext = createContext(10);
+const StringContext = createContext('hello world');
+
+registerPortalContext(NumberContext);
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+        borderWidth: 1,
+        borderColor: '#10b981',
+        borderRadius: 12,
+        gap: 8,
+    },
+});
+
+function ChildComponent({ text }: { text: string }) {
+    const number = useContext(NumberContext);
+    const string = useContext(StringContext);
+
+    return (
+        <>
+            <Text>number (bridged): {number}</Text>
+            <Text>string (not bridged): {string}</Text>
+            <Text>{text}</Text>
+        </>
+    );
+}
+
+export default function Example() {
+    return (
+        <NumberContext.Provider value={42}>
+            <StringContext.Provider value="Aloha">
+                <View style={styles.container}>
+                    <ChildComponent text="This child is placed in the parent view." />
+
+                    <Portal>
+                        <ChildComponent text="This child is rendered outside of the root parent." />
+                    </Portal>
+                </View>
+            </StringContext.Provider>
+        </NumberContext.Provider>
+    );
+}`}
+/>
+
+<ComponentProps name="Portal" />

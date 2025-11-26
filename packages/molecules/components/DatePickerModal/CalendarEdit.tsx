@@ -1,10 +1,9 @@
-import { memo, useRef, useEffect, useCallback } from 'react';
-import { TextInput as TextInputNative, Keyboard, View } from 'react-native';
+import { memo, useCallback, useEffect, useRef } from 'react';
+import { Keyboard, TextInput as TextInputNative, View } from 'react-native';
 
 import type { ModeType, ValidRangeType } from '../DatePickerInline';
-
 import DatePickerInputWithoutModal from '../DatePickerInput/DatePickerInputWithoutModal';
-import type { LocalState, LocalStateSingle, LocalStateRange } from './types';
+import type { LocalState, LocalStateRange, LocalStateSingle } from './types';
 import { datePickerModalEditStyles } from './utils';
 
 type Props = {

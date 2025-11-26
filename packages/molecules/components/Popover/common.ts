@@ -1,7 +1,7 @@
 import type { ReactNode, RefObject } from 'react';
-import type { View, ViewStyle, LayoutRectangle, StyleProp } from 'react-native';
-import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { LayoutRectangle, StyleProp, View, ViewStyle } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export type Position = 'top' | 'left' | 'right' | 'bottom';
 export type Align = 'start' | 'center' | 'end';
@@ -38,6 +38,8 @@ export type PopoverProps = {
     withBackdropDismiss?: boolean;
     offset?: number;
     backdropStyles?: StyleProp<ViewStyle>;
+    /** Optional trigger dimensions to trigger re-measurement when changed */
+    triggerDimensions?: { width: number; height: number } | null;
 };
 
 // --- Positioning Helper Functions ---

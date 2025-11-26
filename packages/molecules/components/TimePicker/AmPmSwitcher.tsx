@@ -1,10 +1,10 @@
-import { useMemo, useContext, useCallback } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { View } from 'react-native';
-import { Text } from '../Text';
 
-import { DisplayModeContext } from './DisplayModeContext';
 import { resolveStateVariant } from '../../utils';
+import { Text } from '../Text';
 import { TouchableRipple } from '../TouchableRipple';
+import { DisplayModeContext } from './DisplayModeContext';
 import { timePickerAmPmSwitcherStyles } from './utils';
 
 export default function AmPmSwitcher({

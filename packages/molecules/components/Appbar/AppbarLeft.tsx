@@ -1,5 +1,6 @@
-import { memo, ReactElement, useContext } from 'react';
+import { memo, type ReactElement, useContext } from 'react';
 import { View, type ViewProps } from 'react-native';
+
 import { AppbarContext } from './AppbarBase';
 import { appbarLeft } from './utils';
 

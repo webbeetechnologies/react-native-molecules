@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, memo } from 'react';
+import { memo, type ReactElement, type ReactNode } from 'react';
 
 export type Props = {
     children: ReactElement | ReactNode;

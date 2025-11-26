@@ -1,14 +1,10 @@
-import { createContext, memo, ReactElement, useMemo } from 'react';
+import { createContext, memo, type ReactElement, useMemo } from 'react';
+import type { ViewStyle } from 'react-native';
 
 import { Popover, type PopoverProps } from '../Popover';
-import type { ViewStyle } from 'react-native';
 import { menuStyles } from './utils';
 
-export type Props = Omit<
-    PopoverProps,
-    'setIsOpen' | 'contentTextStyles' | 'contentStyles' | 'onClose' | 'children'
-> & {
-    containerStyle?: ViewStyle;
+export type Props = Omit<PopoverProps, 'setIsOpen' | 'onClose' | 'children'> & {
     style?: ViewStyle;
     closeOnSelect?: boolean;
     onClose: () => void;
@@ -21,21 +17,17 @@ const Menu = ({
     isOpen,
     onClose,
     children,
-    style,
+    style: styleProp,
     backdropStyles = emptyObj,
-    containerStyle: containerStyleProp = emptyObj,
     closeOnSelect = true,
     ...rest
 }: Props) => {
-    const { backdropStyle, containerStyle, contentTextStyle } = useMemo(() => {
-        const { backdrop, container } = menuStyles;
-
+    const { backdropStyle, style } = useMemo(() => {
         return {
-            backdropStyle: [backdrop, backdropStyles] as unknown as ViewStyle,
-            containerStyle: [container, containerStyleProp] as unknown as ViewStyle,
-            contentTextStyle: [menuStyles.root, style] as unknown as ViewStyle,
+            backdropStyle: [menuStyles.backdrop, backdropStyles] as unknown as ViewStyle,
+            style: [menuStyles.root, styleProp] as unknown as ViewStyle,
         };
-    }, [backdropStyles, containerStyleProp, style]);
+    }, [backdropStyles, styleProp]);
 
     const contextValue = useMemo(
         () => ({
@@ -62,9 +54,7 @@ const Menu = ({
             isOpen={isOpen}
             onClose={onClose}
             backdropStyles={backdropStyle}
-            contentStyles={containerStyle}
-            contentTextStyles={contentTextStyle}
-            placement="bottom left"
+            style={style}
             {...rest}>
             <MenuContext.Provider value={contextValue}>{children}</MenuContext.Provider>
         </Popover>

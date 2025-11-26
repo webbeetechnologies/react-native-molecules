@@ -1,0 +1,58 @@
+---
+title: "Menu"
+description: "Context menu built on Popover + Dropdown primitives with keyboard support."
+sidebar_position: 31
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Menu" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useRef, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { Menu } from '@bambooapp/bamboo-molecules/components/Menu';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    menu: {
+        width: 280,
+    },
+});
+
+export default function Example() {
+    const triggerRef = useRef(null);
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <Button ref={triggerRef} onPress={() => setOpen(o => !o)}>
+                Toggle
+            </Button>
+            <Menu style={styles.menu} isOpen={open} onClose={() => setOpen(false)} triggerRef={triggerRef}>
+                <Menu.Item left={<Icon name="content-cut" size={22} />} right={<Text>⌘X</Text>}>
+                    Cut
+                </Menu.Item>
+                <Menu.Item left={<Icon name="content-copy" size={22} />} right={<Text>⌘C</Text>}>
+                    Copy
+                </Menu.Item>
+                <Menu.Item left={<Icon name="content-paste" size={22} />} right={<Text>⌘V</Text>}>
+                    Paste
+                </Menu.Item>
+                <Menu.Divider />
+                <Menu.Item left={<Icon name="cloud" size={22} />}>Web Clipboard</Menu.Item>
+            </Menu>
+        </>
+    );
+}`}
+/>
+
+<ComponentProps name="Menu" />

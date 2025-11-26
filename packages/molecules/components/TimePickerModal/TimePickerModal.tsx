@@ -1,21 +1,21 @@
-import { memo, useState, useCallback, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
-import { Text } from '../Text';
 
+import { format } from '../../utils/date-fns';
+import { Button } from '../Button';
+import { IconButton } from '../IconButton';
+import { Modal, type ModalProps } from '../Modal';
+import { Portal } from '../Portal';
+import { Text } from '../Text';
+import TimePicker from '../TimePicker/TimePicker';
 import {
     clockTypes,
     getTimeInputTypeIcon,
     inputTypes,
-    PossibleClockTypes,
-    PossibleInputTypes,
+    type PossibleClockTypes,
+    type PossibleInputTypes,
     reverseInputTypes,
 } from '../TimePicker/timeUtils';
-import { Modal, type ModalProps } from '../Modal';
-import { format } from '../../utils';
-import { Portal } from '../Portal';
-import TimePicker from '../TimePicker/TimePicker';
-import { IconButton } from '../IconButton';
-import { Button } from '../Button';
 import { styles } from './utils';
 
 export type Props = Omit<ModalProps, 'children'> & {

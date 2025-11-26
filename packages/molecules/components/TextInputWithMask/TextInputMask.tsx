@@ -1,7 +1,8 @@
-import { useState, useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import type { BlurEvent } from 'react-native';
+
 import { TextInput, type TextInputProps } from '../TextInput';
 import { enhanceTextWithMask } from './utils';
-import type { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
 export type Props = Omit<TextInputProps, 'onChangeText'> & {
     mask: string;
@@ -27,7 +28,7 @@ function TextInputWithMask(
     );
 
     const onBlur = useCallback(
-        (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        (e: BlurEvent) => {
             onBlurProp?.(e);
             onChangeTextProp?.(controlledValue);
         },

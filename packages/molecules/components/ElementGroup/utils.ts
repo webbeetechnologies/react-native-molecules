@@ -1,5 +1,6 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 const elementGroupStylesDefault = StyleSheet.create(theme => ({
     root: {

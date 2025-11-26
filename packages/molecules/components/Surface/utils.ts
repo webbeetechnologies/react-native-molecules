@@ -1,7 +1,8 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import type { Animated } from 'react-native';
-import { inputRange } from '../../styles/shadow';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { inputRange } from '../../styles/shadow';
 
 const defaultStylesDefault = StyleSheet.create(theme => ({
     root: {

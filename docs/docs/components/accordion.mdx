@@ -1,0 +1,182 @@
+---
+title: "Accordion"
+description: "Groups dense content into expandable sections with optional nested headers."
+sidebar_position: 0
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Accordion" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { StyleSheet, View } from 'react-native';
+import { Accordion, AccordionItem } from '@bambooapp/bamboo-molecules/components/Accordion';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    item: { width: 360 },
+    content: { padding: 16 },
+    text: { fontSize: 16 },
+});
+
+const leftElement = ({ expanded, color }) => (
+    <Icon color={color} name={expanded ? 'chevron-up' : 'chevron-down'} size={20} />
+);
+
+export default function Example() {
+    return (
+        <Accordion>
+            <AccordionItem style={styles.item} id="1">
+                <AccordionItem.Header left={leftElement}>First Item</AccordionItem.Header>
+                <AccordionItem.Content>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque temporibus ut vero.
+                            Ducimus
+                        </Text>
+                    </View>
+                </AccordionItem.Content>
+            </AccordionItem>
+            <AccordionItem style={styles.item} id="2">
+                <AccordionItem.Header left={leftElement}>Second Item</AccordionItem.Header>
+                <AccordionItem.Content>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque temporibus ut vero.
+                            Ducimus
+                        </Text>
+                    </View>
+                </AccordionItem.Content>
+            </AccordionItem>
+        </Accordion>
+    );
+}`}
+/>
+
+### Controlled
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Accordion, AccordionItem } from '@bambooapp/bamboo-molecules/components/Accordion';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    item: { width: 360 },
+    content: { padding: 16 },
+    text: { fontSize: 16 },
+});
+
+const leftElement = ({ expanded, color }) => (
+    <Icon color={color} name={expanded ? 'chevron-up' : 'chevron-down'} size={20} />
+);
+
+export default function Example() {
+    const [expandedItems, setExpandedItems] = useState<string[]>([]);
+
+    return (
+        <Accordion multiple expandedItemIds={expandedItems} onChange={ids => setExpandedItems(ids as string[])}>
+            <AccordionItem style={styles.item} id="1">
+                <AccordionItem.Header left={leftElement}>First Item</AccordionItem.Header>
+                <AccordionItem.Content>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque temporibus ut vero.
+                            Ducimus
+                        </Text>
+                    </View>
+                </AccordionItem.Content>
+            </AccordionItem>
+            <AccordionItem style={styles.item} id="2">
+                <AccordionItem.Header left={leftElement}>Second Item</AccordionItem.Header>
+                <AccordionItem.Content>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque temporibus ut vero.
+                            Ducimus
+                        </Text>
+                    </View>
+                </AccordionItem.Content>
+            </AccordionItem>
+        </Accordion>
+    );
+}`}
+/>
+
+### Nested Accordion
+
+<LiveCodeExample
+    code={`import { StyleSheet, View } from 'react-native';
+import { Accordion, AccordionItem } from '@bambooapp/bamboo-molecules/components/Accordion';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    item: { width: 360 },
+    content: { padding: 16 },
+    text: { fontSize: 16 },
+});
+
+const leftElement = ({ expanded, color }) => (
+    <Icon color={color} name={expanded ? 'chevron-up' : 'chevron-down'} size={20} />
+);
+
+export default function Example() {
+    return (
+        <Accordion>
+            <AccordionItem style={styles.item} id="1">
+                <AccordionItem.Header left={leftElement}>
+                    Accordion (Accordion Group)
+                </AccordionItem.Header>
+                <AccordionItem.Content>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque temporibus ut vero.
+                            Ducimus
+                        </Text>
+                    </View>
+                </AccordionItem.Content>
+            </AccordionItem>
+            <AccordionItem style={styles.item} id="2">
+                <AccordionItem.Header left={leftElement}>AccordionItem</AccordionItem.Header>
+                <AccordionItem.Content>
+                    <Accordion multiple>
+                        <AccordionItem style={styles.item} id="nested-1">
+                            <AccordionItem.Header left={leftElement}>Accordion Header</AccordionItem.Header>
+                            <AccordionItem.Content>
+                                <View style={styles.content}>
+                                    <Text style={styles.text}>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque temporibus ut
+                                        vero. Ducimus
+                                    </Text>
+                                </View>
+                            </AccordionItem.Content>
+                        </AccordionItem>
+                        <AccordionItem style={styles.item} id="nested-2">
+                            <AccordionItem.Header left={leftElement}>Accordion Content</AccordionItem.Header>
+                            <AccordionItem.Content>
+                                <View style={styles.content}>
+                                    <Text style={styles.text}>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque temporibus ut
+                                        vero. Ducimus
+                                    </Text>
+                                </View>
+                            </AccordionItem.Content>
+                        </AccordionItem>
+                    </Accordion>
+                </AccordionItem.Content>
+            </AccordionItem>
+        </Accordion>
+    );
+}`}
+/>
+
+<ComponentProps name="Accordion" />

@@ -1,12 +1,12 @@
 import {
-    useState,
     createContext,
-    useMemo,
-    useCallback,
-    ReactElement,
     forwardRef,
     memo,
+    type ReactElement,
+    useCallback,
     useImperativeHandle,
+    useMemo,
+    useState,
 } from 'react';
 
 export type Props = {
@@ -25,8 +25,12 @@ export type NavigationStackHandle = {
 const NavigationStack = ({ initialRouteName, children }: Props, ref: any) => {
     const [currentStack, setCurrentStack] = useState<string[]>(() => [
         initialRouteName ||
-            (Array.isArray(children) ? children.find(child => !!child?.props?.name) : children)
-                ?.props?.name ||
+            (
+                (Array.isArray(children)
+                    ? children.find(child => (!!child?.props as any)?.name)
+                    : children
+                )?.props as any
+            )?.name ||
             '',
     ]);
     const currentRoute = currentStack[currentStack.length - 1] || '';

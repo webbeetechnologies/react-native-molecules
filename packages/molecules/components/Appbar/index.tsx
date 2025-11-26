@@ -1,15 +1,15 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
-import AppbarSmall from './AppbarSmall';
-import AppbarCenterAligned from './AppbarCenterAligned';
-import AppbarMedium from './AppbarMedium';
-import AppbarLarge from './AppbarLarge';
+import type { ComponentType } from 'react';
 
-import AppbarLeft from './AppbarLeft';
-import AppbarRight from './AppbarRight';
-import AppbarTitle from './AppbarTitle';
+import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
 import AppbarActions from './AppbarActions';
 import AppbarBase from './AppbarBase';
-import type { ComponentType } from 'react';
+import AppbarCenterAligned from './AppbarCenterAligned';
+import AppbarLarge from './AppbarLarge';
+import AppbarLeft from './AppbarLeft';
+import AppbarMedium from './AppbarMedium';
+import AppbarRight from './AppbarRight';
+import AppbarSmall from './AppbarSmall';
+import AppbarTitle from './AppbarTitle';
 import type { AppbarProps } from './types';
 
 export const AppbarDefault = Object.assign(AppbarBase as ComponentType<AppbarProps>, {
@@ -29,20 +29,18 @@ registerMoleculesComponents({
 
 export const Appbar = getRegisteredComponentWithFallback('Appbar', AppbarDefault);
 
+export type { Props as AppbarActionsProps } from './AppbarActions';
+export type { Props as AppbarLeftProps } from './AppbarLeft';
+export type { Props as AppbarRightProps } from './AppbarRight';
+export type { Props as AppbarTitleProps } from './AppbarTitle';
+export type { AppbarProps } from './types';
 export {
     appbarBaseStyles,
     appbarCenterAlignedStyles,
-    appbarSmallStyles,
-    appbarMediumStyles,
     appbarLargeStyles,
-    appbarTitle,
     appbarLeft,
+    appbarMediumStyles,
     appbarRight,
+    appbarSmallStyles,
+    appbarTitle,
 } from './utils';
-
-export { AppbarProps } from './types';
-
-export { Props as AppbarActionsProps } from './AppbarActions';
-export { Props as AppbarLeftProps } from './AppbarLeft';
-export { Props as AppbarRightProps } from './AppbarRight';
-export { Props as AppbarTitleProps } from './AppbarTitle';

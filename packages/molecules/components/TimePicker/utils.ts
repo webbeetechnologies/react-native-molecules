@@ -1,6 +1,7 @@
+import { StyleSheet } from 'react-native-unistyles';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { circleSize } from './timeUtils';
-import { StyleSheet } from 'react-native-unistyles';
 
 const timePickerStylesDefault = StyleSheet.create(theme => ({
     container: {

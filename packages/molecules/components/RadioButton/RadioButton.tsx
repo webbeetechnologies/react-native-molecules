@@ -1,10 +1,10 @@
 import { forwardRef, memo, useContext, useMemo } from 'react';
+import { Platform } from 'react-native';
 
 import RadioButtonAndroid from './RadioButtonAndroid';
+import { RadioButtonContext } from './RadioButtonGroup';
 import RadioButtonIOS from './RadioButtonIOS';
 import { handlePress, isChecked } from './utils';
-import { RadioButtonContext } from './RadioButtonGroup';
-import { Platform } from 'react-native';
 
 export type Props = {
     /**

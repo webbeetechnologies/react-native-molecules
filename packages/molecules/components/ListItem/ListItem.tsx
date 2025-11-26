@@ -1,13 +1,13 @@
-import { ReactNode, memo, useMemo, forwardRef, createContext } from 'react';
-import { View, type StyleProp, type ViewStyle } from 'react-native';
+import { createContext, forwardRef, memo, type ReactNode, useMemo } from 'react';
+import { type StyleProp, View, type ViewStyle } from 'react-native';
 
+import { useActionState } from '../../hooks';
 import type { WithElements } from '../../types';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import { resolveStateVariant } from '../../utils';
 import { HorizontalDivider } from '../HorizontalDivider';
-import { listItemStyles } from './utils';
-import { useActionState } from '../../hooks';
 import { StateLayer } from '../StateLayer';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import { listItemStyles } from './utils';
 
 export type Props = Omit<TouchableRippleProps, 'children'> &
     WithElements<ReactNode | ((renderArgs: { hovered: boolean }) => ReactNode)> & {

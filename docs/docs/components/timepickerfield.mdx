@@ -1,0 +1,28 @@
+---
+title: "TimePickerField"
+description: "Field-style time input that pairs labels with value segments."
+sidebar_position: 51
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="TimePickerField" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { TimePickerField } from '@bambooapp/bamboo-molecules/components/TimePickerField';
+
+export default function Example() {
+    const [time, setTime] = useState<Date | null>('10:00am');
+
+    return <TimePickerField time={time} onTimeChange={setTime} />;
+}`}
+/>
+
+<ComponentProps name="TimePickerField" />

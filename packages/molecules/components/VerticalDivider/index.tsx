@@ -10,4 +10,4 @@ export const VerticalDivider = getRegisteredComponentWithFallback(
     VerticalDividerDefault,
 );
 
-export { Props as VerticalDividerProps, verticalDividerStyles } from './VerticalDivider';
+export { type Props as VerticalDividerProps, verticalDividerStyles } from './VerticalDivider';

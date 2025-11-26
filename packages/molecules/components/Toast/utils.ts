@@ -1,6 +1,7 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import type { TextStyle, ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 export type CustomProps = {
     container?: ViewStyle;

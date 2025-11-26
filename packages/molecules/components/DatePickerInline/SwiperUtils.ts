@@ -1,4 +1,5 @@
-import { MutableRefObject, useEffect } from 'react';
+import { type RefObject, useEffect } from 'react';
+
 import { useLatest } from '../../hooks';
 import { addMonths, differenceInMonths, getRealIndex, startAtIndex } from './dateUtils';
 
@@ -16,7 +17,7 @@ export function useYearChange(
         selectedYear,
         currentIndexRef,
     }: {
-        currentIndexRef: MutableRefObject<number>;
+        currentIndexRef: RefObject<number>;
         selectedYear: number | undefined;
     },
 ) {

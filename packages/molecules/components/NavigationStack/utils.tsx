@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import { NavigationStackContext } from './NavigationStack';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { NavigationStackContext } from './NavigationStack';
 
 export const useNavigation = () => {
     return useContext(NavigationStackContext);

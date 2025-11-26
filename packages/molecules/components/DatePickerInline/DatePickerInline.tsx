@@ -9,8 +9,8 @@ import type {
     LocalStateSingle,
 } from '../DatePickerModal/types';
 import DatePickerInlineBase from './DatePickerInlineBase';
-import type { DatePickerInlineBaseProps } from './types';
 import DatePickerInlineHeader from './DatePickerInlineHeader';
+import type { DatePickerInlineBaseProps } from './types';
 import { datePickerStyles } from './utils';
 
 export type DatePickerInlineProps = DatePickerInlineBaseProps & {

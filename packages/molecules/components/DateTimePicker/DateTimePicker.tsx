@@ -1,8 +1,9 @@
+import { format, parse, set } from 'date-fns';
 import {
-    ComponentType,
-    RefObject,
+    type ComponentType,
     forwardRef,
     memo,
+    type RefObject,
     useCallback,
     useEffect,
     useImperativeHandle,
@@ -10,14 +11,13 @@ import {
     useRef,
 } from 'react';
 import type { ViewProps, ViewStyle } from 'react-native';
-import { set, format, parse } from 'date-fns';
 
 import { useControlledValue } from '../../hooks';
+import { isValid } from '../../utils/date-fns';
 import { DatePickerInput, type DatePickerInputProps } from '../DatePickerInput';
-import { TimePickerField, TimePickerFieldProps, sanitizeTimeString } from '../TimePickerField';
-import { isValid } from '../../utils';
-import type { TextInputHandles } from '../TextInput/TextInput';
 import { ElementGroup } from '../ElementGroup';
+import type { TextInputHandles } from '../TextInput/TextInput';
+import { sanitizeTimeString, TimePickerField, type TimePickerFieldProps } from '../TimePickerField';
 
 export type Props = Omit<ViewProps, 'style'> & {
     is24Hour?: boolean;

@@ -1,5 +1,6 @@
-import { memo, ReactElement } from 'react';
+import { memo, type ReactElement } from 'react';
 import { View, type ViewProps } from 'react-native';
+
 import { useSubcomponents } from '../../hooks';
 import { navigationRailStyles } from './utils';
 

@@ -1,7 +1,11 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
-import type { Mask } from 'react-native-mask-input';
 import { format, parse, set } from 'date-fns';
 import { StyleSheet } from 'react-native-unistyles';
+
+export declare type MaskItem = string | RegExp | [RegExp];
+export declare type MaskArray = Array<MaskItem>;
+export declare type Mask = MaskArray | ((value?: string) => MaskArray);
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 const timepickerFieldStylesDefault = StyleSheet.create({
     root: {},

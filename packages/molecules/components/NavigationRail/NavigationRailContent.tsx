@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
-import { View, type ScrollViewProps } from 'react-native';
+import { type ScrollViewProps, View } from 'react-native';
+
 import { navigationRailContentStyles } from './utils';
 
 export type Props = ScrollViewProps & {

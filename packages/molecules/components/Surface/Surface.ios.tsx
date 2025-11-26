@@ -1,10 +1,10 @@
-import { ComponentPropsWithRef, ReactNode, forwardRef, memo, useMemo } from 'react';
-import { Animated, View, StyleProp, ViewStyle } from 'react-native';
+import { type ComponentPropsWithRef, forwardRef, memo, type ReactNode, useMemo } from 'react';
+import { Animated, type StyleProp, View, type ViewStyle } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 
 import type { MD3Elevation } from '../../types/theme';
-import { defaultStyles, getStyleForShadowLayer, extractProperties } from './utils';
-import { useUnistyles } from 'react-native-unistyles';
 import { BackgroundContextWrapper } from './BackgroundContextWrapper';
+import { defaultStyles, extractProperties, getStyleForShadowLayer } from './utils';
 
 export type Props = ComponentPropsWithRef<typeof View> & {
     /**

@@ -1,5 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { useCallback, useMemo, useState } from 'react';
+import { type LayoutChangeEvent, StyleSheet, View } from 'react-native';
 
 type WidthAndHeight = {
     width: number;

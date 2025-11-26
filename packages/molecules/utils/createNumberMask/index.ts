@@ -1,1 +1,5 @@
-export { Props as CreateNumberMaskProps, default as createNumberMask } from './createNumberMask';
+export {
+    default as createNumberMask,
+    type Props as CreateNumberMaskProps,
+    type Mask,
+} from './createNumberMask';

@@ -1,5 +1,6 @@
-import { Children, cloneElement, memo, ReactElement, useMemo } from 'react';
+import { Children, cloneElement, memo, type ReactElement, useMemo } from 'react';
 import { View, type ViewProps } from 'react-native';
+
 import { appbarRight } from './utils';
 
 export type Props = Omit<ViewProps, 'children'> & {

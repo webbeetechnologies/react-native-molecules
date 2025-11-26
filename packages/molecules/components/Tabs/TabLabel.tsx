@@ -1,8 +1,8 @@
-import { FC, memo, useMemo } from 'react';
-import { type TextStyle, type TextProps } from 'react-native';
-import { Text } from '../Text';
+import { type FC, memo, useMemo } from 'react';
+import { type TextProps, type TextStyle } from 'react-native';
 
-import { type IconType, type IconProps, Icon } from '../Icon';
+import { Icon, type IconProps, type IconType } from '../Icon';
+import { Text } from '../Text';
 import { tabsLabelStyles } from './utils';
 
 const DEFAULT_ICON_SIZE = 24;

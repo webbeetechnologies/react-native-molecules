@@ -1,8 +1,9 @@
 import { forwardRef, memo } from 'react';
 import { type TextProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { Text } from '../Text';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { Text } from '../Text';
 
 export type Props = TextProps & {
     variant?: 'headline' | 'subhead' | 'text';

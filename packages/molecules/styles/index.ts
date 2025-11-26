@@ -1,4 +1,4 @@
-export { MD3LightTheme, generateLightThemeColors } from './themes/LightTheme';
-export { MD3DarkTheme, generateDarkThemeColors } from './themes/DarkTheme';
+export { generateDarkThemeColors, MD3DarkTheme } from './themes/DarkTheme';
+export { generateLightThemeColors, MD3LightTheme } from './themes/LightTheme';
 export { tokens } from './themes/tokens';
-export { lightenBy, darkenBy } from './utils';
+export { darkenBy, lightenBy } from './utils';

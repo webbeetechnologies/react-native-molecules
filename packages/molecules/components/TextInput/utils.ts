@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native-unistyles';
+
 import {
+    getRegisteredComponentUtils,
     getRegisteredMoleculesComponentStyles,
     registerComponentsStyles,
     registerComponentUtils,
-    getRegisteredComponentUtils,
 } from '../../core';
 
 export type States =
@@ -268,6 +269,9 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
                 sm: {
                     ...theme.typescale.bodyMedium,
                 },
+            },
+            variant: {
+                flat: {},
             },
 
             state: {

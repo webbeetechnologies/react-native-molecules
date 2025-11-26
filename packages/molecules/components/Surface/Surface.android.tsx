@@ -1,13 +1,13 @@
-import { ComponentPropsWithRef, ReactNode, forwardRef, memo, useMemo } from 'react';
-import { Animated, View, StyleProp, ViewStyle } from 'react-native';
+import { forwardRef, memo, type ReactNode, useMemo } from 'react';
+import { Animated, type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
 import { inputRange } from '../../styles/shadow';
 import type { MD3Elevation } from '../../types/theme';
-import { defaultStyles, extractProperties, getElevationAndroid } from './utils';
 import { BackgroundContextWrapper } from './BackgroundContextWrapper';
+import { defaultStyles, extractProperties, getElevationAndroid } from './utils';
 
-export type Props = ComponentPropsWithRef<typeof View> & {
+export type Props = ViewProps & {
     /**
      * Content of the `Surface`.
      */

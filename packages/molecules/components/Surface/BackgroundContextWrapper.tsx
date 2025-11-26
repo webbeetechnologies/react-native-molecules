@@ -1,6 +1,7 @@
-import { memo, ReactNode, useContext, useMemo } from 'react';
-import { BackgroundContext } from '../../utils/backgroundContext';
+import { memo, type ReactNode, useContext, useMemo } from 'react';
+
 import { useContrastColor } from '../../hooks/useContrastColor';
+import { BackgroundContext } from '../../utils/backgroundContext';
 
 export const BackgroundContextWrapper = memo(
     ({ backgroundColor, children }: { backgroundColor: string; children: ReactNode }) => {

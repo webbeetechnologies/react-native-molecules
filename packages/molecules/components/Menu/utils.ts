@@ -1,5 +1,6 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 const menuStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -13,10 +14,6 @@ const menuStylesDefault = StyleSheet.create(theme => ({
     },
     backdrop: {
         opacity: 0,
-    },
-    container: {
-        padding: 0,
-        borderRadius: theme.shapes.corner.small,
     },
 }));
 

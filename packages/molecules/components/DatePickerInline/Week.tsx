@@ -1,6 +1,7 @@
-import { memo, Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { View, type ViewProps } from 'react-native';
-import { DisableWeekDaysType, showWeekDay } from './dateUtils';
+
+import { type DisableWeekDaysType, showWeekDay } from './dateUtils';
 import Day, { EmptyDay } from './Day';
 import { datePickerWeekStyles } from './utils';
 

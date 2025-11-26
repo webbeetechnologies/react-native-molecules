@@ -1,0 +1,35 @@
+---
+title: "FAB"
+description: "Floating action button with primary and extended styles."
+sidebar_position: 21
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="FAB" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { FAB } from '@bambooapp/bamboo-molecules/components/FAB';
+
+export default function Example() {
+    return <FAB iconName="plus" onPress={() => console.log('Create')} />;
+}`}
+/>
+
+### Extended FAB
+
+<LiveCodeExample
+    code={`import { FAB } from '@bambooapp/bamboo-molecules/components/FAB';
+
+export default function Example() {
+    return <FAB iconName="pencil-outline" label="Compose" onPress={() => console.log('Compose')} />;
+}`}
+/>
+
+<ComponentProps name="FAB" />

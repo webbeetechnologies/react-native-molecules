@@ -1,11 +1,11 @@
 import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { DrawerCollapsible, DrawerCollapsibleItem } from './Collapsible';
 import DrawerComponent from './Drawer';
-import DrawerItem from './DrawerItem';
-import DrawerItemGroup from './DrawerItemGroup';
-import DrawerHeader from './DrawerHeader';
 import DrawerContent from './DrawerContent';
 import DrawerFooter from './DrawerFooter';
-import { DrawerCollapsible, DrawerCollapsibleItem } from './Collapsible';
+import DrawerHeader from './DrawerHeader';
+import DrawerItem from './DrawerItem';
+import DrawerItemGroup from './DrawerItemGroup';
 
 const DrawerDefault = Object.assign(DrawerComponent, {
     Item: DrawerItem,
@@ -23,25 +23,25 @@ registerMoleculesComponents({
 
 export const Drawer = getRegisteredComponentWithFallback('Drawer', DrawerDefault);
 
-export { Props as DrawerProps, drawerStyles } from './Drawer';
 export {
-    Props as DrawerItemProps,
-    DrawerItemElement,
-    DrawerItemElementProps,
+    type DrawerCollapsibleItemContentProps,
+    drawerCollapsibleItemContentStyles,
+    type DrawerCollapsibleItemHeaderElementProps,
+    type DrawerCollapsibleItemHeaderProps,
+    drawerCollapsibleItemHeaderStyles,
+    type DrawerCollapsibleItemProps,
+    drawerCollapsibleItemStyles,
+    type DrawerCollapsibleProps,
+    drawerCollapsibleStyles,
+} from './Collapsible';
+export { type Props as DrawerProps, drawerStyles } from './Drawer';
+export { type Props as DrawerContentProps, drawerContentStyles } from './DrawerContent';
+export { type Props as DrawerFooterProps, drawerFooterStyles } from './DrawerFooter';
+export { type Props as DrawerHeaderProps, drawerHeaderStyles } from './DrawerHeader';
+export {
+    type DrawerItemElement,
+    type DrawerItemElementProps,
+    type Props as DrawerItemProps,
     drawerItemStyles,
 } from './DrawerItem';
-export { Props as DrawerItemGroupProps, drawerItemGroupStyles } from './DrawerItemGroup';
-export { Props as DrawerContentProps, drawerContentStyles } from './DrawerContent';
-export { Props as DrawerHeaderProps, drawerHeaderStyles } from './DrawerHeader';
-export { Props as DrawerFooterProps, drawerFooterStyles } from './DrawerFooter';
-export {
-    drawerCollapsibleStyles,
-    drawerCollapsibleItemStyles,
-    drawerCollapsibleItemHeaderStyles,
-    drawerCollapsibleItemContentStyles,
-    DrawerCollapsibleProps,
-    DrawerCollapsibleItemProps,
-    DrawerCollapsibleItemHeaderProps,
-    DrawerCollapsibleItemHeaderElementProps,
-    DrawerCollapsibleItemContentProps,
-} from './Collapsible';
+export { type Props as DrawerItemGroupProps, drawerItemGroupStyles } from './DrawerItemGroup';

@@ -1,18 +1,18 @@
 import {
     cloneElement,
     memo,
+    type ReactElement,
+    type RefAttributes,
     useCallback,
-    ReactElement,
-    useEffect,
     useContext,
-    useMemo,
+    useEffect,
     useImperativeHandle,
-    RefAttributes,
+    useMemo,
 } from 'react';
 import { Platform } from 'react-native';
 
-import { TooltipContext } from './Tooltip';
 import { useActionState } from '../../hooks';
+import { TooltipContext } from './Tooltip';
 
 export type Props = {
     children: ReactElement;

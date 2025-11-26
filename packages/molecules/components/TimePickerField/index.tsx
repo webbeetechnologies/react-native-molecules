@@ -10,5 +10,5 @@ export const TimePickerField = getRegisteredComponentWithFallback(
     TimePickerFieldDefault,
 );
 
-export { Props as TimePickerFieldProps } from './TimePickerField';
-export { styles, sanitizeTimeString } from './utils';
+export { type Props as TimePickerFieldProps } from './TimePickerField';
+export { sanitizeTimeString, styles } from './utils';

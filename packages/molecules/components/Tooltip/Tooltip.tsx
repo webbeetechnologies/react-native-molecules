@@ -1,5 +1,13 @@
-import { createContext, memo, ReactElement, useCallback, useEffect, useMemo, useRef } from 'react';
-import { ViewStyle, ViewProps } from 'react-native';
+import {
+    createContext,
+    memo,
+    type ReactElement,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+} from 'react';
+import { Text, type ViewProps, type ViewStyle } from 'react-native';
 
 import { useSubcomponents, useToggle } from '../../hooks';
 import { Popover, type PopoverProps } from '../Popover';
@@ -113,7 +121,7 @@ const Tooltip = ({
                     // contentTextStyles={contentTextStyles}
                     // popoverContentProps={popoverContentProps}
                     onClose={onClose}>
-                    {Tooltip_Content[0]}
+                    <Text style={tooltipStyles.contentText}>{Tooltip_Content[0]}</Text>
                 </Popover>
             )}
         </TooltipContext.Provider>

@@ -1,20 +1,8 @@
 import type { ColorValue, TextProps } from 'react-native';
 
 export enum IconPacks {
-    Material = 'material',
     MaterialCommunity = 'material-community',
-    SimpleLineIcon = 'simple-line-icon',
-    Zocial = 'zocial',
-    FontAwesome = 'font-awesome',
-    Octicon = 'octicon',
-    Ionicon = 'ionicon',
     Feather = 'feather',
-    Fontisto = 'fontisto',
-    Foundation = 'foundation',
-    EvilIcons = 'evilicon',
-    Entypo = 'entypo',
-    AntDesign = 'antdesign',
-    FontAwesome5 = 'font-awesome-5',
 }
 
 export interface VectorIconProps extends TextProps {

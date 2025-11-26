@@ -1,11 +1,14 @@
-import type { ReactElement, MutableRefObject } from 'react';
+import type { ReactElement, RefObject } from 'react';
 import type {
-    TextInput as NativeTextInput,
     Animated,
-    TextStyle,
+    BlurEvent,
     ColorValue,
+    FocusEvent,
     StyleProp,
+    TextInput as NativeTextInput,
+    TextStyle,
 } from 'react-native';
+
 import type { Props as TextInputProps } from './TextInput';
 
 export type TextInputLabelProp = string | ReactElement;
@@ -15,14 +18,14 @@ export type TextInputSize = 'lg' | 'md' | 'sm';
 export type TextInputVariant = 'flat' | 'outlined' | 'plain';
 
 export type RenderProps = {
-    ref: MutableRefObject<NativeTextInput | null>;
+    ref: RefObject<NativeTextInput | null>;
     onChangeText?: (a: string) => void;
     placeholder?: string;
     placeholderTextColor?: ColorValue;
     editable?: boolean;
     selectionColor?: string;
-    onFocus?: (args: any) => void;
-    onBlur?: (args: any) => void;
+    onFocus?: (args: FocusEvent) => void;
+    onBlur?: (args: BlurEvent) => void;
     underlineColorAndroid?: string;
     style: any;
     multiline?: boolean;
@@ -44,7 +47,7 @@ export type State = {
 
 export type InputBaseProps = {
     parentState: State;
-    innerRef: MutableRefObject<NativeTextInput | null>;
+    innerRef: RefObject<NativeTextInput | null>;
     onFocus?: (args: any) => void;
     onBlur?: (args: any) => void;
     forceFocus: () => void;

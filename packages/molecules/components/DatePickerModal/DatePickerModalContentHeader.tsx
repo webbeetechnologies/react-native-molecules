@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { View, type TextStyle } from 'react-native';
-import { Text } from '../Text';
+import { type TextStyle, View } from 'react-native';
 
-import { format } from '../../utils';
+import { format } from '../../utils/date-fns';
 import type { ModeType } from '../DatePickerInline';
-import type { LocalState, LocalStateMultiple, LocalStateRange, LocalStateSingle } from './types';
 import { IconButton } from '../IconButton';
+import { Text } from '../Text';
+import type { LocalState, LocalStateMultiple, LocalStateRange, LocalStateSingle } from './types';
 import { datePickerModalContentHeaderStyles } from './utils';
 
 export interface HeaderPickProps {

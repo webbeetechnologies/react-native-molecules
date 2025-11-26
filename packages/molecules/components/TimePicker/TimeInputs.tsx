@@ -2,13 +2,18 @@
 // WORK IN PROGRESS
 
 import { memo, useCallback, useRef } from 'react';
-import { View, useWindowDimensions, TextInput as TextInputNative } from 'react-native';
-import { useLatest } from '../../hooks';
+import { TextInput as TextInputNative, useWindowDimensions, View } from 'react-native';
 
-import { clockTypes, PossibleClockTypes, PossibleInputTypes, toHourInputFormat } from './timeUtils';
-import TimeInput from './TimeInput';
-import AmPmSwitcher from './AmPmSwitcher';
+import { useLatest } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
+import AmPmSwitcher from './AmPmSwitcher';
+import TimeInput from './TimeInput';
+import {
+    clockTypes,
+    type PossibleClockTypes,
+    type PossibleInputTypes,
+    toHourInputFormat,
+} from './timeUtils';
 import { timePickerInputsStyles } from './utils';
 
 type Props = {

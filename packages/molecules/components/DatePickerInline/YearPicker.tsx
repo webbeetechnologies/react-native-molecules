@@ -1,11 +1,12 @@
-import { useRef, useEffect, memo, useMemo, useCallback } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { getYearRange, resolveStateVariant } from '../../utils';
-import { useDatePickerStore } from './DatePickerContext';
 import { setYear } from 'date-fns';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+
+import { getYearRange, resolveStateVariant } from '../../utils';
 import { HorizontalDivider } from '../HorizontalDivider';
-import { datePickerYearItemStyles, datePickerYearPickerStyles } from './utils';
 import { ListItem } from '../ListItem';
+import { useDatePickerStore } from './DatePickerContext';
+import { datePickerYearItemStyles, datePickerYearPickerStyles } from './utils';
 
 const ITEM_HEIGHT = 62;
 

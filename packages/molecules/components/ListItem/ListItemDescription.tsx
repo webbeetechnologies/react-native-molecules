@@ -1,9 +1,9 @@
 import { memo, useContext } from 'react';
 import { type TextProps } from 'react-native';
-import { Text } from '../Text';
 
-import { ListItemContext } from './ListItem';
 import { resolveStateVariant } from '../../utils';
+import { Text } from '../Text';
+import { ListItemContext } from './ListItem';
 import { listItemDescriptionStyles } from './utils';
 
 type Props = TextProps & {};

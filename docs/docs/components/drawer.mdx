@@ -1,0 +1,242 @@
+---
+title: "Drawer"
+description: "Permanent, dismissible, and modal navigation drawer with collapsible sections."
+sidebar_position: 17
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Drawer" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useCallback, useState } from 'react';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { Drawer } from '@bambooapp/bamboo-molecules/components/Drawer';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    header: {
+        height: 100,
+        padding: 12,
+    },
+    footer: {
+        height: 50,
+        padding: 12,
+    },
+});
+
+const inboxLeft = ({ color }) => <Icon name="inbox" color={color} size={24} />;
+const inboxRight = ({ color }) => <Text style={{ color }}>24</Text>;
+const outboxLeft = ({ color }) => <Icon name="send-outline" color={color} size={24} />;
+const outboxRight = ({ color }) => <Text style={{ color }}>100+</Text>;
+const favoritesLeft = ({ color }) => <Icon name="heart-outline" color={color} size={24} />;
+const trashLeft = ({ color }) => <Icon name="delete-outline" color={color} size={24} />;
+const collapsibleHeaderLeft = ({ color, expanded }) => (
+    <Icon name={expanded ? 'chevron-up' : 'chevron-down'} color={color} size={24} />
+);
+const importantLeft = ({ color }) => <Icon name="label-outline" color={color} size={24} />;
+const allMailsLeft = ({ color }) => <Icon name="email-multiple-outline" color={color} size={24} />;
+const spamsLeft = ({ color }) => <Icon name="alert-octagon-outline" color={color} size={24} />;
+const manageLabelsLeft = ({ color }) => <Icon name="cog-outline" color={color} size={24} />;
+
+export default function Example() {
+    const { height } = useWindowDimensions();
+    const [activeItem, setActiveItem] = useState(0);
+
+    return (
+        <View>
+            <Drawer style={{ height }}>
+                <Drawer.Header style={styles.header}>
+                    <Text>Header</Text>
+                </Drawer.Header>
+                <Drawer.Content>
+                    <Drawer.ItemGroup title="Mail" showDivider>
+                        <Drawer.Item
+                            label="Inbox"
+                            left={inboxLeft}
+                            active={activeItem === 0}
+                            onPress={useCallback(() => setActiveItem(0), [])}
+                            right={inboxRight}
+                        />
+                        <Drawer.Item
+                            label="Outbox"
+                            left={outboxLeft}
+                            active={activeItem === 1}
+                            onPress={useCallback(() => setActiveItem(1), [])}
+                            right={outboxRight}
+                        />
+                        <Drawer.Item
+                            label="Favorites"
+                            left={favoritesLeft}
+                            active={activeItem === 2}
+                            onPress={useCallback(() => setActiveItem(2), [])}
+                        />
+                        <Drawer.Item
+                            label="Trash"
+                            left={trashLeft}
+                            active={activeItem === 3}
+                            onPress={useCallback(() => setActiveItem(3), [])}
+                        />
+                    </Drawer.ItemGroup>
+                    <Drawer.ItemGroup title="Labels" showDivider>
+                        <Drawer.Item
+                            label="Inbox"
+                            left={inboxLeft}
+                            active={activeItem === 4}
+                            onPress={useCallback(() => setActiveItem(4), [])}
+                        />
+                        <Drawer.CollapsibleItem active={[5, 6, 7, 8].includes(activeItem)}>
+                            <Drawer.CollapsibleItem.Header left={collapsibleHeaderLeft}>
+                                More
+                            </Drawer.CollapsibleItem.Header>
+                            <Drawer.CollapsibleItem.Content>
+                                <Drawer.Item
+                                    label="Important"
+                                    left={importantLeft}
+                                    active={activeItem === 5}
+                                    onPress={useCallback(() => setActiveItem(5), [])}
+                                />
+                                <Drawer.Item
+                                    label="All mails"
+                                    left={allMailsLeft}
+                                    active={activeItem === 6}
+                                    onPress={useCallback(() => setActiveItem(6), [])}
+                                />
+                                <Drawer.Item
+                                    label="Spams"
+                                    left={spamsLeft}
+                                    active={activeItem === 7}
+                                    onPress={useCallback(() => setActiveItem(7), [])}
+                                />
+                                <Drawer.Item
+                                    label="Manage labels"
+                                    left={manageLabelsLeft}
+                                    active={activeItem === 8}
+                                    onPress={useCallback(() => setActiveItem(8), [])}
+                                />
+                            </Drawer.CollapsibleItem.Content>
+                        </Drawer.CollapsibleItem>
+                    </Drawer.ItemGroup>
+                </Drawer.Content>
+                <Drawer.Footer style={styles.footer}>
+                    <Text>Footer</Text>
+                </Drawer.Footer>
+            </Drawer>
+        </View>
+    );
+}`}
+/>
+
+### Drawer Item
+
+<LiveCodeExample
+    code={`import { useCallback } from 'react';
+import { Drawer } from '@bambooapp/bamboo-molecules/components/Drawer';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const left = ({ color }) => <Icon name="inbox" color={color} size={24} />;
+const right = ({ color }) => <Text style={{ color }}>24</Text>;
+
+export default function Example() {
+    return (
+        <Drawer.Item
+            label="Inbox"
+            left={left}
+            right={right}
+        />
+    );
+}`}
+/>
+
+### Drawer Item Group
+
+<LiveCodeExample
+    code={`import { Drawer } from '@bambooapp/bamboo-molecules/components/Drawer';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const inboxLeft = ({ color }) => <Icon name="inbox" color={color} size={24} />;
+const inboxRight = ({ color }) => <Text style={{ color }}>24</Text>;
+const outboxLeft = ({ color }) => <Icon name="send-outline" color={color} size={24} />;
+const outboxRight = ({ color }) => <Text style={{ color }}>100+</Text>;
+const favoritesLeft = ({ color }) => <Icon name="heart-outline" color={color} size={24} />;
+const trashLeft = ({ color }) => <Icon name="delete-outline" color={color} size={24} />;
+
+export default function Example() {
+    return (
+        <Drawer.ItemGroup title="Mail" showDivider>
+            <Drawer.Item
+                label="Inbox"
+                left={inboxLeft}
+                right={inboxRight}
+            />
+            <Drawer.Item
+                label="Outbox"
+                left={outboxLeft}
+                right={outboxRight}
+            />
+            <Drawer.Item
+                label="Favorites"
+                left={favoritesLeft}
+            />
+            <Drawer.Item
+                label="Trash"
+                left={trashLeft}
+            />
+        </Drawer.ItemGroup>
+    );
+}`}
+/>
+
+### Collapsible Item
+
+<LiveCodeExample
+    code={`import { Drawer } from '@bambooapp/bamboo-molecules/components/Drawer';
+import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+
+const collapsibleHeaderLeft = ({ color, expanded }) => (
+    <Icon name={expanded ? 'chevron-up' : 'chevron-down'} color={color} size={24} />
+);
+const importantLeft = ({ color }) => <Icon name="label-outline" color={color} size={24} />;
+const allMailsLeft = ({ color }) => <Icon name="email-multiple-outline" color={color} size={24} />;
+const spamsLeft = ({ color }) => <Icon name="alert-octagon-outline" color={color} size={24} />;
+const manageLabelsLeft = ({ color }) => <Icon name="cog-outline" color={color} size={24} />;
+
+export default function Example() {
+    return (
+        <Drawer.CollapsibleItem>
+            <Drawer.CollapsibleItem.Header left={collapsibleHeaderLeft}>
+                More
+            </Drawer.CollapsibleItem.Header>
+            <Drawer.CollapsibleItem.Content>
+                <Drawer.Item
+                    label="Important"
+                    left={importantLeft}
+                />
+                <Drawer.Item
+                    label="All mails"
+                    left={allMailsLeft}
+                />
+                <Drawer.Item
+                    label="Spams"
+                    left={spamsLeft}
+                />
+                <Drawer.Item
+                    label="Manage labels"
+                    left={manageLabelsLeft}
+                />
+            </Drawer.CollapsibleItem.Content>
+        </Drawer.CollapsibleItem>
+    );
+}`}
+/>
+
+<ComponentProps name="Drawer" />

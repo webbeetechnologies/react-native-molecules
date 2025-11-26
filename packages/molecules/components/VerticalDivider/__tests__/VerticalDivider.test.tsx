@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Surface } from '../../Surface';
+
 import { renderWithWrapper } from '../../../../testHelpers';
+import { Surface } from '../../Surface';
 
 const styles = StyleSheet.create({
     surface: {

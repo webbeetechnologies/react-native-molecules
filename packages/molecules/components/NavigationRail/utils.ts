@@ -1,5 +1,6 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 const navigationRailStylesDefault = StyleSheet.create(theme => ({
     root: {

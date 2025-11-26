@@ -1,0 +1,143 @@
+---
+title: Installation
+sidebar_label: Installation
+sidebar_position: 2
+sidebar_custom_props:
+    icon: 'material:download'
+description: Install Bamboo Molecules, wire up peer dependencies, and configure fonts.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## 1. Install the package
+
+<Tabs
+    defaultValue="pnpm"
+    groupId="package-manager"
+    values={[
+        { label: 'pnpm', value: 'pnpm' },
+        { label: 'npm', value: 'npm' },
+        { label: 'yarn', value: 'yarn' },
+    ]}>
+    <TabItem value="pnpm">
+
+    ```bash
+    pnpm add @bambooapp/bamboo-molecules
+    ```
+
+    </TabItem>
+    <TabItem value="npm">
+
+    ```bash
+    npm install @bambooapp/bamboo-molecules
+    ```
+
+    </TabItem>
+    <TabItem value="yarn">
+
+    ```bash
+    yarn add @bambooapp/bamboo-molecules
+    ```
+
+    </TabItem>
+
+</Tabs>
+
+> We recommend using **pnpm** for the monorepo because it is the package manager we ship with the repo and produces the smallest install footprint.
+
+## 2. Add peer dependencies
+
+Bamboo Molecules uses `react-native-unistyles` for high-performance styling. This is the only required peer dependency.
+
+```bash
+pnpm add react-native-unistyles
+```
+
+### Optional Dependencies
+
+Because Bamboo Molecules is modular, you only need to install additional dependencies if you use specific components.
+
+| Component                      | Dependency                       |
+| ------------------------------ | -------------------------------- |
+| `FilePicker` / `useFilePicker` | `@react-native-documents/picker` |
+
+```bash
+pnpm add @react-native-documents/picker
+```
+
+## 3. Configure fonts & icons
+
+Bamboo Molecules uses `MaterialDesignIcons` behind the scenes.
+
+### Web Support
+
+Due to a [known issue in `react-native-vector-icons`](https://github.com/oblador/react-native-vector-icons/issues/1845), you must manually load the font file on the web.
+
+1.  Copy `MaterialDesignIcons.ttf` from `node_modules/@react-native-vector-icons/material-design-icons/Fonts/` to your project's public folder (e.g., `public/fonts/`).
+2.  Add the `@font-face` definition to your global CSS:
+
+```css title="src/global.css"
+@font-face {
+    font-family: 'MaterialDesignIcons';
+    src: url('/fonts/MaterialDesignIcons.ttf') format('truetype');
+}
+```
+
+## 4. Register Unistyles themes
+
+You **must** configure `react-native-unistyles` so that components can access the theme tokens. This setup also ensures full TypeScript support for your themes.
+
+```ts title="src/unistyles.ts"
+import { StyleSheet } from 'react-native-unistyles';
+
+import { MD3DarkTheme, MD3LightTheme } from '@bambooapp/bamboo-molecules/styles';
+
+const breakpoints = {
+    xs: 0,
+    sm: 300,
+    md: 500,
+    lg: 800,
+    xl: 1200,
+};
+
+type AppBreakpoints = typeof breakpoints;
+
+type AppThemes = {
+    light: typeof MD3LightTheme;
+    dark: typeof MD3DarkTheme;
+};
+
+// override library types
+declare module 'react-native-unistyles' {
+    export interface UnistylesThemes extends AppThemes {}
+    export interface UnistylesBreakpoints extends AppBreakpoints {}
+}
+
+StyleSheet.configure({
+    settings: {
+        initialTheme: 'light',
+    },
+    breakpoints,
+    themes: {
+        light: MD3LightTheme,
+        dark: MD3DarkTheme,
+    },
+});
+```
+
+## 5. Wrap with PortalProvider (Optional)
+
+If you use components that require a portal (like `Popover`, `Tooltip`, `Menu`, `Modal`, etc.), you must wrap your application with `PortalProvider`.
+
+```tsx title="App.tsx"
+import { PortalProvider } from '@bambooapp/bamboo-molecules';
+
+export default function App() {
+    return <PortalProvider>{/* Your app code */}</PortalProvider>;
+}
+```
+
+## 6. Start building
+
+Import any component from `@bambooapp/bamboo-molecules` and pass props exactly as you would in React Native. Components are platform-aware, so the same JSX renders on iOS, Android, and the web.

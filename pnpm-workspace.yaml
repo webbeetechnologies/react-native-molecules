@@ -1,6 +1,4 @@
 packages:
-    - 'examples/expo'
-    - 'examples/web'
-    - 'examples/next'
-    - 'examples/common'
-    - 'packages/molecules'
+    - 'examples/*'
+    - 'packages/*'
+    - 'docs'

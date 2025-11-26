@@ -1,23 +1,23 @@
 import { forwardRef, memo, useCallback, useMemo } from 'react';
-import { Pressable } from 'react-native';
 import type {
     GestureResponderEvent,
-    TextProps,
-    ViewProps,
     PressableProps,
     StyleProp,
+    TextProps,
+    ViewProps,
     ViewStyle,
 } from 'react-native';
+import { Pressable } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { Text } from '../Text';
-import { Icon, type IconProps, type IconType } from '../Icon';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { Badge, type BadgeProps } from '../Badge';
-import { resolveStateVariant } from '../../utils';
-import { StateLayer } from '../StateLayer';
-import { navigationRailItemStyles } from './utils';
 import { useActionState } from '../../hooks';
+import { resolveStateVariant } from '../../utils';
+import { Badge, type BadgeProps } from '../Badge';
+import { Icon, type IconProps, type IconType } from '../Icon';
+import { StateLayer } from '../StateLayer';
+import { Text } from '../Text';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import { navigationRailItemStyles } from './utils';
 
 export type Props = Omit<PressableProps, 'children' | 'disabled' | 'onPress'> & {
     /**

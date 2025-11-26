@@ -1,14 +1,14 @@
-import { forwardRef, memo, PropsWithoutRef, useEffect, useMemo, useRef } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
-import type { ViewProps } from 'react-native';
 import setColor from 'color';
+import { forwardRef, memo, type PropsWithoutRef, useEffect, useMemo, useRef } from 'react';
+import type { ViewProps } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { resolveStateVariant } from '../../utils';
-import { StateLayer } from '../StateLayer';
-import { ANIMATION_DURATION, radioButtonStyles } from './utils';
 import { useActionState } from '../../hooks';
+import { resolveStateVariant } from '../../utils';
 import { tokenStylesParser } from '../../utils/tokenStylesParser';
+import { StateLayer } from '../StateLayer';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import { ANIMATION_DURATION, radioButtonStyles } from './utils';
 
 export type Props = Omit<TouchableRippleProps, 'children'> & {
     /**

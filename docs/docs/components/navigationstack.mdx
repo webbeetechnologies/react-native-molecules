@@ -1,0 +1,84 @@
+---
+title: "NavigationStack"
+description: "Simple stack container for wizard or onboarding flows."
+sidebar_position: 34
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="NavigationStack" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useRef } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button } from '@bambooapp/bamboo-molecules/components/Button';
+import { NavigationStack } from '@bambooapp/bamboo-molecules/components/NavigationStack';
+import { Text } from '@bambooapp/bamboo-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    container: {
+        width: 320,
+        height: 320,
+        padding: 24,
+        borderRadius: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 12,
+        backgroundColor: '#e7e5ff',
+    },
+    text: {
+        fontSize: 24,
+        fontWeight: '600',
+    },
+    button: {
+        alignSelf: 'stretch',
+    },
+});
+
+export default function Example() {
+    const ref = useRef(null);
+
+    const navigate = (route: string) => ref.current?.navigate(route);
+    const goBack = () => ref.current?.goBack();
+
+    return (
+        <NavigationStack ref={ref} initialRouteName="home">
+            <NavigationStack.Item name="home">
+                <View style={styles.container}>
+                    <Text style={styles.text}>Home</Text>
+                    <Button variant="outlined" style={styles.button} onPress={() => navigate('profile')}>
+                        Go To Profile
+                    </Button>
+                </View>
+            </NavigationStack.Item>
+            <NavigationStack.Item name="profile">
+                <View style={styles.container}>
+                    <Text style={styles.text}>Profile</Text>
+                    <Button variant="outlined" style={styles.button} onPress={() => navigate('settings')}>
+                        Go To Settings
+                    </Button>
+                    <Button variant="outlined" style={styles.button} onPress={goBack}>
+                        Go Back
+                    </Button>
+                </View>
+            </NavigationStack.Item>
+            <NavigationStack.Item name="settings">
+                <View style={styles.container}>
+                    <Text style={styles.text}>Settings</Text>
+                    <Button variant="outlined" style={styles.button} onPress={goBack}>
+                        Go Back
+                    </Button>
+                </View>
+            </NavigationStack.Item>
+        </NavigationStack>
+    );
+}`}
+/>
+
+<ComponentProps name="NavigationStack" />

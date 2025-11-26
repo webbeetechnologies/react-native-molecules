@@ -3,14 +3,15 @@ import {
     Animated,
     Easing,
     Pressable,
-    StyleProp,
-    SwitchProps,
-    TextStyle,
-    ViewStyle,
+    type StyleProp,
+    type SwitchProps,
+    type TextStyle,
+    type ViewStyle,
 } from 'react-native';
+
 import { useActionState, useControlledValue, useLatest } from '../../hooks';
-import { Icon, type IconType } from '../Icon';
 import { resolveStateVariant } from '../../utils';
+import { Icon, type IconType } from '../Icon';
 import { switchStyles, useSwitchColors } from './utils';
 
 export type Props = SwitchProps & {
@@ -25,7 +26,6 @@ export type Props = SwitchProps & {
     iconStyle?: TextStyle;
 };
 
-// TODO: Ask alex to create design tokens
 const MOTION_OVERSHOOT = Easing.bezier(0.175, 0.885, 0.32, 1.275);
 const MIN_SIZE_OFFSET = 0.5;
 const CHECKED_OR_WITH_UNCHECKED_ICON_INITIAL_SIZE_OFFSET = 0.74;
@@ -53,7 +53,7 @@ const Switch = (
         onValueChange,
         disabled,
         value: valueProp,
-        checkedIcon,
+        checkedIcon = 'check',
         unCheckedIcon,
         style,
         checkedIconType,

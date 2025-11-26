@@ -1,7 +1,8 @@
 import type { ReactElement } from 'react';
 import type { ViewStyle } from 'react-native';
-import type { SurfaceProps } from '../Surface';
+
 import type { MD3Elevation } from '../../types/theme';
+import type { SurfaceProps } from '../Surface';
 
 export type AppbarType = 'center-aligned' | 'small' | 'medium' | 'large';
 

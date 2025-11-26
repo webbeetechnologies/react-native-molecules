@@ -1,0 +1,3702 @@
+[
+  {
+    "name": "Accordion",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Accordion",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "expandedItemIds",
+        "type": "string | string[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "defaultExpandedItemIds",
+        "type": "string | string[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onChange",
+        "type": "((expandedItems: string | string[]) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "multiple",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "ActivityIndicator",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/ActivityIndicator",
+    "props": [
+      {
+        "name": "animating",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hidesWhenStopped",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "number | \"small\" | \"large\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | null) & ViewStyle) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Appbar",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Appbar",
+    "props": []
+  },
+  {
+    "name": "Avatar",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Avatar",
+    "props": [
+      {
+        "name": "source",
+        "type": "ImageSourcePropType | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconName",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconType",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconProps",
+        "type": "Omit<IconProps, \"ref\" | \"name\" | \"type\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "label",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelProps",
+        "type": "Omit<TextProps, \"children\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "imageProps",
+        "type": "Omit<ImageProps, \"source\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "string | number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Backdrop",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Backdrop",
+    "props": []
+  },
+  {
+    "name": "Badge",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Badge",
+    "props": [
+      {
+        "name": "label",
+        "type": "string | number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelProps",
+        "type": "Omit<TextProps, \"children\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Button",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Button",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityHint",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "elevation",
+        "type": "MD3Elevation | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "ButtonVariant | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "buttonColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "loading",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconType",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconName",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconSize",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPress",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPressIn",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPressOut",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onLongPress",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "contentStyle",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelStyle",
+        "type": "TextStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconContainerStyle",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "ButtonSize | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "stateLayerProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "textRelatedStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Card",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Card",
+    "props": [
+      {
+        "name": "variant",
+        "type": "CardVariant | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "touchableContainerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "elevation",
+        "type": "MD3Elevation | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disableOnHoverElevation",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Checkbox",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Checkbox",
+    "props": [
+      {
+        "name": "hitSlop",
+        "type": "number | Insets | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "id",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "needsOffscreenAlphaCompositing",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onLayout",
+        "type": "((event: LayoutChangeEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "pointerEvents",
+        "type": "\"box-none\" | \"none\" | \"box-only\" | \"auto\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "removeClippedSubviews",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "(((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) & (false | \"\" | TextStyle | RegisteredStyle<TextStyle> | RecursiveArray<Falsy | TextStyle | RegisteredStyle<TextStyle>>)) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "nativeID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "collapsable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "collapsableChildren",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onBlur",
+        "type": "((event: NativeSyntheticEvent<TargetedEvent>) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onFocus",
+        "type": "((event: NativeSyntheticEvent<TargetedEvent>) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "renderToHardwareTextureAndroid",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "focusable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tabIndex",
+        "type": "0 | -1 | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "shouldRasterizeIOS",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "isTVSelectable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hasTVPreferredFocus",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxShiftDistanceX",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxShiftDistanceY",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxTiltAngle",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxMagnification",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onStartShouldSetResponder",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMoveShouldSetResponder",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderEnd",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderGrant",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderReject",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderMove",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderRelease",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderStart",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderTerminationRequest",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderTerminate",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onStartShouldSetResponderCapture",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMoveShouldSetResponderCapture",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchStart",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchMove",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchEnd",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchCancel",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchEndCapture",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerEnter",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerEnterCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerLeave",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerLeaveCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerMove",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerMoveCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerCancel",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerCancelCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerDown",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerDownCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerUp",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerUpCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessible",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityActions",
+        "type": "readonly Readonly<{ name: AccessibilityActionName | string; label?: string | undefined; }>[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-label",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityRole",
+        "type": "AccessibilityRole | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityState",
+        "type": "AccessibilityState | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-busy",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-checked",
+        "type": "boolean | \"mixed\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-expanded",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-selected",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityHint",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityValue",
+        "type": "AccessibilityValue | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuemax",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuemin",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuenow",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuetext",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityAction",
+        "type": "((event: AccessibilityActionEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "importantForAccessibility",
+        "type": "\"auto\" | \"yes\" | \"no\" | \"no-hide-descendants\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-hidden",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-modal",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "role",
+        "type": "Role | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabelledBy",
+        "type": "string | string[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLiveRegion",
+        "type": "\"none\" | \"polite\" | \"assertive\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-live",
+        "type": "\"polite\" | \"assertive\" | \"off\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "screenReaderFocusable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityElementsHidden",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityViewIsModal",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityEscape",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityTap",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMagicTap",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityIgnoresInvertColors",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLanguage",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityShowsLargeContentViewer",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLargeContentTitle",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityRespondsToUserInteraction",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPress",
+        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPressIn",
+        "type": "((event: GestureResponderEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPressOut",
+        "type": "((event: GestureResponderEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onLongPress",
+        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "pressRetentionOffset",
+        "type": "number | Insets | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onHoverIn",
+        "type": "((event: MouseEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onHoverOut",
+        "type": "((event: MouseEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "cancelable",
+        "type": "boolean | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "delayHoverIn",
+        "type": "number | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "delayHoverOut",
+        "type": "number | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "delayLongPress",
+        "type": "number | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "android_disableSound",
+        "type": "boolean | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "android_ripple",
+        "type": "PressableAndroidRippleConfig | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testOnly_pressed",
+        "type": "boolean | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "unstable_pressDelay",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "borderless",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "background",
+        "type": "Object | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "centered",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "rippleColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "underlayColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "value",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "defaultValue",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onChange",
+        "type": "((newValue: boolean) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "indeterminate",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "Size | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "uncheckedColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "label",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "containerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelProps",
+        "type": "Omit<TextProps, \"children\" | \"style\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "position",
+        "type": "\"leading\" | \"trailing\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Chip",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Chip",
+    "props": [
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPress",
+        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelCharacterLimit",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "\"outlined\" | \"elevated\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onClose",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "elevation",
+        "type": "MD3Elevation | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "selected",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "closeIconProps",
+        "type": "Partial<IconButtonProps> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "activityIndicatorProps",
+        "type": "Partial<ActivityIndicatorProps> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "selectedColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "selectionBackgroundColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "loading",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "containerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "leftElementContainerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "rightElementContainerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelStyle",
+        "type": "Partial<TextStyle> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "stateLayerProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "containerProps",
+        "type": "Omit<ViewProps, \"style\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "leftElementIconProps",
+        "type": "IconProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "rightElementIconProps",
+        "type": "IconProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "backgroundColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "invertLabelColor",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "DatePickerDocked",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerDocked",
+    "props": []
+  },
+  {
+    "name": "DatePickerInline",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerInline",
+    "props": []
+  },
+  {
+    "name": "DatePickerInput",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerInput",
+    "props": []
+  },
+  {
+    "name": "DatePickerModal",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/DatePickerModal",
+    "props": []
+  },
+  {
+    "name": "DateTimePicker",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/DateTimePicker",
+    "props": [
+      {
+        "name": "is24Hour",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "date",
+        "type": "Date | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onChange",
+        "type": "((date: Date | null) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "defaultValue",
+        "type": "Date | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "timePickerFieldProps",
+        "type": "Omit<Partial<TimePickerFieldProps>, \"onChangeText\" | \"value\" | \"date\" | \"onTimeChange\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "datePickerInputProps",
+        "type": "Omit<Partial<DatePickerInputProps>, \"onChange\" | \"value\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "datePickerInputRef",
+        "type": "RefObject<TextInputHandles | null> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "timePickerInputRef",
+        "type": "RefObject<TextInputHandles | null> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "Wrapper",
+        "type": "ComponentType<any> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Dialog",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Dialog",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "isOpen",
+        "type": "boolean",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onClose",
+        "type": "((() => void) & (() => void)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconProps",
+        "type": "IconProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Drawer",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Drawer",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "ElementGroup",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/ElementGroup",
+    "props": [
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "borderRadius",
+        "type": "string | number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "FAB",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/FAB",
+    "props": [
+      {
+        "name": "iconName",
+        "type": "string",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconType",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconProps",
+        "type": "Omit<IconProps, \"ref\" | \"name\" | \"type\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "label",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelProps",
+        "type": "Omit<Partial<TextProps>, \"children\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "containerProps",
+        "type": "Omit<SurfaceProps, \"ref\" | \"style\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "innerContainerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "FABVariant | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "elevation",
+        "type": "MD3Elevation | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "stateLayerProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "FilePicker",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/FilePicker",
+    "props": [
+      {
+        "name": "onChange",
+        "type": "(((e: TextInputChangeEvent) => void) & ((result: DocumentResult | DocumentResult[]) => any)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "multiple",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "loading",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "left",
+        "type": "ReactNode",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "right",
+        "type": "ReactNode",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "value",
+        "type": "DocumentResult | DocumentResult[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "progressIndicator",
+        "type": "ReactNode",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "HelperText",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/HelperText",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "\"error\" | \"info\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "visible",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "HorizontalDivider",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/HorizontalDivider",
+    "props": [
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "leftInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "rightInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "bold",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "spacing",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Icon",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Icon",
+    "props": []
+  },
+  {
+    "name": "IconButton",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/IconButton",
+    "props": [
+      {
+        "name": "accessibilityLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPress",
+        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "IconButtonVariant | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "selected",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "number | \"sm\" | \"md\" | \"lg\" | \"xs\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "type",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "animated",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "innerContainerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "stateLayerProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "If",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/If",
+    "props": []
+  },
+  {
+    "name": "InputAddon",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/InputAddon",
+    "props": [
+      {
+        "name": "variant",
+        "type": "\"left\" | \"right\"",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Link",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Link",
+    "props": [
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "href",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "ListItem",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/ListItem",
+    "props": [
+      {
+        "name": "style",
+        "type": "(((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hovered",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "divider",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "\"default\" | \"menuItem\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "selected",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hoverable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Menu",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Menu",
+    "props": [
+      {
+        "name": "style",
+        "type": "((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | null) & ViewStyle) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "closeOnSelect",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Modal",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Modal",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "dismissible",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "overlayAccessibilityLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "elevation",
+        "type": "MD3Elevation | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "isOpen",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onClose",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "contentContainerStyle",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "\"md\" | \"lg\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "backdropStyle",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "containerStyle",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "NavigationRail",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/NavigationRail",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "NavigationStack",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/NavigationStack",
+    "props": [
+      {
+        "name": "initialRouteName",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Popover",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Popover",
+    "props": []
+  },
+  {
+    "name": "Portal",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Portal",
+    "props": []
+  },
+  {
+    "name": "RadioButton",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/RadioButton",
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "status",
+        "type": "\"checked\" | \"unchecked\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPress",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "uncheckedColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Rating",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Rating",
+    "props": [
+      {
+        "name": "count",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "value",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "defaultValue",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onChange",
+        "type": "((value: number) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "readonly",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconName",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconType",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "activeIconName",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "activeIconType",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "activeColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconContainerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconProps",
+        "type": "Omit<IconProps, \"ref\" | \"name\" | \"type\" | \"color\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "showTooltips",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tooltipProps",
+        "type": "TooltipProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Select",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Select",
+    "props": []
+  },
+  {
+    "name": "StateLayer",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/StateLayer",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hitSlop",
+        "type": "number | Insets | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "id",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "needsOffscreenAlphaCompositing",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onLayout",
+        "type": "((event: LayoutChangeEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "pointerEvents",
+        "type": "\"box-none\" | \"none\" | \"box-only\" | \"auto\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "removeClippedSubviews",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "nativeID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "collapsable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "collapsableChildren",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onBlur",
+        "type": "((e: BlurEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onFocus",
+        "type": "((e: FocusEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "renderToHardwareTextureAndroid",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "focusable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tabIndex",
+        "type": "0 | -1 | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "shouldRasterizeIOS",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "isTVSelectable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hasTVPreferredFocus",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxShiftDistanceX",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxShiftDistanceY",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxTiltAngle",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxMagnification",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onStartShouldSetResponder",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMoveShouldSetResponder",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderEnd",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderGrant",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderReject",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderMove",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderRelease",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderStart",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderTerminationRequest",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderTerminate",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onStartShouldSetResponderCapture",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMoveShouldSetResponderCapture",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchStart",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchMove",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchEnd",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchCancel",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchEndCapture",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerEnter",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerEnterCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerLeave",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerLeaveCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerMove",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerMoveCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerCancel",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerCancelCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerDown",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerDownCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerUp",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerUpCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessible",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityActions",
+        "type": "readonly Readonly<{ name: AccessibilityActionName | string; label?: string | undefined; }>[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-label",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityRole",
+        "type": "AccessibilityRole | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityState",
+        "type": "AccessibilityState | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-busy",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-checked",
+        "type": "boolean | \"mixed\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-expanded",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-selected",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityHint",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityValue",
+        "type": "AccessibilityValue | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuemax",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuemin",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuenow",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuetext",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityAction",
+        "type": "((event: AccessibilityActionEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "importantForAccessibility",
+        "type": "\"auto\" | \"yes\" | \"no\" | \"no-hide-descendants\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-hidden",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-modal",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "role",
+        "type": "Role | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabelledBy",
+        "type": "string | string[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLiveRegion",
+        "type": "\"none\" | \"polite\" | \"assertive\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-live",
+        "type": "\"polite\" | \"assertive\" | \"off\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "screenReaderFocusable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityElementsHidden",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityViewIsModal",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityEscape",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityTap",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMagicTap",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityIgnoresInvertColors",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLanguage",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityShowsLargeContentViewer",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLargeContentTitle",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityRespondsToUserInteraction",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Surface",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Surface",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "elevation",
+        "type": "MD3Elevation | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "backgroundColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Switch",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Switch",
+    "props": [
+      {
+        "name": "checkedIcon",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "unCheckedIcon",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "checkedIconType",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "uncheckedIconType",
+        "type": "\"material-community\" | \"feather\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "thumbStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "thumbContainerStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "switchOverlayStyle",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconStyle",
+        "type": "TextStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Tabs",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Tabs",
+    "props": []
+  },
+  {
+    "name": "Text",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Text",
+    "props": []
+  },
+  {
+    "name": "TextInput",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/TextInput",
+    "props": [
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "numberOfLines",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "selectionColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "multiline",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onChangeText",
+        "type": "(((text: string) => void) & Function) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "placeholder",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "value",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "ref",
+        "type": "React.RefObject<TextInputHandles | null> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "TextInputVariant | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "label",
+        "type": "TextInputLabelProp | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "error",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "underlineColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "activeUnderlineColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "outlineColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "activeOutlineColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "TextInputSize | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "supportingText",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "required",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "render",
+        "type": "((props: RenderProps) => ReactNode) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "inputContainerStyle",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "inputStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "rightElementStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "leftElementStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "stateLayerProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "TextInputWithMask",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/TextInputWithMask",
+    "props": []
+  },
+  {
+    "name": "TimePicker",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/TimePicker",
+    "props": [
+      {
+        "name": "time",
+        "type": "string",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTimeChange",
+        "type": "(params: { time: string; focused?: undefined | PossibleClockTypes; }) => any",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "is24Hour",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "inputType",
+        "type": "PossibleInputTypes | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "focused",
+        "type": "PossibleClockTypes | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onFocusInput",
+        "type": "((type: PossibleClockTypes) => any) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "isLandscape",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "TimePickerField",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/TimePickerField",
+    "props": [
+      {
+        "name": "time",
+        "type": "string",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTimeChange",
+        "type": "(time: string) => void",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "is24Hour",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "withModal",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "modalProps",
+        "type": "Omit<TimePickerModalProps, \"ref\" | \"time\" | \"onClose\" | \"isOpen\" | \"onConfirm\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "iconButtonProps",
+        "type": "Omit<Partial<IconButtonProps>, \"ref\" | \"onPress\"> | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "TimePickerModal",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/TimePickerModal",
+    "props": [
+      {
+        "name": "is24Hour",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "label",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "uppercase",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "cancelLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "confirmLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "time",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onConfirm",
+        "type": "(time: string) => any",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "keyboardIcon",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "clockIcon",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "isLandscape",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Toast",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Toast",
+    "props": []
+  },
+  {
+    "name": "Tooltip",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/Tooltip",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode & (ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[])",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | null) & ViewStyle) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "showArrow",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "fadeInDelay",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "fadeOutDelay",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hoverableContent",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "TouchableRipple",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/TouchableRipple",
+    "props": [
+      {
+        "name": "onPress",
+        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onLongPress",
+        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "((string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | ((state: PressableStateCallbackType) => React.ReactNode)) & (string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined>)) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "borderless",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "background",
+        "type": "Object | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "centered",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "rippleColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "underlayColor",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "VerticalDivider",
+    "sourcePath": "@bambooapp/bamboo-molecules/components/VerticalDivider",
+    "props": [
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "topInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "bottomInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "bold",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "spacing",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  }
+]

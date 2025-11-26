@@ -1,11 +1,11 @@
-import { memo, useCallback, useMemo } from 'react';
-import { StyleProp, View, type ViewStyle } from 'react-native';
-
-import DayNames from './DayNames';
-import HeaderItem from './HeaderItem';
 import { add, format } from 'date-fns';
+import { memo, useCallback, useMemo } from 'react';
+import { type StyleProp, View, type ViewStyle } from 'react-native';
+
 import { useDatePickerStore, useDatePickerStoreValue } from './DatePickerContext';
 import type { DisableWeekDaysType } from './dateUtils';
+import DayNames from './DayNames';
+import HeaderItem from './HeaderItem';
 import { datePickerHeaderStyles, dayNamesHeight } from './utils';
 
 const buttonContainerHeight = 56;

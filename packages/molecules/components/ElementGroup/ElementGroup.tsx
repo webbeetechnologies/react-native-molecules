@@ -1,7 +1,7 @@
-import { memo, forwardRef, cloneElement, Children, useMemo } from 'react';
-import { View, ViewStyle, type ViewProps } from 'react-native';
+import { Children, cloneElement, forwardRef, memo, type ReactElement, useMemo } from 'react';
+import { View, type ViewProps, type ViewStyle } from 'react-native';
 
-import { isNil } from '../../utils';
+import { isNil } from '../../utils/lodash';
 import { elementGroupStyles } from './utils';
 
 export enum Orientation {
@@ -73,7 +73,7 @@ export const ElementGroup = (
         if (!Array.isArray(children) || children.length <= 1) return children;
 
         // if we have enough elements for left, right
-        return Children.map(children, (child: JSX.Element, index) => {
+        return Children.map(children, (child: ReactElement, index) => {
             const [firstBorderProp, lastBorderProp] = {
                 [Orientation.Horizontal]: ['borderTopRightRadius', 'borderBottomLeftRadius'],
                 [Orientation.Vertical]: ['borderBottomLeftRadius', 'borderTopRightRadius'],
@@ -123,8 +123,8 @@ export const ElementGroup = (
             };
 
             return cloneElement(child, {
-                ...child.props,
-                style: [child.props.style, borderRadiusStyles[prop]].flat(),
+                ...(child.props as any),
+                style: [(child.props as any).style, borderRadiusStyles[prop]].flat(),
             });
         });
     }, [borderRadius, borderRadiuses, children, orientation]);

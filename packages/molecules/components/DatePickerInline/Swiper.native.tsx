@@ -1,21 +1,21 @@
-import { memo, useRef, useCallback, useState, useMemo } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import {
-    NativeScrollEvent,
-    NativeSyntheticEvent,
+    type NativeScrollEvent,
+    type NativeSyntheticEvent,
     ScrollView,
     StyleSheet,
     View,
-    ViewStyle,
+    type ViewStyle,
 } from 'react-native';
 
+import AutoSizer from './AutoSizer';
+import { beginOffset, estimatedMonthHeight, totalMonths } from './dateUtils';
 import {
     getHorizontalMonthOffset,
     getIndexFromVerticalOffset,
     getMonthHeight,
     getVerticalMonthsOffset,
 } from './Month';
-import { beginOffset, estimatedMonthHeight, totalMonths } from './dateUtils';
-import AutoSizer from './AutoSizer';
 import type { SwiperProps } from './SwiperUtils';
 import { montHeaderHeight } from './utils';
 

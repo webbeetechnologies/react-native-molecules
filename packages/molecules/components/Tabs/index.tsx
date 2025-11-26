@@ -1,13 +1,10 @@
 import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
-
-import { TabBase } from './Tabs';
-import type { TabsProps } from './Tabs';
-
-import { default as TabItem } from './TabItem';
 import type { TabItemProps } from './TabItem';
-
-import { default as TabLabel } from './TabLabel';
+import { default as TabItem } from './TabItem';
 import type { TabLabelProps } from './TabLabel';
+import { default as TabLabel } from './TabLabel';
+import type { TabsProps } from './Tabs';
+import { TabBase } from './Tabs';
 
 export const TabsDefault = Object.assign(TabBase, {
     Item: TabItem,
@@ -20,5 +17,5 @@ registerMoleculesComponents({
 
 export const Tabs = getRegisteredComponentWithFallback('Tabs', TabsDefault);
 
-export type { TabsProps, TabItemProps, TabLabelProps };
-export { tabsStyles, tabsItemStyles, tabsLabelStyles } from './utils';
+export type { TabItemProps, TabLabelProps, TabsProps };
+export { tabsItemStyles, tabsLabelStyles, tabsStyles } from './utils';

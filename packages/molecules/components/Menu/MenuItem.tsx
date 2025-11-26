@@ -1,21 +1,20 @@
-import { forwardRef, memo, ReactNode, useCallback, useContext, useMemo } from 'react';
+import { forwardRef, memo, type ReactNode, useCallback, useContext, useMemo } from 'react';
 import {
-    StyleProp,
-    Text,
-    View,
-    ViewStyle,
     type GestureResponderEvent,
+    type StyleProp,
+    Text,
     type TextProps,
+    View,
+    type ViewStyle,
 } from 'react-native';
 
-import type { WithElements } from '../../types';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { StateLayer, type StateLayerProps } from '../StateLayer';
-
-import { MenuContext } from './Menu';
-import { resolveStateVariant } from '../../utils';
-import { menuItemStyles } from './utils';
 import { useActionState } from '../../hooks';
+import type { WithElements } from '../../types';
+import { resolveStateVariant } from '../../utils';
+import { StateLayer, type StateLayerProps } from '../StateLayer';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import { MenuContext } from './Menu';
+import { menuItemStyles } from './utils';
 
 export type Props = TouchableRippleProps &
     WithElements<ReactNode> & {

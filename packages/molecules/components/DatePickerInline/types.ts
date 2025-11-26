@@ -1,7 +1,8 @@
-import type { ViewStyle } from 'react-native';
-import type { DisableWeekDaysType } from './dateUtils';
 import type { MemoExoticComponent } from 'react';
+import type { ViewStyle } from 'react-native';
+
 import type { CalendarHeaderProps } from './DatePickerInlineHeader';
+import type { DisableWeekDaysType } from './dateUtils';
 
 export interface BaseMonthProps {
     locale: undefined | string;

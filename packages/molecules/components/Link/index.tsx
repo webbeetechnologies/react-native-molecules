@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const Link = getRegisteredComponentWithFallback('Link', LinkDefault);
 
-export { Props as LinkProps } from './Link';
+export type { Props as LinkProps } from './Link';
 export { linkStyles } from './utils';

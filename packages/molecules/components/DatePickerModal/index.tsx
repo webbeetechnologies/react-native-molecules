@@ -10,11 +10,11 @@ export const DatePickerModal = getRegisteredComponentWithFallback(
     DatePickerModalDefault,
 );
 
-export { DatePickerModalProps } from './types';
+export type { DatePickerModalProps } from './types';
 export {
-    datePickerModalStyles,
     datePickerModalContentHeaderStyles,
-    datePickerModalHeaderStyles,
-    datePickerModalHeaderBackgroundStyles,
     datePickerModalEditStyles,
+    datePickerModalHeaderBackgroundStyles,
+    datePickerModalHeaderStyles,
+    datePickerModalStyles,
 } from './utils';

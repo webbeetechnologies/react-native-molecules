@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { formatNumberWithMask, isNil, normalizeToNumberString } from '../utils';
 import type { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+
+import { formatNumberWithMask, normalizeToNumberString } from '../utils';
+import { isNil } from '../utils/lodash';
 import usePrevious from './usePrevious';
 
 export type NumberMaskConfig = {

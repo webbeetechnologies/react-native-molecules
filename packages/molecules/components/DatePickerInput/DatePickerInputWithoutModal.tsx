@@ -1,8 +1,8 @@
 import { forwardRef, memo, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 
+import { TextInputWithMask } from '../TextInputWithMask';
 import useDateInput from './inputUtils';
 import type { DatePickerInputWithoutModalProps } from './types';
-import { TextInputWithMask } from '../TextInputWithMask';
 import { datePickerInputStyles } from './utils';
 
 function DatePickerInputWithoutModal(

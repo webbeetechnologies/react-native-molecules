@@ -1,19 +1,19 @@
-import { useRef, memo, useMemo, useCallback } from 'react';
-import { FlatList, View, ViewStyle } from 'react-native';
-import { Text } from '../Text';
-
-import { range } from '../../utils/dateTimePicker';
-import { useDatePickerStore, useDatePickerStoreValue } from './DatePickerContext';
 import { format, setMonth } from 'date-fns';
+import { memo, useCallback, useMemo, useRef } from 'react';
+import { FlatList, View, type ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
+
 import { resolveStateVariant } from '../../utils';
-import { HorizontalDivider } from '../HorizontalDivider';
+import { range } from '../../utils/dateTimePicker';
 import {
     datePickerDockedMonthItemStyles,
     datePickerMonthPickerStyles,
 } from '../DatePickerDocked/utils';
-import { ListItem } from '../ListItem/';
+import { HorizontalDivider } from '../HorizontalDivider';
 import { Icon } from '../Icon';
-import { StyleSheet } from 'react-native-unistyles';
+import { ListItem } from '../ListItem/';
+import { Text } from '../Text';
+import { useDatePickerStore, useDatePickerStoreValue } from './DatePickerContext';
 
 export default function MonthPicker() {
     const [_, setStore] = useDatePickerStore(state => state);

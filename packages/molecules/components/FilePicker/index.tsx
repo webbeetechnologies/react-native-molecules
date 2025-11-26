@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const FilePicker = getRegisteredComponentWithFallback('FilePicker', FilePickerDefault);
 
-export { Props as FilePickerProps } from './FilePicker';
+export type { Props as FilePickerProps } from './FilePicker';
 export { defaultStyles } from './utils';

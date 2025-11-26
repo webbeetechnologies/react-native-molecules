@@ -1,13 +1,13 @@
-import { forwardRef, memo, ReactNode, useMemo } from 'react';
-import { type TextStyle, type ViewStyle, type TextProps, View } from 'react-native';
+import { forwardRef, memo, type ReactNode, useMemo } from 'react';
+import { type TextProps, type TextStyle, View, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { Text } from '../Text';
-import type { WithElements } from '../../types';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { resolveStateVariant } from '../../utils';
+import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
 import { useActionState } from '../../hooks';
-import { registerComponentStyles, getRegisteredMoleculesComponentStyles } from '../../core';
+import type { WithElements } from '../../types';
+import { resolveStateVariant } from '../../utils';
+import { Text } from '../Text';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 
 export type DrawerItemElementProps = { color: string; hovered: boolean };
 

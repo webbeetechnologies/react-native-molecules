@@ -1,15 +1,15 @@
-import { useRef, useLayoutEffect, useCallback, useEffect, memo, Fragment } from 'react';
-import { View, StyleSheet, Dimensions, Pressable, AppState, Platform } from 'react-native';
+import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { Pressable, View } from 'react-native';
+import { ScopedTheme, StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 
 import { Portal } from '../Portal';
 import {
-    PopoverProps,
     DEFAULT_ARROW_SIZE,
+    popoverDefaultStyles,
+    type PopoverProps,
     useArrowStyles,
     usePopover,
-    popoverDefaultStyles,
 } from './common';
-import { ScopedTheme, UnistylesRuntime } from 'react-native-unistyles';
 
 const Popover = ({
     triggerRef,
@@ -19,9 +19,15 @@ const Popover = ({
     position = 'bottom',
     align = 'center',
     style,
-    showArrow = true,
+    showArrow = false,
     arrowSize = DEFAULT_ARROW_SIZE,
     inverted = false,
+    // @ts-ignore
+    dataSet,
+    withBackdropDismiss = false,
+    offset = 8,
+    backdropStyles,
+    triggerDimensions,
     ...rest
 }: PopoverProps) => {
     const {
@@ -37,23 +43,17 @@ const Popover = ({
         align,
         showArrow,
         arrowSize,
+        offset,
     });
 
     const popoverRef = useRef<View>(null);
 
     const measureTarget = useCallback(() => {
         if (triggerRef.current) {
-            triggerRef.current.measure(
-                (
-                    _fx: number,
-                    _fy: number,
-                    width: number,
-                    height: number,
-                    px: number,
-                    py: number,
-                ) => {
+            triggerRef.current.measureInWindow(
+                (x: number, y: number, width: number, height: number) => {
                     if (width !== 0 || height !== 0) {
-                        const newLayout = { x: px, y: py, width, height };
+                        const newLayout = { x, y, width, height };
                         const changed =
                             !targetLayoutRef.current ||
                             targetLayoutRef.current.x !== newLayout.x ||
@@ -70,11 +70,6 @@ const Popover = ({
                         calculateAndSetPosition();
                     }
                 },
-                () => {
-                    console.error('Failed to measure target element for Popover.');
-                    targetLayoutRef.current = null;
-                    calculateAndSetPosition();
-                },
             );
         } else {
             targetLayoutRef.current = null;
@@ -84,34 +79,46 @@ const Popover = ({
 
     useLayoutEffect(() => {
         if (isOpen) {
-            measureTarget();
+            const timeoutId = setTimeout(measureTarget, 0);
+            return () => clearTimeout(timeoutId);
         }
-    }, [isOpen, measureTarget]);
+        return;
+    }, [isOpen, measureTarget, triggerDimensions]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!isOpen) return;
-        const subscription = Dimensions.addEventListener('change', measureTarget);
-        return () => {
-            if (typeof subscription?.remove === 'function') {
-                subscription.remove();
+        const handleResize = () => {
+            if (triggerRef.current && isOpen) {
+                window.requestAnimationFrame(measureTarget);
             }
         };
-    }, [isOpen, measureTarget]);
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('scroll', handleResize, true);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('scroll', handleResize, true);
+        };
+    }, [isOpen, measureTarget, triggerRef]);
 
     useEffect(() => {
-        if (!isOpen || Platform.OS === 'web') return;
-        const handleAppStateChange = (nextAppState: string) => {
-            if (nextAppState === 'active') {
-                setTimeout(measureTarget, 50);
+        if (!isOpen || !onClose || withBackdropDismiss) return;
+        const handleClickOutside = (event: MouseEvent) => {
+            const popoverElement = popoverRef.current as any as HTMLElement;
+            const targetElement = triggerRef.current as any as HTMLElement;
+            if (
+                popoverElement &&
+                !popoverElement.contains(event.target as Node) &&
+                targetElement &&
+                !targetElement.contains(event.target as Node)
+            ) {
+                onClose();
             }
         };
-        const subscription = AppState.addEventListener('change', handleAppStateChange);
+        document.addEventListener('mousedown', handleClickOutside, { capture: true });
         return () => {
-            if (typeof subscription?.remove === 'function') {
-                subscription.remove();
-            }
+            document.removeEventListener('mousedown', handleClickOutside, { capture: true });
         };
-    }, [isOpen, measureTarget]);
+    }, [isOpen, onClose, popoverRef, triggerRef, withBackdropDismiss]);
 
     const arrowStyles = useArrowStyles({
         showArrow,
@@ -123,32 +130,40 @@ const Popover = ({
         actualPositionRef,
     });
 
-    const popoverStyle = calculatedPosition ?? popoverDefaultStyles;
+    const popoverStyle = useMemo(() => {
+        if (!calculatedPosition) return popoverDefaultStyles;
+
+        const scrollX = window.scrollX ?? window.pageXOffset ?? 0;
+        const scrollY = window.scrollY ?? window.pageYOffset ?? 0;
+
+        return {
+            ...calculatedPosition,
+            left: (calculatedPosition.left as number) + scrollX,
+            top: (calculatedPosition.top as number) + scrollY,
+        };
+    }, [calculatedPosition]);
+
     const Wrapper = inverted ? ScopedTheme : Fragment;
+    const WrapperProps = inverted
+        ? { name: UnistylesRuntime.themeName === 'dark' ? 'light' : 'dark', reset: false }
+        : {};
 
     if (!isOpen && popoverStyle.opacity === 0) {
         return null;
     }
 
-    const handleOutsidePress = () => {
-        if (isOpen && onClose) {
-            onClose();
-        }
-    };
-
     return (
         <Portal>
-            <Wrapper
-                {...(inverted
-                    ? { name: UnistylesRuntime.themeName === 'dark' ? 'light' : 'dark' }
-                    : ({} as { name: 'light' }))}>
-                <Pressable onPress={handleOutsidePress} style={styles.overlay} />
-
+            <Wrapper {...(WrapperProps as any)}>
+                {withBackdropDismiss && (
+                    <Pressable style={[styles.backdrop, backdropStyles]} onPress={onClose} />
+                )}
                 <View
-                    ref={popoverRef}
                     onLayout={handlePopoverLayout}
                     style={[styles.popoverContainer, style, popoverStyle]}
-                    {...rest}>
+                    {...{ dataSet }}
+                    {...rest}
+                    ref={popoverRef}>
                     {children}
                     {showArrow && popoverStyle.opacity === 1 && <View style={arrowStyles} />}
                 </View>
@@ -157,27 +172,27 @@ const Popover = ({
     );
 };
 
-const styles = StyleSheet.create({
-    overlay: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'transparent',
-    },
+const styles = StyleSheet.create(theme => ({
     popoverContainer: {
         ...popoverDefaultStyles,
-        backgroundColor: 'white',
-        borderRadius: 8,
-        padding: 12,
-        shadowColor: '#000',
+        backgroundColor: theme.colors.surface,
+        borderRadius: 4,
+        shadowColor: 'rgba(0, 0, 0, 1)',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        shadowOpacity: theme.dark ? 0.7 : 0.3,
+        shadowRadius: 10,
         zIndex: 100,
     },
-});
+    backdrop: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        _web: {
+            cursor: 'default',
+        },
+    },
+}));
 
 export default memo(Popover);

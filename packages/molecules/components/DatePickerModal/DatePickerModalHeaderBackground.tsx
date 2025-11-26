@@ -1,4 +1,5 @@
 import { Animated, SafeAreaView } from 'react-native';
+
 import { datePickerModalHeaderBackgroundStyles } from './utils';
 
 export default function DatePickerModalHeaderBackground({ children }: { children: any }) {

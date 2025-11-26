@@ -1,4 +1,5 @@
 import type { ViewStyle } from 'react-native';
+
 import type {
     BaseDatePickerProps,
     CalendarDate,

@@ -1,7 +1,7 @@
 import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
 import ListItemComponent from './ListItem';
-import ListItemTitle from './ListItemTitle';
 import ListItemDescription from './ListItemDescription';
+import ListItemTitle from './ListItemTitle';
 
 const ListItemDefault = Object.assign(ListItemComponent, {
     Title: ListItemTitle,
@@ -14,5 +14,5 @@ registerMoleculesComponents({
 
 export const ListItem = getRegisteredComponentWithFallback('ListItem', ListItemDefault);
 
-export { Props as ListItemProps } from './ListItem';
-export { listItemStyles, listItemTitleStyles, listItemDescriptionStyles } from './utils';
+export type { Props as ListItemProps } from './ListItem';
+export { listItemDescriptionStyles, listItemStyles, listItemTitleStyles } from './utils';

@@ -1,13 +1,14 @@
 import {
-    ComponentPropsWithRef,
+    type ComponentPropsWithRef,
     createContext,
     forwardRef,
     memo,
-    ReactElement,
+    type ReactElement,
     useCallback,
     useMemo,
 } from 'react';
 import { View } from 'react-native';
+
 import { useControlledValue, useSubcomponents } from '../../hooks';
 import { accordionStyles } from './utils';
 

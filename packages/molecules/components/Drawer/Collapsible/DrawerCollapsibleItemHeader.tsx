@@ -1,7 +1,8 @@
 import { forwardRef, memo, useContext, useMemo } from 'react';
+
+import { resolveStateVariant } from '../../../utils';
 import { AccordionItem, type AccordionItemHeaderProps } from '../../Accordion';
 import { DrawerCollapsibleItemContext } from './DrawerCollapsibleItem';
-import { resolveStateVariant } from '../../../utils';
 import { drawerCollapsibleItemHeaderStyles } from './utils';
 
 export type Props = AccordionItemHeaderProps & {};

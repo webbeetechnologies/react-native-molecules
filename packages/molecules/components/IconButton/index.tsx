@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const IconButton = getRegisteredComponentWithFallback('IconButton', IconButtonDefault);
 
-export { Props as IconButtonProps } from './IconButton';
+export type { Props as IconButtonProps } from './IconButton';
 export { defaultStyles } from './utils';

@@ -1,9 +1,10 @@
-import { forwardRef, memo, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
-import { useFilePicker } from '../../hooks';
-import type { DocumentResult, DocumentPickerOptions } from '../../utils';
-import { TextInput, type TextInputProps } from '../TextInput';
+import { forwardRef, memo, type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+
+import useFilePicker from '../../hooks/useFilePicker';
+import type { DocumentPickerOptions, DocumentResult } from '../../utils/DocumentPicker';
 import { ActivityIndicator } from '../ActivityIndicator';
 import { IconButton } from '../IconButton';
+import { TextInput, type TextInputProps } from '../TextInput';
 
 export type OmitProp =
     | 'editable'

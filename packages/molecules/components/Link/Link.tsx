@@ -1,9 +1,8 @@
 import { forwardRef, memo, useCallback } from 'react';
-import { Linking, Platform, type GestureResponderEvent, type TextProps } from 'react-native';
-
-import { Text } from '../Text';
+import { type GestureResponderEvent, Linking, Platform, type TextProps } from 'react-native';
 
 import { resolveStateVariant } from '../../utils';
+import { Text } from '../Text';
 import { linkStyles } from './utils';
 
 export type Props = TextProps & {

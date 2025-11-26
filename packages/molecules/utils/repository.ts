@@ -1,5 +1,10 @@
-import EventEmitter, { ConstructorOptions, event as Event, eventNS } from 'eventemitter2';
-import debounce from 'lodash.debounce';
+import EventEmitter, {
+    type ConstructorOptions,
+    type event as Event,
+    type eventNS,
+} from 'eventemitter2';
+
+import { debounce } from './lodash';
 
 interface RepositoryConstructor<T> extends ConstructorOptions {
     onRegister?: (arg: T, name: string, registery: Record<string, T>) => T;

@@ -1,7 +1,18 @@
-import { useCallback, useMemo } from 'react';
-import { DocumentPicker, DocumentPickerOptions, DocumentResult, isNil, omitBy } from '../utils';
+import { useCallback } from 'react';
 
-const useFilePicker = ({ multiple, onCancel, onError, ...options }: DocumentPickerOptions) => {
+import {
+    DocumentPicker,
+    type DocumentPickerOptions,
+    type DocumentResult,
+} from '../utils/DocumentPicker';
+import { isNil, omitBy } from '../utils/lodash';
+
+export const useFilePicker = ({
+    multiple,
+    onCancel,
+    onError,
+    ...options
+}: DocumentPickerOptions) => {
     const openFilePicker = useCallback(
         async (callback: (response: DocumentResult | DocumentResult[]) => void): Promise<void> => {
             const omittedOptions = omitBy(options, isNil);
@@ -31,7 +42,7 @@ const useFilePicker = ({ multiple, onCancel, onError, ...options }: DocumentPick
         [multiple, onCancel, onError, options],
     );
 
-    return useMemo(() => ({ openFilePicker }), [openFilePicker]);
+    return { openFilePicker };
 };
 
 export default useFilePicker;

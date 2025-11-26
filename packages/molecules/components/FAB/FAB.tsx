@@ -1,15 +1,15 @@
 import { forwardRef, memo, useMemo } from 'react';
+import type { TextProps, ViewProps, ViewStyle } from 'react-native';
 import { Text } from 'react-native';
-import type { ViewProps, TextProps, ViewStyle } from 'react-native';
 
-import type { MD3Elevation } from '../../types/theme';
 import { useActionState } from '../../hooks';
+import type { MD3Elevation } from '../../types/theme';
+import { resolveStateVariant } from '../../utils';
+import { Icon, type IconProps, type IconType } from '../Icon';
+import { StateLayer } from '../StateLayer';
 import { Surface, type SurfaceProps } from '../Surface';
 import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { Icon, type IconProps, type IconType } from '../Icon';
-import { FABVariant } from './types';
-import { resolveStateVariant } from '../../utils';
-import { StateLayer } from '../StateLayer';
+import type { FABVariant } from './types';
 import { fabStyles, iconSizeMap } from './utils';
 
 export type Props = Omit<TouchableRippleProps, 'children'> & {

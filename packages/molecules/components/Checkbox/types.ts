@@ -1,4 +1,5 @@
-import type { StyleProp, TextStyle } from 'react-native';
+import type { StyleProp, TextProps, TextStyle, ViewStyle } from 'react-native';
+
 import type { TouchableRippleProps } from '../TouchableRipple';
 
 export type Size = 'sm' | 'md' | 'lg';
@@ -46,6 +47,26 @@ export type CheckBoxBaseProps = Omit<TouchableRippleProps, 'children'> & {
      * testID to be used on tests.
      */
     testID?: string;
+    /**
+     * Label to be displayed next to the checkbox.
+     */
+    label?: string;
+    /**
+     * Style that is passed to Label element.
+     */
+    labelStyle?: StyleProp<TextStyle>;
+    /**
+     * Style that is passed to Container element (when label is provided).
+     */
+    containerStyle?: ViewStyle;
+    /**
+     * Props for the label text element.
+     */
+    labelProps?: Omit<TextProps, 'children' | 'style'>;
+    /**
+     * Checkbox control position relative to label.
+     */
+    position?: 'leading' | 'trailing';
 
     style?: StyleProp<TextStyle>;
 };

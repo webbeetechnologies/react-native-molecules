@@ -1,4 +1,4 @@
-import { memo, ReactElement, useEffect, useRef } from 'react';
+import { memo, type ReactElement, useEffect, useRef } from 'react';
 import { Animated, type ViewProps } from 'react-native';
 
 import { navigationStackItemStyles, useNavigation } from './utils';

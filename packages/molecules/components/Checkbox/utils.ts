@@ -1,5 +1,6 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 const PADDING = 6;
 
@@ -11,48 +12,23 @@ export const iconSizeMap = {
 
 const checkboxStylesDefault = StyleSheet.create(theme => ({
     root: {
-        color: theme.colors.onSurfaceVariant,
-
         variants: {
             size: {
                 sm: {
                     padding: PADDING,
                     borderRadius: 16,
-                    iconSize: iconSizeMap.sm,
+                    // iconSize: iconSizeMap.sm,
                 },
                 md: {
                     padding: PADDING,
                     borderRadius: 18,
-                    iconSize: iconSizeMap.md,
+                    // iconSize: iconSizeMap.md,
                 },
                 lg: {
                     padding: PADDING,
                     borderRadius: 20,
-                    iconSize: iconSizeMap.lg,
+                    // iconSize: iconSizeMap.lg,
                 },
-            },
-
-            state: {
-                checked: {
-                    color: theme.colors.primary,
-                },
-                checkedAndHovered: {
-                    color: theme.colors.primary,
-                },
-                disabled: {
-                    color: theme.colors.onSurfaceDisabled,
-                    uncheckedColor: theme.colors.onSurfaceDisabled,
-                    labelColor: theme.colors.onSurfaceDisabled,
-                },
-                hovered: {},
-            },
-
-            variant: {
-                ios: {},
-                android: {
-                    ...({ animationScale: theme.animation.scale } as any),
-                },
-                item: {},
             },
         },
 
@@ -84,22 +60,22 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
         ],
     },
     stateLayer: {
-        compoundVariants: [
-            {
-                variant: 'android',
-                state: 'hovered',
-                styles: {
+        variants: {
+            state: {
+                hovered: {
                     backgroundColor: theme.colors.stateLayer.hover.onSurface,
                 },
-            },
-            {
-                variant: 'android',
-                state: 'checkedAndHovered',
-                styles: {
+                checkedAndHovered: {
                     backgroundColor: theme.colors.stateLayer.hover.primary,
                 },
             },
-        ],
+
+            variant: {
+                ios: {
+                    backgroundColor: 'transparent',
+                },
+            },
+        },
     },
     itemContainer: {
         flexDirection: 'row',
@@ -231,4 +207,4 @@ registerComponentsStyles({
     Checkbox: checkboxStylesDefault,
 });
 
-export const styles = getRegisteredMoleculesComponentStyles('Checkbox');
+export const styles = getRegisteredMoleculesComponentStyles('Checkbox') ?? checkboxStylesDefault;

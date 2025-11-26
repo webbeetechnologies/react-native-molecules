@@ -10,33 +10,32 @@ export const DatePickerInline = getRegisteredComponentWithFallback(
     DatePickerInlineDefault,
 );
 
-export { DatePickerInlineProps, getStateValue } from './DatePickerInline';
-export {
-    DatePickerInlineBaseProps,
-    ValidRangeType,
+export { type DatePickerInlineProps, getStateValue } from './DatePickerInline';
+export { default as DatePickerInlineBase } from './DatePickerInlineBase';
+export type {
+    BaseDatePickerProps,
     CalendarDate,
     CalendarDates,
-    ModeType,
-    MultiChange,
-    BaseDatePickerProps,
-    RangeChange,
-    SingleChange,
-    MultiConfirm,
-    DatePickerSingleProps,
+    DatePickerInlineBaseProps,
     DatePickerMultiProps,
     DatePickerRangeProps,
+    DatePickerSingleProps,
+    ModeType,
+    MultiChange,
+    MultiConfirm,
+    RangeChange,
+    SingleChange,
+    ValidRangeType,
 } from './types';
 export {
-    datePickerStyles,
-    datePickerMonthStyles,
-    datePickerYearPickerStyles,
+    dateDayNameStyles,
+    datePickerDayEmptyStyles,
+    datePickerDayRangeStyles,
     datePickerDayStyles,
     datePickerHeaderStyles,
-    dateDayNameStyles,
-    datePickerDayRangeStyles,
-    datePickerDayEmptyStyles,
+    datePickerMonthStyles,
+    datePickerStyles,
     datePickerWeekStyles,
     datePickerYearItemStyles,
+    datePickerYearPickerStyles,
 } from './utils';
-
-export { default as DatePickerInlineBase } from './DatePickerInlineBase';

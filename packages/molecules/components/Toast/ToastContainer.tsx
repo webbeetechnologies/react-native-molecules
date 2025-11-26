@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import Toast, { ToastConfig, ToastProps } from 'react-native-toast-message';
+import Toast, { type ToastConfig, type ToastProps } from 'react-native-toast-message';
 
 import MaterialToast from './MaterialToast';
 

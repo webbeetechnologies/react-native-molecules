@@ -1,4 +1,4 @@
-import type { NativeEventSubscription, EmitterSubscription } from 'react-native';
+import type { EmitterSubscription, NativeEventSubscription } from 'react-native';
 
 export function addEventListener<
     T extends {

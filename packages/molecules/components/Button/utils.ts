@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 export const sizeToIconSizeMap = {
     xs: 18,

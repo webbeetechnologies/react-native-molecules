@@ -1,5 +1,6 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 const tooltipStylesDefault = StyleSheet.create(theme => ({
     content: {
@@ -9,6 +10,7 @@ const tooltipStylesDefault = StyleSheet.create(theme => ({
     },
     contentText: {
         color: theme.colors.onSurface,
+        ...theme.typescale.bodySmall,
     },
 }));
 

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { AccordionItem, type AccordionItemContentProps } from '../../Accordion';
 import { drawerCollapsibleItemContentStyles } from './utils';
 

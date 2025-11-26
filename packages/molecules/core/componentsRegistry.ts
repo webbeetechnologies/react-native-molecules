@@ -1,6 +1,9 @@
-import { ComponentType } from 'react';
-
-import EventEmitter, { ConstructorOptions, event as Event, eventNS } from 'eventemitter2';
+import EventEmitter, {
+    type ConstructorOptions,
+    type event as Event,
+    type eventNS,
+} from 'eventemitter2';
+import type { ComponentType } from 'react';
 
 interface RepositoryConstructor<T> extends ConstructorOptions {
     onRegister?: (arg: T, name: string, registery: Record<string, T>) => T;
@@ -108,6 +111,40 @@ export const registerComponentStyles = componentsStylesRepository.registerOne;
 export const registerComponentsStyles = componentsStylesRepository.register;
 export const registerComponentUtils = componentsUtilsRepository.registerOne;
 export const registerComponentsUtils = componentsUtilsRepository.register;
+
+type RegisterMoleculesConfig = {
+    component: ComponentType<any>;
+    styles?: Record<string, any>;
+    utils?: Record<string, any>;
+};
+
+export const registerMolecules = (molecules: Record<string, RegisterMoleculesConfig>) => {
+    const components: Record<string, ComponentType<any>> = {};
+    const styles: Record<string, Record<string, any>> = {};
+    const utils: Record<string, Record<string, any>> = {};
+
+    Object.entries(molecules).forEach(([name, config]) => {
+        if (config.component) {
+            components[name] = config.component;
+        }
+        if (config.styles) {
+            styles[name] = config.styles;
+        }
+        if (config.utils) {
+            utils[name] = config.utils;
+        }
+    });
+
+    if (Object.keys(components).length) {
+        registerMoleculesComponents(components);
+    }
+    if (Object.keys(styles).length) {
+        registerComponentsStyles(styles);
+    }
+    if (Object.keys(utils).length) {
+        registerComponentsUtils(utils);
+    }
+};
 
 export const getRegisteredMoleculesComponent = componentsRepository.get;
 export const getRegisteredMoleculesComponentStyles = componentsStylesRepository.get;

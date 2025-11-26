@@ -1,5 +1,5 @@
-import PortalDefault from './Portal';
 import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import PortalDefault from './Portal';
 
 registerMoleculesComponents({
     Portal: PortalDefault,
@@ -8,5 +8,5 @@ registerMoleculesComponents({
 // @ts-ignore TODO - fix this error
 export const Portal = getRegisteredComponentWithFallback('Portal', PortalDefault);
 
-export { PortalHost, PortalProvider } from '@gorhom/portal';
 export { registerPortalContext } from './Portal';
+export { PortalHost, PortalProvider } from '@gorhom/portal';

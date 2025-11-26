@@ -1,17 +1,18 @@
 import {
     Children,
-    isValidElement,
     cloneElement,
-    ComponentPropsWithRef,
-    ComponentType,
-    ReactNode,
-    useMemo,
-    memo,
+    type ComponentPropsWithRef,
+    type ComponentType,
     forwardRef,
-    ReactElement,
+    isValidElement,
+    memo,
+    type ReactElement,
+    type ReactNode,
+    useMemo,
 } from 'react';
-import type { StyleProp, ViewStyle, ViewProps } from 'react-native';
+import type { StyleProp, ViewProps, ViewStyle } from 'react-native';
 import { View } from 'react-native';
+
 import { dialogActionsStyles } from './utils';
 
 export type Props = ViewProps &
@@ -68,7 +69,7 @@ const DialogActions = ({ children, style, ...rest }: Props, ref: any) => {
                     {
                         marginLeft: i === 0 ? 0 : spacing,
                     },
-                    child.props?.style,
+                    (child.props as ViewProps)?.style,
                 ],
             }),
         };

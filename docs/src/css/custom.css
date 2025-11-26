@@ -1,0 +1,143 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+ @font-face {
+  font-family: 'MaterialDesignIcons';
+  src: url('../../../node_modules/@react-native-vector-icons/material-design-icons/Fonts/MaterialDesignIcons.ttf');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0');
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #6750a4; /* primary40 */
+  --ifm-color-primary-dark: #4f378b; /* primary30 */
+  --ifm-color-primary-darker: #381e72; /* primary20 */
+  --ifm-color-primary-darkest: #21005d; /* primary10 */
+  --ifm-color-primary-light: #7f67be; /* primary50 */
+  --ifm-color-primary-lighter: #9a82db; /* primary60 */
+  --ifm-color-primary-lightest: #eaddff; /* primary90 */
+  --bm-color-secondary: #625b71;
+  --bm-color-secondary-container: #e8def8;
+  --bm-color-tertiary: #7d5260;
+  --bm-color-tertiary-container: #ffd8e4;
+  --bm-color-surface: #fffbfe;
+  --bm-color-surface-variant: #e7e0ec;
+  --bm-color-outline: #938f99;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Shadcn-like tokens */
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 47.4% 11.2%;
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+
+  /* Override Infima Sidebar Variables */
+  --ifm-menu-color: hsl(var(--muted-foreground));
+  --ifm-menu-color-active: var(--ifm-color-primary);
+  --ifm-menu-color-background-active: hsl(var(--muted));
+  --ifm-menu-color-background-hover: hsl(var(--muted) / 0.5);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #b69df8; /* primary70 */
+  --ifm-color-primary-dark: #9a82db; /* primary60 */
+  --ifm-color-primary-darker: #7f67be; /* primary50 */
+  --ifm-color-primary-darkest: #6750a4; /* primary40 */
+  --ifm-color-primary-light: #d0bcff; /* primary80 */
+  --ifm-color-primary-lighter: #eaddff; /* primary90 */
+  --ifm-color-primary-lightest: #f6edff; /* primary95 */
+  --bm-color-secondary: #ccc2dc;
+  --bm-color-secondary-container: #4a4458;
+  --bm-color-tertiary: #efb8c8;
+  --bm-color-tertiary-container: #633b48;
+  --bm-color-surface: #1c1b1f;
+  --bm-color-surface-variant: #49454f;
+  --bm-color-outline: #938f99;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Shadcn-like tokens dark */
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+}
+
+/* Sidebar Styling */
+aside.theme-doc-sidebar-container {
+  border-right: 1px solid hsl(var(--border)) !important;
+}
+
+.theme-doc-sidebar-menu {
+  padding: 1rem 0.5rem !important;
+}
+
+.menu__list {
+}
+
+.menu__list-item {
+  margin-bottom: 0.25rem;
+}
+
+.menu__link {
+  border-radius: var(--radius);
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s;
+  line-height: 1.25rem;
+}
+
+.menu__link:hover {
+  background-color: hsl(var(--muted) / 0.5);
+  color: var(--ifm-color-content);
+}
+
+.menu__link--active {
+  background-color: hsl(var(--muted)) !important;
+  color: var(--ifm-color-content) !important;
+  font-weight: 600;
+}
+
+/* Category headers */
+.menu__list-item-collapsible {
+  margin-bottom: 0.25rem;
+}
+
+.menu__list-item-collapsible .menu__link {
+  font-weight: 600;
+  font-size: 0.925rem;
+  color: var(--ifm-color-content);
+}
+
+/* Remove default caret from some items if needed, or style it */
+.menu__caret:before {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Navbar adjustments to match */
+.navbar {
+  border-bottom: 1px solid hsl(var(--border));
+  box-shadow: none;
+}

@@ -1,10 +1,11 @@
-import { MutableRefObject, useCallback, useEffect, useState } from 'react';
+import { type RefObject, useCallback, useEffect, useState } from 'react';
+import type { BlurEvent, FocusEvent } from 'react-native';
 
-import { useRangeChecker } from '../DatePickerInline/dateUtils';
-import type { ValidRangeType } from '../DatePickerInline';
-import { format, isNil, parse, isValid, endOfDay } from '../../utils';
-import type { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { useLatest } from '../../hooks';
+import { endOfDay, format, isValid, parse } from '../../utils/date-fns';
+import { isNil } from '../../utils/lodash';
+import type { ValidRangeType } from '../DatePickerInline';
+import { useRangeChecker } from '../DatePickerInline/dateUtils';
 
 const formatValue = (value: Date | null | undefined, dateFormat: string) =>
     !isNil(value) ? format(value, dateFormat) || '' : '';
@@ -21,14 +22,14 @@ export default function useDateInput({
     isBlurredRef,
 }: {
     onChange?: (d: Date | null) => void;
-    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-    onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+    onBlur?: (e: BlurEvent) => void;
+    onFocus?: (e: FocusEvent) => void;
     // locale: undefined | string;
     value?: Date | null;
     validRange?: ValidRangeType;
     inputMode: 'start' | 'end';
     dateFormat: string;
-    isBlurredRef: MutableRefObject<boolean>;
+    isBlurredRef: RefObject<boolean>;
 }) {
     const { isDisabled, isWithinValidRange } = useRangeChecker(validRange);
 
@@ -103,7 +104,7 @@ export default function useDateInput({
     );
 
     const onBlur = useCallback(
-        (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        (e: BlurEvent) => {
             isBlurredRef.current = true;
             onBlurProp?.(e);
             formattedValueRef.current = formatValue(value, dateFormat);
@@ -113,7 +114,7 @@ export default function useDateInput({
     );
 
     const onFocus = useCallback(
-        (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        (e: FocusEvent) => {
             isBlurredRef.current = false;
             onFocusProp?.(e);
         },

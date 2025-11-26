@@ -1,4 +1,4 @@
-import { I18nManager, TextStyle } from 'react-native';
+import { I18nManager, type TextStyle } from 'react-native';
 
 export type SpacingKey =
     | 'margin'

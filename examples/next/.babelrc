@@ -1,9 +1,0 @@
-{
-    "presets": ["next/babel"],
-    "plugins": [
-        [
-            "react-native-unistyles/plugin",
-            { "autoProcessRoot": "src", "autoProcessPaths": "packages/molecules" }
-        ]
-    ]
-}

@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { type ViewStyle, type StyleProp, type ViewProps, View } from 'react-native';
+import { type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { registerComponentStyles, getRegisteredMoleculesComponentStyles } from '../../core';
+import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
 
 export type Props = Omit<ViewProps, 'children'> & {
     /**

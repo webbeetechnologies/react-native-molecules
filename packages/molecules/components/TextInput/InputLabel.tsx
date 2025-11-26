@@ -1,7 +1,7 @@
 import { memo, useCallback, useMemo, useState } from 'react';
-import { Animated, LayoutChangeEvent } from 'react-native';
-
+import { Animated, type LayoutChangeEvent } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
+
 import type { InputLabelProps } from './types';
 
 const InputLabel = (props: InputLabelProps) => {

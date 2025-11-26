@@ -1,7 +1,16 @@
-import { memo, useRef, useCallback, useMemo } from 'react';
-import { GestureResponderEvent, PanResponder, StyleSheet, View, ViewProps } from 'react-native';
+import { memo, useCallback, useMemo, useRef } from 'react';
+import {
+    type GestureResponderEvent,
+    PanResponder,
+    StyleSheet,
+    View,
+    type ViewProps,
+} from 'react-native';
 
 import { useLatest } from '../../hooks';
+import AnalogClockHours from './AnalogClockHours';
+import AnalogClockMinutes from './AnalogClockMinutes';
+import AnimatedClockSwitcher from './AnimatedClockSwitcher';
 import {
     circleSize,
     clockTypes,
@@ -11,11 +20,8 @@ import {
     getHourTypeFromOffset,
     getMinutes,
     hourTypes,
-    PossibleClockTypes,
+    type PossibleClockTypes,
 } from './timeUtils';
-import AnalogClockHours from './AnalogClockHours';
-import AnimatedClockSwitcher from './AnimatedClockSwitcher';
-import AnalogClockMinutes from './AnalogClockMinutes';
 import { timePickerClockStyles } from './utils';
 
 type Props = {

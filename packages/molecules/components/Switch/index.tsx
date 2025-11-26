@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const Switch = getRegisteredComponentWithFallback('Switch', SwitchDefault);
 
-export { Props as SwitchProps } from './Switch';
+export { type Props as SwitchProps } from './Switch';
 export { switchStyles as defaultSwitchStyles } from './utils';

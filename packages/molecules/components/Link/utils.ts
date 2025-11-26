@@ -1,6 +1,7 @@
+import { StyleSheet } from 'react-native-unistyles';
+
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { getCursorStyle } from '../../utils';
-import { StyleSheet } from 'react-native-unistyles';
 
 // type States = 'disabled' | 'hovered';
 

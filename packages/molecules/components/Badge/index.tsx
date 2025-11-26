@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const Badge = getRegisteredComponentWithFallback('Badge', BadgeDefault);
 
-export { Props as BadgeProps } from './Badge';
+export type { Props as BadgeProps } from './Badge';
 export { badgeStyles } from './utils';

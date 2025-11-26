@@ -10,6 +10,5 @@ export const TouchableRipple = getRegisteredComponentWithFallback(
     TouchableRippleDefault,
 );
 
-export { Props as TouchableRippleProps } from './TouchableRipple';
-
+export type { Props as TouchableRippleProps } from './TouchableRipple';
 export { touchableRippleStyles } from './utils';

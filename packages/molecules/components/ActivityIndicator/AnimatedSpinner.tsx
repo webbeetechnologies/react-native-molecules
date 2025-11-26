@@ -1,5 +1,8 @@
-import { Animated, Easing, StyleSheet, ViewStyle } from 'react-native';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
+import { Animated, Easing, type ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
+
+import { tokenStylesParser } from '../../utils/tokenStylesParser';
 
 const AnimatedSpinner = ({
     index,
@@ -7,12 +10,14 @@ const AnimatedSpinner = ({
     color,
     timer,
     duration,
+    style,
 }: {
     index: number;
     size: number;
     timer: Animated.Value;
     duration: number;
-    color: string;
+    color: string | undefined;
+    style: ViewStyle;
 }) => {
     const { containerStyle, layer } = useMemo(
         () => ({
@@ -88,7 +93,6 @@ const AnimatedSpinner = ({
     const lineStyle = {
         width: size,
         height: size,
-        borderColor: color,
         borderWidth: size / 10,
         borderRadius: size / 2,
     };
@@ -99,7 +103,13 @@ const AnimatedSpinner = ({
                 <Animated.View style={offsetContainerStyles} collapsable={false}>
                     <Animated.View style={viewportStyle}>
                         <Animated.View style={containerStyle} collapsable={false}>
-                            <Animated.View style={lineStyle} />
+                            <Animated.View
+                                style={[
+                                    style,
+                                    tokenStylesParser.getColor(color, 'borderColor'),
+                                    lineStyle,
+                                ]}
+                            />
                         </Animated.View>
                     </Animated.View>
                 </Animated.View>
@@ -108,4 +118,4 @@ const AnimatedSpinner = ({
     );
 };
 
-export default AnimatedSpinner;
+export default memo(AnimatedSpinner);

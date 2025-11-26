@@ -10,4 +10,4 @@ export const HorizontalDivider = getRegisteredComponentWithFallback(
     HorizontalDividerDefault,
 );
 
-export { Props as HorizontalDividerProps, horizontalDividerStyles } from './HorizontalDivider';
+export { type Props as HorizontalDividerProps, horizontalDividerStyles } from './HorizontalDivider';

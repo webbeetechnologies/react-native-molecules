@@ -1,5 +1,6 @@
-import { forwardRef, memo, ReactNode } from 'react';
+import { forwardRef, memo, type ReactNode } from 'react';
 import { View, type ViewProps } from 'react-native';
+
 import { cardActionsStyles } from './utils';
 
 export type Props = ViewProps & {

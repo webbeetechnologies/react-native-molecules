@@ -1,8 +1,8 @@
-import { memo, forwardRef, ReactNode } from 'react';
-import { type StyleProp, type ViewStyle, type ViewProps, View } from 'react-native';
+import { forwardRef, memo, type ReactNode } from 'react';
+import { type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { registerComponentStyles, getRegisteredMoleculesComponentStyles } from '../../core';
+import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
 
 export type Props = ViewProps & {
     style?: StyleProp<ViewStyle>;

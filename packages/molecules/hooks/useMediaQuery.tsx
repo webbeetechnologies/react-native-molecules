@@ -1,6 +1,7 @@
-import { useWindowDimensions } from 'react-native';
-import isNil from 'lodash.isnil';
 import { useMemo } from 'react';
+import { useWindowDimensions } from 'react-native';
+
+import { isNil } from '../utils/lodash';
 
 type Query = {
     maxWidth?: number;

@@ -1,0 +1,97 @@
+---
+title: "TextInput"
+description: "Material text field with outlined and filled variants, leading/trailing adornments."
+sidebar_position: 48
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="TextInput" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { TextInput } from '@bambooapp/bamboo-molecules/components/TextInput';
+
+export default function Example() {
+    return <TextInput placeholder="Placeholder" />;
+}`}
+/>
+
+### Outlined Variant
+
+<LiveCodeExample
+    code={`import { TextInput } from '@bambooapp/bamboo-molecules/components/TextInput';
+
+export default function Example() {
+    return <TextInput variant="outlined" placeholder="Placeholder" label="Label" />;
+}`}
+/>
+
+### Flat Variant
+
+<LiveCodeExample
+    code={`import { TextInput } from '@bambooapp/bamboo-molecules/components/TextInput';
+
+export default function Example() {
+    return <TextInput variant="flat" placeholder="Placeholder" label="Label" />;
+}`}
+/>
+
+### With Left Element
+
+<LiveCodeExample
+    code={`import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { TextInput } from '@bambooapp/bamboo-molecules/components/TextInput';
+
+export default function Example() {
+    return (
+        <TextInput 
+            variant="flat" 
+            placeholder="Placeholder" 
+            label="Label" 
+            left={({ color, forceFocus }) => (
+                <Icon
+                    name="magnify"
+                    type="material-community"
+                    size={24}
+                    onPress={forceFocus}
+                    color={color}
+                />
+            )} 
+        />
+    );
+}`}
+/>
+
+### With Right Element
+
+<LiveCodeExample
+    code={`import { Icon } from '@bambooapp/bamboo-molecules/components/Icon';
+import { TextInput } from '@bambooapp/bamboo-molecules/components/TextInput';
+
+export default function Example() {
+    return (
+        <TextInput 
+            variant="flat" 
+            placeholder="Placeholder" 
+            label="Label" 
+            right={({ color, forceFocus }) => (
+                <Icon
+                    name="magnify"
+                    type="material-community"
+                    size={24}
+                    onPress={forceFocus}
+                    color={color}
+                />
+            )} 
+        />
+    );
+}`}
+/>
+
+<ComponentProps name="TextInput" />

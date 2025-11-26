@@ -1,2 +1,2 @@
-export { PortalProvider } from '@gorhom/portal';
 export * from './componentsRegistry';
+export { PortalProvider } from '@gorhom/portal';

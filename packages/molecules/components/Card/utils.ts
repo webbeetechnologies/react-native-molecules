@@ -1,5 +1,6 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 
 export type States = 'hovered' | 'focused' | 'pressed' | 'disabled';
 export type CardTypographyVariant = 'headline' | 'subhead' | 'text';
@@ -11,6 +12,7 @@ const cardActionsStylesDefault = StyleSheet.create(theme => ({
         paddingBottom: theme.spacings['4'],
         flexDirection: 'row',
         alignItems: 'center',
+        gap: theme.spacings['3'],
     },
 }));
 

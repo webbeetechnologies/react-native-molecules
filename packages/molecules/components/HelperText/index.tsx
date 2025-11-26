@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const HelperText = getRegisteredComponentWithFallback('HelperText', HelperTextDefault);
 
-export { Props as HelperTextProps } from './HelperText';
-export { styles as helperTextStyles } from './utils';
+export { type Props as HelperTextProps } from './HelperText';
+export { helperTextStylesDefault } from './utils';

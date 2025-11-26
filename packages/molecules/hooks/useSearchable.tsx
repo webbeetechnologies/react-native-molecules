@@ -1,10 +1,10 @@
-import { useCallback, useMemo, ReactElement } from 'react';
+import { type ReactElement, useCallback, useMemo } from 'react';
 
 import { IconButton } from '../components/IconButton';
 import {
-    type TextInputProps,
-    type TextInputElementProps,
     TextInput,
+    type TextInputElementProps,
+    type TextInputProps,
 } from '../components/TextInput';
 import useControlledValue from './useControlledValue';
 

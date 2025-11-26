@@ -1,18 +1,18 @@
 import { forwardRef, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import {
     Image,
-    View,
     type ImageErrorEventData,
     type ImageProps,
     type NativeSyntheticEvent,
     type TextProps,
+    View,
     type ViewProps,
 } from 'react-native';
-import { Text } from '../Text';
 
-import { Icon, type IconProps } from '../Icon';
-import { avatarStyles } from './utils';
 import { tokenStylesParser } from '../../utils/tokenStylesParser';
+import { Icon, type IconProps } from '../Icon';
+import { Text } from '../Text';
+import { avatarStyles } from './utils';
 
 export type Props = Omit<ViewProps, 'children'> & {
     source?: ImageProps['source'];

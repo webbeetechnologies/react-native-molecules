@@ -1,12 +1,12 @@
 import { forwardRef, memo, useCallback, useContext, useMemo } from 'react';
-import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
-import { Text } from '../Text';
+import { type StyleProp, StyleSheet, type TextStyle, View, type ViewStyle } from 'react-native';
 
+import { resolveStateVariant } from '../../utils';
+import { Text } from '../Text';
+import { TouchableRipple } from '../TouchableRipple';
 import RadioButton from './RadioButton';
 import { RadioButtonContext } from './RadioButtonGroup';
 import { handlePress, isChecked, radioButtonItemStyles } from './utils';
-import { resolveStateVariant } from '../../utils';
-import { TouchableRipple } from '../TouchableRipple';
 
 export type Props = {
     /**

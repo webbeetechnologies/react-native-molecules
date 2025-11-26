@@ -1,10 +1,10 @@
 import {
-    ComponentType,
+    type ComponentType,
     forwardRef,
     Fragment,
     memo,
-    ReactNode,
-    RefObject,
+    type ReactNode,
+    type RefObject,
     useCallback,
     useEffect,
     useImperativeHandle,
@@ -14,6 +14,7 @@ import {
 import type { FlatList } from 'react-native';
 import type { SectionList } from 'react-native';
 import { Platform } from 'react-native';
+
 import { createFastContext } from '../fast-context';
 import useLatest from '../hooks/useLatest';
 

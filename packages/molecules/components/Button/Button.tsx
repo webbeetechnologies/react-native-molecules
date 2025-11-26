@@ -1,19 +1,26 @@
-import { useCallback, ReactNode, memo, useMemo, forwardRef, PropsWithoutRef } from 'react';
-import { View, type ViewStyle, type StyleProp, type TextStyle, type ViewProps } from 'react-native';
 import setColor from 'color';
-import { Text } from '../Text';
+import {
+    forwardRef,
+    memo,
+    type PropsWithoutRef,
+    type ReactNode,
+    useCallback,
+    useMemo,
+} from 'react';
+import { type StyleProp, type TextStyle, View, type ViewProps, type ViewStyle } from 'react-native';
 
-import { Icon, type IconType } from '../Icon';
-import { Surface, type SurfaceProps } from '../Surface';
-import { ButtonSize, ButtonVariant } from './types';
-import { TouchableRipple } from '../TouchableRipple';
-import { ActivityIndicator } from '../ActivityIndicator';
-import { StateLayer } from '../StateLayer';
-import { defaultStyles, sizeToIconSizeMap } from './utils';
-import { MD3Elevation } from '../../types/theme';
-import { resolveStateVariant } from '../../utils';
 import { useActionState } from '../../hooks';
+import type { MD3Elevation } from '../../types/theme';
+import { resolveStateVariant } from '../../utils';
+import { ActivityIndicator } from '../ActivityIndicator';
+import { Icon, type IconType } from '../Icon';
+import { StateLayer } from '../StateLayer';
+import { Surface, type SurfaceProps } from '../Surface';
 import { extractProperties } from '../Surface/utils';
+import { Text } from '../Text';
+import { TouchableRipple } from '../TouchableRipple';
+import type { ButtonSize, ButtonVariant } from './types';
+import { defaultStyles, sizeToIconSizeMap } from './utils';
 
 export type Props = Omit<SurfaceProps, 'style'> & {
     /**

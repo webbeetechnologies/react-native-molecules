@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { View, type ViewProps } from 'react-native';
+
 import { inputAddonStyles } from './utils';
 
 enum InputAddonVariants {

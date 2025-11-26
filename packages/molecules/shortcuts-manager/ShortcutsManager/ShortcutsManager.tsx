@@ -1,13 +1,13 @@
 import { memo, useContext, useEffect, useMemo, useRef } from 'react';
 
-import { keyBy } from '../../utils';
+import { keyBy } from '../../utils/lodash';
 import EventsManager from '../EventsManager';
 import type { Shortcut } from '../types';
 import {
-    ShortcutsManagerProps,
-    ShortcutsManagerContextProvider,
     ShortcutsManagerContext,
-    ShortcutsManagerContextType,
+    ShortcutsManagerContextProvider,
+    type ShortcutsManagerContextType,
+    type ShortcutsManagerProps,
 } from './utils';
 
 const _ShortcutsManager = ({ shortcuts, scopes, children }: ShortcutsManagerProps) => {

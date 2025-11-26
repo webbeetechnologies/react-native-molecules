@@ -1,9 +1,9 @@
 import { memo } from 'react';
-
-import { format, startOfWeek, addDays } from '../../utils';
-import { DisableWeekDaysType, showWeekDay } from './dateUtils';
-import DayName from './DayName';
 import { View } from 'react-native';
+
+import { addDays, format, startOfWeek } from '../../utils/date-fns';
+import { type DisableWeekDaysType, showWeekDay } from './dateUtils';
+import DayName from './DayName';
 import { dateDayNameStyles } from './utils';
 
 const shortDayNames = (() => {

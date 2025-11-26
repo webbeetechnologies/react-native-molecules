@@ -1,11 +1,11 @@
 import { memo, useCallback, useMemo } from 'react';
-import { useDatePickerStoreValue } from './DatePickerContext';
-import { StyleProp, View, ViewStyle } from 'react-native';
-import { Text } from '../Text';
+import { type StyleProp, View, type ViewStyle } from 'react-native';
 
-import { IconButton } from '../IconButton';
-import { TouchableRipple } from '../TouchableRipple';
 import { datePickerHeaderItemStyles } from '../DatePickerDocked/utils';
+import { IconButton } from '../IconButton';
+import { Text } from '../Text';
+import { TouchableRipple } from '../TouchableRipple';
+import { useDatePickerStoreValue } from './DatePickerContext';
 
 function HeaderItem({
     value,
@@ -64,7 +64,7 @@ function HeaderItem({
                     <IconButton
                         type="material-community"
                         name="chevron-left"
-                        size="sm"
+                        size="md"
                         // Todo: Translate
                         accessibilityLabel={'Previous'}
                         onPress={handleOnPrevious}
@@ -86,7 +86,7 @@ function HeaderItem({
                         <IconButton
                             onPress={handlePressDropDown}
                             name={selecting && type === pickerType ? 'menu-up' : 'menu-down'}
-                            size="xs"
+                            size="sm"
                             disabled={disabled}
                         />
                     </View>
@@ -96,7 +96,7 @@ function HeaderItem({
                 <View style={datePickerHeaderItemStyles.buttonWrapper}>
                     <IconButton
                         name="chevron-right"
-                        size="sm"
+                        size="md"
                         // Todo: Translate
                         accessibilityLabel={'Next'}
                         onPress={handleOnNext}

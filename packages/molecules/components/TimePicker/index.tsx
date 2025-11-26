@@ -7,14 +7,13 @@ registerMoleculesComponents({
 
 export const TimePicker = getRegisteredComponentWithFallback('TimePicker', TimePickerDefault);
 
+export type { Props as TimePickerProps } from './TimePicker';
 export {
-    timePickerStyles,
-    timePickerInputStyles,
-    timePickerInputsStyles,
-    timePickerClockStyles,
+    timePickerAmPmSwitcherStyles,
     timePickerClockHoursStyles,
     timePickerClockMinutesStyles,
-    timePickerAmPmSwitcherStyles,
+    timePickerClockStyles,
+    timePickerInputsStyles,
+    timePickerInputStyles,
+    timePickerStyles,
 } from './utils';
-
-export { Props as TimePickerProps } from './TimePicker';

@@ -1,5 +1,11 @@
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
 import { StyleSheet } from 'react-native-unistyles';
+
+import {
+    getRegisteredMoleculesComponentStyles,
+    registerComponentsStyles,
+    registerComponentUtils,
+} from '../../core';
+import { getRegisteredComponentUtils } from './../../core/componentsRegistry';
 
 export type States =
     | 'selectedAndDisabled'
@@ -7,6 +13,13 @@ export type States =
     | 'selected'
     | 'hovered'
     | 'selectedAndHovered';
+
+const iconButtonSizeToIconSizeMapDefault = {
+    xs: 14,
+    sm: 18,
+    md: 22,
+    lg: 26,
+};
 
 const iconButtonStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -302,4 +315,11 @@ registerComponentsStyles({
     IconButton: iconButtonStylesDefault,
 });
 
+registerComponentUtils('IconButton', {
+    iconButtonSizeToIconSizeMapDefault,
+});
+
 export const defaultStyles = getRegisteredMoleculesComponentStyles('IconButton');
+export const iconButtonSizeToIconSizeMap =
+    getRegisteredComponentUtils('IconButton')?.iconButtonSizeToIconSizeMapDefault ||
+    iconButtonSizeToIconSizeMapDefault;

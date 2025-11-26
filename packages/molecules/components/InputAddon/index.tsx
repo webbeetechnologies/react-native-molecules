@@ -7,5 +7,5 @@ registerMoleculesComponents({
 
 export const InputAddon = getRegisteredComponentWithFallback('InputAddon', InputAddonDefault);
 
+export type { Props as InputAddonProps } from './InputAddon';
 export { inputAddonStyles } from './utils';
-export { Props as InputAddonProps } from './InputAddon';

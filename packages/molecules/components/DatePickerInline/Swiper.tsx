@@ -1,23 +1,22 @@
 import {
+    type CSSProperties,
     memo,
-    useState,
-    useRef,
+    type UIEvent,
     useCallback,
-    UIEvent,
     useEffect,
     useLayoutEffect,
     useMemo,
-    CSSProperties,
+    useRef,
+    useState,
 } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { getIndexFromVerticalOffset, getMonthHeight, getVerticalMonthsOffset } from './Month';
-import { montHeaderHeight } from './utils';
-
-import { beginOffset, estimatedMonthHeight, totalMonths } from './dateUtils';
 import { useLatest } from '../../hooks';
 import AutoSizer from './AutoSizer';
+import { beginOffset, estimatedMonthHeight, totalMonths } from './dateUtils';
+import { getIndexFromVerticalOffset, getMonthHeight, getVerticalMonthsOffset } from './Month';
 import type { SwiperProps } from './SwiperUtils';
+import { montHeaderHeight } from './utils';
 
 function Swiper({ scrollMode, renderItem, renderHeader, renderFooter, initialIndex }: SwiperProps) {
     const isHorizontal = scrollMode === 'horizontal';

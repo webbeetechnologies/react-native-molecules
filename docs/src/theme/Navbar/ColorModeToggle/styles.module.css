@@ -1,0 +1,63 @@
+.toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0 0.25rem;
+    border-radius: 999px;
+    background-color: rgba(99, 110, 123, 0.2);
+    border: 1px solid rgba(99, 110, 123, 0.45);
+    overflow: hidden;
+    min-width: 5.25rem;
+    margin-left: 1rem;
+}
+
+.darkNavbarToggle {
+    background-color: rgba(0, 0, 0, 0.35);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.thumb {
+    position: absolute;
+    inset: 0.25rem;
+    width: calc(50% - 0.25rem);
+    border-radius: 999px;
+    background: var(--ifm-navbar-background-color);
+    box-shadow: 0 4px 18px rgba(15, 17, 20, 0.2);
+    transition: transform 200ms ease, background-color 200ms ease;
+    transform: translateX(0);
+}
+
+[data-mode='dark'] .thumb {
+    transform: translateX(100%);
+}
+
+.toggleButton {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    height: 2.25rem;
+    border-radius: 999px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--ifm-color-emphasis-600);
+    transition: color 150ms ease;
+    padding: 0;
+    margin: 0;
+}
+
+.toggleButton[data-active='true'] {
+    color: var(--ifm-color-primary);
+}
+
+.toggleButton[data-active='false']:hover {
+    color: var(--ifm-color-primary);
+}
+
+.icon {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+

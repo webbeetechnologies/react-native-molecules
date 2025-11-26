@@ -1,0 +1,45 @@
+---
+title: "HelperText"
+description: "Inline text slot that displays validation or guidance under inputs."
+sidebar_position: 23
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="HelperText" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { HelperText } from '@bambooapp/bamboo-molecules/components/HelperText';
+
+export default function Example() {
+    return <HelperText>This is helper text</HelperText>;
+}`}
+/>
+
+### Error State
+
+<LiveCodeExample
+    code={`import { HelperText } from '@bambooapp/bamboo-molecules/components/HelperText';
+
+export default function Example() {
+    return <HelperText variant="error">This is an error message</HelperText>;
+}`}
+/>
+
+### Info State
+
+<LiveCodeExample
+    code={`import { HelperText } from '@bambooapp/bamboo-molecules/components/HelperText';
+
+export default function Example() {
+    return <HelperText variant="info">This is an info message</HelperText>;
+}`}
+/>
+
+<ComponentProps name="HelperText" />

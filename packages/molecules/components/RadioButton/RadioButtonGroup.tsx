@@ -1,4 +1,4 @@
-import { memo, createContext, ReactNode, useMemo } from 'react';
+import { createContext, memo, type ReactNode, useMemo } from 'react';
 import { View, type ViewProps } from 'react-native';
 
 import { useControlledValue } from '../../hooks';

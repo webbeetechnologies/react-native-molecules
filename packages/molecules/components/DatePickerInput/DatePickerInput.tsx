@@ -1,13 +1,13 @@
-import { useCallback, useState, forwardRef, memo, useMemo, useRef } from 'react';
+import { forwardRef, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { useLatest, useToggle } from '../../hooks';
-import { noop } from '../../utils';
-import DatePickerInputWithoutModal from './DatePickerInputWithoutModal';
-import DatePickerInputModal from './DatePickerInputModal';
-import type { DatePickerInputProps } from './types';
+import { noop } from '../../utils/lodash';
 import { DatePickerDocked } from '../DatePickerDocked';
 import { IconButton } from '../IconButton';
+import DatePickerInputModal from './DatePickerInputModal';
+import DatePickerInputWithoutModal from './DatePickerInputWithoutModal';
+import type { DatePickerInputProps } from './types';
 
 function DatePickerInput(
     {

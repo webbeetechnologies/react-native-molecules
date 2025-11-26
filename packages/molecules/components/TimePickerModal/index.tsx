@@ -10,5 +10,5 @@ export const TimePickerModal = getRegisteredComponentWithFallback(
     TimePickerModalDefault,
 );
 
-export { Props as TimePickerModalProps } from './TimePickerModal';
+export type { Props as TimePickerModalProps } from './TimePickerModal';
 export { styles } from './utils';

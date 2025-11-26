@@ -1,0 +1,80 @@
+---
+title: Customization
+sidebar_label: Customization
+sidebar_position: 3
+sidebar_custom_props:
+    icon: 'material:palette'
+description: Tune Bamboo Molecules to match your tokens, typography, and interaction patterns.
+---
+
+## Theme tokens & typography
+
+Bamboo Molecules exposes the Material 3 token set through `@bambooapp/bamboo-molecules/styles`. Extend or override those tokens to align with your brand:
+
+```ts title="theme.ts"
+import { MD3LightTheme } from '@bambooapp/bamboo-molecules/styles';
+
+export const AppTheme = {
+    ...MD3LightTheme,
+    colors: {
+        ...MD3LightTheme.colors,
+        primary: '#0c7c59',
+        onPrimary: '#ffffff',
+        brandAccent: '#fbbf24',
+    },
+    typography: {
+        ...MD3LightTheme.typography,
+        titleLarge: {
+            ...MD3LightTheme.typography.titleLarge,
+            fontFamily: 'InterVariable',
+        },
+    },
+};
+```
+
+Provide the theme via `ThemeProvider` (or your preferred context) so every component receives the same tokens.
+
+## Component-level overrides
+
+Most components accept style props (e.g., `contentStyle`, `labelStyle`, `iconColor`). Compose your own wrappers to encode common patterns:
+
+```tsx
+import { Button, ButtonProps } from '@bambooapp/bamboo-molecules';
+
+export function PrimaryButton(props: ButtonProps) {
+    return (
+        <Button
+            mode="contained-tonal"
+            contentStyle={{ borderRadius: 999 }}
+            {...props}
+        />
+    );
+}
+```
+
+## Responsive design with Unistyles
+
+Pair Bamboo Molecules with `react-native-unistyles` to adapt spacing, typography, and breakpoints. The `docs/src/unistyles.ts` file in this repo shows a ready-to-copy configuration you can reuse in your app.
+
+```ts
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
+
+const sheet = createStyleSheet(theme => ({
+    root: {
+        paddingHorizontal: theme.spacing.lg,
+        gap: theme.spacing.md,
+    },
+}));
+
+export function Screen() {
+    const { styles } = useStyles(sheet);
+    return <View style={styles.root}>{/* ... */}</View>;
+}
+```
+
+## Building your system
+
+- Establish shared tokens (colors, typography, radius, motion) and feed them into the Bamboo Molecules theme.
+- Wrap primitives in your own abstractions (e.g., `PrimaryButton`, `DangerBanner`) for consistent behavior.
+- Combine the component catalog with utilities (portals, shortcuts manager, context bridge) to cover complex product surfaces.
+

@@ -1,1 +1,4 @@
-export { normalizeToNumberString, NormalizeToNumberStringProps } from './normalizeToNumberString';
+export {
+    normalizeToNumberString,
+    type NormalizeToNumberStringProps,
+} from './normalizeToNumberString';

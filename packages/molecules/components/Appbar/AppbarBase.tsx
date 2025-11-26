@@ -1,8 +1,9 @@
 import { createContext, memo, useMemo } from 'react';
-import { useSubcomponents } from '../../hooks';
-import type { AppbarBaseProps, AppbarType } from './types';
-import { Surface } from '../Surface';
 import { View } from 'react-native';
+
+import { useSubcomponents } from '../../hooks';
+import { Surface } from '../Surface';
+import type { AppbarBaseProps, AppbarType } from './types';
 import { appbarBaseStyles } from './utils';
 
 const AppbarBase = ({

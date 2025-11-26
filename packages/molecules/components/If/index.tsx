@@ -1,4 +1,5 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
+
 import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
 
 const IfDefault = (props: PropsWithChildren<{ shouldRender?: boolean }>) => {

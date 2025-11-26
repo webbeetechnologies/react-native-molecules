@@ -1,8 +1,8 @@
-import { memo, ReactNode, Children, isValidElement, cloneElement, useMemo } from 'react';
+import { Children, cloneElement, isValidElement, memo, type ReactNode, useMemo } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 
-import { Modal, type ModalProps } from '../Modal';
 import type { IconProps } from '../Icon';
+import { Modal, type ModalProps } from '../Modal';
 import DialogIcon from './DialogIcon';
 import { dialogStyles } from './utils';
 

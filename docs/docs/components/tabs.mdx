@@ -1,0 +1,64 @@
+---
+title: "Tabs"
+description: "Scrollable and fixed tabs with indicator animation."
+sidebar_position: 46
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Tabs" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    center={false}
+    code={`import { Tabs } from '@bambooapp/bamboo-molecules/components/Tabs';
+
+export default function Example() {
+    return (
+        <Tabs defaultValue="trips">
+            <Tabs.Item name="flight" accessibilityLabel="Flights">
+                <Tabs.Label label="Flights" iconName="airplane" />
+            </Tabs.Item>
+            <Tabs.Item name="trips" accessibilityLabel="Trips">
+                <Tabs.Label label="Trips" iconName="bag-checked" />
+            </Tabs.Item>
+            <Tabs.Item name="explore" accessibilityLabel="Explore">
+                <Tabs.Label label="Explore" iconName="compass-outline" />
+            </Tabs.Item>
+        </Tabs>
+    );
+}`}
+/>
+
+### Controlled
+
+<LiveCodeExample
+    center={false}
+    code={`import { useState } from 'react';
+import { Tabs } from '@bambooapp/bamboo-molecules/components/Tabs';
+
+export default function Example() {
+    const [value, setValue] = useState('trips');
+
+    return (
+        <Tabs value={value} onChange={setValue}>
+            <Tabs.Item name="flight" label="Flights">
+                <Tabs.Label label="Flights" iconName="airplane" />
+            </Tabs.Item>
+            <Tabs.Item name="trips" label="Trips" iconName="bag-checked">
+                <Tabs.Label label="Trips" iconName="bag-checked" />
+            </Tabs.Item>
+            <Tabs.Item name="explore" label="Explore" iconName="compass-outline">
+                <Tabs.Label label="Explore" iconName="compass-outline" />
+            </Tabs.Item>
+        </Tabs>
+    );
+}`}
+/>
+
+<ComponentProps name="Tabs" />
