@@ -1,5 +1,5 @@
-import { DatePickerInline } from '../index';
 import { renderWithWrapper } from '../../../../testHelpers';
+import { DatePickerInline } from '../index';
 
 const onChangeMock = jest.fn();
 

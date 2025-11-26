@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native-unistyles';
-
 import { MD3DarkTheme, MD3LightTheme } from 'react-native-molecules/styles';
+import { StyleSheet } from 'react-native-unistyles';
 
 // if you defined themes
 type AppThemes = {

@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
-import { TextInput } from '../index';
+
 import { renderWithWrapper } from '../../../../testHelpers';
+import { TextInput } from '../index';
 
 it('renders text button by default', () => {
     const tree = renderWithWrapper(<TextInput />).toJSON();

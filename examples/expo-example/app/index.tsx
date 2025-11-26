@@ -1,24 +1,24 @@
-import {
-    Text,
-    View,
-    Platform,
-    Button,
-    Switch as RNSwitch,
-    ScrollView,
-    TextInput,
-} from 'react-native';
 // import { Switch } from 'react-native-molecules/components/Switch';
-import { useRef, useState } from 'react';
-import { StyleSheet } from 'react-native-unistyles';
+import { useState } from 'react';
+import {
+    // Button,
+    // Platform,
+    // ScrollView,
+    // Switch as RNSwitch,
+    Text,
+    TextInput,
+    View,
+} from 'react-native';
 import { Select } from 'react-native-molecules/components/Select';
+import { StyleSheet } from 'react-native-unistyles';
 // import { TextInput } from 'react-native-molecules/components/TextInput';
 
 export default function Index() {
-    const [isOn, setIsOn] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [displayedComponents, setDisplayedComponents] = useState('date');
+    // const [isOn, setIsOn] = useState(false);
+    // const [selectedDate, setSelectedDate] = useState(new Date());
+    // const [displayedComponents, setDisplayedComponents] = useState('date');
     const [multiSelectValue, setMultiSelectValue] = useState<string[]>(['1', '2', '3']);
-    console.log('multiSelectValue', multiSelectValue);
+    // console.log('multiSelectValue', multiSelectValue);
 
     const singleSelectOptions = [
         { id: '1', label: 'Option 1' },
@@ -49,7 +49,7 @@ export default function Index() {
                     <Select.Dropdown>
                         <Select.SearchInput />
                         <Select.Content>
-                            {(item, isSelected) => (
+                            {(item, _isSelected) => (
                                 <Select.Option value={item.id}>{item.label}</Select.Option>
                             )}
                         </Select.Content>
@@ -66,13 +66,13 @@ export default function Index() {
                     <Select.Dropdown>
                         <Select.SearchInput />
                         <Select.Content>
-                            {(item, isSelected) => (
+                            {(item, _isSelected) => (
                                 <Select.Option value={item.id}>{item.label}</Select.Option>
                             )}
                         </Select.Content>
                     </Select.Dropdown>
                 </Select>
-                <TextInput onBlur={e => {}} />
+                <TextInput onBlur={() => {}} />
                 {/* <TextInput size="sm" variant="outlined" placeholder="Enter your name" /> */}
                 {/* <SelectV1
                     inputProps={{

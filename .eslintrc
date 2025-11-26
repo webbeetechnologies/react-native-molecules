@@ -1,5 +1,8 @@
 {
     "extends": ["@react-native-community", "prettier"],
+    "parserOptions": {
+        "requireConfigFile": false
+    },
     "rules": {
         "prettier/prettier": ["error"],
         "prefer-const": "warn", // to avoid using let for variables that aren't reassigned
@@ -13,5 +16,19 @@
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error"
     },
-    "plugins": ["@typescript-eslint", "prettier", "simple-import-sort"]
+    "plugins": ["@typescript-eslint", "prettier", "simple-import-sort"],
+    "overrides": [
+        {
+            "files": ["**/*.js", "**/*.jsx"],
+            "parser": "@babel/eslint-parser",
+            "parserOptions": {
+                "requireConfigFile": false,
+                "ecmaVersion": "latest",
+                "sourceType": "module",
+                "babelOptions": {
+                    "presets": ["@babel/preset-react"]
+                }
+            }
+        }
+    ]
 }

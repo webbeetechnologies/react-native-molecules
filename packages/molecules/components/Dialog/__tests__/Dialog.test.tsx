@@ -1,6 +1,7 @@
 import { Text } from 'react-native';
-import { Dialog, Button } from '../../index';
+
 import { renderWithWrapper } from '../../../../testHelpers';
+import { Button, Dialog } from '../../index';
 
 describe('Dialog', () => {
     it('renders with content', () => {

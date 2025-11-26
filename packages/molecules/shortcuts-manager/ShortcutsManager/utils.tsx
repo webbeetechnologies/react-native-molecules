@@ -1,6 +1,7 @@
-import type { Scope, Shortcut } from '../types';
-import { createFastContext } from '../../fast-context';
 import type { ReactNode } from 'react';
+
+import { createFastContext } from '../../fast-context';
+import type { Scope, Shortcut } from '../types';
 
 export type ShortcutsManagerContextType = {
     shortcuts: Record<string, Shortcut>;

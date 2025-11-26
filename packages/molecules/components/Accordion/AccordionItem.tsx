@@ -9,6 +9,7 @@ import {
     useMemo,
 } from 'react';
 import { View, type ViewProps } from 'react-native';
+
 import { useControlledValue, useSubcomponents } from '../../hooks';
 import type { WithElements } from '../../types';
 import { AccordionContext } from './Accordion';

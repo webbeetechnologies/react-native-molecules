@@ -23,5 +23,4 @@ export const RadioButton = getRegisteredComponentWithFallback('RadioButton', Rad
 export { Props as RadioButtonProps } from './RadioButton';
 export { Props as RadioButtonGroupProps } from './RadioButtonGroup';
 export { Props as RadioButtonItemProps } from './RadioButtonItem';
-
-export { radioButtonStyles, radioButtonItemStyles } from './utils';
+export { radioButtonItemStyles, radioButtonStyles } from './utils';

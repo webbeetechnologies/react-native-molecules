@@ -7,7 +7,7 @@ module.exports = function (api) {
             'packages/molecules',
             // this is for when molecules is installed normally
             'react-native-molecules',
-            "@react-native-vector-icons/common"
+            '@react-native-vector-icons/common',
         ],
     };
 

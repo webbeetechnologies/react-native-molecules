@@ -214,13 +214,21 @@ const config = {
                     if (extraTranspileTargets.length > 0) {
                         webpackConfig.module = webpackConfig.module || {};
                         webpackConfig.module.rules = webpackConfig.module.rules || [];
-                        
+
                         const jsLoader = utils.getJSLoader({ isServer });
                         // Ensure we use our local babel config for these external files
                         // because they are outside the root of 'docs' and won't find babel.config.js otherwise
-                        if (jsLoader && typeof jsLoader === 'object' && jsLoader.options && typeof jsLoader.options === 'object') {
+                        if (
+                            jsLoader &&
+                            typeof jsLoader === 'object' &&
+                            jsLoader.options &&
+                            typeof jsLoader.options === 'object'
+                        ) {
                             // @ts-ignore
-                            jsLoader.options.configFile = path.resolve(__dirname, 'babel.config.js');
+                            jsLoader.options.configFile = path.resolve(
+                                __dirname,
+                                'babel.config.js',
+                            );
                         }
 
                         webpackConfig.module.rules.push({

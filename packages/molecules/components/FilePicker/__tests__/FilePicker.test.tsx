@@ -1,5 +1,5 @@
-import { FilePicker } from '../../index';
 import { renderWithWrapper } from '../../../../testHelpers';
+import { FilePicker } from '../../index';
 
 jest.doMock('../../Icon/Icon', () => {
     return jest.fn(args => JSON.stringify(args));

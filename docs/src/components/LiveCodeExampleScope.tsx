@@ -1,4 +1,6 @@
 // Import commonly used components directly
+import * as React from 'react';
+import { Image, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Accordion, AccordionItem } from 'react-native-molecules/components/Accordion';
 import { ActivityIndicator } from 'react-native-molecules/components/ActivityIndicator';
 import { Appbar } from 'react-native-molecules/components/Appbar';
@@ -50,8 +52,6 @@ import { VerticalDivider } from 'react-native-molecules/components/VerticalDivid
 import { createFastContext } from 'react-native-molecules/fast-context';
 import { useHandleNumberFormat } from 'react-native-molecules/hooks';
 import { ShortcutsManager } from 'react-native-molecules/shortcuts-manager';
-import * as React from 'react';
-import { Image, StyleSheet, useWindowDimensions, View } from 'react-native';
 
 // Create a default scope for live code examples
 export const defaultScope = {

@@ -13,20 +13,21 @@ import {
 } from 'react';
 import {
     Animated,
-    StyleProp,
-    ViewStyle,
-    ViewProps,
-    ScrollView as RNScrollView,
     LayoutChangeEvent,
-    NativeSyntheticEvent,
     NativeScrollEvent,
-    View,
+    NativeSyntheticEvent,
+    ScrollView as RNScrollView,
     ScrollView,
+    StyleProp,
+    View,
+    ViewProps,
+    ViewStyle,
 } from 'react-native';
-import type { TabItemProps } from './TabItem';
+
 import { useControlledValue } from '../../hooks';
 import { noop } from '../../utils/lodash';
 import { HorizontalDivider, type HorizontalDividerProps } from '../HorizontalDivider';
+import type { TabItemProps } from './TabItem';
 import { tabsStyles } from './utils';
 
 export type TabsProps = ViewProps & {

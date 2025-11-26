@@ -1,8 +1,8 @@
-import AccordionItemComponent from './AccordionItem';
-import AccordionItemHeader from './AccordionItemHeader';
-import AccordionItemContent from './AccordionItemContent';
-import AccordionDefault from './Accordion';
 import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import AccordionDefault from './Accordion';
+import AccordionItemComponent from './AccordionItem';
+import AccordionItemContent from './AccordionItemContent';
+import AccordionItemHeader from './AccordionItemHeader';
 
 const AccordionItemDefault = Object.assign(AccordionItemComponent, {
     Header: AccordionItemHeader,
@@ -22,15 +22,14 @@ export const AccordionItem = getRegisteredComponentWithFallback(
 
 export type { Props as AccordionProps } from './Accordion';
 export type { Props as AccordionItemProps } from './AccordionItem';
-export type {
-    Props as AccordionItemHeaderProps,
-    AccordionHeaderElementProps,
-} from './AccordionItemHeader';
 export type { Props as AccordionItemContentProps } from './AccordionItemContent';
-
+export type {
+    AccordionHeaderElementProps,
+    Props as AccordionItemHeaderProps,
+} from './AccordionItemHeader';
 export {
-    accordionStyles,
-    accordionItemStyles,
-    accordionItemHeaderStyles,
     accordionItemContentStyles,
+    accordionItemHeaderStyles,
+    accordionItemStyles,
+    accordionStyles,
 } from './utils';

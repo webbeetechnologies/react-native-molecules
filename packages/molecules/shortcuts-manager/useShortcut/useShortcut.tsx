@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
-import useLatest from '../../hooks/useLatest';
 
+import useLatest from '../../hooks/useLatest';
 import { useShortcutsManagerStoreRef } from '../ShortcutsManager';
 import type { ShortcutEventDetail } from '../types';
 import { calculateShortcutEventName } from '../utils';

@@ -1,12 +1,13 @@
 import { forwardRef, memo, ReactNode, useCallback, useContext, useMemo } from 'react';
+import { type GestureResponderEvent, type TextStyle, View, type ViewStyle } from 'react-native';
+
+import { useActionState } from '../../hooks';
 import type { WithElements } from '../../types';
+import { resolveStateVariant } from '../../utils';
+import { Text } from '../Text';
 import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import { AccordionItemContext } from './AccordionItem';
-import { View, type GestureResponderEvent, type TextStyle, type ViewStyle } from 'react-native';
-import { Text } from '../Text';
 import { accordionItemHeaderStyles } from './utils';
-import { resolveStateVariant } from '../../utils';
-import { useActionState } from '../../hooks';
 
 export type AccordionHeaderElementProps = {
     color: string;

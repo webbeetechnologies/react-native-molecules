@@ -35,4 +35,3 @@ export type ComponentDocMeta = {
     inherits?: string[];
     propsNote?: string;
 };
-

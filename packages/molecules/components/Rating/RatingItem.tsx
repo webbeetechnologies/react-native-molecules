@@ -1,8 +1,9 @@
 import { forwardRef, memo, useCallback, useMemo } from 'react';
 import { Pressable, type ViewStyle } from 'react-native';
+
+import { resolveStateVariant } from '../../utils';
 import { Icon, type IconProps, type IconType } from '../Icon';
 import { Tooltip, type TooltipProps } from '../Tooltip';
-import { resolveStateVariant } from '../../utils';
 import { ratingItemStyles } from './utils';
 
 export type Props = Omit<IconProps, 'ref'> & {
