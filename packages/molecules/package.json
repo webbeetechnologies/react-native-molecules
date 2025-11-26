@@ -1,5 +1,5 @@
 {
-    "name": "@bambooapp/bamboo-molecules",
+    "name": "react-native-molecules",
     "version": "0.5.0-beta.0",
     "author": "Thet Aung <thetaung.dev@gmail.com>",
     "license": "MIT",
@@ -28,7 +28,7 @@
         "test": "MOLECULES_ENV=storybook jest && pnpm test-storybook",
         "test-jest": "jest",
         "bundle": "MOLECULES_ENV=release rm -rf dist && mkdir -p dist && npm pack --pack-destination=dist",
-        "do-release": "npm publish ./dist/bambooapp-bamboo-molecules-$npm_package_version.tgz --access=public",
+        "do-release": "npm publish ./dist/react-native-molecules-$npm_package_version.tgz --access=public",
         "release": "pnpm bundle && pnpm do-release",
         "release:dev": "npm version prerelease --preid=dev && pnpm release --tag=dev",
         "storybook": "MOLECULES_ENV=storybook storybook dev -p 6006",
