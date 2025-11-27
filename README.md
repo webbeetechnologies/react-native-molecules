@@ -40,11 +40,6 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
     <td align="center"><a href="https://github.com/elvisduru"><img src="https://avatars.githubusercontent.com/u/28690701?v=4" width="100px;" alt="Elvis Duru"/><br /><sub><b>elvisduru</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=elvisduru" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jasimawan"><img src="https://avatars.githubusercontent.com/u/31315869?v=4" width="100px;" alt="Jasim Awan"/><br /><sub><b>jasimawan</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=jasimawan" title="Code">💻</a></td>
   </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/femitj"><img src="https://avatars.githubusercontent.com/u/40898511?v=4" width="100px;" alt="Femi Tijani"/><br /><sub><b>femitj</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=femitj" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Mythli"><img src="https://avatars.githubusercontent.com/u/504049?v=4" width="100px;" alt="Mythili Prabhu"/><br /><sub><b>Mythli</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=Mythli" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/adilovcode"><img src="https://avatars.githubusercontent.com/u/99314948?v=4" width="100px;" alt="adilovcode"/><br /><sub><b>adilovcode</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=adilovcode" title="Code">💻</a></td>
-  </tr>
 </table>
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
