@@ -1,46 +1,52 @@
 name: Lint
 
 on:
-    # Trigger the workflow on push or pull request,
-    # but only for the main branch
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-    run-linters:
-        if: '!github.event.pull_request || !github.event.pull_request.draft'
-        runs-on: [self-hosted, bamboo]
+  run-linters:
+    if: ${{ !github.event.pull_request || !github.event.pull_request.draft }}
+    runs-on: [self-hosted, bamboo]
 
-        steps:
-            - name: Get Yarn cache path
-              id: yarn-cache
-              run: echo "::set-output name=dir::$(yarn cache dir)"
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
 
-            - name: Check out Git repository
-              uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 16
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+          run_install: false
 
-            - name: Cache dependencies
-              id: cache-deps
-              uses: actions/cache@v2
-              with:
-                  path: '**/node_modules'
-                  key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Get pnpm store directory
+        run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-            - name: Install dependencies
-              # install deps only if lockfile has changed
-              if: steps.cache-deps.outputs.cache-hit != 'true'
-              run: yarn install --frozen-lockfile
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PNPM_STORE_PATH }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-
 
-            - name: Run linters
-              uses: wearerequired/lint-action@v2
-              with:
-                  eslint: true
+      - name: Install dependencies
+        # always install so pnpm recreates node_modules symlinks from cache
+        run: pnpm install --frozen-lockfile --prefer-offline
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true

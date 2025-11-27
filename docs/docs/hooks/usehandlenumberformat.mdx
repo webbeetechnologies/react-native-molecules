@@ -14,7 +14,8 @@ The `useHandleNumberFormat` hook provides a convenient way to format number inpu
 
 ```tsx
 import { useState } from 'react';
-import { useMolecules, useHandleNumberFormat } from 'react-native-molecules';
+import { useHandleNumberFormat } from 'react-native-molecules/hooks';
+import { TextInput } from 'react-native-molecules/components/TextInput';
 
 const config = {
     prefix: 'Rs.',
@@ -26,7 +27,6 @@ const config = {
 };
 
 export const Example = (props) => {
-    const { TextInput } = useMolecules();
     const [number, setNumber] = useState<number | null>(null);
     
     const numberInputProps = useHandleNumberFormat({

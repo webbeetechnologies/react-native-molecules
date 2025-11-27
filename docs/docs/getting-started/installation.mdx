@@ -4,7 +4,7 @@ sidebar_label: Installation
 sidebar_position: 2
 sidebar_custom_props:
     icon: 'material:download'
-description: Install Bamboo Molecules, wire up peer dependencies, and configure fonts.
+description: Install React Native Molecules, wire up peer dependencies, and configure fonts.
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 
 Before you begin, ensure your project meets the following requirements:
 
--   **React Native New Architecture**: Bamboo Molecules is built for the New Architecture (Fabric).
+-   **React Native New Architecture**: React Native Molecules is built for the New Architecture (Fabric).
 -   **React 19+**: Requires React 19 or higher.
 
 ## 1. Install the package
@@ -55,7 +55,7 @@ Before you begin, ensure your project meets the following requirements:
 
 ## 2. Add peer dependencies
 
-Bamboo Molecules uses `react-native-unistyles` for high-performance styling. This is the only required peer dependency.
+React Native Molecules uses `react-native-unistyles` for high-performance styling. This is the only required peer dependency.
 
 ```bash
 pnpm add react-native-unistyles
@@ -63,7 +63,7 @@ pnpm add react-native-unistyles
 
 ### Optional Dependencies
 
-Because Bamboo Molecules is modular, you only need to install additional dependencies if you use specific components.
+Because React Native Molecules is modular, you only need to install additional dependencies if you use specific components.
 
 | Component                      | Dependency                       |
 | ------------------------------ | -------------------------------- |
@@ -75,7 +75,7 @@ pnpm add @react-native-documents/picker
 
 ## 3. Configure fonts & icons
 
-Bamboo Molecules uses `MaterialDesignIcons` behind the scenes.
+React Native Molecules uses `MaterialDesignIcons` behind the scenes.
 
 ### Web Support
 
@@ -138,7 +138,7 @@ StyleSheet.configure({
 If you use components that require a portal (like `Popover`, `Tooltip`, `Menu`, `Modal`, etc.), you must wrap your application with `PortalProvider`.
 
 ```tsx title="App.tsx"
-import { PortalProvider } from 'react-native-molecules';
+import { PortalProvider } from 'react-native-molecules/components/Portal';
 
 export default function App() {
     return <PortalProvider>{/* Your app code */}</PortalProvider>;

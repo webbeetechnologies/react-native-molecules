@@ -16,12 +16,13 @@ It accepts a key and returns boolean value. If a key being pressed and hold, it 
 
 ```tsx
 import { useIsKeyPress } from 'react-native-molecules/shortcuts-manager';
-import { useMolecules, isMac } from 'react-native-molecules';
+import { isMac } from 'react-native-molecules/utils';
+import { Text } from 'react-native-molecules/components/Text';
+import { View } from 'react-native';
 
 const MetaKey = isMac() ? 'Meta' : 'Control';
 
 export const Example = () => {
-    const { View, Text } = useMolecules();
     const isShiftKeyPressed = useIsKeyPress('Shift');
     const isControlOrMetaKeyPress = useIsKeyPress(MetaKey);
     const isAltKeyPressed = useIsKeyPress('Alt');
