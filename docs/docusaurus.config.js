@@ -83,13 +83,12 @@ const config = {
                         position: 'left',
                         label: 'Getting Started',
                     },
-                    // {
-                    //     type: 'docSidebar',
-                    //     docId: 'components/button',
-                    //     sidebarId: 'componentSidebar',
-                    //     position: 'left',
-                    //     label: 'Components',
-                    // },
+                    {
+                        type: 'doc',
+                        docId: 'components/button',
+                        position: 'left',
+                        label: 'Components',
+                    },
                     {
                         href: 'https://github.com/webbeetechnologies/react-native-molecules',
                         label: 'GitHub',
