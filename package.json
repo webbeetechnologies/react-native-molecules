@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webbeetechnologies/bamboo-molecules.git"
+    "url": "git+https://github.com/webbeetechnologies/react-native-molecules.git"
   },
   "publishConfig": {
     "access": "public"

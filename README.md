@@ -3,14 +3,14 @@
 
 <h3 align="center">
   Material-inspired molecules for React Native + Web.<br/>
-  <a href="https://molecules.taylordb.ai">bamboo-molecules docs</a>
+  <a href="https://molecules.taylordb.ai">react-native-molecules docs</a>
 </h3>
 
 ---
 
 [![Build Status][build-badge]][build] [![Version][version-badge]][package] [![MIT License][license-badge]][license] [![All Contributors][all-contributors-badge]][all-contributors] [![PRs Welcome][prs-welcome-badge]][prs-welcome] [![Chat][chat-badge]][chat] [![Sponsored by TaylorDB][taylordb-badge]][taylordb]
 
-<p align="center"><i>Reusable UI molecules, hooks, and utilities for the Bamboo React Native monorepo. Explore the main package in <a href="packages/molecules">packages/molecules</a> or install it from <a href="https://www.npmjs.com/package/react-native-molecules">npm</a>.</i></p>
+<p align="center"><i>Reusable UI molecules, hooks, and utilities for the React Native Molecules monorepo. Explore the main package in <a href="packages/molecules">packages/molecules</a> or install it from <a href="https://www.npmjs.com/package/react-native-molecules">npm</a>.</i></p>
 
 ## Getting Started
 
@@ -47,16 +47,16 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-[build-badge]: https://github.com/webbeetechnologies/bamboo-molecules/actions/workflows/lint.yml/badge.svg
-[build]: https://github.com/webbeetechnologies/bamboo-molecules/actions/workflows/lint.yml
+[build-badge]: https://github.com/webbeetechnologies/react-native-molecules/actions/workflows/lint.yml/badge.svg
+[build]: https://github.com/webbeetechnologies/react-native-molecules/actions/workflows/lint.yml
 [version-badge]: https://img.shields.io/npm/v/react-native-molecules.svg
 [package]: https://www.npmjs.com/package/react-native-molecules
 [license-badge]: https://img.shields.io/badge/license-MIT-green.svg
-[license]: https://github.com/webbeetechnologies/bamboo-molecules/blob/main/LICENSE
+[license]: https://github.com/webbeetechnologies/react-native-molecules/blob/main/LICENSE
 [all-contributors-badge]: https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square
 [all-contributors]: #contributors
 [prs-welcome-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
-[prs-welcome]: https://github.com/webbeetechnologies/bamboo-molecules/issues
+[prs-welcome]: https://github.com/webbeetechnologies/react-native-molecules/issues
 [chat-badge]: https://img.shields.io/badge/chat-Discussions-5865F2.svg
 [chat]: https://discord.gg/5W5YFwqQ
 [taylordb-badge]: https://img.shields.io/badge/sponsored%20by-TaylorDB-000000.svg
