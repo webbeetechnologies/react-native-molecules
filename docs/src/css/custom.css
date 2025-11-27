@@ -6,6 +6,11 @@
 
 /* Font-face rule is injected via theme/FontLoader.tsx React component */
 
+/* @font-face {
+  font-family: 'MaterialDesignIcons';
+  src: url('/fonts/MaterialDesignIcons.ttf') format('truetype');
+} */
+
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0');
 
 /* You can override the default Infima variables here. */
