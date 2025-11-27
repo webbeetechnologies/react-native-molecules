@@ -13,8 +13,6 @@ export const sizeToIconSizeMap = {
 const defaultStylesDefault = StyleSheet.create(theme => {
     return {
         root: {
-            flexGrow: 1,
-
             variants: {
                 size: {
                     sm: {
