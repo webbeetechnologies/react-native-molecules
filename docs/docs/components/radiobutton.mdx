@@ -1,0 +1,66 @@
+---
+title: "RadioButton"
+description: "Cross-platform radio button with Material theming."
+sidebar_position: 39
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="RadioButton" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { RadioButton } from 'react-native-molecules/components/RadioButton';
+
+export default function Example() {
+    return <RadioButton value="default" status="checked" />;
+}`}
+/>
+
+### Radio Item
+
+<LiveCodeExample
+    code={`import { RadioButton } from 'react-native-molecules/components/RadioButton';
+
+export default function Example() {
+    return <RadioButton.Item value="item" label="Radio Item Label" />;
+}`}
+/>
+
+### With Radio Group
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { RadioButton } from 'react-native-molecules/components/RadioButton';
+
+export default function Example() {
+    const [value, setValue] = useState('first');
+
+    return (
+        <RadioButton.Group onValueChange={setValue} value={value}>
+            <RadioButton.Item value="first" label="First Item" />
+            <RadioButton.Item value="second" label="Second Item" />
+        </RadioButton.Group>
+    );
+}`}
+/>
+
+### With Uncontrolled Radio Group
+
+<LiveCodeExample
+    code={`import { RadioButton } from 'react-native-molecules/components/RadioButton';
+
+export default function Example() {
+    return (
+        <RadioButton.Group defaultValue="second">
+            <RadioButton.Item value="first" label="First Item" />
+            <RadioButton.Item value="second" label="Second Item" />
+        </RadioButton.Group>
+    );
+}`}
+/>

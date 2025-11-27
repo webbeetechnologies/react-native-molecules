@@ -1,0 +1,81 @@
+---
+title: "ShortcutsManager"
+description: "Event delegation and observer pattern for keyboard shortcuts with scope support."
+sidebar_position: 44
+sidebar_custom_props:
+    icon: 'material:keyboard'
+---
+
+# Shortcuts Manager
+
+Shortcuts Manager uses Event Delegation and Observer Pattern to distribute events.
+
+It accepts an array of Shortcuts in which one could define key combinations that will trigger the Shortcut Event.
+
+Shortcut events can be listened to by using `useShortcut` hook. It accepts the name of the shortcut that you want to listen to and callback. The callback function is triggered when a key combination defined in the shortcut is triggered.
+
+## Scopes
+
+Scopes is an optional prop in ShortcutManager. It's useful for group shortcuts and enabling and disable all of them at once.
+
+It also can be used for FocusTrapping the Shortcuts to a component. With FocusTrap, the Shortcut with certain scope will only be triggerred if the element defined in the scope or the children inside it is focused
+
+## Examples
+
+### Basic Example
+
+```tsx
+import { useMolecules, isMac } from 'react-native-molecules';
+import {
+    useShortcut,
+    ShortcutsManager,
+    Shortcut,
+} from 'react-native-molecules/shortcuts-manager';
+
+const shortcuts: Shortcut[] = [
+    {
+        name: 'copy',
+        keys: [isMac() ? ['meta', 'c'] : ['control', 'c']],
+    },
+    {
+        name: 'paste',
+        keys: [isMac() ? ['meta', 'v'] : ['control', 'v']],
+    },
+];
+
+export const Wrapper = () => {
+    return (
+        <ShortcutsManager shortcuts={shortcuts}>
+            <MyComponent />
+        </ShortcutsManager>
+    );
+};
+
+const styles = {
+    container: {
+        padding: 'spacings.4',
+    },
+};
+
+export const MyComponent = () => {
+    const { View, Text } = useMolecules();
+
+    useShortcut('copy', ({ shortcut }) => {
+        // eslint-disable-next-line no-console
+        console.log({ shortcut });
+    });
+
+    useShortcut('paste', async ({ shortcut }) => {
+        // eslint-disable-next-line no-console
+        console.log({ shortcut });
+    });
+
+    return (
+        <View style={styles.container}>
+            <Text>Press Control/Meta + c to copy</Text>
+            <Text>Press Control/Meta + v to paste</Text>
+        </View>
+    );
+};
+```
+

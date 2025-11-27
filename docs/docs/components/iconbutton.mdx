@@ -1,0 +1,25 @@
+---
+title: "IconButton"
+description: "Compact tappable icon with ripple + state layer feedback."
+sidebar_position: 26
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="IconButton" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { IconButton } from 'react-native-molecules/components/IconButton';
+
+export default function Example() {
+    return <IconButton name="home-outline" onPress={() => console.log('Pressed')} />;
+}`}
+/>
+
+<ComponentProps name="IconButton" />

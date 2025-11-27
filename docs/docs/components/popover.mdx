@@ -1,0 +1,55 @@
+---
+title: "Popover"
+description: "Positioned overlay anchored to a trigger with collision detection."
+sidebar_position: 37
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Popover" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+import { Popover } from 'react-native-molecules/components/Popover';
+import { Text } from 'react-native-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 48,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 260,
+    },
+    content: {
+        padding: 16,
+    },
+});
+
+export default function Example() {
+    const triggerRef = useRef(null);
+    const [open, setOpen] = useState(false);
+
+    return (
+        <View style={styles.container}>
+            <Button ref={triggerRef} onPress={() => setOpen(o => !o)}>
+                Show Popover
+            </Button>
+            <Popover triggerRef={triggerRef} isOpen={open} onClose={() => setOpen(false)}>
+                <View style={styles.content}>
+                    <Text>I'm a popover</Text>
+                </View>
+            </Popover>
+        </View>
+    );
+}`}
+/>
+
+<ComponentProps name="Popover" />

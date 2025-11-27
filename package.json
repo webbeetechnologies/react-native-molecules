@@ -1,209 +1,61 @@
 {
-    "name": "@bambooapp/bamboo-molecules",
-    "version": "0.4.8",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/webbeetechnologies/bamboo-molecules.git"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "license": "MIT",
-    "packageManager": "yarn@3.3.0",
-    "main": "lib/commonjs/index.js",
-    "module": "lib/module/index.js",
-    "types": "lib/typescript/index.d.ts",
-    "workspaces": {
-        "packages": [
-            "test-cases"
-        ],
-        "nohoist": [
-            "**/react-native-web",
-            "**/react-native-web/**"
-        ]
-    },
-    "files": [
-        "lib",
-        "src",
-        "datagrid",
-        "fast-context",
-        "shortcuts-manager",
-        "components",
-        "context-bridge",
-        "!**/__tests__",
-        "!**/__fixtures__",
-        "!**/__mocks__"
-    ],
-    "scripts": {
-        "lint": "eslint .",
-        "type-check": "tsc --noEmit",
-        "prepare:husky": "husky install",
-        "prepare": "bob build",
-        "start": "MOLECULES_ENV=storybook yarn storybook",
-        "run:testcases": "yarn workspace test-cases start",
-        "test": "MOLECULES_ENV=storybook jest && yarn test-storybook",
-        "test-jest": "jest",
-        "bundle": "MOLECULES_ENV=release rm -rf lib && yarn prepare && mkdir -p dist && npm pack --pack-destination=dist",
-        "do-release": "npm publish ./dist/bambooapp-bamboo-molecules-$npm_package_version.tgz --access=public",
-        "release": "yarn bundle && yarn do-release",
-        "release:dev": "npm version prerelease --preid=dev && yarn release --tag=dev",
-        "storybook": "MOLECULES_ENV=storybook start-storybook -p 6006",
-        "test-storybook": "test-storybook",
-        "coverage": "cp coverage/storybook/coverage-storybook.json coverage/coverage-storybook.json && npx nyc report --reporter=html -t coverage --report-dir coverage/lcov-report",
-        "test:coverage": "yarn test-jest --coverage && yarn test-storybook --coverage && yarn coverage",
-        "build-storybook": "build-storybook",
-        "chromatic:all": "MOLECULES_ENV=storybook npx chromatic --project-token=934368a7f6c9",
-        "chromatic": "MOLECULES_ENV=storybook yarn chromatic:all --only-changed",
-        "perf": "npx reassure"
-    },
-    "dependencies": {
-        "@bambooapp/bamboo-atoms": "^0.0.35",
-        "@bambooapp/virtualized-list": "^0.0.7",
-        "@gorhom/portal": "^1.0.14",
-        "@react-native-aria/overlays": "^0.3.2",
-        "@sharcoux/slider": "^6.1.2",
-        "color": "^4.2.3",
-        "date-fns": "^2.29.3",
-        "eventemitter3": "^5.0.1",
-        "lodash.get": "^4.4.2",
-        "lodash.groupby": "^4.6.0",
-        "lodash.isnil": "^4.0.0",
-        "lodash.keyby": "^4.6.0",
-        "lodash.memoize": "^4.1.2",
-        "lodash.noop": "^3.0.1",
-        "lodash.omit": "^4.5.0",
-        "lodash.omitby": "^4.6.0",
-        "lru-cache": "^11.0.2",
-        "react-native-actions-sheet": "^0.8.10",
-        "react-native-mask-input": "^1.2.2",
-        "react-native-super-grid": "^5.0.0",
-        "react-native-toast-message": "^2.1.6",
-        "react-native-web-hooks": "^3.0.2",
-        "ts-deepmerge": "^4.0.0",
-        "use-sync-external-store": "^1.2.0"
-    },
-    "devDependencies": {
-        "@react-native-community/eslint-config": "^3.1.0",
-        "@storybook/addon-coverage": "^0.0.7",
-        "@storybook/addon-essentials": "^6.5.16",
-        "@storybook/addon-interactions": "^6.5.16",
-        "@storybook/addon-links": "^6.5.16",
-        "@storybook/addon-react-native-web": "^0.0.19",
-        "@storybook/builder-webpack5": "^6.5.16",
-        "@storybook/jest": "^0.0.10",
-        "@storybook/manager-webpack5": "^6.5.16",
-        "@storybook/react": "^6.5.16",
-        "@storybook/test-runner": "^0.9.3",
-        "@storybook/testing-library": "^0.0.13",
-        "@testing-library/jest-native": "^5.1.2",
-        "@testing-library/react-native": "^11.2.0",
-        "@types/color": "^3.0.3",
-        "@types/jest": "^29.1.2",
-        "@types/lodash.get": "^4.4.7",
-        "@types/lodash.groupby": "^4.6.7",
-        "@types/lodash.isnil": "^4.0.7",
-        "@types/lodash.keyby": "^4.6.7",
-        "@types/lodash.memoize": "^4.1.7",
-        "@types/lodash.noop": "^3.0.7",
-        "@types/lodash.omit": "^4.5.7",
-        "@types/lodash.omitby": "^4.6.7",
-        "@types/react": "^18.0.20",
-        "@types/react-native": "^0.70.0",
-        "@types/react-native-vector-icons": "^6.4.12",
-        "@types/use-sync-external-store": "^0.0.3",
-        "@types/uuid": "^8.3.4",
-        "chromatic": "^6.15.0",
-        "eslint": "^8.23.1",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-prettier": "^4.2.1",
-        "husky": "^8.0.1",
-        "jest": "27",
-        "jest-environment-node": "27",
-        "jest-transform-stub": "^2.0.0",
-        "prettier": "^2.7.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-native": "^0.70.1",
-        "react-native-builder-bob": "^0.17.1",
-        "react-native-document-picker": "^8.1.3",
-        "react-native-gesture-handler": "^2.9.0",
-        "react-native-vector-icons": "^9.2.0",
-        "react-native-web": "^0.18.9",
-        "react-test-renderer": "^18.2.0",
-        "reassure": "^0.7.1",
-        "storybook-addon-performance": "^0.16.1",
-        "storybook-mock-date-decorator": "^1.0.0",
-        "ts-jest": "^29.0.3",
-        "typescript": "~4.3.5"
-    },
-    "peerDependencies": {
-        "react-native-document-picker": ">=8.1.3",
-        "react-native-gesture-handler": ">=2.9.0",
-        "react-native-vector-icons": ">=9.2.0"
-    },
-    "react-native-builder-bob": {
-        "source": "src",
-        "output": "lib",
-        "targets": [
-            [
-                "commonjs",
-                {
-                    "configFile": true
-                }
-            ],
-            [
-                "module",
-                {
-                    "configFile": true
-                }
-            ],
-            [
-                "typescript",
-                {
-                    "project": "tsconfig.build.json"
-                }
-            ]
-        ]
-    },
-    "eslintIgnore": [
-        "node_modules/",
-        "lib/",
-        "test-cases/node_modules",
-        "dist",
-        "cache"
-    ],
-    "jest": {
-        "coverageReporters": [
-            "json"
-        ],
-        "preset": "react-native",
-        "setupFiles": [
-            "./node_modules/react-native-gesture-handler/jestSetup.js"
-        ],
-        "testPathIgnorePatterns": [
-            "/node_modules/",
-            "/example",
-            "/test-cases",
-            "/lib"
-        ],
-        "setupFilesAfterEnv": [
-            "<rootDir>/testSetup.js",
-            "@testing-library/jest-native/extend-expect"
-        ],
-        "cacheDirectory": "./cache/jest",
-        "modulePathIgnorePatterns": [
-            "<rootDir>/node_modules",
-            "<rootDir>/lib/",
-            "<rootDir>/dist/"
-        ],
-        "watchPathIgnorePatterns": [
-            "__fixtures__\\/[^/]+\\/(output|error)\\.js"
-        ],
-        "transform": {
-            ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
-        },
-        "transformIgnorePatterns": [
-            "node_modules/(?!(@react-native|react-native|react-native-super-grid|react-native-vector-icons|react-native-web-hooks|react-native-actions-sheet|@expo/vector-icons|expo-font|react-native-iphone-x-helper)/)"
-        ]
-    }
+  "name": "molecules-monorepo",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webbeetechnologies/bamboo-molecules.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@9.3.0",
+  "scripts": {
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit -p packages/molecules/tsconfig.json && tsc --noEmit -p docs/tsconfig.json",
+    "prepare:husky": "husky install",
+    "molecules-docs": "pnpm --filter=molecules-docs run",
+    "example:app": "pnpm --filter=expo-example-molecules run",
+    "example:web": "pnpm --filter=next-example-molecules run"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@chromatic-com/storybook": "^3",
+    "@react-native-community/eslint-config": "^3.1.0",
+    "@testing-library/jest-native": "^5.1.2",
+    "@testing-library/react-native": "^11.2.0",
+    "@types/react": "~19.1.10",
+    "@types/react-dom": "19.1.5",
+    "@types/uuid": "^8.3.4",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "chromatic": "^6.15.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^8.0.1",
+    "jest": "~29.7.0",
+    "jest-environment-node": "27",
+    "jest-transform-stub": "^2.0.0",
+    "prettier": "^2.7.1",
+    "react-docgen-typescript-plugin": "^1.0.8",
+    "react-test-renderer": "^18.2.0",
+    "reassure": "^0.7.1",
+    "ts-jest": "^29.0.3",
+    "ts-morph": "^27.0.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "@types/react": "~19.1.10",
+    "@types/react-dom": "19.1.5",
+    "react-native-unistyles": "3.0.18"
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/",
+    "test-cases/node_modules",
+    "dist",
+    "cache"
+  ]
 }

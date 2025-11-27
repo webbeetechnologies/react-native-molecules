@@ -1,0 +1,29 @@
+---
+title: "Avatar"
+description: "Circular avatar that falls back to initials or icons when images fail."
+sidebar_position: 4
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Avatar" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { Avatar } from 'react-native-molecules/components/Avatar';
+
+export default function Example() {
+    const source = {
+        uri: 'https://www.eyerys.com/sites/default/files/mark_zuckerberg.jpg'
+    };
+
+    return <Avatar size={60} label="Thet Aung" source={source} />;
+}`}
+/>
+
+<ComponentProps name="Avatar" />

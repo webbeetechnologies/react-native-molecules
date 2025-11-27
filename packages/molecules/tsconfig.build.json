@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig",
+    "include": ["src", "global.d.ts"],
+    "exclude": [
+        "example",
+        "docs",
+        "test-cases",
+        "testHelpers",
+        "stories",
+        "**/__tests__",
+        "**/*.perf-test.*",
+        "**/__mocks__"
+    ]
+}

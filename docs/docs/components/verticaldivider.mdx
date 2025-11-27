@@ -1,0 +1,41 @@
+---
+title: "VerticalDivider"
+description: "Vertical rule for toolbars, Appbar, and dense layouts."
+sidebar_position: 56
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="VerticalDivider" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-molecules/components/Text';
+import { VerticalDivider } from 'react-native-molecules/components/VerticalDivider';
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
+});
+
+export default function Example() {
+    return (
+        <View style={styles.container}>
+            <Text>Left</Text>
+            <VerticalDivider bold spacing={10} />
+            <Text>Right</Text>
+        </View>
+    );
+}`}
+/>
+
+<ComponentProps name="VerticalDivider" />

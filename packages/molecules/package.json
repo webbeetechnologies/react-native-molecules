@@ -1,0 +1,114 @@
+{
+    "name": "react-native-molecules",
+    "version": "0.5.0-beta.1",
+    "author": "Thet Aung <thetaung.dev@gmail.com>",
+    "license": "MIT",
+    "main": "index.ts",
+    "files": [
+        "components",
+        "context-bridge",
+        "core",
+        "fast-context",
+        "hocs",
+        "hooks",
+        "shortcuts-manager",
+        "styles",
+        "types",
+        "utils",
+        "index.ts",
+        "!**/__tests__",
+        "!**/__fixtures__",
+        "!**/__mocks__"
+    ],
+    "scripts": {
+        "fix-typescript-output": "cd lib/typescript && mv src/* . && rm -rf src",
+        "example:expo": "pnpm --filter=expo-example run",
+        "start": "MOLECULES_ENV=storybook pnpm storybook",
+        "run:testcases": "pnpm workspace test-cases start",
+        "test": "MOLECULES_ENV=storybook jest && pnpm test-storybook",
+        "test-jest": "jest",
+        "bundle": "MOLECULES_ENV=release rm -rf dist && mkdir -p dist && npm pack --pack-destination=dist",
+        "do-release": "npm publish ./dist/react-native-molecules-$npm_package_version.tgz --access=public",
+        "release": "pnpm bundle && pnpm do-release",
+        "release:dev": "npm version prerelease --preid=dev && pnpm release --tag=dev",
+        "storybook": "MOLECULES_ENV=storybook storybook dev -p 6006",
+        "test-storybook": "test-storybook",
+        "coverage": "cp coverage/storybook/coverage-storybook.json coverage/coverage-storybook.json && npx nyc report --reporter=html -t coverage --report-dir coverage/lcov-report",
+        "test:coverage": "pnpm test-jest --coverage && pnpm test-storybook --coverage && pnpm coverage",
+        "build-storybook": "storybook build",
+        "chromatic:all": "MOLECULES_ENV=storybook npx chromatic --project-token=934368a7f6c9",
+        "chromatic": "MOLECULES_ENV=storybook pnpm chromatic:all --only-changed",
+        "perf": "npx reassure"
+    },
+    "dependencies": {
+        "@gorhom/portal": "^1.0.14",
+        "@react-native-vector-icons/feather": "^12.4.0",
+        "@react-native-vector-icons/material-design-icons": "^12.4.0",
+        "color": "^4.2.3",
+        "date-fns": "^4.1.0",
+        "eventemitter2": "^6.4.9",
+        "lodash.debounce": "^4.0.8",
+        "lodash.get": "^4.4.2",
+        "lodash.keyby": "^4.6.0",
+        "lodash.memoize": "^4.1.2",
+        "lodash.omitby": "^4.6.0",
+        "use-sync-external-store": "^1.2.0"
+    },
+    "peerDependencies": {
+        "@react-native-documents/picker": "^10.1.2",
+        "react": "19.1.0",
+        "react-native": "0.81.4",
+        "react-native-unistyles": "^3.0.15",
+        "react-native-web": "~0.21.1"
+    },
+    "devDependencies": {
+        "@react-native-documents/picker": "^10.1.2",
+        "@types/color": "^3.0.3",
+        "@types/jest": "^29.1.2",
+        "@types/lodash": "^4.17.13",
+        "@types/lodash.debounce": "^4.0.7",
+        "@types/lodash.get": "^4.4.7",
+        "@types/lodash.keyby": "^4.6.7",
+        "@types/lodash.memoize": "^4.1.7",
+        "@types/lodash.omitby": "^4.6.7",
+        "@types/react": "~19.1.10",
+        "@types/use-sync-external-store": "^1.5.0",
+        "react": "19.1.0",
+        "react-native": "0.81.4",
+        "react-native-builder-bob": "^0.17.1",
+        "react-native-unistyles": "^3.0.15",
+        "react-native-web": "~0.21.1"
+    },
+    "eslintIgnore": [
+        "node_modules/",
+        "lib/",
+        "test-cases/node_modules",
+        "dist",
+        "cache"
+    ],
+    "react-native-builder-bob": {
+        "source": "src",
+        "output": "lib",
+        "targets": [
+            [
+                "commonjs",
+                {
+                    "configFile": true
+                }
+            ],
+            [
+                "module",
+                {
+                    "configFile": true
+                }
+            ],
+            [
+                "typescript",
+                {
+                    "project": "tsconfig.build.json",
+                    "rootDir": "src"
+                }
+            ]
+        ]
+    }
+}

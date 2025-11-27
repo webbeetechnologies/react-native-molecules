@@ -1,0 +1,113 @@
+---
+title: "Select"
+description: "Next-gen select experience with chips, multi-select, and context providers."
+sidebar_position: 42
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Select" />
+
+## Examples
+
+### Single Select
+
+<LiveCodeExample
+    center={false}
+    code={`import { Select } from 'react-native-molecules/components/Select';
+
+const options = [
+    { id: 1, label: 'Option 1' },
+    { id: 2, label: 'Option 2' },
+    { id: 3, label: 'Option 3' },
+];
+
+export default function Example() {
+    return (
+        <Select options={options} labelKey="label">
+            <Select.Trigger>
+                <Select.Value placeholder="Select an option" />
+            </Select.Trigger>
+            <Select.Dropdown>
+                <Select.Content>
+                    {(item, isSelected) => (
+                        <Select.Option key={item.id} value={item.id}>
+                            {item.label}
+                        </Select.Option>
+                    )}
+                </Select.Content>
+            </Select.Dropdown>
+        </Select>
+    );
+}`}
+/>
+
+### Multi Select
+
+<LiveCodeExample
+    center={false}
+    code={`import { Select } from 'react-native-molecules/components/Select';
+
+const options = [
+    { id: 1, label: 'Option 1' },
+    { id: 2, label: 'Option 2' },
+    { id: 3, label: 'Option 3' },
+];
+
+export default function Example() {
+    return (
+        <Select multiple options={options} labelKey="label">
+            <Select.Trigger>
+                <Select.Value placeholder="Select multiple options" />
+            </Select.Trigger>
+            <Select.Dropdown>
+                <Select.Content>
+                    {(item, isSelected) => (
+                        <Select.Option key={item.id} value={item.id}>
+                            {item.label}
+                        </Select.Option>
+                    )}
+                </Select.Content>
+            </Select.Dropdown>
+        </Select>
+    );
+}`}
+/>
+
+### Select with Search
+
+<LiveCodeExample
+    center={false}
+    code={`import { Select } from 'react-native-molecules/components/Select';
+
+const options = [
+    { id: 1, label: 'Apple' },
+    { id: 2, label: 'Banana' },
+    { id: 3, label: 'Cherry' },
+    { id: 4, label: 'Date' },
+];
+
+export default function Example() {
+    return (
+        <Select options={options} labelKey="label">
+            <Select.Trigger>
+                <Select.Value placeholder="Search and select" />
+            </Select.Trigger>
+            <Select.Dropdown>
+                <Select.SearchInput placeholder="Search options..." />
+                <Select.Content>
+                    {(item, isSelected) => (
+                        <Select.Option key={item.id} value={item.id}>
+                            {item.label}
+                        </Select.Option>
+                    )}
+                </Select.Content>
+            </Select.Dropdown>
+        </Select>
+    );
+}`}
+/>
+
+<ComponentProps name="Select" />

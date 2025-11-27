@@ -1,12 +1,34 @@
 {
-  "extends": ["@react-native-community", "prettier"],
-  "rules": {
-    "prettier/prettier": ["error"],
-    "prefer-const": "warn", // to avoid using let for variables that aren't reassigned
-    "no-console": ["error", { "allow": ["warn", "error"] }],
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-unused-vars": ["error", {  "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
-    "react-native/no-inline-styles": "error"
-  },
-  "plugins": ["@typescript-eslint", "prettier"]
+    "extends": ["@react-native-community", "prettier"],
+    "parserOptions": {
+        "requireConfigFile": false
+    },
+    "rules": {
+        "prettier/prettier": ["error"],
+        "prefer-const": "warn", // to avoid using let for variables that aren't reassigned
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }
+        ],
+        "react-native/no-inline-styles": "error",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error"
+    },
+    "plugins": ["@typescript-eslint", "prettier", "simple-import-sort"],
+    "overrides": [
+        {
+            "files": ["**/*.js", "**/*.jsx"],
+            "parser": "@babel/eslint-parser",
+            "parserOptions": {
+                "requireConfigFile": false,
+                "ecmaVersion": "latest",
+                "sourceType": "module",
+                "babelOptions": {
+                    "presets": ["@babel/preset-react"]
+                }
+            }
+        }
+    ]
 }

@@ -7,6 +7,9 @@ cache
 # XDE
 .expo/
 
+.idea
+.vscode
+
 # Xcode
 #
 build/
@@ -61,7 +64,6 @@ node_modules
 
 # personal
 .env
-.npmrc
 
 #storybook
 build-storybook.log
@@ -81,3 +83,5 @@ example/cache
 
 coverage
 .reassure
+
+*.tsbuildinfo

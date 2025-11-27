@@ -1,0 +1,229 @@
+---
+title: "ContextBridge"
+description: "Bridge React contexts across render boundaries, enabling context access in portals and other cross-render scenarios."
+sidebar_position: 46
+sidebar_custom_props:
+    icon: 'material:link'
+---
+
+# ContextBridge
+
+ContextBridge is a utility that allows you to bridge React contexts across render boundaries. This is particularly useful when using portals, modals, or other scenarios where components are rendered outside the normal React tree but still need access to context values.
+
+## Key Features
+
+- **Cross-render context access**: Access contexts even when components are rendered outside the normal tree
+- **Dynamic context registration**: Register contexts to be bridged at runtime
+- **Portal integration**: Seamlessly works with portals and other render boundary scenarios
+- **Type-safe**: Full TypeScript support
+
+## API
+
+### `createContextBridge<T>(bridgeName, Wrapper, contexts?)`
+
+Creates a new context bridge.
+
+**Parameters:**
+- `bridgeName`: Unique name for the bridge (used for registration)
+- `Wrapper`: Component that will wrap the bridged content (e.g., Portal)
+- `contexts` (optional): Array of contexts to bridge by default
+
+**Returns:**
+- `registerContextToBridge`: Function to register additional contexts
+- `BridgedComponent`: Component that bridges contexts to its children
+
+## Examples
+
+### Basic Usage with Portal
+
+```tsx
+import { createContextBridge } from 'react-native-molecules/context-bridge';
+import { Portal as GorhomPortal } from '@gorhom/portal';
+import { createContext } from 'react';
+
+// Create a context
+const ThemeContext = createContext('light');
+
+// Create a bridge for Portal
+const { BridgedComponent: Portal, registerContextToBridge } = createContextBridge(
+    'portal-context',
+    GorhomPortal,
+    [ThemeContext] // Optional: contexts to bridge by default
+);
+
+// Register additional contexts if needed
+const UserContext = createContext(null);
+registerContextToBridge(UserContext);
+
+// Usage
+export const App = () => {
+    return (
+        <ThemeContext.Provider value="dark">
+            <UserContext.Provider value={{ name: 'John' }}>
+                <View>
+                    <Text>Main content</Text>
+                    <Portal>
+                        {/* This content can access ThemeContext and UserContext */}
+                        <ThemedComponent />
+                    </Portal>
+                </View>
+            </UserContext.Provider>
+        </ThemeContext.Provider>
+    );
+};
+
+const ThemedComponent = () => {
+    const theme = useContext(ThemeContext);
+    const user = useContext(UserContext);
+    
+    return (
+        <View>
+            <Text>Theme: {theme}</Text>
+            <Text>User: {user?.name}</Text>
+        </View>
+    );
+};
+```
+
+### Registering Multiple Contexts
+
+```tsx
+import { createContextBridge } from 'react-native-molecules/context-bridge';
+
+const ThemeContext = createContext('light');
+const LanguageContext = createContext('en');
+const UserContext = createContext(null);
+
+const { registerContextToBridge, BridgedComponent } = createContextBridge(
+    'my-bridge',
+    MyWrapper
+);
+
+// Register multiple contexts at once
+registerContextToBridge([ThemeContext, LanguageContext, UserContext]);
+
+// Or register them individually
+registerContextToBridge(ThemeContext);
+registerContextToBridge(LanguageContext);
+registerContextToBridge(UserContext);
+```
+
+### Integration with FastContext
+
+ContextBridge works seamlessly with FastContext:
+
+```tsx
+import { createFastContext } from 'react-native-molecules/fast-context';
+import { createContextBridge } from 'react-native-molecules/context-bridge';
+
+type Store = {
+    count: number;
+    name: string;
+};
+
+const { Provider, Context } = createFastContext<Store>();
+
+const { registerContextToBridge, BridgedComponent } = createContextBridge(
+    'portal-bridge',
+    Portal
+);
+
+// Register the FastContext
+registerContextToBridge(Context);
+
+export const App = () => {
+    return (
+        <Provider value={{ count: 0, name: 'John' }}>
+            <BridgedComponent>
+                {/* Can access FastContext here */}
+                <ChildComponent />
+            </BridgedComponent>
+        </Provider>
+    );
+};
+```
+
+### Custom Wrapper Component
+
+You can use any component as a wrapper:
+
+```tsx
+import { createContextBridge } from 'react-native-molecules/context-bridge';
+
+const CustomWrapper = ({ children, name }) => {
+    return (
+        <View style={styles.wrapper}>
+            <Text>Wrapper: {name}</Text>
+            {children}
+        </View>
+    );
+};
+
+const { BridgedComponent, registerContextToBridge } = createContextBridge(
+    'custom-bridge',
+    CustomWrapper
+);
+
+const MyContext = createContext('value');
+registerContextToBridge(MyContext);
+
+export const App = () => {
+    return (
+        <MyContext.Provider value="bridged value">
+            <BridgedComponent name="example">
+                {/* Context is bridged here */}
+                <ChildComponent />
+            </BridgedComponent>
+        </MyContext.Provider>
+    );
+};
+```
+
+## How It Works
+
+1. **Context Registration**: Contexts are registered to a bridge using `registerContextToBridge`
+2. **Value Capture**: When `BridgedComponent` renders, it captures all context values from the parent tree
+3. **Value Provision**: The captured values are provided to children through new Provider components
+4. **Render Boundary**: The wrapper component (e.g., Portal) renders children in a different location, but contexts are preserved
+
+## When to Use
+
+- **Portals**: When using portals and need context access in portaled content
+- **Modals**: When modals need access to parent contexts
+- **Cross-render scenarios**: Any scenario where components are rendered outside the normal tree
+- **Dynamic context bridging**: When contexts need to be registered dynamically
+
+## Common Patterns
+
+### Portal with Context Bridge
+
+This is the most common use case - bridging contexts through portals:
+
+```tsx
+import { Portal } from 'react-native-molecules';
+import { registerPortalContext } from 'react-native-molecules';
+
+const MyContext = createContext('default');
+
+// Register context to be bridged through Portal
+registerPortalContext(MyContext);
+
+export const App = () => {
+    return (
+        <MyContext.Provider value="bridged">
+            <Portal>
+                {/* Can access MyContext here */}
+                <Component />
+            </Portal>
+        </MyContext.Provider>
+    );
+};
+```
+
+## Notes
+
+- Contexts must be registered before the `BridgedComponent` is used
+- The bridge captures context values at render time
+- Multiple contexts can be registered to the same bridge
+- The wrapper component receives all props passed to `BridgedComponent`
+

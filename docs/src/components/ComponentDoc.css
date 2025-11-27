@@ -1,0 +1,58 @@
+.component-doc {
+    margin-top: 2rem;
+}
+
+.component-doc__meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.component-doc__badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+.component-doc__badge--category {
+    background-color: var(--ifm-color-gray-200);
+    color: var(--ifm-color-gray-900);
+}
+
+.component-doc__status-badge {
+    color: white;
+}
+
+.component-doc__description {
+    max-width: 65ch;
+}
+
+.component-doc__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.component-doc__related {
+    margin-top: 1.5rem;
+}
+
+.component-doc__related-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.component-doc__related-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.8rem;
+    border: 1px solid var(--ifm-color-gray-400);
+}
+

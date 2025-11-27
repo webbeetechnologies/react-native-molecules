@@ -1,0 +1,44 @@
+---
+title: "useIsKeyPressed"
+description: "Hook to track if a key is currently being pressed down."
+sidebar_position: 1
+---
+
+# useIsKeyPressed hook
+
+`useIsKeyPressed` hook can be use to track if a key's been pressed down
+
+It accepts a key and returns boolean value. If a key being pressed and hold, it will return true.
+
+## Examples
+
+### Default
+
+```tsx
+import { useIsKeyPress } from 'react-native-molecules/shortcuts-manager';
+import { useMolecules, isMac } from 'react-native-molecules';
+
+const MetaKey = isMac() ? 'Meta' : 'Control';
+
+export const Example = () => {
+    const { View, Text } = useMolecules();
+    const isShiftKeyPressed = useIsKeyPress('Shift');
+    const isControlOrMetaKeyPress = useIsKeyPress(MetaKey);
+    const isAltKeyPressed = useIsKeyPress('Alt');
+
+    return (
+        <View>
+            <Text>
+                isShiftKeyPressed: <Text>{String(isShiftKeyPressed)}</Text>
+            </Text>
+            <Text>
+                isControlOrMetaKeyPress: <Text>{String(isControlOrMetaKeyPress)}</Text>
+            </Text>
+            <Text>
+                isAltKeyPressed: <Text>{String(isAltKeyPressed)}</Text>
+            </Text>
+        </View>
+    );
+};
+```
+

@@ -1,5 +1,0 @@
-{
-  "extends": "./tsconfig",
-  "include": ["src"],
-  "exclude": ["example", "docs", "test-cases", "testHelpers", "stories", "**/__tests__", "**/*.perf-test.*", "**/__mocks__"]
-}

@@ -1,0 +1,35 @@
+---
+title: "FilePicker"
+description: "Unified file picker experience bridging native DocumentPicker and web uploads."
+sidebar_position: 22
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="FilePicker" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { FilePicker } from 'react-native-molecules/components/FilePicker';
+
+export default function Example() {
+    return <FilePicker type={['image/*']} label="Choose image" multiple={false} />;
+}`}
+/>
+
+### Outlined
+
+<LiveCodeExample
+    code={`import { FilePicker } from 'react-native-molecules/components/FilePicker';
+
+export default function Example() {
+    return <FilePicker type={['image/*']} label="Choose image" multiple={false} variant="outlined" />;
+}`}
+/>
+
+<ComponentProps name="FilePicker" />

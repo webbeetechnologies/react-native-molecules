@@ -1,0 +1,99 @@
+---
+title: "Chip"
+description: "Assist and filter chips with optional icons for inline metadata."
+sidebar_position: 10
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Chip" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { Chip } from 'react-native-molecules/components/Chip';
+import { Icon } from 'react-native-molecules/components/Icon';
+
+export default function Example() {
+    return (
+        <Chip
+            label="Default Chip"
+            variant="outlined"
+            size="md"
+            left={<Icon name="star-outline" size={18} />}
+        />
+    );
+}`}
+/>
+
+### Suggestion Chip
+
+<LiveCodeExample
+    code={`import { Chip } from 'react-native-molecules/components/Chip';
+
+export default function Example() {
+    return <Chip.Suggestion label="Suggestion Chip" variant="outlined" size="md" />;
+}`}
+/>
+
+### Assist Chip
+
+<LiveCodeExample
+    code={`import { Chip } from 'react-native-molecules/components/Chip';
+import { Icon } from 'react-native-molecules/components/Icon';
+
+export default function Example() {
+    return (
+        <Chip.Assist
+            label="Assist Chip"
+            variant="outlined"
+            size="md"
+            left={<Icon name="calendar" size={18} />}
+        />
+    );
+}`}
+/>
+
+### Input Chip
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Chip } from 'react-native-molecules/components/Chip';
+
+export default function Example() {
+    const [selected, setSelected] = useState(false);
+
+    return (
+        <Chip.Input
+            selected={selected}
+            onPress={() => setSelected((prev) => !prev)}
+            label="Input Chip"
+        />
+    );
+}`}
+/>
+
+### Filter Chip
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Chip } from 'react-native-molecules/components/Chip';
+
+export default function Example() {
+    const [selected, setSelected] = useState(false);
+
+    return (
+        <Chip.Filter
+            selected={selected}
+            onPress={() => setSelected((prev) => !prev)}
+            label="Filter Chip"
+        />
+    );
+}`}
+/>
+
+<ComponentProps name="Chip" />

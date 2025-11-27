@@ -1,0 +1,35 @@
+---
+title: "Badge"
+description: "Compact status or count indicator that attaches to icons, avatars, or text."
+sidebar_position: 6
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Badge" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { Badge } from 'react-native-molecules/components/Badge';
+
+export default function Example() {
+    return <Badge label="10" />;
+}`}
+/>
+
+### Small Badge
+
+<LiveCodeExample
+    code={`import { Badge } from 'react-native-molecules/components/Badge';
+
+export default function Example() {
+    return <Badge size="sm" />;
+}`}
+/>
+
+<ComponentProps name="Badge" />

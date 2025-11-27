@@ -1,0 +1,59 @@
+---
+title: "TextInputWithMask"
+description: "TextInput wrapper that enforces custom formatting masks."
+sidebar_position: 49
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="TextInputWithMask" />
+
+## Examples
+
+### With Number Mask
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { TextInputWithMask } from 'react-native-molecules/components/TextInputWithMask';
+
+export default function Example() {
+    const [value, setValue] = useState('');
+
+    return (
+        <TextInputWithMask
+            label="Phone Number"
+            placeholder="555-123-9876"
+            mask="___-___-____"
+            keyboardType="number-pad"
+            value={value}
+            onChangeText={setValue}
+        />
+    );
+}`}
+/>
+
+### With Currency Mask
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { TextInputWithMask } from 'react-native-molecules/components/TextInputWithMask';
+
+export default function Example() {
+    const [value, setValue] = useState('');
+
+    return (
+        <TextInputWithMask
+            label="Credit Card"
+            placeholder="4242 4242 4242 4242"
+            mask="____ ____ ____ ____"
+            keyboardType="number-pad"
+            value={value}
+            onChangeText={setValue}
+        />
+    );
+}`}
+/>
+
+<ComponentProps name="TextInputWithMask" />

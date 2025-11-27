@@ -1,0 +1,34 @@
+---
+title: "Switch"
+description: "Material switch with checked/unchecked icons and loading states."
+sidebar_position: 45
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Switch" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Switch } from 'react-native-molecules/components/Switch';
+
+export default function Example() {
+    const [isOn, setIsOn] = useState(false);
+
+    return (
+        <Switch
+            value={isOn}
+            onValueChange={setIsOn}
+            checkedIcon="check"
+        />
+    );
+}`}
+/>
+
+<ComponentProps name="Switch" />

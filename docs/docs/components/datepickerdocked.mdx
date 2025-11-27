@@ -1,0 +1,33 @@
+---
+title: "DatePickerDocked"
+description: "Docked date picker optimized for bottom sheets and persistent surfaces."
+sidebar_position: 11
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="DatePickerDocked" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DatePickerDocked } from 'react-native-molecules/components/DatePickerDocked';
+
+export default function Example() {
+    const [data, setData] = useState({
+        date: new Date(),
+        dates: [new Date()],
+        startDate: new Date(),
+        endDate: undefined,
+    });
+
+    return <DatePickerDocked mode="single" locale="en" {...data} onChange={setData} />;
+}`}
+/>
+
+<ComponentProps name="DatePickerDocked" />

@@ -1,0 +1,33 @@
+---
+title: "DatePickerModal"
+description: "Full-screen modal date picker with animated headers."
+sidebar_position: 14
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="DatePickerModal" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DatePickerModal } from 'react-native-molecules/components/DatePickerModal';
+
+export default function Example() {
+    const [selection, setSelection] = useState({
+        date: new Date(),
+        dates: [new Date()],
+        startDate: new Date(),
+        endDate: undefined,
+    });
+
+    return <DatePickerModal {...selection} onChange={setSelection} />;
+}`}
+/>
+
+<ComponentProps name="DatePickerModal" />

@@ -1,0 +1,109 @@
+---
+title: "ElementGroup"
+description: "Utility wrapper for grouping inputs with shared borders and state styles."
+sidebar_position: 20
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="ElementGroup" />
+
+## Examples
+
+### Button Group
+
+<LiveCodeExample
+    code={`import { ElementGroup, Button } from 'react-native-molecules/components/ElementGroup';
+import { Icon } from 'react-native-molecules/components/Icon';
+
+export default function Example() {
+    return (
+        <ElementGroup>
+            <Button variant="contained" onPress={() => {}}>
+                Button
+            </Button>
+            <Button variant="contained" onPress={() => {}}>
+                <Icon name="chevron-down" size={26} />
+            </Button>
+        </ElementGroup>
+    );
+}`}
+/>
+
+### Text Input Element Group
+
+<LiveCodeExample
+    code={`import { ElementGroup, TextInput } from 'react-native-molecules/components/ElementGroup';
+import { Button } from 'react-native-molecules/components/Button';
+import { Icon } from 'react-native-molecules/components/Icon';
+
+export default function Example() {
+    return (
+        <ElementGroup>
+            <TextInput variant="outlined" />
+            <Button variant="contained" onPress={() => {}}>
+                <Icon name="chevron-down" size={26} />
+            </Button>
+        </ElementGroup>
+    );
+}`}
+/>
+
+### Nested Element Group
+
+<LiveCodeExample
+    code={`import { useCallback, useMemo } from 'react';
+import { StyleSheet } from 'react-native';
+import { ElementGroup, Select, TextInput, IconButton } from 'react-native-molecules/components/ElementGroup';
+import type { TextInputProps } from 'react-native-molecules/components/TextInput';
+
+const records = [
+    {
+        data: [
+            { id: 1, label: 'contains' },
+            { id: 2, label: 'does not contain' },
+            { id: 3, label: 'is' },
+            { id: 4, label: 'is not' },
+        ],
+    },
+];
+
+export default function Example() {
+    const onPressDelete = useCallback(() => {}, []);
+    const onPressDrag = useCallback(() => {}, []);
+
+    const inputProps = useMemo(
+        () => ({ variant: 'outlined', label: 'Select operator' } as TextInputProps),
+        [],
+    );
+
+    const styles = StyleSheet.create({
+        iconButton: { height: '100%', width: 45 },
+    });
+
+    return (
+        <ElementGroup>
+            <ElementGroup>
+                <Select records={records} inputProps={inputProps} />
+                <TextInput variant="outlined" label="value" />
+            </ElementGroup>
+            <IconButton
+                name="delete"
+                variant="outlined"
+                onPress={onPressDelete}
+                style={styles.iconButton}
+            />
+            <IconButton
+                name="drag"
+                variant="outlined"
+                onPress={onPressDrag}
+                style={styles.iconButton}
+            />
+        </ElementGroup>
+    );
+}`}
+/>
+
+<ComponentProps name="ElementGroup" />

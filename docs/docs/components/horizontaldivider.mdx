@@ -1,0 +1,33 @@
+---
+title: "HorizontalDivider"
+description: "Horizontal rule with Material tokens for spacing and color."
+sidebar_position: 24
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="HorizontalDivider" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { View } from 'react-native';
+import { HorizontalDivider } from 'react-native-molecules/components/HorizontalDivider';
+import { Text } from 'react-native-molecules/components/Text';
+
+export default function Example() {
+    return (
+        <View>
+            <Text>Above</Text>
+            <HorizontalDivider spacing={10} />
+            <Text>Below</Text>
+        </View>
+    );
+}`}
+/>
+
+<ComponentProps name="HorizontalDivider" />

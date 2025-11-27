@@ -1,0 +1,199 @@
+---
+title: "Card"
+description: "Composable surface with actions, media, header, and typography helpers."
+sidebar_position: 8
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Card" />
+
+## Examples
+
+### Basic Card
+
+<LiveCodeExample
+    code={`import { useCallback } from 'react';
+import { Card, Button, IconButton } from 'react-native-molecules/components/Card';
+import { StyleSheet } from 'react-native';
+
+export default function Example() {
+    const onMenuPress = useCallback(() => {}, []);
+    const onButtonPress = useCallback(() => {}, []);
+
+    const styles = StyleSheet.create({
+        card: {
+            maxWidth: 400,
+        },
+        button: {},
+    });
+
+    return (
+        <Card style={styles.card} variant="outlined">
+            <Card.Header>
+                <IconButton name="account-circle-outline" size={28} />
+                <IconButton name="dots-vertical" size={20} onPress={onMenuPress} />
+            </Card.Header>
+            <Card.Content>
+                <Card.Headline>Headline</Card.Headline>
+                <Card.Subhead>SubHead</Card.Subhead>
+                <Card.Text>
+                    Explain more about the topic shown and headline subhead through supporting text
+                </Card.Text>
+            </Card.Content>
+            <Card.Actions>
+                <Button variant="outlined" onPress={onButtonPress} style={styles.button}>
+                    Action
+                </Button>
+                <Button variant="contained" onPress={onButtonPress}>
+                    Action
+                </Button>
+            </Card.Actions>
+        </Card>
+    );
+}`}
+/>
+
+### Card with Media
+
+<LiveCodeExample
+    code={`import { useCallback } from 'react';
+import { Image } from 'react-native';
+import { Card, Button } from 'react-native-molecules/components/Card';
+import { StyleSheet } from 'react-native';
+
+export default function Example() {
+    const onButtonPress = useCallback(() => {}, []);
+
+    const imageSource = { uri: 'https://fastly.picsum.photos/id/451/700/700.jpg?hmac=j-zdlDSArfXCoxKFMQJerDHem51V7hrLsqa5-FNdrdU' };
+
+    const styles = StyleSheet.create({
+        card: {
+            maxWidth: 400,
+        },
+        image: {
+            flex: 1,
+        },
+        button: {
+            
+        },
+    });
+
+    return (
+        <Card style={styles.card} variant="outlined">
+            <Card.Media>
+                <Image source={imageSource} style={styles.image} />
+            </Card.Media>
+            <Card.Content>
+                <Card.Headline>Headline</Card.Headline>
+                <Card.Subhead>SubHead</Card.Subhead>
+                <Card.Text>
+                    Explain more about the topic shown and headline subhead through supporting text
+                </Card.Text>
+            </Card.Content>
+            <Card.Actions>
+                <Button variant="outlined" onPress={onButtonPress} style={styles.button}>
+                    Action
+                </Button>
+                <Button variant="contained" onPress={onButtonPress}>
+                    Action
+                </Button>
+            </Card.Actions>
+        </Card>
+    );
+}`}
+/>
+
+### Composed Card
+
+<LiveCodeExample
+    code={`import { useCallback } from 'react';
+import { Image } from 'react-native';
+import { Card, Button, IconButton, View } from 'react-native-molecules/components/Card';
+import { StyleSheet } from 'react-native';
+
+export default function Example() {
+    const onButtonPress = useCallback(() => {}, []);
+    const onIconButtonPress = useCallback(() => {}, []);
+
+    return (
+        <Card style={styles.card} variant="outlined">
+            <Card.Header>
+                <IconButton name="account-circle-outline" size={28} />
+            </Card.Header>
+            <Card.Content>
+                <Card.Media style={styles.media}>
+                    <Image source={image1Source} style={styles.image1} />
+                    <Image source={image2Source} style={styles.image2} />
+                </Card.Media>
+                <Card.Text>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci at corporis
+                    dolor eius explicabo quas, quisquam repellendus repudiandae soluta unde ut vel
+                </Card.Text>
+            </Card.Content>
+            <Card.Actions style={styles.actions}>
+                <View style={styles.row}>
+                    <Button
+                        size="sm"
+                        variant="contained-tonal"
+                        onPress={onButtonPress}
+                        style={styles.button}>
+                        Action
+                    </Button>
+                    <Button variant="contained-tonal" size="sm" onPress={onButtonPress}>
+                        Action
+                    </Button>
+                </View>
+                <View style={styles.row}>
+                    <IconButton
+                        name="phone-outline"
+                        size={28}
+                        style={styles.button}
+                        onPress={onIconButtonPress}
+                    />
+                    <IconButton name="message-text-outline" size={28} onPress={() => {}} />
+                </View>
+            </Card.Actions>
+        </Card>
+    );
+};
+
+const image1Source = { uri: 'https://fastly.picsum.photos/id/146/700/700.jpg?hmac=U97jhaURdqcOYGn9Y44g3VB8x3bjUJtFmy-AWIpr4oU' };
+const image2Source = { uri: 'https://fastly.picsum.photos/id/25/700/700.jpg?hmac=kTRUmQSOiH_eQduiFzJKJ2KuHOU05fqAq2_DP6EMz-0' };
+
+const styles = StyleSheet.create({
+    card: {
+        maxWidth: 446,
+    },
+    media: {
+        borderRadius: 0,
+        flexDirection: 'row',
+        height: 126,
+    },
+    image1: {
+        flex: 1,
+        marginRight: 8,
+        borderRadius: 24,
+    },
+    image2: {
+        flexBasis: '10%',
+        borderRadius: 28,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+    actions: {
+        justifyContent: 'space-between',
+    },
+    button: {
+        
+    },
+});
+`}
+/>
+
+<ComponentProps name="Card" />

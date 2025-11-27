@@ -1,0 +1,35 @@
+---
+title: "Checkbox"
+description: "Cross-platform checkbox with Material states for Android and iOS variants."
+sidebar_position: 9
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Checkbox" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { Checkbox } from 'react-native-molecules/components/Checkbox';
+
+export default function Example() {
+    return <Checkbox indeterminate={false} defaultValue />;
+}`}
+/>
+
+### Checkbox with Label
+
+<LiveCodeExample
+    code={`import { Checkbox } from 'react-native-molecules/components/Checkbox';
+
+export default function Example() {
+    return <Checkbox indeterminate={false} defaultValue label="Label" />;
+}`}
+/>
+
+<ComponentProps name="Checkbox" />

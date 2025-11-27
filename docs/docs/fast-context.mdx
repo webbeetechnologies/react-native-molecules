@@ -1,0 +1,165 @@
+---
+title: "FastContext"
+description: "Performance-optimized context implementation using refs and selectors to minimize re-renders."
+sidebar_position: 45
+sidebar_custom_props:
+    icon: 'material:bolt'
+---
+
+# FastContext
+
+FastContext is a performance-optimized context implementation that uses refs and subscriptions to avoid unnecessary re-renders. Unlike traditional React Context, FastContext allows you to subscribe to specific parts of the store using selectors, ensuring components only re-render when the selected data changes.
+
+## Key Features
+
+- **Selector-based subscriptions**: Only re-render when selected data changes
+- **Ref-based store**: Access store values without causing re-renders using `useStoreRef`
+- **Fine-grained updates**: Update specific parts of the store without affecting unrelated components
+- **Equality checks**: Customizable equality functions for selector comparisons
+
+## API
+
+### `createFastContext<T>(defaultValue?, watch?)`
+
+Creates a new FastContext instance.
+
+**Parameters:**
+- `defaultValue` (optional): Default value for the store
+- `watch` (optional): If `true`, the provider will watch for prop changes and update the store
+
+**Returns:**
+- `Provider`: Context provider component
+- `useContext`: Hook that returns `[selectedValue, setter]`
+- `useContextValue`: Hook that returns just the selected value
+- `useStoreRef`: Hook that returns the store ref (doesn't cause re-renders)
+- `Context`: The underlying React context (useful for ContextBridge)
+
+## Examples
+
+### Basic Usage
+
+```tsx
+import { createFastContext } from 'react-native-molecules/fast-context';
+
+type Store = {
+    count: number;
+    name: string;
+};
+
+const { Provider, useContext, useContextValue } = createFastContext<Store>({
+    count: 0,
+    name: 'Initial',
+});
+
+// In your component tree
+export const App = () => {
+    return (
+        <Provider value={{ count: 0, name: 'John' }}>
+            <Counter />
+            <NameDisplay />
+        </Provider>
+    );
+};
+
+// Component that needs both value and setter
+const Counter = () => {
+    const [count, setStore] = useContext(state => state.count);
+
+    return (
+        <View>
+            <Text>Count: {count}</Text>
+            <Button
+                onPress={() => setStore(prev => ({ count: prev.count + 1 }))}
+            >
+                Increment
+            </Button>
+        </View>
+    );
+};
+
+// Component that only needs the value
+const NameDisplay = () => {
+    const name = useContextValue(state => state.name);
+
+    return <Text>Name: {name}</Text>;
+};
+```
+
+### Using useStoreRef (No Re-renders)
+
+```tsx
+const { Provider, useStoreRef } = createFastContext<Store>();
+
+const NonRenderingComponent = () => {
+    const storeRef = useStoreRef();
+
+    const handleClick = () => {
+        // Access current value without causing re-render
+        const currentCount = storeRef.current.get().count;
+        console.log('Current count:', currentCount);
+    };
+
+    return <Button onPress={handleClick}>Log Count</Button>;
+};
+```
+
+### With Custom Equality Check
+
+```tsx
+const { Provider, useContext } = createFastContext<Store>();
+
+const CustomEqualityComponent = () => {
+    // Only re-render if the user object reference changes
+    const [user, setStore] = useContext(
+        state => state.user,
+        (a, b) => a.id === b.id && a.name === b.name
+    );
+
+    return <Text>{user.name}</Text>;
+};
+```
+
+### Watch Mode
+
+When `watch` is enabled, the provider will automatically update the store when the `value` prop changes:
+
+```tsx
+const { Provider } = createFastContext<Store>(null, true);
+
+export const App = () => {
+    const [storeValue, setStoreValue] = useState({ count: 0, name: 'John' });
+
+    return (
+        <Provider value={storeValue}>
+            {/* Store will update when storeValue changes */}
+            <ChildComponent />
+        </Provider>
+    );
+};
+```
+
+### Integration with ContextBridge
+
+FastContext can be used with ContextBridge to bridge contexts across render boundaries:
+
+```tsx
+const { Provider, Context } = createFastContext<Store>();
+
+// Register the context with a bridge
+registerContextToBridge(Context);
+```
+
+## When to Use
+
+- **Large stores**: When you have a large context store and want to avoid unnecessary re-renders
+- **Performance-critical components**: Components that need to access context but shouldn't re-render frequently
+- **Selective subscriptions**: When different components need different parts of the same store
+- **Complex state management**: When you need fine-grained control over when components update
+
+## Benefits Over Traditional Context
+
+1. **Reduced re-renders**: Components only re-render when their selected data changes
+2. **Selector-based**: Fine-grained control over what triggers updates
+3. **Ref access**: Access store values without causing re-renders
+4. **Better performance**: Especially beneficial for large applications with complex state
+

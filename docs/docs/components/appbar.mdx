@@ -1,0 +1,134 @@
+---
+title: "Appbar"
+description: "Material 3 compliant top app bar with small, medium, large, and center aligned variants."
+sidebar_position: 3
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Appbar" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    center={false}
+    code={`import { Appbar } from 'react-native-molecules/components/Appbar';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+
+export default function Example() {
+    return (
+        <Appbar>
+            <Appbar.Left>
+                <IconButton name="menu" onPress={() => console.log('Toggle drawer menu')} />
+            </Appbar.Left>
+            <Appbar.Title>Default Appbar</Appbar.Title>
+            <Appbar.Right>
+                <IconButton name="star-outline" onPress={() => console.log('Mark favorite')} />
+                <IconButton name="pin-outline" onPress={() => console.log('Pin item')} />
+                <IconButton name="dots-vertical" onPress={() => console.log('Open menu')} />
+            </Appbar.Right>
+        </Appbar>
+    );
+}`}
+/>
+
+### Center Aligned
+
+<LiveCodeExample
+    center={false}
+    code={`import { Appbar } from 'react-native-molecules/components/Appbar';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+
+export default function Example() {
+    return (
+        <Appbar.CenterAligned>
+            <Appbar.Left>
+                <IconButton name="menu" onPress={() => console.log('Toggle drawer menu')} />
+            </Appbar.Left>
+            <Appbar.Title>Title Large</Appbar.Title>
+            <Appbar.Right>
+                <IconButton name="heart-outline" onPress={() => console.log('Save to favorites')} />
+                <IconButton name="dots-vertical" onPress={() => console.log('Open menu')} />
+            </Appbar.Right>
+        </Appbar.CenterAligned>
+    );
+}`}
+/>
+
+### Small
+
+<LiveCodeExample
+    center={false}
+    code={`import { Appbar } from 'react-native-molecules/components/Appbar';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+
+export default function Example() {
+    return (
+        <Appbar.Small>
+            <Appbar.Left>
+                <IconButton name="arrow-left" onPress={() => console.log('Go back')} />
+            </Appbar.Left>
+            <Appbar.Title>Title Large</Appbar.Title>
+            <Appbar.Right>
+                <IconButton name="phone-outline" onPress={() => console.log('Call contact')} />
+                <IconButton name="magnify" onPress={() => console.log('Search')} />
+                <IconButton name="dots-vertical" onPress={() => console.log('Open menu')} />
+            </Appbar.Right>
+        </Appbar.Small>
+    );
+}`}
+/>
+
+### Medium
+
+<LiveCodeExample
+    center={false}
+    code={`import { Appbar } from 'react-native-molecules/components/Appbar';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+
+export default function Example() {
+    return (
+        <Appbar.Medium>
+            <Appbar.Left>
+                <IconButton name="arrow-left" onPress={() => console.log('Go back')} />
+            </Appbar.Left>
+            <Appbar.Title>Headline Small</Appbar.Title>
+            <Appbar.Right>
+                <IconButton name="paperclip" onPress={() => console.log('Upload file')} />
+                <IconButton name="calendar" onPress={() => console.log('Open calendar')} />
+                <IconButton name="dots-vertical" onPress={() => console.log('Open menu')} />
+            </Appbar.Right>
+        </Appbar.Medium>
+    );
+}`}
+/>
+
+### Large
+
+<LiveCodeExample
+    center={false}
+    code={`import { Appbar } from 'react-native-molecules/components/Appbar';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+
+export default function Example() {
+    return (
+        <Appbar.Large>
+            <Appbar.Left>
+                <IconButton name="arrow-left" onPress={() => console.log('Go back')} />
+            </Appbar.Left>
+            <Appbar.Title>Headline Medium</Appbar.Title>
+            <Appbar.Right>
+                <IconButton name="paperclip" onPress={() => console.log('Upload file')} />
+                <IconButton name="calendar" onPress={() => console.log('Open calendar')} />
+                <IconButton name="dots-vertical" onPress={() => console.log('Open menu')} />
+            </Appbar.Right>
+        </Appbar.Large>
+    );
+}`}
+/>
+
+<ComponentProps name="Appbar" />

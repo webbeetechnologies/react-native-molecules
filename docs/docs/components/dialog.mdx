@@ -1,0 +1,47 @@
+---
+title: "Dialog"
+description: "Material dialog with optional hero icon, content, and action rows."
+sidebar_position: 16
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Dialog" />
+
+## Examples
+
+### Usage with Trigger
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Button } from 'react-native-molecules/components/Button';
+import { Dialog } from 'react-native-molecules/components/Dialog';
+import { Text } from 'react-native-molecules/components/Text';
+
+export default function Example() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <Button onPress={() => setOpen(true)}>Show Dialog</Button>
+            <Dialog iconProps={{ name: 'cellphone-check' }} isOpen={open} onClose={() => setOpen(false)}>
+                <Dialog.Title>Dialog with Hero Icon</Dialog.Title>
+                <Dialog.Content>
+                    <Text>
+                        Dialog is a type of modal window that appears in front of app content to provide
+                        critical information, or ask for a decision
+                    </Text>
+                </Dialog.Content>
+                <Dialog.Actions>
+                    <Button onPress={() => setOpen(false)}>Cancel</Button>
+                    <Button onPress={() => setOpen(false)}>Confirm</Button>
+                </Dialog.Actions>
+            </Dialog>
+        </>
+    );
+}`}
+/>
+
+<ComponentProps name="Dialog" />

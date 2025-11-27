@@ -1,0 +1,28 @@
+---
+title: "DateTimePicker"
+description: "Coordinated date and time selection component built on top of picker primitives."
+sidebar_position: 15
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="DateTimePicker" />
+
+## Examples
+
+### Default
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DateTimePicker } from 'react-native-molecules/components/DateTimePicker';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | null>(new Date());
+
+    return <DateTimePicker date={date} onChange={setDate} />;
+}`}
+/>
+
+<ComponentProps name="DateTimePicker" />
