@@ -128,7 +128,8 @@ const NavigationRailItem = memo(
                     iconContainerStyle: [
                         navigationRailItemStyles.iconContainer,
                         !label && {
-                            height: navigationRailItemStyles.iconContainer.width,
+                            // TODO - remove this. We cannot do it like this
+                            height: (navigationRailItemStyles.iconContainer as any).width,
                         },
                         iconContainerProps.style,
                     ],

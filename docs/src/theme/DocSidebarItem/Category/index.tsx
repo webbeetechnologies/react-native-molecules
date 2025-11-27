@@ -24,7 +24,7 @@ import type { Props } from '@theme/DocSidebarItem/Category';
 import DocSidebarItemLink from '@theme/DocSidebarItem/Link';
 import DocSidebarItems from '@theme/DocSidebarItems';
 import clsx from 'clsx';
-import React, { type ComponentProps, type ReactNode, useEffect, useMemo } from 'react';
+import { type ComponentProps, type ReactNode, useEffect, useMemo } from 'react';
 
 import SidebarIcon from '../SidebarIcon';
 import styles from './styles.module.css';

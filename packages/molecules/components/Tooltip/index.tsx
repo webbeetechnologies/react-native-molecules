@@ -14,7 +14,7 @@ registerMoleculesComponents({
 
 export const Tooltip = getRegisteredComponentWithFallback('Tooltip', TooltipDefault);
 
-export { Props as TooltipProps } from './Tooltip';
-export { Props as TooltipContentProps } from './TooltipContent';
-export { Props as TooltipTriggerProps } from './TooltipTrigger';
+export type { Props as TooltipProps } from './Tooltip';
+export type { Props as TooltipContentProps } from './TooltipContent';
+export type { Props as TooltipTriggerProps } from './TooltipTrigger';
 export { tooltipStyles } from './utils';

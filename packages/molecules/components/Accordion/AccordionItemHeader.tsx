@@ -1,4 +1,4 @@
-import { forwardRef, memo, ReactNode, useCallback, useContext, useMemo } from 'react';
+import { forwardRef, memo, type ReactNode, useCallback, useContext, useMemo } from 'react';
 import { type GestureResponderEvent, type TextStyle, View, type ViewStyle } from 'react-native';
 
 import { useActionState } from '../../hooks';

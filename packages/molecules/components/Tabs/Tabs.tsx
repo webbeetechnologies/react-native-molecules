@@ -1,10 +1,10 @@
 import {
     Children,
     cloneElement,
-    FC,
+    type FC,
     isValidElement,
     memo,
-    ReactElement,
+    type ReactElement,
     useCallback,
     useEffect,
     useMemo,
@@ -13,15 +13,15 @@ import {
 } from 'react';
 import {
     Animated,
-    LayoutChangeEvent,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
+    type LayoutChangeEvent,
+    type NativeScrollEvent,
+    type NativeSyntheticEvent,
     ScrollView as RNScrollView,
     ScrollView,
-    StyleProp,
+    type StyleProp,
     View,
-    ViewProps,
-    ViewStyle,
+    type ViewProps,
+    type ViewStyle,
 } from 'react-native';
 
 import { useControlledValue } from '../../hooks';
@@ -101,7 +101,7 @@ export const TabBase = ({
     const nameToIndexMap = useMemo(
         () =>
             validChildren.reduce((acc, child, currentIndex) => {
-                acc[(child as ReactElement).props?.name] = currentIndex;
+                acc[(child as ReactElement<TabItemProps>).props?.name] = currentIndex;
 
                 return acc;
             }, {} as Record<string, number>),
@@ -111,7 +111,7 @@ export const TabBase = ({
     const [value, onChange] = useControlledValue({
         value: valueProp,
         onChange: onChangeProp,
-        defaultValue: defaultValue || (validChildren[0] as ReactElement)?.props?.name,
+        defaultValue: defaultValue || (validChildren[0] as ReactElement<TabItemProps>)?.props?.name,
     });
 
     const valueIndex = nameToIndexMap[value];
@@ -312,7 +312,7 @@ export const TabBase = ({
                     style={itemsContainerStyle}>
                     {validChildren.map((child, index) => (
                         <ChildItem
-                            key={(child as ReactElement).props?.name}
+                            key={(child as ReactElement<TabItemProps>).props?.name}
                             testID={testID && `${testID}--tab-item`}
                             index={index}
                             value={value}

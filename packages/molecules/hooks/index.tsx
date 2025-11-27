@@ -2,7 +2,6 @@
 
 export * from './useActionState';
 export * from './useActive';
-export { default as useBreakpoints } from './useBreakpoints';
 export { default as useColorMode } from './useColorMode';
 export { useContrastColor } from './useContrastColor';
 export { default as useControlledValue } from './useControlledValue';

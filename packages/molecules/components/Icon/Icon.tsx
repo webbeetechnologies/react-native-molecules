@@ -1,6 +1,5 @@
 import { forwardRef, memo, useMemo } from 'react';
 import { StyleSheet } from 'react-native-unistyles';
-import type { Mappings } from 'react-native-unistyles/lib/typescript/src/core/withUnistyles/types';
 
 import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
 import { tokenStylesParser } from '../../utils/tokenStylesParser';
@@ -10,15 +9,7 @@ import type { IconProps } from './types';
 /**
  * Neutral component. Doesn't have platform specific styles
  */
-const Icon = (
-    {
-        type = 'material-community',
-        style,
-        color,
-        ...rest
-    }: IconProps & { uniProps?: Mappings<any> },
-    ref: any,
-) => {
+const Icon = ({ type = 'material-community', style, color, ...rest }: IconProps, ref: any) => {
     const IconComponent = iconFactory(type);
     const componentStyles = useMemo(
         () => [styles.root, style, tokenStylesParser.getColor(color as string)],

@@ -1,8 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
-        "declaration": true,
-        "composite": true,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
         "esModuleInterop": true,
@@ -10,7 +7,7 @@
         "jsx": "react-jsx",
         "lib": ["esnext", "dom"],
         "module": "esnext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
         "noImplicitUseStrict": false,
@@ -21,7 +18,6 @@
         "skipLibCheck": true,
         "strict": true,
         "target": "esnext"
-    },
-    "include": ["**/*.ts", "**/*.tsx", "**/*.mdx", "**/*.d.ts"],
-    "exclude": ["lib/**/*", "example", "packages/**/*", "dist/**/*"]
+    }
 }
+

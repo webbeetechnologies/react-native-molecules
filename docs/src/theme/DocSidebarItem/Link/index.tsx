@@ -9,7 +9,7 @@ import { ThemeClassNames } from '@docusaurus/theme-common';
 import type { Props } from '@theme/DocSidebarItem/Link';
 import IconExternalLink from '@theme/Icon/ExternalLink';
 import clsx from 'clsx';
-import React, { type ReactNode, useEffect, useRef } from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 
 import SidebarIcon from '../SidebarIcon';
 import styles from './styles.module.css';

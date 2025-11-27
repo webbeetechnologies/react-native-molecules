@@ -170,7 +170,7 @@ const fabStylesDefault = StyleSheet.create(theme => ({
     label: {
         fontSize: theme.typescale.labelSmall.fontSize,
         lineHeight: theme.typescale.labelSmall.lineHeight,
-        fontWeight: theme.typescale.labelMedium.labelSmall,
+        fontWeight: theme.typescale.labelSmall.fontWeight,
         marginLeft: theme.spacings['1'],
         variants: {
             state: {

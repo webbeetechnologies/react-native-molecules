@@ -20,7 +20,7 @@ registerMoleculesComponents({
 
 export const RadioButton = getRegisteredComponentWithFallback('RadioButton', RadioButtonDefault);
 
-export { Props as RadioButtonProps } from './RadioButton';
-export { Props as RadioButtonGroupProps } from './RadioButtonGroup';
-export { Props as RadioButtonItemProps } from './RadioButtonItem';
+export type { Props as RadioButtonProps } from './RadioButton';
+export type { Props as RadioButtonGroupProps } from './RadioButtonGroup';
+export type { Props as RadioButtonItemProps } from './RadioButtonItem';
 export { radioButtonItemStyles, radioButtonStyles } from './utils';

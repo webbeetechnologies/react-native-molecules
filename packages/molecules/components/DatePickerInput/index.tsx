@@ -10,5 +10,5 @@ export const DatePickerInput = getRegisteredComponentWithFallback(
     DatePickerInputDefault,
 );
 
-export { DatePickerInputProps } from './types';
+export type { DatePickerInputProps } from './types';
 export { datePickerInputStyles } from './utils';

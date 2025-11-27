@@ -12,7 +12,7 @@
   "packageManager": "pnpm@9.3.0",
   "scripts": {
     "lint": "eslint .",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc --noEmit -p packages/molecules/tsconfig.json && tsc --noEmit -p docs/tsconfig.json",
     "prepare:husky": "husky install",
     "molecules-docs": "pnpm --filter=molecules-docs run",
     "example:app": "pnpm --filter=expo-example-molecules run",

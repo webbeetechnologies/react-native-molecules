@@ -1,16 +1,12 @@
 {
+    "extends": "../tsconfig.base.json",
     "compilerOptions": {
         "allowJs": true,
         "checkJs": false,
         "noEmit": true,
-        "strict": true,
-        "jsx": "react-jsx",
-        "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "module": "preserve",
         "types": ["react", "@docusaurus/module-type-aliases"],
-        "moduleResolution": "bundler",
-        "resolveJsonModule": true,
         "baseUrl": ".",
         "paths": {
             "@site/*": ["./*"]

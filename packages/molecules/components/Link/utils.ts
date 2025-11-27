@@ -1,17 +1,16 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
-import { getCursorStyle } from '../../utils';
 
 // type States = 'disabled' | 'hovered';
 
 const linkStylesDefault = StyleSheet.create(theme => ({
     root: {
-        ...getCursorStyle('pointer'),
         color: theme.colors.primary,
         ...theme.typescale.labelLarge,
 
         _web: {
+            cursor: 'pointer',
             _hover: {
                 textDecorationLine: 'underline',
             },
@@ -22,7 +21,10 @@ const linkStylesDefault = StyleSheet.create(theme => ({
                 disabled: {
                     color: theme.colors.onSurfaceDisabled,
                     opacity: 0.38,
-                    ...getCursorStyle('pointer'),
+
+                    _web: {
+                        cursor: 'not-allowed',
+                    },
                 },
                 default: {},
             },
