@@ -9,7 +9,7 @@ React Native Molecules
 
 ---
 
-[![Build Status][build-badge]][build] [![Version][version-badge]][package] [![MIT License][license-badge]][license] [![All Contributors][all-contributors-badge]][all-contributors] [![PRs Welcome][prs-welcome-badge]][prs-welcome] [![Chat][chat-badge]][chat] [![Sponsored by TaylorDB][taylordb-badge]][taylordb]
+[![Version][version-badge]][package] [![MIT License][license-badge]][license]
 
 <p align="center"><i>React Native Molecules ships a comprehensive library of React Native + Web components powered by Material 3 tokens. Every component includes production-ready props, sensible defaults, and playground docs in the `/docs` site.</i></p>
 
@@ -70,27 +70,6 @@ Contributing
 ------------
 
 We welcome issues and pull requests. Please ensure any new component stories and docs accompany your changes so they appear in the React Native Molecules docs site.
-
-## Contributors
-
-Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/thetaungg"><img src="https://avatars.githubusercontent.com/u/30053822?v=4" width="100px;" alt="Thet Aung"/><br /><sub><b>Thet Aung</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=thetaungg" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/shashank1010"><img src="https://avatars.githubusercontent.com/u/3106368?v=4" width="100px;" alt="Shashank Shekhar"/><br /><sub><b>shashank1010</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=shashank1010" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/elvisduru"><img src="https://avatars.githubusercontent.com/u/28690701?v=4" width="100px;" alt="Elvis Duru"/><br /><sub><b>elvisduru</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=elvisduru" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jasimawan"><img src="https://avatars.githubusercontent.com/u/31315869?v=4" width="100px;" alt="Jasim Awan"/><br /><sub><b>jasimawan</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=jasimawan" title="Code">💻</a></td>
-  </tr>
-</table>
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 [build-badge]: https://github.com/webbeetechnologies/react-native-molecules/actions/workflows/lint.yml/badge.svg
 [build]: https://github.com/webbeetechnologies/react-native-molecules/actions/workflows/lint.yml

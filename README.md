@@ -8,7 +8,7 @@
 
 ---
 
-[![Build Status][build-badge]][build] [![Version][version-badge]][package] [![MIT License][license-badge]][license] [![All Contributors][all-contributors-badge]][all-contributors] [![PRs Welcome][prs-welcome-badge]][prs-welcome] [![Chat][chat-badge]][chat] [![Sponsored by TaylorDB][taylordb-badge]][taylordb]
+[![Build Status][build-badge]][build] [![Version][version-badge]][package] [![MIT License][license-badge]][license] [![Chat][chat-badge]][chat]
 
 <p align="center"><i>Reusable UI molecules, hooks, and utilities for the React Native Molecules monorepo. Explore the main package in <a href="packages/molecules">packages/molecules</a> or install it from <a href="https://www.npmjs.com/package/react-native-molecules">npm</a>.</i></p>
 
@@ -25,25 +25,6 @@ Detailed component and hook docs live under `docs/docs`. Start with `docs/docs/g
 - Follow the lint rules enforced by `.github/workflows/lint.yml`.
 - Use Node.js 20 and pnpm 9 for all development tasks.
 - Open a draft PR early for feedback; mark it ready once lint/tests pass.
-
-## Contributors
-
-Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/thetaungg"><img src="https://avatars.githubusercontent.com/u/30053822?v=4" width="100px;" alt="Thet Aung"/><br /><sub><b>Thet Aung</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=thetaungg" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/shashank1010"><img src="https://avatars.githubusercontent.com/u/3106368?v=4" width="100px;" alt="Shashank Shekhar"/><br /><sub><b>shashank1010</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=shashank1010" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/elvisduru"><img src="https://avatars.githubusercontent.com/u/28690701?v=4" width="100px;" alt="Elvis Duru"/><br /><sub><b>elvisduru</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=elvisduru" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jasimawan"><img src="https://avatars.githubusercontent.com/u/31315869?v=4" width="100px;" alt="Jasim Awan"/><br /><sub><b>jasimawan</b></sub></a><br /><a href="https://github.com/webbeetechnologies/react-native-molecules/commits?author=jasimawan" title="Code">💻</a></td>
-  </tr>
-</table>
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
