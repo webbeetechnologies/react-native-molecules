@@ -1,6 +1,21 @@
 React Native Molecules
 ================
 
+<p align="center">
+  <a href="https://github.com/webbeetechnologies/bamboo-molecules/actions/workflows/lint.yml">
+    <img alt="Lint status" src="https://github.com/webbeetechnologies/bamboo-molecules/actions/workflows/lint.yml/badge.svg">
+  </a>
+  <a href="https://www.npmjs.com/package/react-native-molecules">
+    <img alt="npm" src="https://img.shields.io/npm/v/react-native-molecules.svg">
+  </a>
+  <a href="https://github.com/webbeetechnologies/bamboo-molecules/blob/main/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green.svg">
+  </a>
+  <a href="https://github.com/webbeetechnologies/bamboo-molecules/graphs/contributors">
+    <img alt="Contributors" src="https://img.shields.io/github/all-contributors/webbeetechnologies/bamboo-molecules/main">
+  </a>
+</p>
+
 React Native Molecules is a comprehensive library of React Native + Web components powered by Material 3 tokens. Every component ships with production-ready props, sensible defaults, and live playground examples documented in the `/docs` site.
 
 Why React Native Molecules?
