@@ -25,12 +25,14 @@ It also can be used for FocusTrapping the Shortcuts to a component. With FocusTr
 ### Basic Example
 
 ```tsx
-import { useMolecules, isMac } from 'react-native-molecules';
+import { isMac } from 'react-native-molecules/utils';
 import {
     useShortcut,
     ShortcutsManager,
     Shortcut,
 } from 'react-native-molecules/shortcuts-manager';
+import { Text } from 'react-native-molecules/components/Text';
+import { View } from 'react-native';
 
 const shortcuts: Shortcut[] = [
     {
@@ -53,13 +55,11 @@ export const Wrapper = () => {
 
 const styles = {
     container: {
-        padding: 'spacings.4',
+        padding: 16,
     },
 };
 
 export const MyComponent = () => {
-    const { View, Text } = useMolecules();
-
     useShortcut('copy', ({ shortcut }) => {
         // eslint-disable-next-line no-console
         console.log({ shortcut });

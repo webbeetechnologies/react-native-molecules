@@ -1,9 +1,9 @@
-Bamboo Molecules
+React Native Molecules
 ================
 
-Bamboo Molecules is a comprehensive library of React Native + Web components powered by Material 3 tokens. Every component ships with production-ready props, sensible defaults, and live playground examples documented in the `/docs` site.
+React Native Molecules is a comprehensive library of React Native + Web components powered by Material 3 tokens. Every component ships with production-ready props, sensible defaults, and live playground examples documented in the `/docs` site.
 
-Why Bamboo Molecules?
+Why React Native Molecules?
 ---------------------
 
 -   High performance – built on top of `react-native-unistyles`, with CSS variables on the web.
@@ -15,7 +15,7 @@ Quick start
 -----------
 
 ```tsx
-import { Button } from 'react-native-molecules';
+import { Button } from 'react-native-molecules/components/Button';
 
 export function MyComponent() {
     return <Button onPress={() => console.log('Pressed!')}>Click me</Button>;
@@ -59,4 +59,4 @@ Next steps
 Contributing
 ------------
 
-We welcome issues and pull requests. Please ensure any new component stories and docs accompany your changes so they appear in the Bamboo Molecules docs site.
+We welcome issues and pull requests. Please ensure any new component stories and docs accompany your changes so they appear in the React Native Molecules docs site.

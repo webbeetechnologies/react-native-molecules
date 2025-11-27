@@ -4,12 +4,12 @@ sidebar_label: Customization
 sidebar_position: 3
 sidebar_custom_props:
     icon: 'material:palette'
-description: Tune Bamboo Molecules to match your tokens, typography, and interaction patterns.
+description: Tune React Native Molecules to match your tokens, typography, and interaction patterns.
 ---
 
 ## Theme tokens & typography
 
-Bamboo Molecules exposes the Material 3 token set through `react-native-molecules/styles`. Extend or override those tokens to align with your brand:
+React Native Molecules exposes the Material 3 token set through `react-native-molecules/styles`. Extend or override those tokens to align with your brand:
 
 ```ts title="theme.ts"
 import { MD3LightTheme } from 'react-native-molecules/styles';
@@ -39,7 +39,7 @@ Provide the theme via `ThemeProvider` (or your preferred context) so every compo
 Most components accept style props (e.g., `contentStyle`, `labelStyle`, `iconColor`). Compose your own wrappers to encode common patterns:
 
 ```tsx
-import { Button, ButtonProps } from 'react-native-molecules';
+import { Button, ButtonProps } from 'react-native-molecules/components/Button';
 
 export function PrimaryButton(props: ButtonProps) {
     return (
@@ -54,7 +54,7 @@ export function PrimaryButton(props: ButtonProps) {
 
 ## Responsive design with Unistyles
 
-Pair Bamboo Molecules with `react-native-unistyles` to adapt spacing, typography, and breakpoints. The `docs/src/unistyles.ts` file in this repo shows a ready-to-copy configuration you can reuse in your app.
+Pair React Native Molecules with `react-native-unistyles` to adapt spacing, typography, and breakpoints. The `docs/src/unistyles.ts` file in this repo shows a ready-to-copy configuration you can reuse in your app.
 
 ```ts
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
@@ -74,7 +74,7 @@ export function Screen() {
 
 ## Building your system
 
-- Establish shared tokens (colors, typography, radius, motion) and feed them into the Bamboo Molecules theme.
+- Establish shared tokens (colors, typography, radius, motion) and feed them into the React Native Molecules theme.
 - Wrap primitives in your own abstractions (e.g., `PrimaryButton`, `DangerBanner`) for consistent behavior.
 - Combine the component catalog with utilities (portals, shortcuts manager, context bridge) to cover complex product surfaces.
 
