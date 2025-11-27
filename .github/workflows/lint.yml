@@ -43,9 +43,8 @@ jobs:
             ${{ runner.os }}-modules-
 
       - name: Install dependencies
-        # install deps only if lockfile has changed
-        if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: pnpm install --frozen-lockfile
+        # always install so pnpm recreates node_modules symlinks from cache
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
