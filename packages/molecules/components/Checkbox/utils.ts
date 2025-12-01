@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const PADDING = 6;
 
@@ -203,8 +203,4 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
     // },
 }));
 
-registerComponentsStyles({
-    Checkbox: checkboxStylesDefault,
-});
-
-export const styles = getRegisteredMoleculesComponentStyles('Checkbox') ?? checkboxStylesDefault;
+export const styles = getRegisteredComponentStylesWithFallback('Checkbox', checkboxStylesDefault);

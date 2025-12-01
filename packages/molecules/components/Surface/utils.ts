@@ -1,7 +1,7 @@
 import type { Animated } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { inputRange } from '../../styles/shadow';
 
 const defaultStylesDefault = StyleSheet.create(theme => ({
@@ -10,11 +10,10 @@ const defaultStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Surface: defaultStylesDefault,
-});
-
-export const defaultStyles = getRegisteredMoleculesComponentStyles('Surface');
+export const defaultStyles = getRegisteredComponentStylesWithFallback(
+    'Surface',
+    defaultStylesDefault,
+);
 
 // TODO - abstract this
 export function extractProperties(

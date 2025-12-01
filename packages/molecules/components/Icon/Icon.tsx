@@ -1,7 +1,7 @@
 import { forwardRef, memo, useMemo } from 'react';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { tokenStylesParser } from '../../utils/tokenStylesParser';
 import iconFactory from './iconFactory';
 import type { IconProps } from './types';
@@ -25,8 +25,6 @@ export const iconStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('Icon', iconStylesDefault);
-
-export const styles = getRegisteredMoleculesComponentStyles('Icon');
+export const styles = getRegisteredComponentStylesWithFallback('Icon', iconStylesDefault);
 
 export default memo(forwardRef(Icon));

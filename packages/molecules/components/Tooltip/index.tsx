@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import TooltipComponent from './Tooltip';
 import TooltipContent from './TooltipContent';
 import TooltipTrigger from './TooltipTrigger';
@@ -6,10 +6,6 @@ import TooltipTrigger from './TooltipTrigger';
 export const TooltipDefault = Object.assign(TooltipComponent, {
     Trigger: TooltipTrigger,
     Content: TooltipContent,
-});
-
-registerMoleculesComponents({
-    Tooltip: TooltipDefault,
 });
 
 export const Tooltip = getRegisteredComponentWithFallback('Tooltip', TooltipDefault);

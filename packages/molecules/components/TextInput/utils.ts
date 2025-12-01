@@ -1,10 +1,8 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 import {
-    getRegisteredComponentUtils,
-    getRegisteredMoleculesComponentStyles,
-    registerComponentsStyles,
-    registerComponentUtils,
+    getRegisteredComponentStylesWithFallback,
+    getRegisteredComponentUtilsWithFallback,
 } from '../../core';
 
 export type States =
@@ -37,12 +35,11 @@ const getInputMinHeightDefault = (variant: string, size: string) => {
     }
 };
 
-registerComponentUtils('TextInput', {
-    getInputMinHeight: getInputMinHeightDefault,
-});
-
-export const getInputMinHeight =
-    getRegisteredComponentUtils('TextInput').getInputMinHeight ?? getInputMinHeightDefault;
+export const getInputMinHeight = getRegisteredComponentUtilsWithFallback(
+    'TextInput',
+    getInputMinHeightDefault,
+    'getInputMinHeight',
+);
 
 const textInputStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -530,11 +527,7 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    TextInput: textInputStylesDefault,
-});
-
-export const styles = getRegisteredMoleculesComponentStyles('TextInput');
+export const styles = getRegisteredComponentStylesWithFallback('TextInput', textInputStylesDefault);
 
 export const inputLabelStyles = StyleSheet.create({
     labelContainer: {

@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import AccordionDefault from './Accordion';
 import AccordionItemComponent from './AccordionItem';
 import AccordionItemContent from './AccordionItemContent';
@@ -7,11 +7,6 @@ import AccordionItemHeader from './AccordionItemHeader';
 const AccordionItemDefault = Object.assign(AccordionItemComponent, {
     Header: AccordionItemHeader,
     Content: AccordionItemContent,
-});
-
-registerMoleculesComponents({
-    Accordion: AccordionDefault,
-    AccordionItem: AccordionItemDefault,
 });
 
 export const Accordion = getRegisteredComponentWithFallback('Accordion', AccordionDefault);

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 // type States = 'disabled' | 'hovered';
 
@@ -32,8 +32,4 @@ const linkStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Link: linkStylesDefault,
-});
-
-export const linkStyles = getRegisteredMoleculesComponentStyles('Link');
+export const linkStyles = getRegisteredComponentStylesWithFallback('Link', linkStylesDefault);

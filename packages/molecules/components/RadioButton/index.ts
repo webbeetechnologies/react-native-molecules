@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import RadioButtonComponent from './RadioButton';
 import RadioButtonGroup from './RadioButtonGroup';
 import RadioButtonItem from './RadioButtonItem';
@@ -13,10 +13,6 @@ const RadioButtonDefault = Object.assign(
         Item: RadioButtonItem,
     },
 );
-
-registerMoleculesComponents({
-    RadioButton: RadioButtonDefault,
-});
 
 export const RadioButton = getRegisteredComponentWithFallback('RadioButton', RadioButtonDefault);
 

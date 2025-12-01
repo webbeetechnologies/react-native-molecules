@@ -1,5 +1,4 @@
 import memoize from 'lodash.memoize';
-export { default as debounce } from 'lodash.debounce';
 export { default as get } from 'lodash.get';
 export { default as keyBy } from 'lodash.keyby';
 export { default as memoize } from 'lodash.memoize';

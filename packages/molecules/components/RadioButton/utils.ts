@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 // type States = 'disabled' | 'checked' | 'hovered' | 'checkedAndHovered';
 
@@ -121,13 +121,14 @@ const radioButtonItemStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    RadioButton: radioButtonStylesDefault,
-    RadioButton_Item: radioButtonItemStylesDefault,
-});
-
-export const radioButtonStyles = getRegisteredMoleculesComponentStyles('RadioButton');
-export const radioButtonItemStyles = getRegisteredMoleculesComponentStyles('RadioButton_Item');
+export const radioButtonStyles = getRegisteredComponentStylesWithFallback(
+    'RadioButton',
+    radioButtonStylesDefault,
+);
+export const radioButtonItemStyles = getRegisteredComponentStylesWithFallback(
+    'RadioButton_Item',
+    radioButtonItemStylesDefault,
+);
 
 export const handlePress = ({
     onPress,

@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import TimePickerFieldDefault from './TimePickerField';
-
-registerMoleculesComponents({
-    TimePickerField: TimePickerFieldDefault,
-});
 
 export const TimePickerField = getRegisteredComponentWithFallback(
     'TimePickerField',

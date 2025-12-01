@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type Props = Omit<ViewProps, 'children'> & {
     /**
@@ -95,7 +95,9 @@ export const horizontalDividerStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('HorizontalDivider', horizontalDividerStylesDefault);
-export const horizontalDividerStyles = getRegisteredMoleculesComponentStyles('HorizontalDivider');
+export const horizontalDividerStyles = getRegisteredComponentStylesWithFallback(
+    'HorizontalDivider',
+    horizontalDividerStylesDefault,
+);
 
 export default memo(HorizontalDivider);

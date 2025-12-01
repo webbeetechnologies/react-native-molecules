@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import SwitchDefault from './Switch';
-
-registerMoleculesComponents({
-    Switch: SwitchDefault,
-});
 
 export const Switch = getRegisteredComponentWithFallback('Switch', SwitchDefault);
 

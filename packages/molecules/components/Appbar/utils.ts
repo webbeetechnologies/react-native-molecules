@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const appbarBaseStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -105,23 +105,35 @@ const appbarLeftDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Appbar: appbarBaseStylesDefault,
-    Appbar_CenterAligned: appbarCenterAlignedStylesDefault,
-    Appbar_Small: appbarSmallStylesDefault,
-    Appbar_Medium: appbarMediumStylesDefault,
-    Appbar_Large: appbarLargeStylesDefault,
-    Appbar_Left: appbarLeftDefault,
-    Appbar_Right: appbarRightDefault,
-    Appbar_Title: appbarTitleDefault,
-});
-
-export const appbarBaseStyles = getRegisteredMoleculesComponentStyles('Appbar');
-export const appbarCenterAlignedStyles =
-    getRegisteredMoleculesComponentStyles('Appbar_CenterAligned');
-export const appbarSmallStyles = getRegisteredMoleculesComponentStyles('Appbar_Small');
-export const appbarMediumStyles = getRegisteredMoleculesComponentStyles('Appbar_Medium');
-export const appbarLargeStyles = getRegisteredMoleculesComponentStyles('Appbar_Large');
-export const appbarTitle = getRegisteredMoleculesComponentStyles('Appbar_Title');
-export const appbarRight = getRegisteredMoleculesComponentStyles('Appbar_Right');
-export const appbarLeft = getRegisteredMoleculesComponentStyles('Appbar_Left');
+export const appbarBaseStyles = getRegisteredComponentStylesWithFallback(
+    'Appbar',
+    appbarBaseStylesDefault,
+);
+export const appbarCenterAlignedStyles = getRegisteredComponentStylesWithFallback(
+    'Appbar_CenterAligned',
+    appbarCenterAlignedStylesDefault,
+);
+export const appbarSmallStyles = getRegisteredComponentStylesWithFallback(
+    'Appbar_Small',
+    appbarSmallStylesDefault,
+);
+export const appbarMediumStyles = getRegisteredComponentStylesWithFallback(
+    'Appbar_Medium',
+    appbarMediumStylesDefault,
+);
+export const appbarLargeStyles = getRegisteredComponentStylesWithFallback(
+    'Appbar_Large',
+    appbarLargeStylesDefault,
+);
+export const appbarTitle = getRegisteredComponentStylesWithFallback(
+    'Appbar_Title',
+    appbarTitleDefault,
+);
+export const appbarRight = getRegisteredComponentStylesWithFallback(
+    'Appbar_Right',
+    appbarRightDefault,
+);
+export const appbarLeft = getRegisteredComponentStylesWithFallback(
+    'Appbar_Left',
+    appbarLeftDefault,
+);

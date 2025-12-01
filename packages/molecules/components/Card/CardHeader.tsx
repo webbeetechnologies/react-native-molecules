@@ -2,7 +2,7 @@ import { forwardRef, memo, type ReactNode } from 'react';
 import { View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type Props = ViewProps & {
     children: ReactNode | ReactNode[];
@@ -25,7 +25,9 @@ const cardHeaderStylesDefault = StyleSheet.create(theme => ({
         justifyContent: 'space-between',
     },
 }));
-registerComponentStyles('Card_Header', cardHeaderStylesDefault);
-export const cardHeaderStyles = getRegisteredMoleculesComponentStyles('Card_Header');
+export const cardHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'Card_Header',
+    cardHeaderStylesDefault,
+);
 
 export default CardHeader;

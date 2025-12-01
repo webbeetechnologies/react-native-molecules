@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
+import { View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type Props = Omit<ViewProps, 'children'> & {
     /**
@@ -21,7 +21,6 @@ export type Props = Omit<ViewProps, 'children'> & {
      *  Horizontal spacing of the Divider
      */
     spacing?: number;
-    style?: StyleProp<ViewStyle>;
 };
 
 /**
@@ -70,9 +69,9 @@ const VerticalDivider = ({
             style={[
                 verticalDividerStyles.root,
                 style,
-                topInset && { marginTop: topInset },
-                bottomInset && { marginBottom: bottomInset },
-                spacing && { marginHorizontal: spacing },
+                topInset ? { marginTop: topInset } : undefined,
+                bottomInset ? { marginBottom: bottomInset } : undefined,
+                spacing ? { marginHorizontal: spacing } : undefined,
             ]}
         />
     );
@@ -93,7 +92,9 @@ export const verticalDividerStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('VerticalDivider', verticalDividerStylesDefault);
-export const verticalDividerStyles = getRegisteredMoleculesComponentStyles('HorizontalDivider');
+export const verticalDividerStyles = getRegisteredComponentStylesWithFallback(
+    'VerticalDivider',
+    verticalDividerStylesDefault,
+);
 
 export default memo(VerticalDivider);

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { daySize } from './dateUtils';
 
 export const dayNamesHeight = 44;
@@ -338,30 +338,43 @@ const datePickerYearItemStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    DatePickerInline: datePickerStylesDefault,
-    DatePicker_Month: datePickerMonthStylesDefault,
-    DatePicker_YearPicker: datePickerYearPickerStylesDefault,
-    DatePicker_Day: datePickerDayStylesDefault,
-    DatePicker_DayEmpty: datePickerDayEmptyStylesDefault,
-    DatePicker_Week: datePickerWeekStylesDefault,
-    DatePicker_Header: datePickerHeaderStylesDefault,
-    DatePicker_DayName: dateDayNameStylesDefault,
-    DatePicker_DayRange: datePickerDayRangeStylesDefault,
-    DatePicker_YearItem: datePickerYearItemStylesDefault,
-});
-
-export const datePickerStyles = getRegisteredMoleculesComponentStyles('DatePickerInline');
-export const datePickerMonthStyles = getRegisteredMoleculesComponentStyles('DatePicker_Month');
-export const datePickerYearPickerStyles =
-    getRegisteredMoleculesComponentStyles('DatePicker_YearPicker');
-export const datePickerDayStyles = getRegisteredMoleculesComponentStyles('DatePicker_Day');
-export const datePickerDayEmptyStyles =
-    getRegisteredMoleculesComponentStyles('DatePicker_DayEmpty');
-export const datePickerWeekStyles = getRegisteredMoleculesComponentStyles('DatePicker_Week');
-export const datePickerHeaderStyles = getRegisteredMoleculesComponentStyles('DatePicker_Header');
-export const dateDayNameStyles = getRegisteredMoleculesComponentStyles('DatePicker_DayName');
-export const datePickerDayRangeStyles =
-    getRegisteredMoleculesComponentStyles('DatePicker_DayRange');
-export const datePickerYearItemStyles =
-    getRegisteredMoleculesComponentStyles('DatePicker_YearItem');
+export const datePickerStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerInline',
+    datePickerStylesDefault,
+);
+export const datePickerMonthStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_Month',
+    datePickerMonthStylesDefault,
+);
+export const datePickerYearPickerStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_YearPicker',
+    datePickerYearPickerStylesDefault,
+);
+export const datePickerDayStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_Day',
+    datePickerDayStylesDefault,
+);
+export const datePickerDayEmptyStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_DayEmpty',
+    datePickerDayEmptyStylesDefault,
+);
+export const datePickerWeekStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_Week',
+    datePickerWeekStylesDefault,
+);
+export const datePickerHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_Header',
+    datePickerHeaderStylesDefault,
+);
+export const dateDayNameStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_DayName',
+    dateDayNameStylesDefault,
+);
+export const datePickerDayRangeStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_DayRange',
+    datePickerDayRangeStylesDefault,
+);
+export const datePickerYearItemStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_YearItem',
+    datePickerYearItemStylesDefault,
+);

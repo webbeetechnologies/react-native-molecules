@@ -1,18 +1,13 @@
-import EventEmitter, {
-    type ConstructorOptions,
-    type event as Event,
-    type eventNS,
-} from 'eventemitter2';
 import type { ComponentType } from 'react';
 
-interface RepositoryConstructor<T> extends ConstructorOptions {
+interface RepositoryConstructor<T> {
     onRegister?: (arg: T, name: string, registery: Record<string, T>) => T;
     name?: string;
 }
 
 let id = Date.now();
 
-export class Repository<T> extends EventEmitter {
+export class Repository<T> {
     private registry: Record<string, T> = {};
     readonly #name!: string;
 
@@ -29,9 +24,7 @@ export class Repository<T> extends EventEmitter {
     constructor({
         onRegister = arg => arg,
         name = Repository.uniqueId,
-        ...options
     }: RepositoryConstructor<T> = {}) {
-        super(options);
         this.#onRegister = onRegister;
         this.#name = name;
     }
@@ -39,11 +32,6 @@ export class Repository<T> extends EventEmitter {
     has = (itemName: string): boolean => {
         return !!this.registry[itemName];
     };
-
-    emit(event: eventNS | Event, ...values: any[]) {
-        event = typeof event === 'string' ? `${this.#name}::event` : event;
-        return super.emit(event, ...values);
-    }
 
     /**
      * Register a item with the src.
@@ -58,8 +46,6 @@ export class Repository<T> extends EventEmitter {
             ...this.registry,
             [itemName]: updatedItem,
         };
-
-        this.emit('item_registered', itemName);
     };
 
     /**
@@ -92,17 +78,14 @@ export class Repository<T> extends EventEmitter {
 
 export const componentsRepository = new Repository<Record<string, any>>({
     name: 'Components_Repository',
-    maxListeners: 0,
 });
 
 export const componentsStylesRepository = new Repository<Record<string, any>>({
     name: 'Components_Styles_Repository',
-    maxListeners: 0,
 });
 
 export const componentsUtilsRepository = new Repository<Record<string, any>>({
     name: 'Components_Utils_Repository',
-    maxListeners: 0,
 });
 
 export const registerMoleculesComponent = componentsRepository.registerOne;
@@ -161,4 +144,33 @@ export function getRegisteredComponentWithFallback<T extends ComponentType<any>>
     defaultComponent: T,
 ): T {
     return (getRegisteredMoleculesComponent(name) ?? defaultComponent) as T;
+}
+
+/**
+ * Gets a registered component with a fallback to the default component
+ * @param name The name of the component to retrieve
+ * @param defaultStyles The default styles to use as fallback
+ * @returns The registered styles or the default styles
+ */
+export function getRegisteredComponentStylesWithFallback<T extends unknown>(
+    name: string,
+    defaultStyles: T,
+): T {
+    return (getRegisteredMoleculesComponentStyles(name) ?? defaultStyles) as T;
+}
+
+/**
+ * Gets a registered component with a fallback to the default component
+ * @param name The name of the component to retrieve
+ * @param defaultUtils The default utils to use as fallback
+ * @returns The registered utils or the default utils
+ */
+export function getRegisteredComponentUtilsWithFallback<T extends unknown>(
+    name: string,
+    defaultUtils: T,
+    key?: string,
+): T {
+    return key
+        ? (((getRegisteredComponentUtils(name) as Record<string, any>)?.[key] ?? defaultUtils) as T)
+        : ((getRegisteredComponentUtils(name) ?? defaultUtils) as T);
 }

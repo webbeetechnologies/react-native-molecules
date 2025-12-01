@@ -5,17 +5,16 @@ export declare type MaskItem = string | RegExp | [RegExp];
 export declare type MaskArray = Array<MaskItem>;
 export declare type Mask = MaskArray | ((value?: string) => MaskArray);
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const timepickerFieldStylesDefault = StyleSheet.create({
     root: {},
 });
 
-registerComponentsStyles({
-    TimePickerField: timepickerFieldStylesDefault,
-});
-
-export const styles = getRegisteredMoleculesComponentStyles('TimePickerField');
+export const styles = getRegisteredComponentStylesWithFallback(
+    'TimePickerField',
+    timepickerFieldStylesDefault,
+);
 
 export const timeMask24Hour: Mask = (text: string = '') => {
     const cleanTime = text.replace(/\D+/g, '');

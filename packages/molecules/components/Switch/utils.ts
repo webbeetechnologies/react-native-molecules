@@ -1,6 +1,6 @@
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 type States =
     | 'selected'
@@ -276,8 +276,4 @@ const switchStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Switch: switchStylesDefault,
-});
-
-export const switchStyles = getRegisteredMoleculesComponentStyles('Switch');
+export const switchStyles = getRegisteredComponentStylesWithFallback('Switch', switchStylesDefault);

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const navigationRailStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -152,19 +152,23 @@ const navigationRailItemStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    NavigationRail: navigationRailStylesDefault,
-    NavigationRail_Header: navigationRailHeaderStylesDefault,
-    NavigationRail_Content: navigationRailContentStylesDefault,
-    NavigationRail_Footer: navigationRailFooterStylesDefault,
-    NavigationRail_Item: navigationRailItemStylesDefault,
-});
-
-export const navigationRailStyles = getRegisteredMoleculesComponentStyles('NavigationRail');
-export const navigationRailHeaderStyles =
-    getRegisteredMoleculesComponentStyles('NavigationRail_Header');
-export const navigationRailContentStyles =
-    getRegisteredMoleculesComponentStyles('NavigationRail_Content');
-export const navigationRailFooterStyles =
-    getRegisteredMoleculesComponentStyles('NavigationRail_Footer');
-export const navigationRailItemStyles = navigationRailItemStylesDefault;
+export const navigationRailStyles = getRegisteredComponentStylesWithFallback(
+    'NavigationRail',
+    navigationRailStylesDefault,
+);
+export const navigationRailHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'NavigationRail_Header',
+    navigationRailHeaderStylesDefault,
+);
+export const navigationRailContentStyles = getRegisteredComponentStylesWithFallback(
+    'NavigationRail_Content',
+    navigationRailContentStylesDefault,
+);
+export const navigationRailFooterStyles = getRegisteredComponentStylesWithFallback(
+    'NavigationRail_Footer',
+    navigationRailFooterStylesDefault,
+);
+export const navigationRailItemStyles = getRegisteredComponentStylesWithFallback(
+    'NavigationRail_Item',
+    navigationRailItemStylesDefault,
+);

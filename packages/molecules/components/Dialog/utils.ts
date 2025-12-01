@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const dialogStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -63,18 +63,24 @@ const dialogActionsStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Dialog: dialogStylesDefault,
-    Dialog_Title: dialogTitleStylesDefault,
-    Dialog_ScrollArea: dialogScrollAreaStylesDefault,
-    Dialog_Icon: dialogIconStylesDefault,
-    Dialog_Content: dialogContentStylesDefault,
-    Dialog_Actions: dialogActionsStylesDefault,
-});
-
-export const dialogStyles = getRegisteredMoleculesComponentStyles('Dialog');
-export const dialogTitleStyles = getRegisteredMoleculesComponentStyles('Dialog_Title');
-export const dialogScrollAreaStyles = getRegisteredMoleculesComponentStyles('Dialog_ScrollArea');
-export const dialogIconStyles = getRegisteredMoleculesComponentStyles('Dialog_Icon');
-export const dialogContentStyles = getRegisteredMoleculesComponentStyles('Dialog_Content');
-export const dialogActionsStyles = getRegisteredMoleculesComponentStyles('Dialog_Actions');
+export const dialogStyles = getRegisteredComponentStylesWithFallback('Dialog', dialogStylesDefault);
+export const dialogTitleStyles = getRegisteredComponentStylesWithFallback(
+    'Dialog_Title',
+    dialogTitleStylesDefault,
+);
+export const dialogScrollAreaStyles = getRegisteredComponentStylesWithFallback(
+    'Dialog_ScrollArea',
+    dialogScrollAreaStylesDefault,
+);
+export const dialogIconStyles = getRegisteredComponentStylesWithFallback(
+    'Dialog_Icon',
+    dialogIconStylesDefault,
+);
+export const dialogContentStyles = getRegisteredComponentStylesWithFallback(
+    'Dialog_Content',
+    dialogContentStylesDefault,
+);
+export const dialogActionsStyles = getRegisteredComponentStylesWithFallback(
+    'Dialog_Actions',
+    dialogActionsStylesDefault,
+);

@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type Props = ViewProps & {};
 
@@ -20,8 +20,9 @@ const drawerHeaderStylesDefault = StyleSheet.create({
     root: {},
 });
 
-registerComponentStyles('Drawer_Header', drawerHeaderStylesDefault);
-
-export const drawerHeaderStyles = getRegisteredMoleculesComponentStyles('Drawer_Header');
+export const drawerHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_Header',
+    drawerHeaderStylesDefault,
+);
 
 export default DrawerHeader;

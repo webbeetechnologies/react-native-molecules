@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import ElementGroupDefault from './ElementGroup';
-
-registerMoleculesComponents({
-    ElementGroup: ElementGroupDefault,
-});
 
 export const ElementGroup = getRegisteredComponentWithFallback('ElementGroup', ElementGroupDefault);
 

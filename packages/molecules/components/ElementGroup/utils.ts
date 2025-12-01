@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const elementGroupStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -18,8 +18,7 @@ const elementGroupStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    ElementGroup: elementGroupStylesDefault,
-});
-
-export const elementGroupStyles = getRegisteredMoleculesComponentStyles('ElementGroup');
+export const elementGroupStyles = getRegisteredComponentStylesWithFallback(
+    'ElementGroup',
+    elementGroupStylesDefault,
+);

@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import DatePickerInlineDefault from './DatePickerInline';
-
-registerMoleculesComponents({
-    DatePickerInline: DatePickerInlineDefault,
-});
 
 export const DatePickerInline = getRegisteredComponentWithFallback(
     'DatePickerInline',

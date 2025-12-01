@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import LinkDefault from './Link';
-
-registerMoleculesComponents({
-    Link: LinkDefault,
-});
 
 export const Link = getRegisteredComponentWithFallback('Link', LinkDefault);
 

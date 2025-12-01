@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import FABDefault from './FAB';
-
-registerMoleculesComponents({
-    FAB: FABDefault,
-});
 
 export const FAB = getRegisteredComponentWithFallback('FAB', FABDefault);
 

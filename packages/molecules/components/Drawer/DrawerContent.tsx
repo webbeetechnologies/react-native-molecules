@@ -2,7 +2,7 @@ import { type ComponentType, memo } from 'react';
 import { ScrollView, type ScrollViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type Props = ScrollViewProps & {
     /**
@@ -27,8 +27,10 @@ const drawerContentStylesDefault = StyleSheet.create(theme => ({
         flex: 1,
     },
 }));
-registerComponentStyles('Drawer_Content', drawerContentStylesDefault);
-export const drawerContentStyles = getRegisteredMoleculesComponentStyles('Drawer_Content');
+export const drawerContentStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_Content',
+    drawerContentStylesDefault,
+);
 
 DrawerContent.displayName = 'Drawer_Content';
 

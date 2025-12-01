@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import InputAddonDefault from './InputAddon';
-
-registerMoleculesComponents({
-    InputAddon: InputAddonDefault,
-});
 
 export const InputAddon = getRegisteredComponentWithFallback('InputAddon', InputAddonDefault);
 

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type States = 'activeAndDisabled' | 'active' | 'disabled' | 'readonly' | 'activeAndReadonly';
 
@@ -29,10 +29,8 @@ const ratingItemStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Rating: ratingStylesDefault,
-    Rating_Item: ratingItemStylesDefault,
-});
-
-export const ratingStyles = getRegisteredMoleculesComponentStyles('Rating');
-export const ratingItemStyles = getRegisteredMoleculesComponentStyles('Rating_Item');
+export const ratingStyles = getRegisteredComponentStylesWithFallback('Rating', ratingStylesDefault);
+export const ratingItemStyles = getRegisteredComponentStylesWithFallback(
+    'Rating_Item',
+    ratingItemStylesDefault,
+);

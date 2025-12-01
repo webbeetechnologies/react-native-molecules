@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import { DrawerCollapsible, DrawerCollapsibleItem } from './Collapsible';
 import DrawerComponent from './Drawer';
 import DrawerContent from './DrawerContent';
@@ -15,10 +15,6 @@ const DrawerDefault = Object.assign(DrawerComponent, {
     Footer: DrawerFooter,
     Collapsible: DrawerCollapsible,
     CollapsibleItem: DrawerCollapsibleItem,
-});
-
-registerMoleculesComponents({
-    Drawer: DrawerDefault,
 });
 
 export const Drawer = getRegisteredComponentWithFallback('Drawer', DrawerDefault);

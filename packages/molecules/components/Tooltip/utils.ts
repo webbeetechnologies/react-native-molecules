@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const tooltipStylesDefault = StyleSheet.create(theme => ({
     content: {
@@ -14,8 +14,7 @@ const tooltipStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Tooltip: tooltipStylesDefault,
-});
-
-export const tooltipStyles = getRegisteredMoleculesComponentStyles('Tooltip');
+export const tooltipStyles = getRegisteredComponentStylesWithFallback(
+    'Tooltip',
+    tooltipStylesDefault,
+);
