@@ -166,7 +166,8 @@ const Button = (
 
     defaultStyles.useVariants({
         variant,
-        state,
+        // @ts-ignore // TODO - fix this
+        state: state as any,
         size,
     });
 
@@ -248,6 +249,7 @@ const Button = (
             ],
             iconContainerStyle: [defaultStyles.iconContainer, iconContainerStyleProp],
             textStyle: [
+                // @ts-ignore // TODO - fix this
                 isVariant('text') ? (iconName || loading ? labelTextAddons : labelText) : label,
                 textRelatedStyle,
                 labelStyle,

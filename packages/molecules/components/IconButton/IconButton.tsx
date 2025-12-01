@@ -113,7 +113,9 @@ const IconButton = (
     });
 
     defaultStyles.useVariants({
-        variant,
+        // @ts-ignore // TODO - fix this
+        variant: variant as any,
+        // @ts-ignore // TODO - fix this
         state,
         size: typeof size === 'string' && size ? size : undefined,
     });

@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
-import Icon, { styles as iconStyles } from './Icon';
+import Icon from './Icon';
 import type { IconProps } from './types';
 
 type Props = IconProps;
 
 const CrossFadeIcon = ({ color, size, name, style, ...rest }: Omit<Props, 'ref'>) => {
-    // const { animationScale: scale } = useComponentStyles('Icon', style);
-    const { animationScale: scale } = iconStyles.root;
     const [currentIcon, setCurrentIcon] = useState<string>(name);
     const [previousIcon, setPreviousIcon] = useState<string | null>(null);
     const { current: fade } = useRef<Animated.Value>(new Animated.Value(1));
@@ -25,12 +23,12 @@ const CrossFadeIcon = ({ color, size, name, style, ...rest }: Omit<Props, 'ref'>
             fade.setValue(1);
 
             Animated.timing(fade, {
-                duration: scale * 200,
+                duration: 200,
                 toValue: 0,
                 useNativeDriver: true,
             }).start();
         }
-    }, [currentIcon, previousIcon, fade, scale]);
+    }, [currentIcon, previousIcon, fade]);
 
     const opacityPrev = fade;
     const opacityNext = previousIcon

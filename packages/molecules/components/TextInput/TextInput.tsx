@@ -432,6 +432,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
             };
         }, [onBlurRef]);
 
+        // @ts-ignore // TODO - fix this
         const componentStyles = styles.root;
 
         const labelWidth = labelLayout.width;

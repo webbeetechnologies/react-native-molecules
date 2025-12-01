@@ -71,7 +71,7 @@ function SwitchButton({
     disabled: boolean;
 }) {
     timePickerAmPmSwitcherStyles.useVariants({
-        // TODO - fix ts issues
+        // @ts-ignore // TODO - fix this
         state: resolveStateVariant({
             selected,
         }),

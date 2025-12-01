@@ -13,6 +13,10 @@ export const iconSizeMap = {
 const checkboxStylesDefault = StyleSheet.create(theme => ({
     root: {
         variants: {
+            variant: {
+                android: {},
+                ios: {},
+            },
             size: {
                 sm: {
                     padding: PADDING,

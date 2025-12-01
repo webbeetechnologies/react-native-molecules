@@ -7,7 +7,7 @@ export type Props = ViewProps & {};
 
 const NavigationRailHeader = memo(({ style, children, ...rest }: Props) => {
     return (
-        <View style={[navigationRailHeaderStyles.root, style]} {...rest}>
+        <View style={[navigationRailHeaderStyles.header, style]} {...rest}>
             {children}
         </View>
     );

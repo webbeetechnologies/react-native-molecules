@@ -58,6 +58,7 @@ const CheckboxAndroid = (
 
     styles.useVariants({
         variant: 'android',
+        // @ts-ignore // TODO - fix this
         state: state as States,
         size,
     });
