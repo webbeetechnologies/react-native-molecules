@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import HorizontalDividerDefault from './HorizontalDivider';
-
-registerMoleculesComponents({
-    HorizontalDivider: HorizontalDividerDefault,
-});
 
 export const HorizontalDivider = getRegisteredComponentWithFallback(
     'HorizontalDivider',

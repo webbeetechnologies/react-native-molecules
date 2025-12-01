@@ -33,6 +33,7 @@ const CheckboxIOS = (
 
     styles.useVariants({
         variant: 'ios',
+        // @ts-ignore // TODO - fix this
         state: state as States,
         size,
     });

@@ -1,13 +1,12 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const filePickerStylesDefault = StyleSheet.create({
     root: {},
 });
 
-registerComponentsStyles({
-    FilePicker: filePickerStylesDefault,
-});
-
-export const defaultStyles = getRegisteredMoleculesComponentStyles('FilePicker');
+export const defaultStyles = getRegisteredComponentStylesWithFallback(
+    'FilePicker',
+    filePickerStylesDefault,
+);

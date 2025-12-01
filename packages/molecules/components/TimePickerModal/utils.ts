@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const timepickerModalStylesDefault = StyleSheet.create(theme => ({
     keyboardView: {
@@ -41,8 +41,7 @@ const timepickerModalStylesDefault = StyleSheet.create(theme => ({
     fill: { flex: 1 },
 }));
 
-registerComponentsStyles({
-    TimePickerModal: timepickerModalStylesDefault,
-});
-
-export const styles = getRegisteredMoleculesComponentStyles('TimePickerModal');
+export const styles = getRegisteredComponentStylesWithFallback(
+    'TimePickerModal',
+    timepickerModalStylesDefault,
+);

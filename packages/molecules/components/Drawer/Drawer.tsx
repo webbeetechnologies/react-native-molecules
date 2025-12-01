@@ -2,7 +2,7 @@ import { memo, type ReactElement } from 'react';
 import { View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { useSubcomponents } from '../../hooks';
 
 export type Props = Omit<ViewProps, 'children'> & {
@@ -37,7 +37,6 @@ const drawerStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('Drawer', drawerStylesDefault);
-export const drawerStyles = getRegisteredMoleculesComponentStyles('Drawer');
+export const drawerStyles = getRegisteredComponentStylesWithFallback('Drawer', drawerStylesDefault);
 
 export default memo(Drawer);

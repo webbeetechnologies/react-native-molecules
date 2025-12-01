@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import { default as ChipComponent, type Props as ChipProps } from './Chip';
 
 export const ChipDefault = Object.assign(
@@ -39,10 +39,6 @@ export const ChipDefault = Object.assign(
         >,
     },
 );
-
-registerMoleculesComponents({
-    Chip: ChipDefault,
-});
 
 export const Chip = getRegisteredComponentWithFallback('Chip', ChipDefault);
 

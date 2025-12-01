@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import AnimatedSpinner from './AnimatedSpinner';
 
 export type Props = ActivityIndicatorProps & {
@@ -161,7 +161,7 @@ const ActivityIndicator = ({
                     return (
                         <AnimatedSpinner
                             key={index}
-                            style={componentStyles.root}
+                            style={componentStyles.layer}
                             index={index}
                             size={size}
                             color={color}
@@ -193,8 +193,9 @@ export const activityIndicatorStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('ActivityIndicator', activityIndicatorStylesDefault);
-
-export const activityIndicatorStyles = getRegisteredMoleculesComponentStyles('ActivityIndicator');
+export const activityIndicatorStyles = getRegisteredComponentStylesWithFallback(
+    'ActivityIndicator',
+    activityIndicatorStylesDefault,
+);
 
 export default memo(ActivityIndicator);

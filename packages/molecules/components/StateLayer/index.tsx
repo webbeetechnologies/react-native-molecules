@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import StateLayerDefault from './StateLayer';
-
-registerMoleculesComponents({
-    StateLayer: StateLayerDefault,
-});
 
 export const StateLayer = getRegisteredComponentWithFallback('StateLayer', StateLayerDefault);
 

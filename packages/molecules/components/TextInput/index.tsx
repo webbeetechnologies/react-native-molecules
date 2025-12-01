@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import TextInputDefault from './TextInput';
-
-registerMoleculesComponents({
-    TextInput: TextInputDefault,
-});
 
 export const TextInput = getRegisteredComponentWithFallback('TextInput', TextInputDefault);
 

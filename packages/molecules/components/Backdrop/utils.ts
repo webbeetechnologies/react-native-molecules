@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const backdropStylesDefault = StyleSheet.create({
     root: {
@@ -14,8 +14,7 @@ const backdropStylesDefault = StyleSheet.create({
     },
 });
 
-registerComponentsStyles({
-    Backdrop: backdropStylesDefault,
-});
-
-export const backdropStyles = getRegisteredMoleculesComponentStyles('Backdrop');
+export const backdropStyles = getRegisteredComponentStylesWithFallback(
+    'Backdrop',
+    backdropStylesDefault,
+);

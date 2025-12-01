@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export const sizeToIconSizeMap = {
     xs: 18,
@@ -407,8 +407,7 @@ const defaultStylesDefault = StyleSheet.create(theme => {
     };
 });
 
-registerComponentsStyles({
-    Button: defaultStylesDefault,
-});
-
-export const defaultStyles = getRegisteredMoleculesComponentStyles('Button');
+export const defaultStyles = getRegisteredComponentStylesWithFallback(
+    'Button',
+    defaultStylesDefault,
+);

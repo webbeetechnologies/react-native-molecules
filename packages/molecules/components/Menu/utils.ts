@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const menuStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -83,10 +83,8 @@ const menuItemStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Menu: menuStylesDefault,
-    Menu_Item: menuItemStylesDefault,
-});
-
-export const menuStyles = getRegisteredMoleculesComponentStyles('Menu');
-export const menuItemStyles = getRegisteredMoleculesComponentStyles('Menu_Item');
+export const menuStyles = getRegisteredComponentStylesWithFallback('Menu', menuStylesDefault);
+export const menuItemStyles = getRegisteredComponentStylesWithFallback(
+    'Menu_Item',
+    menuItemStylesDefault,
+);

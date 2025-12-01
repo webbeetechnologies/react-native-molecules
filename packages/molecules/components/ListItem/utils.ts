@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const listItemStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -101,13 +101,15 @@ const listItemDescriptionStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    ListItem: listItemStylesDefault,
-    ListItem_Title: listItemTitleStylesDefault,
-    ListItem_Description: listItemDescriptionStylesDefault,
-});
-
-export const listItemStyles = getRegisteredMoleculesComponentStyles('ListItem');
-export const listItemTitleStyles = getRegisteredMoleculesComponentStyles('ListItem_Title');
-export const listItemDescriptionStyles =
-    getRegisteredMoleculesComponentStyles('ListItem_Description');
+export const listItemStyles = getRegisteredComponentStylesWithFallback(
+    'ListItem',
+    listItemStylesDefault,
+);
+export const listItemTitleStyles = getRegisteredComponentStylesWithFallback(
+    'ListItem_Title',
+    listItemTitleStylesDefault,
+);
+export const listItemDescriptionStyles = getRegisteredComponentStylesWithFallback(
+    'ListItem_Description',
+    listItemDescriptionStylesDefault,
+);

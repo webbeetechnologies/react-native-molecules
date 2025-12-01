@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type Props = ViewProps & {};
 
@@ -20,8 +20,9 @@ const drawerFooterStylesDefault = StyleSheet.create({
     root: {},
 });
 
-registerComponentStyles('Drawer_Footer', drawerFooterStylesDefault);
-
-export const drawerFooterStyles = getRegisteredMoleculesComponentStyles('Drawer_Footer');
+export const drawerFooterStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_Footer',
+    drawerFooterStylesDefault,
+);
 
 export default DrawerFooter;

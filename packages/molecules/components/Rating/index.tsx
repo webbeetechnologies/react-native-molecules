@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import RatingDefault from './Rating';
-
-registerMoleculesComponents({
-    Rating: RatingDefault,
-});
 
 export const Rating = getRegisteredComponentWithFallback('Rating', RatingDefault);
 

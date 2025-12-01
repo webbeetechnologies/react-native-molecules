@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { circleSize } from './timeUtils';
 
 const timePickerStylesDefault = StyleSheet.create(theme => ({
@@ -263,23 +263,31 @@ const timePickerAmPmSwitcherStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    TimePicker: timePickerStylesDefault,
-    TimePicker_Inputs: timePickerInputsStylesDefault,
-    TimePicker_Input: timePickerInputStylesDefault,
-    TimePicker_Clock: timePickerClockStylesDefault,
-    TimePicker_ClockHours: timePickerClockHoursStylesDefault,
-    TimePicker_ClockMinutes: timePickerClockMinutesStylesDefault,
-    TimePicker_AmPmSwitcher: timePickerAmPmSwitcherStylesDefault,
-});
-
-export const timePickerStyles = getRegisteredMoleculesComponentStyles('TimePicker');
-export const timePickerInputsStyles = getRegisteredMoleculesComponentStyles('TimePicker_Inputs');
-export const timePickerInputStyles = getRegisteredMoleculesComponentStyles('TimePicker_Input');
-export const timePickerClockStyles = getRegisteredMoleculesComponentStyles('TimePicker_Clock');
-export const timePickerClockHoursStyles =
-    getRegisteredMoleculesComponentStyles('TimePicker_ClockHours');
-export const timePickerClockMinutesStyles =
-    getRegisteredMoleculesComponentStyles('TimePicker_ClockMinutes');
-export const timePickerAmPmSwitcherStyles =
-    getRegisteredMoleculesComponentStyles('TimePicker_AmPmSwitcher');
+export const timePickerStyles = getRegisteredComponentStylesWithFallback(
+    'TimePicker',
+    timePickerStylesDefault,
+);
+export const timePickerInputsStyles = getRegisteredComponentStylesWithFallback(
+    'TimePicker_Inputs',
+    timePickerInputsStylesDefault,
+);
+export const timePickerInputStyles = getRegisteredComponentStylesWithFallback(
+    'TimePicker_Input',
+    timePickerInputStylesDefault,
+);
+export const timePickerClockStyles = getRegisteredComponentStylesWithFallback(
+    'TimePicker_Clock',
+    timePickerClockStylesDefault,
+);
+export const timePickerClockHoursStyles = getRegisteredComponentStylesWithFallback(
+    'TimePicker_ClockHours',
+    timePickerClockHoursStylesDefault,
+);
+export const timePickerClockMinutesStyles = getRegisteredComponentStylesWithFallback(
+    'TimePicker_ClockMinutes',
+    timePickerClockMinutesStylesDefault,
+);
+export const timePickerAmPmSwitcherStyles = getRegisteredComponentStylesWithFallback(
+    'TimePicker_AmPmSwitcher',
+    timePickerAmPmSwitcherStylesDefault,
+);

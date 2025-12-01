@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import ActivityIndicatorDefault from './ActivityIndicator';
-
-registerMoleculesComponents({
-    ActivityIndicator: ActivityIndicatorDefault,
-});
 
 export const ActivityIndicator = getRegisteredComponentWithFallback(
     'ActivityIndicator',

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const modalStylesDefault = StyleSheet.create(theme => ({
     root: {},
@@ -38,8 +38,4 @@ const modalStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Modal: modalStylesDefault,
-});
-
-export const modalStyles = getRegisteredMoleculesComponentStyles('Modal');
+export const modalStyles = getRegisteredComponentStylesWithFallback('Modal', modalStylesDefault);

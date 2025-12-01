@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const badgeStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -31,8 +31,4 @@ const badgeStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Badge: badgeStylesDefault,
-});
-
-export const badgeStyles = getRegisteredMoleculesComponentStyles('Badge');
+export const badgeStyles = getRegisteredComponentStylesWithFallback('Badge', badgeStylesDefault);

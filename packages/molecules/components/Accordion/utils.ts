@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const accordionStylesDefault = StyleSheet.create({
     root: {},
@@ -47,16 +47,19 @@ const accordionItemContentStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Accordion: accordionStylesDefault,
-    AccordionItem: accordionItemStylesDefault,
-    AccordionItem_Header: accordionItemHeaderStylesDefault,
-    AccordionItem_Content: accordionItemContentStylesDefault,
-});
-
-export const accordionStyles = getRegisteredMoleculesComponentStyles('Accordion');
-export const accordionItemStyles = getRegisteredMoleculesComponentStyles('AccordionItem');
-export const accordionItemHeaderStyles =
-    getRegisteredMoleculesComponentStyles('AccordionItem_Header');
-export const accordionItemContentStyles =
-    getRegisteredMoleculesComponentStyles('AccordionItem_Content');
+export const accordionStyles = getRegisteredComponentStylesWithFallback(
+    'Accordion',
+    accordionStylesDefault,
+);
+export const accordionItemStyles = getRegisteredComponentStylesWithFallback(
+    'AccordionItem',
+    accordionItemStylesDefault,
+);
+export const accordionItemHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'AccordionItem_Header',
+    accordionItemHeaderStylesDefault,
+);
+export const accordionItemContentStyles = getRegisteredComponentStylesWithFallback(
+    'AccordionItem_Content',
+    accordionItemContentStylesDefault,
+);

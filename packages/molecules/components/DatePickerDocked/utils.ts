@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const datePickerDockedStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -131,25 +131,27 @@ const datePickerDockedMonthStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    DatePickerDocked: datePickerDockedStylesDefault,
-    DatePickerDocked_Header: datePickerDockedHeaderStylesDefault,
-    DatePicker_HeaderItem: datePickerHeaderItemStylesDefault,
-    DatePickerDocked_MonthPicker: datePickerMonthPickerStylesDefault,
-    DatePickerDocked_MonthItem: datePickerDockedMonthItemStylesDefault,
-    DatePickerDocked_Month: datePickerDockedMonthStylesDefault,
-});
-
-export const datePickerDockedStyles = getRegisteredMoleculesComponentStyles('DatePickerDocked');
-export const datePickerDockedHeaderStyles =
-    getRegisteredMoleculesComponentStyles('DatePickerDocked_Header');
-export const datePickerHeaderItemStyles =
-    getRegisteredMoleculesComponentStyles('DatePicker_HeaderItem');
-export const datePickerMonthPickerStyles = getRegisteredMoleculesComponentStyles(
+export const datePickerDockedStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerDocked',
+    datePickerDockedStylesDefault,
+);
+export const datePickerDockedHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerDocked_Header',
+    datePickerDockedHeaderStylesDefault,
+);
+export const datePickerHeaderItemStyles = getRegisteredComponentStylesWithFallback(
+    'DatePicker_HeaderItem',
+    datePickerHeaderItemStylesDefault,
+);
+export const datePickerMonthPickerStyles = getRegisteredComponentStylesWithFallback(
     'DatePickerDocked_MonthPicker',
+    datePickerMonthPickerStylesDefault,
 );
-export const datePickerDockedMonthItemStyles = getRegisteredMoleculesComponentStyles(
+export const datePickerDockedMonthItemStyles = getRegisteredComponentStylesWithFallback(
     'DatePickerDocked_MonthItem',
+    datePickerDockedMonthItemStylesDefault,
 );
-export const datePickerDockedMonthStyles =
-    getRegisteredMoleculesComponentStyles('DatePickerDocked_Month');
+export const datePickerDockedMonthStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerDocked_Month',
+    datePickerDockedMonthStylesDefault,
+);

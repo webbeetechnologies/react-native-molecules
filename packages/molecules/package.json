@@ -1,6 +1,6 @@
 {
     "name": "react-native-molecules",
-    "version": "0.5.0-beta.1",
+    "version": "0.5.0-beta.2",
     "author": "Thet Aung <thetaung.dev@gmail.com>",
     "license": "MIT",
     "main": "index.ts",
@@ -47,7 +47,6 @@
         "color": "^4.2.3",
         "date-fns": "^4.1.0",
         "eventemitter2": "^6.4.9",
-        "lodash.debounce": "^4.0.8",
         "lodash.get": "^4.4.2",
         "lodash.keyby": "^4.6.0",
         "lodash.memoize": "^4.1.2",
@@ -66,7 +65,6 @@
         "@types/color": "^3.0.3",
         "@types/jest": "^29.1.2",
         "@types/lodash": "^4.17.13",
-        "@types/lodash.debounce": "^4.0.7",
         "@types/lodash.get": "^4.4.7",
         "@types/lodash.keyby": "^4.6.7",
         "@types/lodash.memoize": "^4.1.7",

@@ -47,6 +47,7 @@ const Checkbox = (
     if (label) {
         styles.useVariants({
             variant: 'item',
+            // @ts-ignore // TODO - fix this
             state: state as States,
             isLeading,
             size,

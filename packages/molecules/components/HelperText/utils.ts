@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export const helperTextStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -21,9 +21,7 @@ export const helperTextStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    HelperText: helperTextStylesDefault,
-});
-
-export const styles =
-    getRegisteredMoleculesComponentStyles('HelperText') || helperTextStylesDefault;
+export const styles = getRegisteredComponentStylesWithFallback(
+    'HelperText',
+    helperTextStylesDefault,
+);

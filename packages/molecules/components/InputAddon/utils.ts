@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const inputAddonStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -26,8 +26,7 @@ const inputAddonStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    InputAddon: inputAddonStylesDefault,
-});
-
-export const inputAddonStyles = getRegisteredMoleculesComponentStyles('InputAddon');
+export const inputAddonStyles = getRegisteredComponentStylesWithFallback(
+    'InputAddon',
+    inputAddonStylesDefault,
+);

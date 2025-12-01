@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../../core';
 
 export const drawerCollapsibleStylesDefault = StyleSheet.create({
     root: {},
@@ -31,19 +31,19 @@ export const drawerCollapsibleItemContentStylesDefault = StyleSheet.create({
     root: {},
 });
 
-registerComponentsStyles({
-    Drawer_Collapsible: drawerCollapsibleStylesDefault,
-    Drawer_CollapsibleItem: drawerCollapsibleItemStylesDefault,
-    Drawer_CollapsibleItem_Header: drawerCollapsibleItemHeaderStylesDefault,
-    Drawer_CollapsibleItem_Content: drawerCollapsibleItemContentStylesDefault,
-});
-
-export const drawerCollapsibleStyles = getRegisteredMoleculesComponentStyles('Drawer_Collapsible');
-export const drawerCollapsibleItemStyles =
-    getRegisteredMoleculesComponentStyles('Drawer_CollapsibleItem');
-export const drawerCollapsibleItemHeaderStyles = getRegisteredMoleculesComponentStyles(
-    'Drawer_CollapsibleItem_Header',
+export const drawerCollapsibleStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_Collapsible',
+    drawerCollapsibleStylesDefault,
 );
-export const drawerCollapsibleItemContentStyles = getRegisteredMoleculesComponentStyles(
+export const drawerCollapsibleItemStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_CollapsibleItem',
+    drawerCollapsibleItemStylesDefault,
+);
+export const drawerCollapsibleItemHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_CollapsibleItem_Header',
+    drawerCollapsibleItemHeaderStylesDefault,
+);
+export const drawerCollapsibleItemContentStyles = getRegisteredComponentStylesWithFallback(
     'Drawer_CollapsibleItem_Content',
+    drawerCollapsibleItemContentStylesDefault,
 );

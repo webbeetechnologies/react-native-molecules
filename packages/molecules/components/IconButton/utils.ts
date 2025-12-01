@@ -1,11 +1,9 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 import {
-    getRegisteredMoleculesComponentStyles,
-    registerComponentsStyles,
-    registerComponentUtils,
-} from '../../core';
-import { getRegisteredComponentUtils } from './../../core/componentsRegistry';
+    getRegisteredComponentStylesWithFallback,
+    getRegisteredComponentUtilsWithFallback,
+} from './../../core/componentsRegistry';
 
 export type States =
     | 'selectedAndDisabled'
@@ -311,15 +309,12 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    IconButton: iconButtonStylesDefault,
-});
-
-registerComponentUtils('IconButton', {
+export const defaultStyles = getRegisteredComponentStylesWithFallback(
+    'IconButton',
+    iconButtonStylesDefault,
+);
+export const iconButtonSizeToIconSizeMap = getRegisteredComponentUtilsWithFallback(
+    'IconButton',
     iconButtonSizeToIconSizeMapDefault,
-});
-
-export const defaultStyles = getRegisteredMoleculesComponentStyles('IconButton');
-export const iconButtonSizeToIconSizeMap =
-    getRegisteredComponentUtils('IconButton')?.iconButtonSizeToIconSizeMapDefault ||
-    iconButtonSizeToIconSizeMapDefault;
+    'iconButtonSizeToIconSizeMap',
+);

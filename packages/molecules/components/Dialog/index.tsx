@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import DialogComponent from './Dialog';
 import DialogActions from './DialogActions';
 import DialogContent from './DialogContent';
@@ -16,10 +16,6 @@ export const DialogDefault = Object.assign(
         Title: DialogTitle,
     },
 );
-
-registerMoleculesComponents({
-    Dialog: DialogDefault,
-});
 
 export const Dialog = getRegisteredComponentWithFallback('Dialog', DialogDefault);
 

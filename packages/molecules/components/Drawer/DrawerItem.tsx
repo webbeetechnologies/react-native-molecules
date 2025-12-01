@@ -2,7 +2,7 @@ import { forwardRef, memo, type ReactNode, useMemo } from 'react';
 import { type TextProps, type TextStyle, View, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { useActionState } from '../../hooks';
 import type { WithElements } from '../../types';
 import { resolveStateVariant } from '../../utils';
@@ -200,7 +200,9 @@ const drawerItemStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('Drawer_Item', drawerItemStylesDefault);
-export const drawerItemStyles = getRegisteredMoleculesComponentStyles('Drawer_Item');
+export const drawerItemStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_Item',
+    drawerItemStylesDefault,
+);
 
 export default memo(forwardRef(DrawerItem));

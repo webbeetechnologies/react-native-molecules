@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type States = 'hovered' | 'focused' | 'pressed' | 'disabled';
 export type CardTypographyVariant = 'headline' | 'subhead' | 'text';
@@ -16,8 +16,7 @@ const cardActionsStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Card_Actions: cardActionsStylesDefault,
-});
-
-export const cardActionsStyles = getRegisteredMoleculesComponentStyles('Card_Actions');
+export const cardActionsStyles = getRegisteredComponentStylesWithFallback(
+    'Card_Actions',
+    cardActionsStylesDefault,
+);

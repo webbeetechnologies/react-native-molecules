@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const chipStylesDefault = StyleSheet.create(theme => ({
     container: {
@@ -91,10 +91,6 @@ const chipStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Chip: chipStylesDefault,
-});
-
-export const styles = getRegisteredMoleculesComponentStyles('Chip');
+export const styles = getRegisteredComponentStylesWithFallback('Chip', chipStylesDefault);
 
 export type States = 'hovered' | 'selectedAndHovered' | 'selected' | 'disabled';

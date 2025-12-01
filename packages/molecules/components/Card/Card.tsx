@@ -2,7 +2,7 @@ import { forwardRef, memo, useMemo } from 'react';
 import type { ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { useActionState } from '../../hooks';
 import type { MD3Elevation } from '../../types/theme';
 import { resolveStateVariant } from '../../utils';
@@ -41,7 +41,7 @@ const Card = (
 
     cardStyles.useVariants({
         variant,
-        state,
+        state: state as 'disabled' | 'hovered' | 'pressed',
     });
 
     const elevationLevel = variant === 'elevated' ? (hovered ? 2 : 1) : hovered ? 1 : 0;
@@ -83,6 +83,11 @@ const cardStylesDefault = StyleSheet.create(theme => ({
                 filled: {},
                 outlined: {},
                 undefined: {},
+            },
+            state: {
+                disabled: {},
+                hovered: {},
+                pressed: {},
             },
         },
         compoundVariants: [
@@ -154,7 +159,6 @@ const cardStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('Card', cardStylesDefault);
-export const cardStyles = getRegisteredMoleculesComponentStyles('Card');
+export const cardStyles = getRegisteredComponentStylesWithFallback('Card', cardStylesDefault);
 
 export default memo(forwardRef(Card));

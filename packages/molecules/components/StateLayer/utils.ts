@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const stateLayerStylesDefault = StyleSheet.create({
     root: {
@@ -10,8 +10,7 @@ const stateLayerStylesDefault = StyleSheet.create({
     },
 });
 
-registerComponentsStyles({
-    StateLayer: stateLayerStylesDefault,
-});
-
-export const stateLayerStyles = getRegisteredMoleculesComponentStyles('StateLayer');
+export const stateLayerStyles = getRegisteredComponentStylesWithFallback(
+    'StateLayer',
+    stateLayerStylesDefault,
+);

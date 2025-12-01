@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import { default as CardComponent } from './Card';
 import { default as CardActions } from './CardActions';
 import { default as CardContent } from './CardContent';
@@ -20,10 +20,6 @@ export const CardDefault = Object.assign(
         Actions: CardActions,
     },
 );
-
-registerMoleculesComponents({
-    Card: CardDefault,
-});
 
 export const Card = getRegisteredComponentWithFallback('Card', CardDefault);
 

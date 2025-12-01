@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const tabsStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -113,14 +113,14 @@ const tabsLabelStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Tabs: tabsStylesDefault,
-    Tabs_Item: tabsItemStylesDefault,
-    Tabs_Label: tabsLabelStylesDefault,
-});
-
-export const tabsStyles = getRegisteredMoleculesComponentStyles('Tabs');
-export const tabsItemStyles = getRegisteredMoleculesComponentStyles('Tabs_Item');
-export const tabsLabelStyles = getRegisteredMoleculesComponentStyles('Tabs_Label');
+export const tabsStyles = getRegisteredComponentStylesWithFallback('Tabs', tabsStylesDefault);
+export const tabsItemStyles = getRegisteredComponentStylesWithFallback(
+    'Tabs_Item',
+    tabsItemStylesDefault,
+);
+export const tabsLabelStyles = getRegisteredComponentStylesWithFallback(
+    'Tabs_Label',
+    tabsLabelStylesDefault,
+);
 
 export type States = 'hovered' | 'active' | 'activeAndHovered' | 'disabled';

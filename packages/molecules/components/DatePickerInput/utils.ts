@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const datePickerInputStylesDefault = StyleSheet.create({
     root: {
@@ -9,8 +9,7 @@ const datePickerInputStylesDefault = StyleSheet.create({
     },
 });
 
-registerComponentsStyles({
-    DatePickerInput: datePickerInputStylesDefault,
-});
-
-export const datePickerInputStyles = getRegisteredMoleculesComponentStyles('DatePickerInput');
+export const datePickerInputStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerInput',
+    datePickerInputStylesDefault,
+);

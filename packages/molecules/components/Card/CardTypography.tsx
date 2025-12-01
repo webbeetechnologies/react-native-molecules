@@ -2,7 +2,7 @@ import { forwardRef, memo } from 'react';
 import { type TextProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { Text } from '../Text';
 
 export type Props = TextProps & {
@@ -107,7 +107,9 @@ const cardTypograhyStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('Card_Typography', cardTypograhyStylesDefault);
-export const cardTypograhyStyles = getRegisteredMoleculesComponentStyles('Card_Typography');
+export const cardTypograhyStyles = getRegisteredComponentStylesWithFallback(
+    'Card_Typography',
+    cardTypograhyStylesDefault,
+);
 
 export default memo(forwardRef(CardTypography));

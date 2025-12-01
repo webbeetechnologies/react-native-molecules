@@ -1,9 +1,5 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import ModalDefault from './Modal';
-
-registerMoleculesComponents({
-    Modal: ModalDefault,
-});
 
 export const Modal = getRegisteredComponentWithFallback('Modal', ModalDefault);
 

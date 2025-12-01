@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const datePickerModalStylesDefault = StyleSheet.create(theme => ({
     header: {
@@ -100,22 +100,23 @@ const datePickerModalEditStylesDefault = StyleSheet.create(theme => ({
     separator: { width: 12 },
 }));
 
-registerComponentsStyles({
-    DatePickerModal: datePickerModalStylesDefault,
-    DatePickerModal_Header: datePickerModalHeaderStylesDefault,
-    DatePickerModal_ContentHeader: datePickerModalContentHeaderStylesDefault,
-    DatePickerModal_HeaderBackground: datePickerModalHeaderBackgroundStylesDefault,
-    DatePickerModal_Edit: datePickerModalEditStylesDefault,
-});
-
-export const datePickerModalStyles = getRegisteredMoleculesComponentStyles('DatePickerModal');
-export const datePickerModalHeaderStyles =
-    getRegisteredMoleculesComponentStyles('DatePickerModal_Header');
-export const datePickerModalContentHeaderStyles = getRegisteredMoleculesComponentStyles(
+export const datePickerModalStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerModal',
+    datePickerModalStylesDefault,
+);
+export const datePickerModalHeaderStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerModal_Header',
+    datePickerModalHeaderStylesDefault,
+);
+export const datePickerModalContentHeaderStyles = getRegisteredComponentStylesWithFallback(
     'DatePickerModal_ContentHeader',
+    datePickerModalContentHeaderStylesDefault,
 );
-export const datePickerModalHeaderBackgroundStyles = getRegisteredMoleculesComponentStyles(
+export const datePickerModalHeaderBackgroundStyles = getRegisteredComponentStylesWithFallback(
     'DatePickerModal_HeaderBackground',
+    datePickerModalHeaderBackgroundStylesDefault,
 );
-export const datePickerModalEditStyles =
-    getRegisteredMoleculesComponentStyles('DatePickerModal_Edit');
+export const datePickerModalEditStyles = getRegisteredComponentStylesWithFallback(
+    'DatePickerModal_Edit',
+    datePickerModalEditStylesDefault,
+);

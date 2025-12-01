@@ -2,7 +2,7 @@ import { forwardRef, memo, type ReactNode } from 'react';
 import { View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 export type Props = ViewProps & {
     children: ReactNode | ReactNode[];
@@ -22,8 +22,9 @@ const cardContentStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('Card_Content', cardContentStylesDefault);
-
-export const cardContentStyles = getRegisteredMoleculesComponentStyles('Card_Content');
+export const cardContentStyles = getRegisteredComponentStylesWithFallback(
+    'Card_Content',
+    cardContentStylesDefault,
+);
 
 export default CardContent;

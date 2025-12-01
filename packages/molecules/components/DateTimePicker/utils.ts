@@ -1,13 +1,12 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const dateTimePickerStylesDefault = StyleSheet.create({
     container: {},
 });
 
-registerComponentsStyles({
-    DateTimePicker: dateTimePickerStylesDefault,
-});
-
-export const dateTimePickerStyles = getRegisteredMoleculesComponentStyles('DateTimePicker');
+export const dateTimePickerStyles = getRegisteredComponentStylesWithFallback(
+    'DateTimePicker',
+    dateTimePickerStylesDefault,
+);

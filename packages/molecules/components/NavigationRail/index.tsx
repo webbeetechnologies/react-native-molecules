@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import NavigationRailComponent from './NavigationRail';
 import NavigationRailContent from './NavigationRailContent';
 import NavigationRailFooter from './NavigationRailFooter';
@@ -10,10 +10,6 @@ export const NavigationRailDefault = Object.assign(NavigationRailComponent, {
     Header: NavigationRailHeader,
     Content: NavigationRailContent,
     Footer: NavigationRailFooter,
-});
-
-registerMoleculesComponents({
-    NavigationRail: NavigationRailDefault,
 });
 
 export const NavigationRail = getRegisteredComponentWithFallback(

@@ -1,4 +1,4 @@
-import { getRegisteredComponentWithFallback, registerMoleculesComponents } from '../../core';
+import { getRegisteredComponentWithFallback } from '../../core';
 import MenuComponent from './Menu';
 import MenuDivider from './MenuDivider';
 import MenuItem from './MenuItem';
@@ -6,10 +6,6 @@ import MenuItem from './MenuItem';
 export const MenuDefault = Object.assign(MenuComponent, {
     Item: MenuItem,
     Divider: MenuDivider,
-});
-
-registerMoleculesComponents({
-    Menu: MenuDefault,
 });
 
 export const Menu = getRegisteredComponentWithFallback('Menu', MenuDefault);

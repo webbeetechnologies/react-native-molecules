@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentsStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const avatarStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -28,8 +28,4 @@ const avatarStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentsStyles({
-    Avatar: avatarStylesDefault,
-});
-
-export const avatarStyles = getRegisteredMoleculesComponentStyles('Avatar');
+export const avatarStyles = getRegisteredComponentStylesWithFallback('Avatar', avatarStylesDefault);

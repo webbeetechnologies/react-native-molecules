@@ -2,7 +2,7 @@ import { memo, type ReactNode, useMemo } from 'react';
 import { type TextProps, View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { getRegisteredMoleculesComponentStyles, registerComponentStyles } from '../../core';
+import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { HorizontalDivider, type HorizontalDividerProps } from '../HorizontalDivider';
 import { Text } from '../Text';
 
@@ -73,9 +73,10 @@ const drawerItemGroupStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-registerComponentStyles('Drawer_ItemGroup', drawerItemGroupStylesDefault);
-
-export const drawerItemGroupStyles = getRegisteredMoleculesComponentStyles('Drawer_ItemGroup');
+export const drawerItemGroupStyles = getRegisteredComponentStylesWithFallback(
+    'Drawer_ItemGroup',
+    drawerItemGroupStylesDefault,
+);
 
 DrawerItemGroup.displayName = 'Drawer_ItemGroup';
 
