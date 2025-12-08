@@ -3,8 +3,9 @@ import { Animated, type StyleProp, View, type ViewStyle } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
 import type { MD3Elevation } from '../../types/theme';
+import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
 import { BackgroundContextWrapper } from './BackgroundContextWrapper';
-import { defaultStyles, extractProperties, getStyleForShadowLayer } from './utils';
+import { defaultStyles, getStyleForShadowLayer } from './utils';
 
 export type Props = ComponentPropsWithRef<typeof View> & {
     /**
@@ -78,14 +79,15 @@ const Surface = ({ elevation = 1, style, children, testID, ...props }: Props, re
     })();
 
     const { surfaceBackground, sharedStyle, layer0Style, layer1Style } = useMemo(() => {
-        const { position, alignSelf, top, left, right, bottom, borderRadius } = extractProperties(
-            [defaultStyles.root as ViewStyle, style],
-            ['position', 'alignSelf', 'top', 'left', 'right', 'bottom', 'borderRadius'],
-        );
+        const { position, alignSelf, top, left, right, bottom, borderRadius } =
+            extractPropertiesFromStyles(
+                [defaultStyles.root as ViewStyle, style],
+                ['position', 'alignSelf', 'top', 'left', 'right', 'bottom', 'borderRadius'],
+            );
         const absoluteStyle = { position, alignSelf, top, right, bottom, left };
 
         return {
-            surfaceBackground: extractProperties(
+            surfaceBackground: extractPropertiesFromStyles(
                 [defaultStyles.root as ViewStyle, style],
                 ['backgroundColor'],
             ).backgroundColor,

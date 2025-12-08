@@ -12,11 +12,11 @@ import { type StyleProp, type TextStyle, View, type ViewProps, type ViewStyle } 
 import { useActionState } from '../../hooks';
 import type { MD3Elevation } from '../../types/theme';
 import { resolveStateVariant } from '../../utils';
+import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
 import { ActivityIndicator } from '../ActivityIndicator';
 import { Icon, type IconType } from '../Icon';
 import { StateLayer } from '../StateLayer';
 import { Surface, type SurfaceProps } from '../Surface';
-import { extractProperties } from '../Surface/utils';
 import { Text } from '../Text';
 import { TouchableRipple } from '../TouchableRipple';
 import type { ButtonSize, ButtonVariant } from './types';
@@ -209,7 +209,7 @@ const Button = (
             defaultStyles;
 
         // for mobile
-        const { borderRadius } = extractProperties(
+        const { borderRadius } = extractPropertiesFromStyles(
             [defaultStyles.root, styleProp],
             ['borderRadius'],
         );

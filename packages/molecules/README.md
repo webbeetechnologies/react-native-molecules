@@ -4,7 +4,7 @@ React Native Molecules
 
 <h3 align="center">
   Material 3-powered primitives for React Native + Web.<br/>
-  <a href="https://github.com/webbeetechnologies/react-native-molecules/tree/main/docs">Explore the docs</a>
+  <a href="https://molecules.taylordb.ai">Explore the docs</a>
 </h3>
 
 ---
