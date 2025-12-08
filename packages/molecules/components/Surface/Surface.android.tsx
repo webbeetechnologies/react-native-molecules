@@ -4,8 +4,9 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import { inputRange } from '../../styles/shadow';
 import type { MD3Elevation } from '../../types/theme';
+import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
 import { BackgroundContextWrapper } from './BackgroundContextWrapper';
-import { defaultStyles, extractProperties, getElevationAndroid } from './utils';
+import { defaultStyles, getElevationAndroid } from './utils';
 
 export type Props = ViewProps & {
     /**
@@ -43,7 +44,7 @@ const Surface = ({ elevation = 1, style, children, testID, ...props }: Props, re
                     elevation: getElevationAndroid(elevation, inputRange, elevationLevel),
                 },
             ] as StyleProp<ViewStyle>,
-            surfaceBackground: extractProperties(
+            surfaceBackground: extractPropertiesFromStyles(
                 [defaultStyles.root as ViewStyle, style],
                 ['backgroundColor'],
             ).backgroundColor,

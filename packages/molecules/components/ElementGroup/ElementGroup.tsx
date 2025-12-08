@@ -1,6 +1,7 @@
 import { Children, cloneElement, forwardRef, memo, type ReactElement, useMemo } from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
+import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
 import { isNil } from '../../utils/lodash';
 import { elementGroupStyles } from './utils';
 
@@ -44,24 +45,25 @@ export const ElementGroup = (
             borderTopRightRadius,
             borderBottomLeftRadius,
             borderBottomRightRadius,
-            ...restStyle
-        } = elementGroupStyles.root as any;
-        const {
-            borderTopLeftRadius: _borderTopLeftRadius,
-            borderTopRightRadius: _borderTopRightRadius,
-            borderBottomLeftRadius: _borderBottomLeftRadius,
-            borderBottomRightRadius: _borderBottomRightRadius,
-            ..._restStyle
-        } = style ?? {};
+        } = extractPropertiesFromStyles(
+            [elementGroupStyles.root, style],
+            [
+                'borderRadius',
+                'borderTopLeftRadius',
+                'borderTopRightRadius',
+                'borderBottomLeftRadius',
+                'borderBottomRightRadius',
+            ],
+        );
 
         return {
-            containerStyle: [restStyle, _restStyle],
+            containerStyle: [elementGroupStyles.root, style],
             borderRadius: borderRadiusProp || _borderRadius,
             borderRadiuses: {
-                borderTopLeftRadius: borderTopLeftRadius || _borderTopLeftRadius,
-                borderTopRightRadius: borderTopRightRadius || _borderTopRightRadius,
-                borderBottomLeftRadius: borderBottomLeftRadius || _borderBottomLeftRadius,
-                borderBottomRightRadius: borderBottomRightRadius || _borderBottomRightRadius,
+                borderTopLeftRadius: borderTopLeftRadius,
+                borderTopRightRadius: borderTopRightRadius,
+                borderBottomLeftRadius: borderBottomLeftRadius,
+                borderBottomRightRadius: borderBottomRightRadius,
             },
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps

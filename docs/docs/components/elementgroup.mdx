@@ -15,12 +15,13 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 ### Button Group
 
 <LiveCodeExample
-    code={`import { ElementGroup, Button } from 'react-native-molecules/components/ElementGroup';
+    code={`import { ElementGroup } from 'react-native-molecules/components/ElementGroup';
+import { Button } from 'react-native-molecules/components/Button';
 import { Icon } from 'react-native-molecules/components/Icon';
 
 export default function Example() {
     return (
-        <ElementGroup>
+        <ElementGroup style={{ borderRadius: 12 }}>
             <Button variant="contained" onPress={() => {}}>
                 Button
             </Button>
@@ -35,13 +36,14 @@ export default function Example() {
 ### Text Input Element Group
 
 <LiveCodeExample
-    code={`import { ElementGroup, TextInput } from 'react-native-molecules/components/ElementGroup';
+    code={`import { ElementGroup } from 'react-native-molecules/components/ElementGroup';
+import { TextInput } from 'react-native-molecules/components/TextInput';
 import { Button } from 'react-native-molecules/components/Button';
 import { Icon } from 'react-native-molecules/components/Icon';
 
 export default function Example() {
     return (
-        <ElementGroup>
+        <ElementGroup borderRadius={12}>
             <TextInput variant="outlined" />
             <Button variant="contained" onPress={() => {}}>
                 <Icon name="chevron-down" size={26} />
@@ -51,7 +53,7 @@ export default function Example() {
 }`}
 />
 
-### Nested Element Group
+<!-- ### Nested Element Group
 
 <LiveCodeExample
     code={`import { useCallback, useMemo } from 'react';
@@ -104,6 +106,6 @@ export default function Example() {
         </ElementGroup>
     );
 }`}
-/>
+/> -->
 
 <ComponentProps name="ElementGroup" />
