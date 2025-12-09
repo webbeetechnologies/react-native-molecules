@@ -30,27 +30,36 @@ const TooltipTrigger = memo(({ children }: { children: ReactElement }) => {
         () => triggerRef?.current,
     );
 
-    const onPress = useCallback(() => {
-        // @ts-ignore
-        children?.props?.onPress?.();
-    }, [children?.props]);
+    const onPress = useCallback(
+        (e: unknown) => {
+            // @ts-ignore
+            children?.props?.onPress?.(e);
+        },
+        [children?.props],
+    );
 
-    const onLongPress = useCallback(() => {
-        // @ts-ignore
-        children?.props?.onLongPress?.();
+    const onLongPress = useCallback(
+        (e: unknown) => {
+            // @ts-ignore
+            children?.props?.onLongPress?.(e);
 
-        if (isWeb) return;
-        onOpen();
-    }, [children?.props, isWeb, onOpen]);
+            if (isWeb) return;
+            onOpen();
+        },
+        [children?.props, isWeb, onOpen],
+    );
 
-    const onPressOut = useCallback(() => {
-        // @ts-ignore
+    const onPressOut = useCallback(
+        (e: unknown) => {
+            // @ts-ignore
 
-        children?.props?.onPressOut?.();
+            children?.props?.onPressOut?.(e);
 
-        if (isWeb) return;
-        onClose();
-    }, [children?.props, isWeb, onClose]);
+            if (isWeb) return;
+            onClose();
+        },
+        [children?.props, isWeb, onClose],
+    );
 
     const onHoverIn = useCallback(() => {
         // @ts-ignore

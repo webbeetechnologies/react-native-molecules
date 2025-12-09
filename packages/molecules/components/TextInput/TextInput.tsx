@@ -3,7 +3,7 @@ import React, {
     memo,
     type PropsWithoutRef,
     type ReactNode,
-    type RefObject,
+    type Ref,
     useCallback,
     useContext,
     useEffect,
@@ -50,7 +50,7 @@ type Element = ReactNode | ((props: ElementProps) => ReactNode);
 
 export type Props = Omit<TextInputProps, 'ref'> &
     WithElements<Element> & {
-        ref?: RefObject<TextInputHandles | null>;
+        ref?: Ref<NativeTextInput | null>;
         /**
          * Variant of the TextInput.
          * - `flat` - flat input with an underline.

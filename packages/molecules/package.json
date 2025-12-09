@@ -47,10 +47,6 @@
         "color": "^4.2.3",
         "date-fns": "^4.1.0",
         "eventemitter2": "^6.4.9",
-        "lodash.get": "^4.4.2",
-        "lodash.keyby": "^4.6.0",
-        "lodash.memoize": "^4.1.2",
-        "lodash.omitby": "^4.6.0",
         "use-sync-external-store": "^1.2.0"
     },
     "peerDependencies": {
@@ -64,11 +60,6 @@
         "@react-native-documents/picker": "^10.1.2",
         "@types/color": "^3.0.3",
         "@types/jest": "^29.1.2",
-        "@types/lodash": "^4.17.13",
-        "@types/lodash.get": "^4.4.7",
-        "@types/lodash.keyby": "^4.6.7",
-        "@types/lodash.memoize": "^4.1.7",
-        "@types/lodash.omitby": "^4.6.7",
         "@types/react": "~19.1.10",
         "@types/use-sync-external-store": "^1.5.0",
         "react": "19.1.0",
