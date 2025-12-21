@@ -1,61 +1,61 @@
 {
-  "name": "molecules-monorepo",
-  "version": "1.0.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webbeetechnologies/react-native-molecules.git"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT",
-  "packageManager": "pnpm@9.3.0",
-  "scripts": {
-    "lint": "eslint .",
-    "type-check": "tsc --noEmit -p packages/molecules/tsconfig.json && tsc --noEmit -p docs/tsconfig.json",
-    "prepare:husky": "husky install",
-    "molecules-docs": "pnpm --filter=molecules-docs run",
-    "example:app": "pnpm --filter=expo-example-molecules run",
-    "example:web": "pnpm --filter=next-example-molecules run"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
-    "@chromatic-com/storybook": "^3",
-    "@react-native-community/eslint-config": "^3.1.0",
-    "@testing-library/jest-native": "^5.1.2",
-    "@testing-library/react-native": "^11.2.0",
-    "@types/react": "~19.1.10",
-    "@types/react-dom": "19.1.5",
-    "@types/uuid": "^8.3.4",
-    "babel-plugin-module-resolver": "^5.0.2",
-    "chromatic": "^6.15.0",
-    "eslint": "^8.23.1",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "husky": "^8.0.1",
-    "jest": "~29.7.0",
-    "jest-environment-node": "27",
-    "jest-transform-stub": "^2.0.0",
-    "prettier": "^2.7.1",
-    "react-docgen-typescript-plugin": "^1.0.8",
-    "react-test-renderer": "^18.2.0",
-    "reassure": "^0.7.1",
-    "ts-jest": "^29.0.3",
-    "ts-morph": "^27.0.2",
-    "tsx": "^4.20.6",
-    "typescript": "^5.3.3"
-  },
-  "resolutions": {
-    "@types/react": "~19.1.10",
-    "@types/react-dom": "19.1.5",
-    "react-native-unistyles": "3.0.18"
-  },
-  "eslintIgnore": [
-    "node_modules/",
-    "lib/",
-    "test-cases/node_modules",
-    "dist",
-    "cache"
-  ]
+    "name": "molecules-monorepo",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/webbeetechnologies/react-native-molecules.git"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "license": "MIT",
+    "packageManager": "pnpm@9.3.0",
+    "scripts": {
+        "lint": "eslint .",
+        "type-check": "tsc --noEmit -p packages/molecules/tsconfig.json && tsc --noEmit -p docs/tsconfig.json",
+        "prepare:husky": "husky install",
+        "documentation": "pnpm --filter=molecules-docs run",
+        "example:app": "pnpm --filter=expo-example-molecules run",
+        "example:web": "pnpm --filter=next-example-molecules run"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+        "@chromatic-com/storybook": "^3",
+        "@react-native-community/eslint-config": "^3.1.0",
+        "@testing-library/jest-native": "^5.1.2",
+        "@testing-library/react-native": "^11.2.0",
+        "@types/react": "~19.1.10",
+        "@types/react-dom": "19.1.5",
+        "@types/uuid": "^8.3.4",
+        "babel-plugin-module-resolver": "^5.0.2",
+        "chromatic": "^6.15.0",
+        "eslint": "^8.23.1",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
+        "husky": "^8.0.1",
+        "jest": "~29.7.0",
+        "jest-environment-node": "27",
+        "jest-transform-stub": "^2.0.0",
+        "prettier": "^2.7.1",
+        "react-docgen-typescript-plugin": "^1.0.8",
+        "react-test-renderer": "^18.2.0",
+        "reassure": "^0.7.1",
+        "ts-jest": "^29.0.3",
+        "ts-morph": "^27.0.2",
+        "tsx": "^4.20.6",
+        "typescript": "^5.3.3"
+    },
+    "resolutions": {
+        "@types/react": "~19.1.10",
+        "@types/react-dom": "19.1.5",
+        "react-native-unistyles": "3.0.18"
+    },
+    "eslintIgnore": [
+        "node_modules/",
+        "lib/",
+        "test-cases/node_modules",
+        "dist",
+        "cache"
+    ]
 }

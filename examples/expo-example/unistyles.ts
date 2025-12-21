@@ -30,7 +30,7 @@ declare module 'react-native-unistyles' {
 
 StyleSheet.configure({
     settings: {
-        initialTheme: 'dark',
+        initialTheme: 'light',
     },
     breakpoints,
     themes: {

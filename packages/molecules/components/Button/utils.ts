@@ -192,7 +192,6 @@ const defaultStylesDefault = StyleSheet.create(theme => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            flexGrow: 1,
         },
         iconContainer: {
             ...(Platform.OS !== 'web'

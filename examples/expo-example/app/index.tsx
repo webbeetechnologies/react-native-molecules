@@ -10,8 +10,16 @@ import {
     View,
 } from 'react-native';
 import { Select } from 'react-native-molecules/components/Select';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, withUnistyles } from 'react-native-unistyles';
+import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
+import { Button } from 'react-native-molecules/components/Button';
 // import { TextInput } from 'react-native-molecules/components/TextInput';
+import { getWebProps } from 'react-native-unistyles/web';
+
+const Link = withUnistyles(({ style, ...rest }) => {
+    const { ref, className, ...webProps } = getWebProps(style);
+    return <a ref={ref} className={className} {...rest} {...webProps} />;
+});
 
 export default function Index() {
     // const [isOn, setIsOn] = useState(false);
@@ -42,6 +50,12 @@ export default function Index() {
     return (
         <>
             <View style={styles.container}>
+                <TouchableRipple asChild onPress={() => console.log('Pressed')}>
+                    <Link href="/##">Home</Link>
+                </TouchableRipple>
+                <Button onPress={() => console.log('Pressed')} variant="elevated" elevation={5}>
+                    Home
+                </Button>
                 <Select options={singleSelectOptions}>
                     <Select.Trigger>
                         <Select.Value placeholder="Select an option" />
@@ -67,7 +81,9 @@ export default function Index() {
                         <Select.SearchInput />
                         <Select.Content>
                             {(item, _isSelected) => (
-                                <Select.Option value={item.id}>{item.label}</Select.Option>
+                                <Select.Option key={item.id} value={item.id}>
+                                    {item.label}
+                                </Select.Option>
                             )}
                         </Select.Content>
                     </Select.Dropdown>
@@ -120,5 +136,8 @@ const styles = StyleSheet.create(theme => ({
         gap: 20,
         padding: 20,
         backgroundColor: theme.colors.surface,
+        _web: {
+            minHeight: '100vh',
+        },
     },
 }));

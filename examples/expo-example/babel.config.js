@@ -3,6 +3,7 @@ module.exports = function (api) {
     const unistylesPluginOptions = {
         root: 'src',
         autoProcessPaths: [
+            'expo-router',
             // this is not repetition, this is for when linking the molecules
             'packages/molecules',
             // this is for when molecules is installed normally

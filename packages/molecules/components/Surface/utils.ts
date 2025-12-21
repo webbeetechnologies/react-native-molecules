@@ -72,10 +72,48 @@ export const getStyleForShadowLayer = (
     };
 };
 
-export const getElevationAndroid = (
-    elevation: number,
-    _inputRange: number[],
-    elevationLevel: number[],
-) => {
-    return elevationLevel[elevation];
+/**
+ * Combines the two shadow layers into a single shadow style.
+ * This approximates the two-layer shadow effect using a single shadow.
+ */
+export const getCombinedShadowStyle = (elevation: number, shadowColor = _shadowColor) => {
+    if (elevation === 0) {
+        return {
+            shadowColor,
+            shadowOpacity: 0,
+            shadowOffset: { width: 0, height: 0 },
+            shadowRadius: 0,
+        };
+    }
+
+    const layer0 = iOSShadowOutputRanges[0];
+    const layer1 = iOSShadowOutputRanges[1];
+
+    // Use the larger shadow offset (from layer 0)
+    const shadowOffsetHeight = layer0.height[elevation];
+
+    // Use the larger shadow radius (from layer 0)
+    const shadowRadius = layer0.shadowRadius[elevation];
+
+    // Combine opacities (additive, capped at 1.0)
+    // This approximates the visual effect of two overlapping shadows
+    const shadowOpacity = Math.min(1.0, layer0.shadowOpacity + layer1.shadowOpacity);
+
+    return {
+        shadowColor,
+        shadowOpacity,
+        shadowOffset: {
+            width: 0,
+            height: shadowOffsetHeight,
+        },
+        shadowRadius,
+    };
 };
+
+// export const getElevationAndroid = (
+//     elevation: number,
+//     _inputRange: number[],
+//     elevationLevel: number[],
+// ) => {
+//     return elevationLevel[elevation];
+// };

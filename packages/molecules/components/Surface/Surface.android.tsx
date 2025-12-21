@@ -2,11 +2,13 @@ import { forwardRef, memo, type ReactNode, useMemo } from 'react';
 import { Animated, type StyleProp, View, type ViewProps, type ViewStyle } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
-import { inputRange } from '../../styles/shadow';
 import type { MD3Elevation } from '../../types/theme';
 import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
+import { Slot } from '../Slot';
 import { BackgroundContextWrapper } from './BackgroundContextWrapper';
-import { defaultStyles, getElevationAndroid } from './utils';
+import { defaultStyles } from './utils';
+
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 export type Props = ViewProps & {
     /**
@@ -20,11 +22,19 @@ export type Props = ViewProps & {
      * TestID used for testing purposes
      */
     testID?: string;
+    /**
+     * Change the component to the HTML tag or custom component use the passed child.
+     * This will merge the props of the Surface with the props of the child element.
+     */
+    asChild?: boolean;
 };
 
 const elevationLevel = [0, 1, 2, 6, 8, 12];
 
-const Surface = ({ elevation = 1, style, children, testID, ...props }: Props, ref: any) => {
+const Surface = (
+    { elevation: _elevation = 1, style, children, testID, asChild = false, ...props }: Props,
+    ref: any,
+) => {
     const { theme } = useUnistyles();
 
     const backgroundColor = (() => {
@@ -33,6 +43,7 @@ const Surface = ({ elevation = 1, style, children, testID, ...props }: Props, re
     })();
 
     const { memoizedStyles, surfaceBackground } = useMemo(() => {
+        const elevation = typeof _elevation === 'number' ? (_elevation > 5 ? 5 : _elevation) : 0;
         return {
             memoizedStyles: [
                 {
@@ -41,7 +52,7 @@ const Surface = ({ elevation = 1, style, children, testID, ...props }: Props, re
                 defaultStyles.root,
                 style,
                 {
-                    elevation: getElevationAndroid(elevation, inputRange, elevationLevel),
+                    elevation: elevationLevel[elevation],
                 },
             ] as StyleProp<ViewStyle>,
             surfaceBackground: extractPropertiesFromStyles(
@@ -49,13 +60,15 @@ const Surface = ({ elevation = 1, style, children, testID, ...props }: Props, re
                 ['backgroundColor'],
             ).backgroundColor,
         };
-    }, [backgroundColor, elevation, style]);
+    }, [backgroundColor, _elevation, style]);
+
+    const Component = asChild ? Slot : AnimatedView;
 
     return (
         <BackgroundContextWrapper backgroundColor={surfaceBackground}>
-            <View ref={ref} {...props} testID={testID} style={memoizedStyles}>
+            <Component ref={ref} {...props} testID={testID} style={memoizedStyles}>
                 {children}
-            </View>
+            </Component>
         </BackgroundContextWrapper>
     );
 };

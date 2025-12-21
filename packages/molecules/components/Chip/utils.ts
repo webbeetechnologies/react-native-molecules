@@ -6,6 +6,9 @@ const chipStylesDefault = StyleSheet.create(theme => ({
     container: {
         borderRadius: theme.shapes.corner.small,
         backgroundColor: theme.colors.surface,
+        paddingHorizontal: theme.spacings['2'],
+        flexDirection: 'row',
+        alignItems: 'center',
 
         variants: {
             variant: {
@@ -46,13 +49,6 @@ const chipStylesDefault = StyleSheet.create(theme => ({
                 },
             },
         },
-    },
-    touchableRippleContainer: {
-        flex: 1,
-        paddingHorizontal: theme.spacings['2'],
-        borderRadius: theme.shapes.corner.small,
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     label: {
         display: 'flex',

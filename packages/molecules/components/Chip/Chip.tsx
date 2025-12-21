@@ -98,10 +98,6 @@ export type Props = Omit<TouchableRippleProps, 'children'> &
          */
         loading?: boolean;
         /**
-         * container style
-         */
-        containerStyle?: ViewStyle;
-        /**
          * left element container style
          */
         leftElementContainerStyle?: ViewStyle;
@@ -132,7 +128,6 @@ export type Props = Omit<TouchableRippleProps, 'children'> &
 const Chip = (
     {
         style,
-        containerStyle: containerStyleProp,
         label: _label,
         labelCharacterLimit = 20,
         variant = 'outlined',
@@ -158,11 +153,13 @@ const Chip = (
         leftElementIconProps,
         invertLabelColor,
         backgroundColor,
+        onPress,
         ...rest
     }: Props,
     ref: any,
 ) => {
     const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
+    const Wrapper = onPress ? TouchableRipple : View;
 
     const state = resolveStateVariant({
         disabled: !!disabled,
@@ -192,47 +189,39 @@ const Chip = (
     //     selectedColorProp ? { selectedColor: selectedColorProp } : {},
     // ]);
 
-    const {
-        containerStyle,
-        touchableRippleStyle,
-        leftElementStyle,
-        rightElementStyle,
-        labelStyle,
-        stateLayerStyle,
-    } = useMemo(() => {
-        return {
-            containerStyle: [
-                styles.container,
-                selected && selectionBackgroundColor
-                    ? { backgroundColor: selectionBackgroundColor }
-                    : {},
-                containerStyleProp,
-            ],
-            touchableRippleStyle: [styles.touchableRippleContainer, style],
-            leftElementStyle: [styles.leftElement, leftElementContainerStyle],
-            rightElementStyle: [styles.rightElement, rightElementContainerStyle],
-            labelStyle: [
-                styles.label,
-                selected && selectedColor ? { color: selectedColor } : {},
-                labelStyleProp,
-            ],
-            stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        leftElementContainerStyle,
-        rightElementContainerStyle,
-        selected,
-        selectedColor,
-        selectionBackgroundColor,
-        stateLayerProps?.style,
-        style,
-        containerStyleProp,
-        labelStyleProp,
-        state,
-        size,
-        variant,
-    ]);
+    const { containerStyle, leftElementStyle, rightElementStyle, labelStyle, stateLayerStyle } =
+        useMemo(() => {
+            return {
+                containerStyle: [
+                    styles.container,
+                    selected && selectionBackgroundColor
+                        ? { backgroundColor: selectionBackgroundColor }
+                        : {},
+                    style,
+                ],
+                leftElementStyle: [styles.leftElement, leftElementContainerStyle],
+                rightElementStyle: [styles.rightElement, rightElementContainerStyle],
+                labelStyle: [
+                    styles.label,
+                    selected && selectedColor ? { color: selectedColor } : {},
+                    labelStyleProp,
+                ],
+                stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],
+            };
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [
+            leftElementContainerStyle,
+            rightElementContainerStyle,
+            selected,
+            selectedColor,
+            selectionBackgroundColor,
+            stateLayerProps?.style,
+            style,
+            labelStyleProp,
+            state,
+            size,
+            variant,
+        ]);
 
     const { accessibilityState, elevation } = useMemo(
         () => ({
@@ -251,14 +240,13 @@ const Chip = (
             {...containerProps}
             elevation={elevation}
             style={containerStyle}
-            backgroundColor={backgroundColor}>
-            <TouchableRipple
+            backgroundColor={backgroundColor}
+            asChild>
+            <Wrapper
                 borderless
                 {...rest}
                 disabled={disabled}
-                style={touchableRippleStyle}
                 accessibilityLabel={accessibilityLabel}
-                accessibilityRole="button"
                 accessibilityState={accessibilityState}
                 ref={actionsRef}
                 testID={testID}>
@@ -297,7 +285,7 @@ const Chip = (
                         style={stateLayerStyle}
                     />
                 </>
-            </TouchableRipple>
+            </Wrapper>
         </Surface>
     );
 };

@@ -194,8 +194,8 @@ const DefaultComponent = (props: RenderProps) => <NativeTextInput {...props} />;
 const TextInput = forwardRef<TextInputHandles, Props>(
     (
         {
-            variant = 'flat',
-            size = 'md',
+            variant = 'outlined',
+            size = 'sm',
             disabled = false,
             error: errorProp = false,
             multiline = false,

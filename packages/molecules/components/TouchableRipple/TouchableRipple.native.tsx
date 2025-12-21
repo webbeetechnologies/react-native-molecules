@@ -7,11 +7,11 @@ import {
     StyleSheet,
     TouchableNativeFeedback,
     TouchableWithoutFeedback,
-    View,
     type ViewStyle,
 } from 'react-native';
-import { withUnistyles } from 'react-native-unistyles';
 
+import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
+import { Slot } from '../Slot';
 import { touchableRippleStyles } from './utils';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
@@ -26,6 +26,11 @@ type Props = React.ComponentProps<typeof TouchableWithoutFeedback> & {
     underlayColor?: string;
     children: React.ReactNode;
     style?: StyleProp<ViewStyle>;
+    /**
+     * Change the component to the HTML tag or custom component use the passed child.
+     * This will merge the props of the TouchableRipple with the props of the child element.
+     */
+    asChild?: boolean;
 };
 
 const TouchableRipple = (
@@ -37,6 +42,7 @@ const TouchableRipple = (
         rippleColor: rippleColorProp,
         underlayColor: underlayColorProp,
         children,
+        asChild = false,
         ...rest
     }: Props,
     ref: any,
@@ -46,8 +52,12 @@ const TouchableRipple = (
     const componentStyles = touchableRippleStyles;
 
     const { rippleColor, underlayColor, containerStyle } = useMemo(() => {
+        const { rippleColor: _rippleColor } = extractPropertiesFromStyles(
+            [componentStyles.root, style],
+            ['rippleColor'],
+        );
         return {
-            rippleColor: rippleColorProp,
+            rippleColor: rippleColorProp || _rippleColor,
             underlayColor: underlayColorProp || rippleColorProp,
             containerStyle: [borderless && styles.borderless, componentStyles.root, style],
         };
@@ -58,6 +68,21 @@ const TouchableRipple = (
     const useForeground =
         Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_PIE && borderless;
 
+    if (asChild) {
+        // When asChild is true, use Slot to merge props with the child
+        // Note: TouchableNativeFeedback ripple won't work with asChild since it requires a View wrapper
+        return (
+            <Slot
+                {...rest}
+                style={containerStyle}
+                ref={ref}
+                onPress={rest.onPress}
+                disabled={disabled}>
+                {children}
+            </Slot>
+        );
+    }
+
     if (TouchableRipple.supported) {
         return (
             <TouchableNativeFeedback
@@ -65,12 +90,13 @@ const TouchableRipple = (
                 ref={ref}
                 disabled={disabled}
                 useForeground={useForeground}
+                style={containerStyle}
                 background={
                     background != null
                         ? background
                         : TouchableNativeFeedback.Ripple(rippleColor!, borderless)
                 }>
-                <View style={containerStyle}>{React.Children.only(children)}</View>
+                {React.Children.only(children)}
             </TouchableNativeFeedback>
         );
     }
@@ -98,8 +124,4 @@ const styles = StyleSheet.create({
 TouchableRipple.supported =
     Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP;
 
-export default memo(
-    withUnistyles(forwardRef(TouchableRipple), theme => ({
-        rippleColor: theme.colors.onSurfaceRipple,
-    })),
-);
+export default memo(forwardRef(TouchableRipple));

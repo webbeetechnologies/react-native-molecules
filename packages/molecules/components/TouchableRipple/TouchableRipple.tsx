@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { Slot } from '../Slot';
 import { touchableRippleStyles } from './utils';
 
 export type Props = PressableProps & {
@@ -50,6 +51,11 @@ export type Props = PressableProps & {
      */
     children: ReactNode;
     style?: StyleProp<ViewStyle>;
+    /**
+     * Change the component to the HTML tag or custom component use the passed child.
+     * This will merge the props of the TouchableRipple with the props of the child element.
+     */
+    asChild?: boolean;
 };
 
 /**
@@ -96,6 +102,7 @@ const TouchableRipple = (
         onPressIn: onPressInProp,
         onPressOut: onPressOutProp,
         centered,
+        asChild = false,
         ...rest
     }: Props,
     ref: any,
@@ -252,7 +259,7 @@ const TouchableRipple = (
         [onPressOutProp, disabled],
     );
 
-    const Component = onPress ? Pressable : View;
+    const Component = asChild ? Slot : onPress ? Pressable : View;
 
     return (
         <Component

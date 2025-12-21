@@ -4,8 +4,11 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import type { MD3Elevation } from '../../types/theme';
 import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
+import { Slot } from '../Slot';
 import { BackgroundContextWrapper } from './BackgroundContextWrapper';
-import { defaultStyles, getStyleForShadowLayer } from './utils';
+import { defaultStyles, getCombinedShadowStyle } from './utils';
+
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 export type Props = ComponentPropsWithRef<typeof View> & {
     /**
@@ -27,6 +30,11 @@ export type Props = ComponentPropsWithRef<typeof View> & {
      * TestID used for testing purposes
      */
     testID?: string;
+    /**
+     * Change the component to the HTML tag or custom component use the passed child.
+     * This will merge the props of the Surface with the props of the child element.
+     */
+    asChild?: boolean;
 };
 
 /**
@@ -71,53 +79,38 @@ export type Props = ComponentPropsWithRef<typeof View> & {
  * });
  * ```
  */
-const Surface = ({ elevation = 1, style, children, testID, ...props }: Props, ref: any) => {
+const Surface = (
+    { elevation = 1, style, children, testID, asChild = false, ...props }: Props,
+    ref: any,
+) => {
     const { theme } = useUnistyles();
     const backgroundColor = (() => {
         // @ts-ignore
         return theme.colors.elevation?.[`level${elevation}`];
     })();
 
-    const { surfaceBackground, sharedStyle, layer0Style, layer1Style } = useMemo(() => {
-        const { position, alignSelf, top, left, right, bottom, borderRadius } =
-            extractPropertiesFromStyles(
-                [defaultStyles.root as ViewStyle, style],
-                ['position', 'alignSelf', 'top', 'left', 'right', 'bottom', 'borderRadius'],
-            );
-        const absoluteStyle = { position, alignSelf, top, right, bottom, left };
-
+    const { surfaceBackground, combinedStyle } = useMemo(() => {
         return {
             surfaceBackground: extractPropertiesFromStyles(
                 [defaultStyles.root as ViewStyle, style],
                 ['backgroundColor'],
             ).backgroundColor,
-            sharedStyle: [
-                { backgroundColor, borderRadius },
+            combinedStyle: [
+                { backgroundColor },
+                getCombinedShadowStyle(elevation),
                 defaultStyles.root,
                 style,
-                {
-                    position: undefined,
-                    alignSelf: undefined,
-                    top: undefined,
-                    left: undefined,
-                    right: undefined,
-                    bottom: undefined,
-                },
             ],
-            layer0Style: [getStyleForShadowLayer(0, elevation), absoluteStyle, { borderRadius }],
-            layer1Style: [getStyleForShadowLayer(1, elevation), { borderRadius }],
         };
     }, [backgroundColor, elevation, style]);
 
+    const Component = asChild ? Slot : AnimatedView;
+
     return (
         <BackgroundContextWrapper backgroundColor={surfaceBackground}>
-            <View ref={ref} style={layer0Style}>
-                <View style={layer1Style}>
-                    <View {...props} testID={testID} style={sharedStyle}>
-                        {children}
-                    </View>
-                </View>
-            </View>
+            <Component ref={ref} {...props} testID={testID} style={combinedStyle}>
+                {children}
+            </Component>
         </BackgroundContextWrapper>
     );
 };

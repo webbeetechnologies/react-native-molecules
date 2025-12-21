@@ -905,7 +905,7 @@ const triggerStyles = StyleSheet.create(theme => ({
         borderRadius: theme.shapes.corner.extraSmall,
         paddingHorizontal: theme.spacings['3'],
         paddingVertical: theme.spacings['2'],
-        minHeight: 56,
+        minHeight: 48,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

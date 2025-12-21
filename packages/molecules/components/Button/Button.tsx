@@ -12,7 +12,6 @@ import { type StyleProp, type TextStyle, View, type ViewProps, type ViewStyle } 
 import { useActionState } from '../../hooks';
 import type { MD3Elevation } from '../../types/theme';
 import { resolveStateVariant } from '../../utils';
-import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
 import { ActivityIndicator } from '../ActivityIndicator';
 import { Icon, type IconType } from '../Icon';
 import { StateLayer } from '../StateLayer';
@@ -200,19 +199,12 @@ const Button = (
         surfaceStyle,
         textStyle,
         iconStyle,
-        viewStyle,
         iconContainerStyle,
         accessibilityState,
         stateLayerStyle,
     } = useMemo(() => {
         const { button, content, icon, iconTextMode, label, labelText, labelTextAddons } =
             defaultStyles;
-
-        // for mobile
-        const { borderRadius } = extractPropertiesFromStyles(
-            [defaultStyles.root, styleProp],
-            ['borderRadius'],
-        );
 
         const backgroundColor = customButtonColor && !disabled ? customButtonColor : undefined;
 
@@ -235,18 +227,14 @@ const Button = (
             rippleColor: _rippleColor,
             surfaceStyle: [
                 button,
+                content,
                 backgroundColor ? { backgroundColor } : {},
                 defaultStyles.root,
                 styleProp,
+                contentStyle,
             ],
 
             iconStyle: [_iconStyle, textRelatedStyle, _iconStyleProp] as unknown as ViewStyle,
-            viewStyle: [
-                content,
-                { flexGrow: 1 },
-                borderRadius ? { borderRadius } : {},
-                contentStyle,
-            ],
             iconContainerStyle: [defaultStyles.iconContainer, iconContainerStyleProp],
             textStyle: [
                 // @ts-ignore // TODO - fix this
@@ -274,10 +262,7 @@ const Button = (
         styleProp,
     ]);
 
-    const elevation = useMemo(
-        () => (elevationProp === undefined ? elevationLevel ?? 0 : elevationProp),
-        [elevationLevel, elevationProp],
-    );
+    const elevation = elevationProp === undefined ? elevationLevel ?? 0 : elevationProp;
 
     return (
         <Surface
@@ -289,7 +274,8 @@ const Button = (
                     : hovered
                     ? (elevationProp || 0) + elevationLevel
                     : elevation) as MD3Elevation
-            }>
+            }
+            asChild>
             <TouchableRipple
                 borderless
                 onPress={onPress}
@@ -303,7 +289,6 @@ const Button = (
                 accessible={accessible}
                 disabled={disabled}
                 rippleColor={rippleColor}
-                style={viewStyle}
                 ref={actionsRef}
                 testID={testID}>
                 <>
