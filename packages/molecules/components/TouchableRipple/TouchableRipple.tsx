@@ -1,4 +1,4 @@
-import { Children, forwardRef, memo, type ReactNode, useCallback, useMemo } from 'react';
+import { Children, forwardRef, memo, type ReactNode, useCallback, useMemo, useRef } from 'react';
 import {
     type GestureResponderEvent,
     Pressable,
@@ -128,29 +128,52 @@ const TouchableRipple = (
         };
     }, [borderless, componentStyles.root, rippleColorProp, style]);
 
-    const handlePressIn = useCallback(
+    // Track whether pointer is currently down for handling pointer leave
+    const isPointerDownRef = useRef(false);
+    // Store current target element to clean up ripples on pointer up/leave
+    const currentTargetRef = useRef<HTMLElement | null>(null);
+
+    // Using 'any' for event types to support both React DOM PointerEvent and React Native events
+    // This is a web-only file, so we primarily handle DOM pointer events
+    const handlePointerDown = useCallback(
         (e: any) => {
-            onPressInProp?.(e);
+            onPressInProp?.(e as GestureResponderEvent);
 
             if (disabled) return;
 
-            const button = e.currentTarget;
+            isPointerDownRef.current = true;
+
+            const button = e.currentTarget as HTMLElement;
+            currentTargetRef.current = button;
             const computedStyle = window.getComputedStyle(button);
             const dimensions = button.getBoundingClientRect();
 
-            let touchX;
-            let touchY;
+            let touchX: number;
+            let touchY: number;
 
-            const { changedTouches, touches } = e.nativeEvent;
-            const touch = touches?.[0] ?? changedTouches?.[0];
-
-            // If centered or it was pressed using keyboard - enter or space
-            if (centered || !touch) {
+            if (centered) {
+                // If centered, always position ripple at center
                 touchX = dimensions.width / 2;
                 touchY = dimensions.height / 2;
+            } else if ('clientX' in e && 'clientY' in e) {
+                // Web pointer event - calculate position relative to element
+                touchX = e.clientX - dimensions.left;
+                touchY = e.clientY - dimensions.top;
+            } else if (e.nativeEvent) {
+                // React Native gesture event
+                const { changedTouches, touches } = e.nativeEvent;
+                const touch = touches?.[0] ?? changedTouches?.[0];
+                if (touch) {
+                    touchX = touch.locationX ?? dimensions.width / 2;
+                    touchY = touch.locationY ?? dimensions.height / 2;
+                } else {
+                    touchX = dimensions.width / 2;
+                    touchY = dimensions.height / 2;
+                }
             } else {
-                touchX = touch.locationX ?? e.pageX;
-                touchY = touch.locationY ?? e.pageY;
+                // Fallback to center (keyboard activation)
+                touchX = dimensions.width / 2;
+                touchY = dimensions.height / 2;
             }
 
             // Get the size of the button to determine how big the ripple should be
@@ -163,7 +186,7 @@ const TouchableRipple = (
             // Create a container for our ripple effect so we don't need to change the parent's style
             const container = document.createElement('span');
 
-            container.setAttribute('data-paper-ripple', '');
+            container.setAttribute('data-molecules-ripple', '');
 
             Object.assign(container.style, {
                 position: 'absolute',
@@ -224,42 +247,86 @@ const TouchableRipple = (
         [onPressInProp, disabled, centered, rippleColor],
     );
 
-    const handlePressOut = useCallback(
-        (e: any) => {
-            onPressOutProp?.(e);
+    const fadeOutRipples = useCallback((target: HTMLElement) => {
+        const containers = target.querySelectorAll(
+            '[data-molecules-ripple]',
+        ) as NodeListOf<HTMLElement>;
 
-            if (disabled) return;
-
-            const containers = e.currentTarget.querySelectorAll(
-                '[data-paper-ripple]',
-            ) as HTMLElement[];
-
+        requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    containers.forEach(container => {
-                        const ripple = container.firstChild as HTMLSpanElement;
+                containers.forEach(container => {
+                    const ripple = container.firstChild as HTMLSpanElement;
 
-                        Object.assign(ripple.style, {
-                            transitionDuration: '250ms',
-                            opacity: 0,
-                        });
-
-                        // Finally remove the span after the transition
-                        setTimeout(() => {
-                            const { parentNode } = container;
-
-                            if (parentNode) {
-                                parentNode.removeChild(container);
-                            }
-                        }, 500);
+                    Object.assign(ripple.style, {
+                        transitionDuration: '250ms',
+                        opacity: 0,
                     });
+
+                    // Finally remove the span after the transition
+                    setTimeout(() => {
+                        const { parentNode } = container;
+
+                        if (parentNode) {
+                            parentNode.removeChild(container);
+                        }
+                    }, 500);
                 });
             });
+        });
+    }, []);
+
+    const handlePointerUp = useCallback(
+        (e: any) => {
+            onPressOutProp?.(e as GestureResponderEvent);
+
+            if (disabled || !isPointerDownRef.current) return;
+
+            isPointerDownRef.current = false;
+            currentTargetRef.current = null;
+
+            const target = e.currentTarget as HTMLElement;
+            fadeOutRipples(target);
         },
-        [onPressOutProp, disabled],
+        [onPressOutProp, disabled, fadeOutRipples],
+    );
+
+    const handlePointerLeave = useCallback(
+        (e: any) => {
+            // Only fade out if pointer was down (dragging out of element)
+            if (disabled || !isPointerDownRef.current) return;
+
+            isPointerDownRef.current = false;
+            currentTargetRef.current = null;
+
+            const target = e.currentTarget as HTMLElement;
+            fadeOutRipples(target);
+        },
+        [disabled, fadeOutRipples],
+    );
+
+    const handlePointerCancel = useCallback(
+        (e: any) => {
+            if (disabled || !isPointerDownRef.current) return;
+
+            isPointerDownRef.current = false;
+            currentTargetRef.current = null;
+
+            const target = e.currentTarget as HTMLElement;
+            fadeOutRipples(target);
+        },
+        [disabled, fadeOutRipples],
     );
 
     const Component = asChild ? Slot : onPress ? Pressable : View;
+
+    // Use pointer events for universal compatibility (works on any HTML element)
+    // These events work with mouse, touch, and stylus inputs
+    const pointerEventProps = {
+        onPointerDown: handlePointerDown,
+        onPointerUp: handlePointerUp,
+        onPointerLeave: handlePointerLeave,
+        onPointerCancel: handlePointerCancel,
+    };
 
     return (
         <Component
@@ -268,9 +335,8 @@ const TouchableRipple = (
             style={containerStyle}
             ref={ref}
             onPress={onPress}
-            onPressIn={handlePressIn}
-            onPressOut={handlePressOut}
-            disabled={disabled}>
+            disabled={disabled}
+            {...pointerEventProps}>
             {Children.only(children)}
         </Component>
     );
