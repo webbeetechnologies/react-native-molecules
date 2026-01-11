@@ -110,6 +110,4 @@ export type SelectOptionProps<Option extends DefaultItemT = DefaultItemT> = View
 };
 
 // Select.SearchInput props
-export type SelectSearchInputProps = TextInputProps & {
-    onQueryChange?: (query: string) => void;
-};
+export type SelectSearchInputProps = Omit<TextInputProps, 'value' | 'onChangeText'> & {};

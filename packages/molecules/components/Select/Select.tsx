@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { typedMemo } from '../../hocs';
 import { useActionState, useControlledValue } from '../../hooks';
 import { useToggle } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
@@ -101,197 +102,205 @@ export const useSelectDropdownContextValue = <T,>(
 };
 
 // SelectProvider - manages controlled/uncontrolled state
-const SelectProvider = <Option extends DefaultItemT = DefaultItemT>({
-    children,
-    value: valueProp,
-    defaultValue,
-    onChange,
-    multiple = false,
-    disabled = false,
-    error = false,
-    labelKey = 'label',
-    options = [],
-    searchKey,
-    onSearchChange,
-    hideSelected: hideSelectedProp,
-}: SelectProviderProps<Option>) => {
-    const [value, onValueChange] = useControlledValue<Option['id'] | Option['id'][] | null>({
+const SelectProvider = typedMemo(
+    <Option extends DefaultItemT = DefaultItemT>({
+        children,
         value: valueProp,
-        defaultValue: defaultValue ?? (multiple ? [] : null),
-        onChange: (newValue, item, event) => {
-            onChange?.(newValue, item as Option, event);
-        },
-    });
+        defaultValue,
+        onChange,
+        multiple = false,
+        disabled = false,
+        error = false,
+        labelKey = 'label',
+        options = [],
+        searchKey,
+        onSearchChange,
+        hideSelected: hideSelectedProp,
+    }: SelectProviderProps<Option>) => {
+        const [value, onValueChange] = useControlledValue<Option['id'] | Option['id'][] | null>({
+            value: valueProp,
+            defaultValue: defaultValue ?? (multiple ? [] : null),
+            onChange: (newValue, item, event) => {
+                onChange?.(newValue, item as Option, event);
+            },
+        });
 
-    const [searchQuery, setSearchQuery] = useState('');
+        const [searchQuery, setSearchQuery] = useState('');
 
-    const handleSearchQueryChange = useCallback(
-        (query: string) => {
-            setSearchQuery(query);
-            onSearchChange?.(query);
-        },
-        [onSearchChange],
-    );
+        const handleSearchQueryChange = useCallback(
+            (query: string) => {
+                setSearchQuery(query);
+                onSearchChange?.(query);
+            },
+            [onSearchChange],
+        );
 
-    // Default hideSelected to multiple (true for multi-select, false for single select)
-    const hideSelected = hideSelectedProp !== undefined ? hideSelectedProp : multiple;
+        // Default hideSelected to multiple (true for multi-select, false for single select)
+        const hideSelected = hideSelectedProp !== undefined ? hideSelectedProp : multiple;
 
-    const filteredOptions = useMemo(() => {
-        let result = options;
+        const filteredOptions = useMemo(() => {
+            let result = options;
 
-        // Filter out selected items if hideSelected is true
-        if (hideSelected) {
-            result = result.filter(item => {
+            // Filter out selected items if hideSelected is true
+            if (hideSelected) {
+                result = result.filter(item => {
+                    if (multiple) {
+                        const values = (value as Option['id'][]) || [];
+                        return !values.some(v => v === item.id);
+                    } else {
+                        const singleValue = value as Option['id'] | null;
+                        return singleValue !== item.id;
+                    }
+                });
+            }
+
+            // Apply search filter if there's a search query
+            if (searchQuery) {
+                const key = searchKey || labelKey || 'label';
+                const lowerQuery = searchQuery.toLowerCase();
+                result = result.filter(item => {
+                    const itemValue = item[key];
+                    return String(itemValue || '')
+                        .toLowerCase()
+                        .includes(lowerQuery);
+                });
+            }
+
+            return result;
+        }, [options, searchQuery, searchKey, labelKey, hideSelected, multiple, value]);
+
+        const onAdd = useCallback(
+            (item: Option) => {
                 if (multiple) {
-                    const values = (value as Option['id'][]) || [];
-                    return !values.some(v => v === item.id);
+                    const currentValue = (value as Option['id'][]) || [];
+                    if (!currentValue.find(v => v === item.id)) {
+                        onValueChange([...currentValue, item.id] as Option['id'][], item);
+                    }
                 } else {
-                    const singleValue = value as Option['id'] | null;
-                    return singleValue !== item.id;
+                    onValueChange(item.id, item);
                 }
-            });
-        }
+            },
+            [multiple, value, onValueChange],
+        );
 
-        // Apply search filter if there's a search query
-        if (searchQuery) {
-            const key = searchKey || labelKey || 'label';
-            const lowerQuery = searchQuery.toLowerCase();
-            result = result.filter(item => {
-                const itemValue = item[key];
-                return String(itemValue || '')
-                    .toLowerCase()
-                    .includes(lowerQuery);
-            });
-        }
-
-        return result;
-    }, [options, searchQuery, searchKey, labelKey, hideSelected, multiple, value]);
-
-    const onAdd = useCallback(
-        (item: Option) => {
-            if (multiple) {
-                const currentValue = (value as Option['id'][]) || [];
-                if (!currentValue.find(v => v === item.id)) {
-                    onValueChange([...currentValue, item.id] as Option['id'][], item);
+        const onRemove = useCallback(
+            (item: Option) => {
+                if (multiple) {
+                    const currentValue = (value as Option['id'][]) || [];
+                    onValueChange(currentValue.filter(v => v !== item.id) as Option['id'][], item);
+                } else {
+                    onValueChange(null, item);
                 }
-            } else {
-                onValueChange(item.id, item);
-            }
-        },
-        [multiple, value, onValueChange],
-    );
+            },
+            [multiple, value, onValueChange],
+        );
 
-    const onRemove = useCallback(
-        (item: Option) => {
-            if (multiple) {
-                const currentValue = (value as Option['id'][]) || [];
-                onValueChange(currentValue.filter(v => v !== item.id) as Option['id'][], item);
-            } else {
-                onValueChange(null, item);
-            }
-        },
-        [multiple, value, onValueChange],
-    );
+        const contextValue = useMemo(
+            () => ({
+                value: value,
+                multiple,
+                onAdd: onAdd as (item: DefaultItemT) => void,
+                onRemove: onRemove as (item: DefaultItemT) => void,
+                disabled,
+                error,
+                labelKey,
+                options,
+                searchQuery,
+                setSearchQuery: handleSearchQueryChange,
+                filteredOptions,
+            }),
+            [
+                value,
+                multiple,
+                onAdd,
+                onRemove,
+                disabled,
+                error,
+                labelKey,
+                options,
+                searchQuery,
+                handleSearchQueryChange,
+                filteredOptions,
+            ],
+        );
 
-    const contextValue = useMemo(
-        () => ({
-            value: value,
-            multiple,
-            onAdd: onAdd as (item: DefaultItemT) => void,
-            onRemove: onRemove as (item: DefaultItemT) => void,
-            disabled,
-            error,
-            labelKey,
-            options,
-            searchQuery,
-            setSearchQuery: handleSearchQueryChange,
-            filteredOptions,
-        }),
-        [
-            value,
-            multiple,
-            onAdd,
-            onRemove,
-            disabled,
-            error,
-            labelKey,
-            options,
-            searchQuery,
-            handleSearchQueryChange,
-            filteredOptions,
-        ],
-    );
-
-    return (
-        <SelectContext.Provider value={contextValue as unknown as SelectContextValue<DefaultItemT>}>
-            {children}
-        </SelectContext.Provider>
-    );
-};
+        return (
+            <SelectContext.Provider
+                value={contextValue as unknown as SelectContextValue<DefaultItemT>}>
+                {children}
+            </SelectContext.Provider>
+        );
+    },
+);
 
 // SelectDropdownProvider - manages dropdown state
-const SelectDropdownProvider = ({
-    children,
-    isOpen: isOpenProp,
-    onClose: onCloseProp,
-}: {
-    children: React.ReactNode;
-    isOpen?: boolean;
-    onClose?: () => void;
-}) => {
-    const { state: isOpen, handleOpen, handleClose } = useToggle(false);
-    const triggerRef = useRef<View>(null);
-    const contentRef = useRef<any>(null);
-    const [triggerLayout, setTriggerLayout] = useState<{ width: number; height: number } | null>(
-        null,
-    );
-    const isControlled = isOpenProp !== undefined;
+const SelectDropdownProvider = memo(
+    ({
+        children,
+        isOpen: isOpenProp,
+        onClose: onCloseProp,
+    }: {
+        children: React.ReactNode;
+        isOpen?: boolean;
+        onClose?: () => void;
+    }) => {
+        const { state: isOpen, handleOpen, handleClose } = useToggle(false);
+        const triggerRef = useRef<View>(null);
+        const contentRef = useRef<any>(null);
+        const [triggerLayout, setTriggerLayout] = useState<{
+            width: number;
+            height: number;
+        } | null>(null);
+        const isControlled = isOpenProp !== undefined;
 
-    const onClose = useCallback(() => {
-        if (isControlled) {
-            onCloseProp?.();
-        } else {
-            handleClose();
-        }
-    }, [isControlled, onCloseProp, handleClose]);
+        const onClose = useCallback(() => {
+            if (isControlled) {
+                onCloseProp?.();
+            } else {
+                handleClose();
+            }
+        }, [isControlled, onCloseProp, handleClose]);
 
-    const onOpen = useCallback(() => {
-        if (!isControlled) {
-            handleOpen();
-        }
-    }, [handleOpen, isControlled]);
+        const onOpen = useCallback(() => {
+            if (!isControlled) {
+                handleOpen();
+            }
+        }, [handleOpen, isControlled]);
 
-    const contextValue = useMemo(
-        () => ({
-            isOpen: isControlled ? isOpenProp! : isOpen,
-            onClose,
-            onOpen,
-            triggerRef: triggerRef as React.RefObject<View>,
-            contentRef,
-            triggerLayout,
-            setTriggerLayout,
-        }),
-        [isControlled, isOpenProp, isOpen, onClose, onOpen, triggerLayout],
-    );
+        const contextValue = useMemo(
+            () => ({
+                isOpen: isControlled ? isOpenProp! : isOpen,
+                onClose,
+                onOpen,
+                triggerRef: triggerRef as React.RefObject<View>,
+                contentRef,
+                triggerLayout,
+                setTriggerLayout,
+            }),
+            [isControlled, isOpenProp, isOpen, onClose, onOpen, triggerLayout],
+        );
 
-    return (
-        <SelectDropdownContext.Provider value={contextValue}>
-            {children}
-        </SelectDropdownContext.Provider>
-    );
-};
+        return (
+            <SelectDropdownContext.Provider value={contextValue}>
+                {children}
+            </SelectDropdownContext.Provider>
+        );
+    },
+);
 
 // Select - wrapper component
-const Select = <Option extends DefaultItemT = DefaultItemT>({
-    children,
-    ...props
-}: SelectProviderProps<Option>) => {
-    return (
-        <SelectProvider<Option> {...props}>
-            <SelectDropdownProvider>{children}</SelectDropdownProvider>
-        </SelectProvider>
-    );
-};
+const Select = typedMemo(
+    <Option extends DefaultItemT = DefaultItemT>({
+        children,
+        ...props
+    }: SelectProviderProps<Option>) => {
+        return (
+            <SelectProvider<Option> {...props}>
+                <SelectDropdownProvider>{children}</SelectDropdownProvider>
+            </SelectProvider>
+        );
+    },
+);
 
 // Select.Trigger - opens the dropdown
 const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
@@ -363,7 +372,7 @@ const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
 SelectTrigger.displayName = 'Select_Trigger';
 
 // Select.Value - displays the value
-const SelectValue = ({ placeholder, renderValue, style, ...rest }: SelectValueProps) => {
+const SelectValue = memo(({ placeholder, renderValue, style, ...rest }: SelectValueProps) => {
     const { value, multiple, labelKey, onRemove, options } = useSelectContextValue(state => ({
         value: state.value,
         multiple: state.multiple,
@@ -427,67 +436,71 @@ const SelectValue = ({ placeholder, renderValue, style, ...rest }: SelectValuePr
             {displayValue}
         </Text>
     );
-};
+});
 
 SelectValue.displayName = 'Select_Value';
 
 // Select.Dropdown - popover with keyboard navigation
-const SelectDropdown = ({
-    children,
-    WrapperComponent,
-    wrapperComponentProps,
-    enableKeyboardNavigation = true,
-    style: popoverStyleProp,
-    ...popoverProps
-}: SelectDropdownProps & { enableKeyboardNavigation?: boolean }) => {
-    const { isOpen, onClose, triggerRef, triggerLayout } = useSelectDropdownContextValue(state => ({
-        isOpen: state.isOpen,
-        onClose: state.onClose,
-        triggerRef: state.triggerRef,
-        triggerLayout: state.triggerLayout,
-    }));
+const SelectDropdown = memo(
+    ({
+        children,
+        WrapperComponent,
+        wrapperComponentProps,
+        enableKeyboardNavigation = true,
+        style: popoverStyleProp,
+        ...popoverProps
+    }: SelectDropdownProps & { enableKeyboardNavigation?: boolean }) => {
+        const { isOpen, onClose, triggerRef, triggerLayout } = useSelectDropdownContextValue(
+            state => ({
+                isOpen: state.isOpen,
+                onClose: state.onClose,
+                triggerRef: state.triggerRef,
+                triggerLayout: state.triggerLayout,
+            }),
+        );
 
-    const popoverStyle = useMemo(() => {
-        const baseStyle = popoverStyleProp ? [popoverStyleProp] : [];
-        if (triggerLayout) {
-            return [{ width: triggerLayout.width }, ...baseStyle];
+        const popoverStyle = useMemo(() => {
+            const baseStyle = popoverStyleProp ? [popoverStyleProp] : [];
+            if (triggerLayout) {
+                return [{ width: triggerLayout.width }, ...baseStyle];
+            }
+            return baseStyle;
+        }, [triggerLayout, popoverStyleProp]);
+
+        if (!triggerLayout) return null;
+
+        if (WrapperComponent) {
+            return (
+                <WrapperComponent isOpen={isOpen} onClose={onClose} {...wrapperComponentProps}>
+                    {enableKeyboardNavigation && Platform.OS === 'web' ? (
+                        <KeyboardNavigationWrapper>{children}</KeyboardNavigationWrapper>
+                    ) : (
+                        children
+                    )}
+                </WrapperComponent>
+            );
         }
-        return baseStyle;
-    }, [triggerLayout, popoverStyleProp]);
 
-    if (!triggerLayout) return null;
-
-    if (WrapperComponent) {
         return (
-            <WrapperComponent isOpen={isOpen} onClose={onClose} {...wrapperComponentProps}>
+            <Popover
+                triggerRef={triggerRef as React.RefObject<View>}
+                isOpen={isOpen}
+                onClose={onClose}
+                style={popoverStyle}
+                triggerDimensions={triggerLayout}
+                {...popoverProps}>
                 {enableKeyboardNavigation && Platform.OS === 'web' ? (
                     <KeyboardNavigationWrapper>{children}</KeyboardNavigationWrapper>
                 ) : (
                     children
                 )}
-            </WrapperComponent>
+            </Popover>
         );
-    }
-
-    return (
-        <Popover
-            triggerRef={triggerRef as React.RefObject<View>}
-            isOpen={isOpen}
-            onClose={onClose}
-            style={popoverStyle}
-            triggerDimensions={triggerLayout}
-            {...popoverProps}>
-            {enableKeyboardNavigation && Platform.OS === 'web' ? (
-                <KeyboardNavigationWrapper>{children}</KeyboardNavigationWrapper>
-            ) : (
-                children
-            )}
-        </Popover>
-    );
-};
+    },
+);
 
 // Keyboard navigation wrapper for web
-const KeyboardNavigationWrapper = ({ children }: { children: React.ReactNode }) => {
+const KeyboardNavigationWrapper = memo(({ children }: { children: React.ReactNode }) => {
     const { onClose, contentRef, isOpen } = useSelectDropdownContextValue(state => ({
         onClose: state.onClose,
         contentRef: state.contentRef,
@@ -533,8 +546,14 @@ const KeyboardNavigationWrapper = ({ children }: { children: React.ReactNode }) 
                     break;
                 case 'Enter':
                     e.preventDefault();
+                    e.stopImmediatePropagation();
                     if (currentIndex !== -1) {
-                        options[currentIndex]?.click();
+                        // Store reference to the focused element before triggering click
+                        // to prevent issues with DOM updates during the click handler
+                        const focusedOption = options[currentIndex];
+                        if (focusedOption) {
+                            focusedOption.click();
+                        }
                     }
                     break;
                 case 'Escape':
@@ -599,7 +618,7 @@ const KeyboardNavigationWrapper = ({ children }: { children: React.ReactNode }) 
     }, [handleKeyDown, contentRef, isOpen]);
 
     return <>{children}</>;
-};
+});
 
 SelectDropdown.displayName = 'Select_Dropdown';
 
@@ -779,6 +798,14 @@ const SelectOption = memo(
                     tabIndex: -1 as 0 | -1 | undefined,
                     // Use a dataset attribute to help the keyboard navigator find this
                     'data-option-id': String(option.id),
+                    // Prevent Pressable's native Enter key handling since we handle it in KeyboardNavigationWrapper
+                    // This prevents double-triggering of onPress when Enter is pressed
+                    onKeyDown: (e: React.KeyboardEvent) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    },
                 },
             }),
         };
@@ -818,7 +845,7 @@ SelectOption.displayName = 'Select_Option';
 
 // Select.SearchInput - handles search
 const SelectSearchInput = memo(
-    ({ onQueryChange, autoFocus = true, ...textInputProps }: SelectSearchInputProps) => {
+    ({ autoFocus = true, ...textInputProps }: SelectSearchInputProps) => {
         const { searchQuery, setSearchQuery } = useSelectContextValue(state => ({
             searchQuery: state.searchQuery,
             setSearchQuery: state.setSearchQuery,
@@ -828,15 +855,13 @@ const SelectSearchInput = memo(
         const handleChangeText = useCallback(
             (text: string) => {
                 setSearchQuery(text);
-                onQueryChange?.(text);
-                textInputProps.onChangeText?.(text);
             },
-            [onQueryChange, setSearchQuery, textInputProps],
+            [setSearchQuery],
         );
 
         const inputProps = {
             ...textInputProps,
-            value: textInputProps.value !== undefined ? textInputProps.value : searchQuery,
+            value: searchQuery,
             onChangeText: handleChangeText,
             placeholder: textInputProps.placeholder || 'Search...',
             inputStyle: styles.searchInputInput,
@@ -866,17 +891,23 @@ const SelectSearchInput = memo(
             requestAnimationFrame(focusField);
         }, [autoFocus]);
 
+        const onPressLeftIcon = useCallback(() => {
+            textInputRef.current?.focus();
+        }, []);
+
+        const onClearSearchQuery = useCallback(() => {
+            handleChangeText('');
+        }, [handleChangeText]);
+
         return (
             <TextInput
                 ref={textInputRef}
                 autoFocus={Platform.OS !== 'web' && autoFocus}
                 style={styles.searchInput}
-                left={
-                    <Icon onPress={() => textInputRef.current?.focus()} name="magnify" size={20} />
-                }
+                left={<Icon onPress={onPressLeftIcon} name="magnify" size={20} />}
                 right={
                     searchQuery ? (
-                        <IconButton name="close" size={20} onPress={() => setSearchQuery('')} />
+                        <IconButton name="close" size={20} onPress={onClearSearchQuery} />
                     ) : undefined
                 }
                 size="sm"
@@ -999,7 +1030,7 @@ const styles = StyleSheet.create(theme => ({
                 backgroundColor: theme.colors.stateLayer.hover.primary,
             },
             _focus: {
-                backgroundColor: theme.colors.stateLayer.hover.primary,
+                backgroundColor: theme.colors.stateLayer.focussed.primary,
             },
         },
     },
