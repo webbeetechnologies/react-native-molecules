@@ -70,6 +70,7 @@ const Switch = (
         ref,
         actionsToListen: ['focus', 'hover', 'press'],
     });
+    const isFirstRender = useRef(true);
 
     const [value, onChange] = useControlledValue({
         value: valueProp,
@@ -98,8 +99,8 @@ const Switch = (
         state,
     });
 
-    const toggleMarginAnimation = useRef(new Animated.Value(value ? 0 : 1)).current;
-    const toggleSizeAnimation = useRef(new Animated.Value(value ? 0 : 1)).current;
+    const toggleMarginAnimation = useRef(new Animated.Value(value ? 1 : 0)).current;
+    const toggleSizeAnimation = useRef(new Animated.Value(value ? 1 : 0)).current;
 
     const thumbPosition = toggleMarginAnimation.interpolate({
         inputRange: [0, 1],
@@ -130,6 +131,11 @@ const Switch = (
     });
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         Animated.timing(toggleMarginAnimation, {
             toValue: value ? 1 : 0,
             duration: 300,
