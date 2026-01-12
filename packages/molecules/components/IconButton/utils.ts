@@ -27,7 +27,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
         overflow: 'hidden',
         borderWidth: 0,
         backgroundColor: 'transparent',
-        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
 
