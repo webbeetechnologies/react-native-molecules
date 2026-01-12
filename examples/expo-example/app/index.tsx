@@ -1,6 +1,7 @@
-// import { Switch } from 'react-native-molecules/components/Switch';
+import { Switch } from 'react-native-molecules/components/Switch';
 import { useState } from 'react';
 import {
+    Pressable,
     // Button,
     // Platform,
     // ScrollView,
@@ -16,10 +17,20 @@ import { Button } from 'react-native-molecules/components/Button';
 // import { TextInput } from 'react-native-molecules/components/TextInput';
 import { getWebProps } from 'react-native-unistyles/web';
 
-const Link = withUnistyles(({ style, ...rest }) => {
-    const { ref, className, ...webProps } = getWebProps(style);
-    return <a ref={ref} className={className} {...rest} {...webProps} />;
-});
+const Link = ({ style, ...rest }) => {
+    const { ref, className } = getWebProps(style);
+    // console.log({ className, style });
+    return (
+        <a
+            {...rest}
+            href={rest.href}
+            className={className}
+            ref={ref}
+            accessibilityRole="link"
+            role="link"
+        />
+    );
+};
 
 export default function Index() {
     // const [isOn, setIsOn] = useState(false);
@@ -50,7 +61,8 @@ export default function Index() {
     return (
         <>
             <View style={styles.container}>
-                <TouchableRipple asChild onPress={() => console.log('Pressed')}>
+                <Switch />
+                <TouchableRipple asChild onPress={() => console.log('Pressed')} testID="test-id">
                     <Link href="/##">Home</Link>
                 </TouchableRipple>
                 <Button onPress={() => console.log('Pressed')} variant="elevated" elevation={5}>
@@ -71,6 +83,7 @@ export default function Index() {
                 </Select>
                 <Select
                     multiple
+                    hideSelected={false}
                     options={multiSelectOptions}
                     value={multiSelectValue}
                     onChange={value => setMultiSelectValue(value as string[])}>
