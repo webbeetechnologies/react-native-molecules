@@ -5,15 +5,13 @@ import {
     type StyleProp,
     type TextStyle,
     type ViewProps,
-    type ViewStyle,
 } from 'react-native';
 
 import { useActionState } from '../../hooks/useActionState';
 import { resolveStateVariant } from '../../utils';
-import { Icon, type IconType } from '../Icon';
+import { Icon, type IconProps, type IconType } from '../Icon';
 import CrossFadeIcon from '../Icon/CrossFadeIcon';
 import { StateLayer } from '../StateLayer';
-import { Surface } from '../Surface';
 import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import type { IconButtonVariant } from './types';
 import { defaultStyles, iconButtonSizeToIconSizeMap } from './utils';
@@ -63,14 +61,11 @@ export type Props = Omit<TouchableRippleProps, 'children' | 'style'> & {
      */
     style?: StyleProp<TextStyle>;
     iconStyle?: StyleProp<TextStyle>;
+    iconProps?: Omit<IconProps, 'name' | 'type' | 'style' | 'color' | 'size'>;
     /**
      * color of the icon
      */
     color?: string;
-    /**
-     * Style of the innerContainer
-     */
-    innerContainerStyle?: ViewStyle;
     /**
      * Props for the state layer
      * */
@@ -92,10 +87,10 @@ const IconButton = (
         animated = false,
         variant = 'default',
         style,
-        innerContainerStyle: innerContainerStyleProp = emptyObject,
         testID,
         stateLayerProps = emptyObject,
-        iconStyle,
+        iconStyle: iconStyleProp,
+        iconProps,
         ...rest
     }: Props,
     ref: any,
@@ -126,9 +121,9 @@ const IconButton = (
         rippleColor,
         containerStyle,
         accessibilityState,
-        innerContainerStyle,
         // accessibilityTraits,
         stateLayerStyle,
+        iconStyle,
     } = useMemo(() => {
         const iconSizeInNum =
             iconButtonSizeToIconSizeMap[size as keyof typeof iconButtonSizeToIconSizeMap] ??
@@ -146,7 +141,6 @@ const IconButton = (
             iconColor: _iconColor,
             iconSize: iconSizeInNum,
             rippleColor: _rippleColor,
-            innerContainerStyle: [defaultStyles.innerContainer, innerContainerStyleProp],
             containerStyle: [
                 iconSizeInNum
                     ? {
@@ -157,60 +151,51 @@ const IconButton = (
                 defaultStyles.root,
                 style,
             ],
+            iconStyle: [defaultStyles.icon, iconStyleProp],
             // accessibilityTraits: disabled ? ['button', 'disabled'] : 'button',
             accessibilityState: { disabled },
             stateLayerStyle: [defaultStyles.stateLayer, stateLayerProps?.style],
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        _iconColor,
-        disabled,
-        innerContainerStyleProp,
-        size,
-        stateLayerProps?.style,
-        style,
-        state,
-        variant,
-    ]);
+    }, [_iconColor, disabled, size, stateLayerProps?.style, style, state, variant]);
 
     return (
-        <Surface style={containerStyle} elevation={0}>
-            <TouchableRipple
-                borderless
-                centered
-                onPress={onPress}
-                rippleColor={rippleColor}
-                accessibilityLabel={accessibilityLabel}
-                style={innerContainerStyle}
-                // accessibilityTraits={accessibilityTraits}
-                // accessibilityComponentType="button"
-                accessibilityRole="button"
-                accessibilityState={accessibilityState}
-                disabled={disabled}
-                hitSlop={
-                    // @ts-ignore
-                    TouchableRipple?.supported ? rippleSupportedHitSlop : rippleUnsupportedHitSlop
-                }
+        <TouchableRipple
+            borderless
+            centered
+            onPress={onPress}
+            rippleColor={rippleColor}
+            accessibilityLabel={accessibilityLabel}
+            style={containerStyle}
+            // accessibilityTraits={accessibilityTraits}
+            // accessibilityComponentType="button"
+            accessibilityRole="button"
+            accessibilityState={accessibilityState}
+            disabled={disabled}
+            hitSlop={
                 // @ts-ignore
-                ref={actionsRef}
-                testID={testID}
-                {...rest}>
-                <>
-                    <IconComponent
-                        color={iconColor}
-                        name={name}
-                        size={iconSize}
-                        type={type}
-                        style={iconStyle}
-                    />
-                    <StateLayer
-                        testID={testID ? `${testID}-stateLayer` : ''}
-                        {...stateLayerProps}
-                        style={stateLayerStyle}
-                    />
-                </>
-            </TouchableRipple>
-        </Surface>
+                TouchableRipple?.supported ? rippleSupportedHitSlop : rippleUnsupportedHitSlop
+            }
+            // @ts-ignore
+            ref={actionsRef}
+            testID={testID}
+            {...rest}>
+            <>
+                <IconComponent
+                    color={iconColor}
+                    name={name}
+                    size={iconSize}
+                    type={type}
+                    style={iconStyle}
+                    {...iconProps}
+                />
+                <StateLayer
+                    testID={testID ? `${testID}-stateLayer` : ''}
+                    {...stateLayerProps}
+                    style={stateLayerStyle}
+                />
+            </>
+        </TouchableRipple>
     );
 };
 

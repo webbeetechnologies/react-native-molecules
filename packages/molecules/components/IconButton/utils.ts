@@ -27,6 +27,9 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
         overflow: 'hidden',
         borderWidth: 0,
         backgroundColor: 'transparent',
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
 
         variants: {
             size: {
@@ -302,11 +305,7 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
         ],
     },
 
-    innerContainer: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+    icon: {},
 }));
 
 export const defaultStyles = getRegisteredComponentStylesWithFallback(
