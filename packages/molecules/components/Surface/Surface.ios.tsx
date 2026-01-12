@@ -31,8 +31,20 @@ export type Props = ComponentPropsWithRef<typeof View> & {
      */
     testID?: string;
     /**
-     * Change the component to the HTML tag or custom component use the passed child.
-     * This will merge the props of the Surface with the props of the child element.
+     * When `true`, the component will not render a wrapper element. Instead, it will
+     * merge its props (styles, elevation shadow, ref) onto its immediate child element.
+     * This follows the Radix UI "Slot" pattern for flexible component composition.
+     *
+     * @example
+     * ```tsx
+     * // With asChild - merges elevation styles onto the child
+     * <Surface asChild elevation={2}>
+     *   <Card><Text>Content</Text></Card>
+     * </Surface>
+     * ```
+     *
+     * @note When `asChild` is `true`, only a single child element is allowed.
+     * @default false
      */
     asChild?: boolean;
 };

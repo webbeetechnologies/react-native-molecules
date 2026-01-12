@@ -1065,6 +1065,13 @@
         "defaultValue": null
       },
       {
+        "name": "asChild",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "onHoverIn",
         "type": "((event: MouseEvent) => void) | null | undefined",
         "optional": true,
@@ -1367,13 +1374,6 @@
       {
         "name": "loading",
         "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "containerStyle",
-        "type": "ViewStyle | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -1927,15 +1927,15 @@
         "defaultValue": null
       },
       {
-        "name": "color",
-        "type": "string | undefined",
+        "name": "iconProps",
+        "type": "Omit<IconProps, \"style\" | \"name\" | \"type\" | \"size\" | \"color\"> | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "innerContainerStyle",
-        "type": "ViewStyle | undefined",
+        "name": "color",
+        "type": "string | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -2392,6 +2392,11 @@
   {
     "name": "Select",
     "sourcePath": "react-native-molecules/components/Select",
+    "props": []
+  },
+  {
+    "name": "Slot",
+    "sourcePath": "react-native-molecules/components/Slot",
     "props": []
   },
   {
@@ -3068,6 +3073,13 @@
         "optional": true,
         "description": "",
         "defaultValue": null
+      },
+      {
+        "name": "asChild",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
       }
     ]
   },
@@ -3212,7 +3224,7 @@
       },
       {
         "name": "ref",
-        "type": "React.RefObject<TextInputHandles | null> | undefined",
+        "type": "React.Ref<NativeTextInput | null> | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -3530,11 +3542,6 @@
     ]
   },
   {
-    "name": "Toast",
-    "sourcePath": "react-native-molecules/components/Toast",
-    "props": []
-  },
-  {
     "name": "Tooltip",
     "sourcePath": "react-native-molecules/components/Tooltip",
     "props": [
@@ -3655,6 +3662,13 @@
         "optional": true,
         "description": "",
         "defaultValue": null
+      },
+      {
+        "name": "asChild",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
       }
     ]
   },
@@ -3662,13 +3676,6 @@
     "name": "VerticalDivider",
     "sourcePath": "react-native-molecules/components/VerticalDivider",
     "props": [
-      {
-        "name": "style",
-        "type": "StyleProp<ViewStyle>",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
       {
         "name": "topInset",
         "type": "number | undefined",

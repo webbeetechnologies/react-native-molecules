@@ -1,6 +1,6 @@
 ---
-title: "TouchableRipple"
-description: "Pressable wrapper providing ripple feedback consistent with Material 3."
+title: 'TouchableRipple'
+description: 'Pressable wrapper providing ripple feedback consistent with Material 3.'
 sidebar_position: 55
 ---
 
@@ -20,13 +20,13 @@ import { TouchableRipple } from 'react-native-molecules/components/TouchableRipp
 import { Text } from 'react-native-molecules/components/Text';
 
 const styles = StyleSheet.create({
-    container: {
-        width: 220,
-        height: 120,
-        borderRadius: 16,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+container: {
+width: 220,
+height: 120,
+borderRadius: 16,
+alignItems: 'center',
+justifyContent: 'center',
+},
 });
 
 export default function Example() {
@@ -36,6 +36,41 @@ export default function Example() {
                 <Text>Touchable Ripple</Text>
             </TouchableRipple>
         </View>
+    );
+}`}
+/>
+
+### asChild
+
+When `asChild` is `true`, TouchableRipple won't render a wrapper element. Instead, it merges its props (styles, event handlers, ref) onto its immediate child element. This follows the Radix UI "Slot" pattern for flexible component composition.
+
+:::note
+When using `asChild`, only a single child element is allowed. On native Android, the ripple effect won't work with `asChild` since `TouchableNativeFeedback` requires a View wrapper.
+:::
+
+<LiveCodeExample
+    code={`import { StyleSheet, View } from 'react-native';
+import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
+import { Text } from 'react-native-molecules/components/Text';
+import { Surface } from 'react-native-molecules/components/Surface';
+
+const styles = StyleSheet.create({
+card: {
+width: 220,
+height: 120,
+borderRadius: 16,
+alignItems: 'center',
+justifyContent: 'center',
+},
+});
+
+export default function Example() {
+    return (
+        <TouchableRipple asChild onPress={() => console.log('Pressed')}>
+            <Surface style={styles.card} elevation={2}>
+                <Text>Pressable Surface (asChild)</Text>
+            </Surface>
+        </TouchableRipple>
     );
 }`}
 />
