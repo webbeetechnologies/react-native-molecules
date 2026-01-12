@@ -1,4 +1,4 @@
-import { Children, forwardRef, memo, type ReactNode, useCallback, useMemo, useRef } from 'react';
+import { forwardRef, memo, type ReactNode, useCallback, useMemo, useRef } from 'react';
 import {
     type GestureResponderEvent,
     Pressable,
@@ -337,7 +337,7 @@ const TouchableRipple = (
             onPress={onPress}
             disabled={disabled}
             {...pointerEventProps}>
-            {Children.only(children)}
+            {children}
         </Component>
     );
 };

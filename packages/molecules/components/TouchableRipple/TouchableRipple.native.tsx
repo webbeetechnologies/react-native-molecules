@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, useMemo } from 'react';
+import { type ComponentProps, forwardRef, memo, type ReactNode, useMemo } from 'react';
 import {
     type BackgroundPropType,
     Platform,
@@ -17,14 +17,14 @@ import { touchableRippleStyles } from './utils';
 const ANDROID_VERSION_LOLLIPOP = 21;
 const ANDROID_VERSION_PIE = 28;
 
-type Props = React.ComponentProps<typeof TouchableWithoutFeedback> & {
+type Props = ComponentProps<typeof TouchableWithoutFeedback> & {
     borderless?: boolean;
     background?: BackgroundPropType;
     disabled?: boolean;
     onPress?: () => void | null;
     rippleColor?: string;
     underlayColor?: string;
-    children: React.ReactNode;
+    children: ReactNode;
     style?: StyleProp<ViewStyle>;
     /**
      * Change the component to the HTML tag or custom component use the passed child.
@@ -96,7 +96,7 @@ const TouchableRipple = (
                         ? background
                         : TouchableNativeFeedback.Ripple(rippleColor!, borderless)
                 }>
-                {React.Children.only(children)}
+                <>{children}</>
             </TouchableNativeFeedback>
         );
     }
@@ -110,7 +110,7 @@ const TouchableRipple = (
                 containerStyle,
                 pressed && { backgroundColor: underlayColor },
             ]}>
-            {React.Children.only(children)}
+            {children}
         </Pressable>
     );
 };
