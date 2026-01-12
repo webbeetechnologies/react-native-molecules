@@ -1,13 +1,4 @@
-import {
-    createContext,
-    memo,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     type AccessibilityRole,
     type GestureResponderEvent,
@@ -17,89 +8,39 @@ import {
     ScrollView,
     View,
 } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
 
 import { typedMemo } from '../../hocs';
-import { useActionState, useControlledValue } from '../../hooks';
+import { useActionState, useControlledValue, useLatest } from '../../hooks';
 import { useToggle } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { Chip } from '../Chip';
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 import { Popover } from '../Popover';
-import { registerPortalContext } from '../Portal';
 import { Text } from '../Text';
 import { TextInput, type TextInputHandles, type TextInputProps } from '../TextInput';
 import type {
     DefaultItemT,
     SelectContentProps,
     SelectContextValue,
-    SelectDropdownContextValue,
     SelectDropdownProps,
     SelectGroupProps,
     SelectOptionProps,
-    SelectProviderProps,
+    SelectProps,
     SelectSearchInputProps,
     SelectTriggerProps,
     SelectValueProps,
 } from './types';
+import {
+    SelectContextProvider,
+    SelectDropdownContextProvider,
+    styles,
+    triggerStyles,
+    useSelectContextValue,
+    useSelectDropdownContextValue,
+} from './utils';
 
-// SelectContext - holds value, onAdd, onRemove
-export const SelectContext = createContext<SelectContextValue<DefaultItemT>>({
-    value: null,
-    multiple: false,
-    onAdd: () => {},
-    onRemove: () => {},
-    disabled: false,
-    error: false,
-    labelKey: 'label',
-    options: [],
-    searchQuery: '',
-    setSearchQuery: () => {},
-    filteredOptions: [],
-});
-
-export const useSelectContext = <Option extends DefaultItemT = DefaultItemT>() => {
-    return useContext(SelectContext) as unknown as SelectContextValue<Option>;
-};
-
-export const useSelectContextValue = <Option extends DefaultItemT = DefaultItemT, T = any>(
-    selector: (state: SelectContextValue<Option>) => T,
-): T => {
-    const context = useContext(SelectContext) as unknown as SelectContextValue<Option>;
-    return selector(context);
-};
-
-// SelectDropdownContext - holds isOpen, onClose, triggerRef
-export type SelectDropdownContextType = SelectDropdownContextValue & {
-    triggerRef: React.RefObject<View> | null;
-    contentRef: React.RefObject<any> | null;
-    triggerLayout: { width: number; height: number } | null;
-    setTriggerLayout: (layout: { width: number; height: number }) => void;
-};
-
-export const SelectDropdownContext = createContext<SelectDropdownContextType>({
-    isOpen: false,
-    onClose: () => {},
-    onOpen: () => {},
-    triggerRef: null,
-    contentRef: null,
-    triggerLayout: null,
-    setTriggerLayout: () => {},
-});
-
-registerPortalContext([SelectContext, SelectDropdownContext]);
-
-export const useSelectDropdownContext = () => {
-    return useContext(SelectDropdownContext);
-};
-
-export const useSelectDropdownContextValue = <T,>(
-    selector: (state: SelectDropdownContextType) => T,
-): T => {
-    const context = useContext(SelectDropdownContext);
-    return selector(context);
-};
+const emptyArr: unknown[] = [];
 
 // SelectProvider - manages controlled/uncontrolled state
 const SelectProvider = typedMemo(
@@ -112,18 +53,17 @@ const SelectProvider = typedMemo(
         disabled = false,
         error = false,
         labelKey = 'label',
-        options = [],
+        options = emptyArr as Option[],
         searchKey,
         onSearchChange,
         hideSelected: hideSelectedProp,
-    }: SelectProviderProps<Option>) => {
+    }: SelectProps<Option>) => {
         const [value, onValueChange] = useControlledValue<Option['id'] | Option['id'][] | null>({
             value: valueProp,
-            defaultValue: defaultValue ?? (multiple ? [] : null),
-            onChange: (newValue, item, event) => {
-                onChange?.(newValue, item as Option, event);
-            },
+            defaultValue: defaultValue ?? (multiple ? (emptyArr as Option['id'][]) : null),
+            onChange,
         });
+        const valueRef = useLatest(value);
 
         const [searchQuery, setSearchQuery] = useState('');
 
@@ -172,7 +112,7 @@ const SelectProvider = typedMemo(
         const onAdd = useCallback(
             (item: Option) => {
                 if (multiple) {
-                    const currentValue = (value as Option['id'][]) || [];
+                    const currentValue = (valueRef.current as Option['id'][]) || [];
                     if (!currentValue.find(v => v === item.id)) {
                         onValueChange([...currentValue, item.id] as Option['id'][], item);
                     }
@@ -180,19 +120,19 @@ const SelectProvider = typedMemo(
                     onValueChange(item.id, item);
                 }
             },
-            [multiple, value, onValueChange],
+            [multiple, valueRef, onValueChange],
         );
 
         const onRemove = useCallback(
             (item: Option) => {
                 if (multiple) {
-                    const currentValue = (value as Option['id'][]) || [];
+                    const currentValue = (valueRef.current as Option['id'][]) || [];
                     onValueChange(currentValue.filter(v => v !== item.id) as Option['id'][], item);
                 } else {
                     onValueChange(null, item);
                 }
             },
-            [multiple, value, onValueChange],
+            [multiple, valueRef, onValueChange],
         );
 
         const contextValue = useMemo(
@@ -225,10 +165,10 @@ const SelectProvider = typedMemo(
         );
 
         return (
-            <SelectContext.Provider
+            <SelectContextProvider
                 value={contextValue as unknown as SelectContextValue<DefaultItemT>}>
                 {children}
-            </SelectContext.Provider>
+            </SelectContextProvider>
         );
     },
 );
@@ -281,19 +221,16 @@ const SelectDropdownProvider = memo(
         );
 
         return (
-            <SelectDropdownContext.Provider value={contextValue}>
+            <SelectDropdownContextProvider value={contextValue}>
                 {children}
-            </SelectDropdownContext.Provider>
+            </SelectDropdownContextProvider>
         );
     },
 );
 
 // Select - wrapper component
 const Select = typedMemo(
-    <Option extends DefaultItemT = DefaultItemT>({
-        children,
-        ...props
-    }: SelectProviderProps<Option>) => {
+    <Option extends DefaultItemT = DefaultItemT>({ children, ...props }: SelectProps<Option>) => {
         return (
             <SelectProvider<Option> {...props}>
                 <SelectDropdownProvider>{children}</SelectDropdownProvider>
@@ -418,13 +355,10 @@ const SelectValue = memo(({ placeholder, renderValue, style, ...rest }: SelectVa
         return (
             <View style={[styles.chipContainer, style]} {...rest}>
                 {(resolvedValue as DefaultItemT[]).map(item => (
-                    <Chip.Input
+                    <SelectValueItem
                         key={item.id || String(item)}
-                        label={item[labelKey || 'label'] || String(item.id || item)}
-                        size="sm"
-                        selected
-                        left={<></>}
-                        onClose={() => onRemove(item)}
+                        item={item}
+                        onRemoveItem={onRemove}
                     />
                 ))}
             </View>
@@ -437,6 +371,30 @@ const SelectValue = memo(({ placeholder, renderValue, style, ...rest }: SelectVa
         </Text>
     );
 });
+
+const SelectValueItem = typedMemo(
+    ({
+        item,
+        onRemoveItem,
+    }: {
+        item: DefaultItemT;
+        onRemoveItem: (item: DefaultItemT) => void;
+    }) => {
+        const onRemove = useCallback(() => {
+            onRemoveItem(item);
+        }, [item, onRemoveItem]);
+
+        return (
+            <Chip.Input
+                label={item[item.labelKey || 'label'] || String(item.id || item)}
+                size="sm"
+                selected
+                left={<></>}
+                onClose={onRemove}
+            />
+        );
+    },
+);
 
 SelectValue.displayName = 'Select_Value';
 
@@ -623,70 +581,76 @@ const KeyboardNavigationWrapper = memo(({ children }: { children: React.ReactNod
 SelectDropdown.displayName = 'Select_Dropdown';
 
 // Select.Content - ScrollView that renders children
-const SelectContent = ({
-    children,
-    ContainerComponent = ScrollView,
-    style,
-    emptyState,
-    ...rest
-}: SelectContentProps) => {
-    const { contentRef } = useSelectDropdownContextValue(state => ({
-        contentRef: state.contentRef,
-    }));
+const SelectContent = memo(
+    ({
+        children,
+        ContainerComponent = ScrollView,
+        style,
+        emptyState,
+        ...rest
+    }: SelectContentProps) => {
+        const { contentRef } = useSelectDropdownContextValue(state => ({
+            contentRef: state.contentRef,
+        }));
 
-    const { filteredOptions, value, multiple, searchQuery, options } = useSelectContextValue(
-        state => ({
-            filteredOptions: state.filteredOptions,
-            value: state.value,
-            multiple: state.multiple,
-            searchQuery: state.searchQuery,
-            options: state.options,
-        }),
-    );
+        const { filteredOptions, value, multiple, searchQuery, options } = useSelectContextValue(
+            state => ({
+                filteredOptions: state.filteredOptions,
+                value: state.value,
+                multiple: state.multiple,
+                searchQuery: state.searchQuery,
+                options: state.options,
+            }),
+        );
 
-    const content = useMemo(() => {
-        return filteredOptions.map(option => {
-            const isSelected = multiple
-                ? (value as any[])?.some(v => (v?.id ?? v) === option.id)
-                : (value as any)?.id === option.id || (value as any) === option.id;
+        const content = useMemo(() => {
+            return filteredOptions.map(option => {
+                const isSelected = multiple
+                    ? (value as any[])?.some(v => (v?.id ?? v) === option.id)
+                    : (value as any)?.id === option.id || (value as any) === option.id;
 
-            return children(option, !!isSelected);
-        });
-    }, [filteredOptions, value, multiple, children]);
+                return children(option, !!isSelected);
+            });
+        }, [filteredOptions, value, multiple, children]);
 
-    const defaultEmptyState = useMemo(() => {
-        const hasSearchQuery = searchQuery && searchQuery.trim().length > 0;
-        const hasNoOptions = options.length === 0;
+        const defaultEmptyState = useMemo(() => {
+            const hasSearchQuery = searchQuery && searchQuery.trim().length > 0;
+            const hasNoOptions = options.length === 0;
 
-        if (hasNoOptions) {
+            if (hasNoOptions) {
+                return (
+                    <View style={styles.emptyState}>
+                        <Text style={styles.emptyStateText}>No options available</Text>
+                    </View>
+                );
+            }
+
+            if (hasSearchQuery) {
+                return (
+                    <View style={styles.emptyState}>
+                        <Text style={styles.emptyStateText}>No results found</Text>
+                    </View>
+                );
+            }
+
             return (
                 <View style={styles.emptyState}>
-                    <Text style={styles.emptyStateText}>No options available</Text>
+                    <Text style={styles.emptyStateText}>No options</Text>
                 </View>
             );
-        }
-
-        if (hasSearchQuery) {
-            return (
-                <View style={styles.emptyState}>
-                    <Text style={styles.emptyStateText}>No results found</Text>
-                </View>
-            );
-        }
+        }, [searchQuery, options.length]);
 
         return (
-            <View style={styles.emptyState}>
-                <Text style={styles.emptyStateText}>No options</Text>
-            </View>
+            <ContainerComponent
+                ref={contentRef}
+                style={style}
+                {...rest}
+                accessibilityRole="listbox">
+                {filteredOptions.length === 0 ? emptyState ?? defaultEmptyState : content}
+            </ContainerComponent>
         );
-    }, [searchQuery, options.length]);
-
-    return (
-        <ContainerComponent ref={contentRef} style={style} {...rest} accessibilityRole="listbox">
-            {filteredOptions.length === 0 ? emptyState ?? defaultEmptyState : content}
-        </ContainerComponent>
-    );
-};
+    },
+);
 
 SelectContent.displayName = 'Select_Content';
 
@@ -714,21 +678,15 @@ const SelectOption = memo(
         ...rest
     }: SelectOptionProps<Option>) => {
         const {
-            value: selectionValue,
             multiple,
             onAdd,
             onRemove,
             disabled: selectDisabled,
-        } = useSelectContextValue<Option>(state => ({
-            value: state.value,
+        } = useSelectContextValue(state => ({
             multiple: state.multiple,
             onAdd: state.onAdd,
             onRemove: state.onRemove,
             disabled: state.disabled,
-        }));
-
-        const { onClose } = useSelectDropdownContextValue(state => ({
-            onClose: state.onClose,
         }));
 
         const option = useMemo(() => {
@@ -739,15 +697,19 @@ const SelectOption = memo(
             } as Option;
         }, [children, optionDisabledProp, value]);
 
-        const isSelected = useMemo(() => {
+        const isSelected = useSelectContextValue(state => {
             if (multiple) {
-                const values = selectionValue as any[];
+                const values = state.value as any[];
                 return values?.some(v => (v?.id ?? v) === option.id) || false;
             } else {
-                const singleValue = selectionValue as any;
+                const singleValue = state.value as any;
                 return (singleValue?.id ?? singleValue) === option.id || false;
             }
-        }, [selectionValue, multiple, option.id]);
+        });
+
+        const { onClose } = useSelectDropdownContextValue(state => ({
+            onClose: state.onClose,
+        }));
 
         const isOptionDisabled = Boolean(
             selectDisabled || optionDisabledProp || option.selectable === false,
@@ -930,140 +892,6 @@ const SelectWithSubcomponents = Object.assign(Select, {
     Option: SelectOption,
     SearchInput: SelectSearchInput,
 });
-
-const triggerStyles = StyleSheet.create(theme => ({
-    trigger: {
-        borderRadius: theme.shapes.corner.extraSmall,
-        paddingHorizontal: theme.spacings['3'],
-        paddingVertical: theme.spacings['2'],
-        minHeight: 48,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%',
-        variants: {
-            state: {
-                disabled: {
-                    opacity: 0.38,
-                    backgroundColor: theme.colors.surfaceVariant,
-                },
-                errorDisabled: {
-                    opacity: 0.38,
-                },
-            },
-        },
-    },
-    outline: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        borderRadius: theme.shapes.corner.extraSmall,
-        borderWidth: 1,
-        borderColor: theme.colors.outline,
-        pointerEvents: 'none',
-        variants: {
-            state: {
-                focused: {
-                    borderWidth: 2,
-                    borderColor: theme.colors.primary,
-                },
-                hovered: {
-                    borderColor: theme.colors.onSurface,
-                },
-                hoveredAndFocused: {
-                    borderWidth: 2,
-                    borderColor: theme.colors.primary,
-                },
-                disabled: {
-                    borderColor: theme.colors.onSurface,
-                },
-                error: {
-                    borderColor: theme.colors.error,
-                },
-                errorFocused: {
-                    borderWidth: 2,
-                    borderColor: theme.colors.error,
-                },
-                errorHovered: {
-                    borderColor: theme.colors.onErrorContainer,
-                },
-                errorFocusedAndHovered: {
-                    borderWidth: 2,
-                    borderColor: theme.colors.error,
-                },
-                errorDisabled: {
-                    borderColor: theme.colors.error,
-                },
-            },
-        },
-    },
-    triggerIcon: {
-        marginLeft: theme.spacings['2'],
-        color: theme.colors.onSurfaceVariant,
-    },
-}));
-
-const styles = StyleSheet.create(theme => ({
-    chipContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 6,
-        maxWidth: '90%',
-    },
-    groupLabel: {
-        paddingHorizontal: theme.spacings['4'],
-        paddingVertical: theme.spacings['2'],
-        fontWeight: '600',
-        color: theme.colors.onSurface,
-    },
-    item: {
-        paddingHorizontal: theme.spacings['4'],
-        paddingVertical: theme.spacings['3'],
-        backgroundColor: 'transparent',
-
-        _web: {
-            cursor: 'pointer',
-            outlineStyle: 'none',
-            _hover: {
-                backgroundColor: theme.colors.stateLayer.hover.primary,
-            },
-            _focus: {
-                backgroundColor: theme.colors.stateLayer.focussed.primary,
-            },
-        },
-    },
-    itemSelected: {
-        backgroundColor: theme.colors.stateLayer.hover.primary,
-    },
-    itemDisabled: {
-        opacity: 0.38,
-        _web: {
-            cursor: 'not-allowed',
-        },
-    },
-    itemDisabledText: {
-        color: theme.colors.onSurfaceVariant,
-    },
-    searchInput: {
-        marginHorizontal: theme.spacings['2'],
-        marginVertical: theme.spacings['3'],
-    },
-    searchInputInput: {
-        height: 42,
-    },
-    emptyState: {
-        paddingHorizontal: theme.spacings['4'],
-        paddingVertical: theme.spacings['6'],
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    emptyStateText: {
-        color: theme.colors.onSurfaceVariant,
-        fontSize: 14,
-    },
-}));
 
 export default SelectWithSubcomponents;
 export { SelectDropdownProvider, SelectProvider };

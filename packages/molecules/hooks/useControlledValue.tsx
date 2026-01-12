@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import useLatest from './useLatest';
+
 type ReturnType<T> = [T, (value: T, ...args: any[]) => void];
 
 type Args<T> = {
@@ -31,21 +33,35 @@ const useControlledValue = <T,>({
 
     const isUncontrolled = useRef(valueProp).current === undefined;
     const [uncontrolledValue, setValue] = useState(value);
+    const valuePropRef = useLatest(valueProp);
+    const onChangeRef = useLatest(onChange);
+    const manipulateValueRef = useLatest(manipulateValue);
+    const uncontrolledValueRef = useLatest(uncontrolledValue);
 
     const updateValue = useCallback(
         (val: T, ...rest: any[]) => {
             if (disabled) return;
 
             if (isUncontrolled) {
-                setValue(manipulateValue(val, uncontrolledValue));
+                setValue(manipulateValueRef.current(val, uncontrolledValueRef.current));
             }
 
-            onChange?.(
-                manipulateValue(val, isUncontrolled ? uncontrolledValue : valueProp),
+            onChangeRef.current?.(
+                manipulateValueRef.current(
+                    val,
+                    isUncontrolled ? uncontrolledValueRef.current : valuePropRef.current,
+                ),
                 ...rest,
             );
         },
-        [disabled, isUncontrolled, manipulateValue, onChange, uncontrolledValue, valueProp],
+        [
+            disabled,
+            isUncontrolled,
+            manipulateValueRef,
+            onChangeRef,
+            uncontrolledValueRef,
+            valuePropRef,
+        ],
     );
 
     useEffect(() => {

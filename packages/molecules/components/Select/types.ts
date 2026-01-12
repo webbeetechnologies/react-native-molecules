@@ -38,7 +38,7 @@ export type SelectDropdownContextValue = {
 };
 
 // SelectProvider props
-export type SelectProviderProps<Option extends DefaultItemT = DefaultItemT> = {
+export type SelectProps<Option extends DefaultItemT = DefaultItemT> = {
     children: ReactNode;
     value?: Option['id'] | Option['id'][] | null;
     defaultValue?: Option['id'] | Option['id'][] | null;

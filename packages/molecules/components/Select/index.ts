@@ -1,14 +1,7 @@
-export { default as Select } from './Select';
-export type {
-    DefaultItemT,
-    SelectContentProps,
-    SelectContextValue,
-    SelectDropdownContextValue,
-    SelectDropdownProps,
-    SelectGroupProps,
-    SelectOptionProps,
-    SelectProviderProps,
-    SelectSearchInputProps,
-    SelectTriggerProps,
-    SelectValueProps,
-} from './types';
+import { getRegisteredComponentWithFallback } from '../../core';
+import SelectDefault from './Select';
+
+export const Select = getRegisteredComponentWithFallback('Select', SelectDefault);
+
+export type * from './types';
+export * from './utils';
