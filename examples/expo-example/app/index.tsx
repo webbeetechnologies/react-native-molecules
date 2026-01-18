@@ -16,6 +16,7 @@ import { TouchableRipple } from 'react-native-molecules/components/TouchableRipp
 import { Button } from 'react-native-molecules/components/Button';
 // import { TextInput } from 'react-native-molecules/components/TextInput';
 import { getWebProps } from 'react-native-unistyles/web';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
 
 const Link = ({ style, ...rest }) => {
     const { ref, className } = getWebProps(style);
@@ -61,6 +62,8 @@ export default function Index() {
     return (
         <>
             <View style={styles.container}>
+                <LoadingIndicator />
+                <LoadingIndicator variant="contained" />
                 <Switch />
                 <TouchableRipple asChild onPress={() => console.log('Pressed')} testID="test-id">
                     <Link href="/##">Home</Link>
