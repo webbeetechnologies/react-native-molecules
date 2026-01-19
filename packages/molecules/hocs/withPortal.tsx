@@ -6,7 +6,7 @@ const withPortal =
     <T,>(Component: ComponentType<T>) =>
     (props: T) => {
         return (
-            <Portal name={'withPortal' + (Component.displayName ?? '')}>
+            <Portal>
                 {/* @ts-ignore */}
                 <Component {...(props as T)} />
             </Portal>
