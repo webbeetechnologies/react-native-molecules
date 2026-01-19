@@ -1,25 +1,17 @@
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
-import {
-    type ActivityIndicatorProps,
-    Animated,
-    Easing,
-    Platform,
-    View,
-    type ViewStyle,
-} from 'react-native';
+import { type ActivityIndicatorProps, Animated, Easing, Platform, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
 import AnimatedSpinner from './AnimatedSpinner';
 
-export type Props = ActivityIndicatorProps & {
+export type Props = Omit<ActivityIndicatorProps, 'color'> & {
     /**
      * Whether to show the indicator or hide it.
      */
     animating?: boolean;
     /**
      * The color of the spinner.
-     */
     color?: string;
     /**
      * Size of the indicator.
@@ -29,7 +21,7 @@ export type Props = ActivityIndicatorProps & {
      * Whether the indicator should hide when not animating.
      */
     hidesWhenStopped?: boolean;
-    style?: ViewStyle;
+    color?: string;
 };
 
 const DURATION = 2400;
@@ -63,7 +55,7 @@ const mapIndicatorSize = (indicatorSize: 'small' | 'large' | number | undefined)
  */
 const ActivityIndicator = ({
     animating = true,
-    color: indicatorColorProp,
+    color,
     hidesWhenStopped = true,
     size: indicatorSize = 'small',
     style: styleProp,
@@ -83,13 +75,12 @@ const ActivityIndicator = ({
 
     const size = mapIndicatorSize(indicatorSize);
 
-    const { color, viewStyle, animatedViewStyle } = useMemo(() => {
+    const { viewStyle, animatedViewStyle } = useMemo(() => {
         return {
-            color: indicatorColorProp,
             viewStyle: [componentStyles.container, styleProp],
             animatedViewStyle: [{ width: size, height: size, opacity: fade }],
         };
-    }, [componentStyles.container, fade, indicatorColorProp, size, styleProp]);
+    }, [componentStyles.container, fade, size, styleProp]);
 
     const startRotation = useCallback(() => {
         // Show indicator

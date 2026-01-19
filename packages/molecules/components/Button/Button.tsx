@@ -1,139 +1,92 @@
-import setColor from 'color';
+import { forwardRef, memo, type PropsWithoutRef, type ReactNode, useContext, useMemo } from 'react';
 import {
-    forwardRef,
-    memo,
-    type PropsWithoutRef,
-    type ReactNode,
-    useCallback,
-    useMemo,
-} from 'react';
-import { type StyleProp, type TextStyle, View, type ViewProps, type ViewStyle } from 'react-native';
+    type StyleProp,
+    type TextProps,
+    type TextStyle,
+    type ViewProps,
+    type ViewStyle,
+} from 'react-native';
 
 import { useActionState } from '../../hooks';
 import type { MD3Elevation } from '../../types/theme';
 import { resolveStateVariant } from '../../utils';
-import { ActivityIndicator } from '../ActivityIndicator';
-import { Icon, type IconType } from '../Icon';
+import { ActivityIndicator, type ActivityIndicatorProps } from '../ActivityIndicator';
+import { Icon, type IconProps } from '../Icon';
 import { StateLayer } from '../StateLayer';
 import { Surface, type SurfaceProps } from '../Surface';
 import { Text } from '../Text';
-import { TouchableRipple } from '../TouchableRipple';
-import type { ButtonSize, ButtonVariant } from './types';
-import { defaultStyles, sizeToIconSizeMap } from './utils';
+import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
+import type { ButtonContextType, ButtonShape, ButtonSize, ButtonVariant } from './types';
+import {
+    buttonActivityIndicatorStyles,
+    ButtonContext,
+    buttonIconStyles,
+    buttonStyles,
+    buttonTextStyles,
+    elevationMap,
+    sizeToIconSizeMap,
+} from './utils';
 
-export type Props = Omit<SurfaceProps, 'style'> & {
-    /**
-     * Mode of the button. You can change the mode to adjust the styling to give it desired emphasis.
-     * - `text` - flat button without background or outline, used for the lowest priority actions, especially when presenting multiple options.
-     * - `outlined` - button with an outline without background, typically used for important, but not primary action – represents medium emphasis.
-     * - `contained` - button with a background color, used for important action, have the most visual impact and high emphasis.
-     * - `elevated` - button with a background color and elevation, used when absolutely necessary e.g. button requires visual separation from a patterned background. @supported Available in v5.x with theme version 3
-     * - `contained-tonal` - button with a secondary background color, an alternative middle ground between contained and outlined buttons. @supported Available in v5.x with theme version 3
-     */
-    variant?: ButtonVariant;
-    /**
-     * @supported Available in v5.x
-     * Custom button's background color.
-     */
-    buttonColor?: string;
-    /**
-     * Whether to show a loading indicator.
-     */
-    loading?: boolean;
-    /**
-     * Icon to display for the `Button`.
-     */
-    iconType?: IconType;
-    iconName?: string;
-    iconSize?: number;
-    /**
-     * Whether the button is disabled. A disabled button is greyed out and `onPress` is not called on touch.
-     */
-    disabled?: boolean;
-    /**
-     * Label text of the button.
-     */
-    children: ReactNode;
-    /**
-     * Accessibility label for the button. This is read by the screen reader when the user taps the button.
-     */
-    accessibilityLabel?: string;
-    /**
-     * Accessibility hint for the button. This is read by the screen reader when the user taps the button.
-     */
-    accessibilityHint?: string;
-    /**
-     * Function to execute on press.
-     */
-    onPress?: () => void;
-    /**
-     * @supported Available in v5.x
-     * Function to execute as soon as the touchable element is pressed and invoked even before onPress.
-     */
-    onPressIn?: () => void;
-    /**
-     * @supported Available in v5.x
-     * Function to execute as soon as the touch is released even before onPress.
-     */
-    onPressOut?: () => void;
-    /**
-     * Function to execute on long press.
-     */
-    onLongPress?: () => void;
-    /**
-     * Style of button's inner content.
-     * Use this prop to apply custom height and width and to set the icon on the right with `flexDirection: 'row-reverse'`.
-     */
-    contentStyle?: StyleProp<ViewStyle>;
-    style?: StyleProp<TextStyle>;
-    /**
-     * Style for the button text.
-     */
-    labelStyle?: TextStyle;
-    /**
-     * Style for the Icon
-     */
-    iconContainerStyle?: StyleProp<ViewStyle>;
-    iconStyle?: StyleProp<TextStyle>;
-    /*
-     * Size
-     * */
-    size?: ButtonSize;
-    /*
-     * Elevation level
-     * */
-    elevation?: MD3Elevation;
-    /**
-     * testID to be used on tests.
-     */
-    testID?: string;
-    /**
-     * props for the stateLayer
-     */
-    stateLayerProps?: PropsWithoutRef<ViewProps>;
-    textRelatedStyle?: StyleProp<TextStyle>;
-};
-
-const elevationMap: Record<string, Record<string, number>> = {
-    true: {
-        contained: 1,
-        'contained-tonal': 1,
-        elevated: 2,
-    },
-    false: {
-        elevated: 1,
-    },
-};
+export type Props = Omit<SurfaceProps, 'style'> &
+    Pick<TouchableRippleProps, 'onPress' | 'onPressIn' | 'onPressOut' | 'onLongPress'> & {
+        /**
+         * Mode of the button. You can change the mode to adjust the styling to give it desired emphasis.
+         * - `text` - flat button without background or outline, used for the lowest priority actions, especially when presenting multiple options.
+         * - `outlined` - button with an outline without background, typically used for important, but not primary action – represents medium emphasis.
+         * - `contained` - button with a background color, used for important action, have the most visual impact and high emphasis.
+         * - `elevated` - button with a background color and elevation, used when absolutely necessary e.g. button requires visual separation from a patterned background. @supported Available in v5.x with theme version 3
+         * - `contained-tonal` - button with a secondary background color, an alternative middle ground between contained and outlined buttons. @supported Available in v5.x with theme version 3
+         */
+        variant?: ButtonVariant;
+        /**
+         * Shape of the button.
+         * - `rounded` - fully rounded corners (default)
+         * - `square` - square corners with medium border radius
+         */
+        shape?: ButtonShape;
+        /**
+         * Whether the button is disabled. A disabled button is greyed out and `onPress` is not called on touch.
+         */
+        disabled?: boolean;
+        /**
+         * Content of the button. Use Button.Icon and Button.Text compound components.
+         */
+        children?: ReactNode;
+        /**
+         * Accessibility label for the button. This is read by the screen reader when the user taps the button.
+         */
+        accessibilityLabel?: string;
+        /**
+         * Accessibility hint for the button. This is read by the screen reader when the user taps the button.
+         */
+        accessibilityHint?: string;
+        style?: StyleProp<TextStyle>;
+        /*
+         * Size
+         * */
+        size?: ButtonSize;
+        /*
+         * Elevation level
+         * */
+        elevation?: MD3Elevation;
+        /**
+         * testID to be used on tests.
+         */
+        testID?: string;
+        /**
+         * props for the stateLayer
+         */
+        stateLayerProps?: PropsWithoutRef<ViewProps>;
+        textRelatedStyle?: StyleProp<TextStyle>;
+        disabledPress?: boolean;
+    };
 
 const Button = (
     {
         disabled = false,
         variant = 'text',
-        size = 'lg',
-        loading,
-        iconType,
-        iconName,
-        buttonColor: customButtonColor,
+        shape = 'rounded',
+        size = 'sm',
         children,
         accessibilityLabel,
         accessibilityHint,
@@ -142,17 +95,13 @@ const Button = (
         onPressOut,
         onLongPress,
         style: styleProp,
-        contentStyle,
-        labelStyle,
-        iconContainerStyle: iconContainerStyleProp,
         testID,
         accessible,
         stateLayerProps = {},
         elevation: elevationProp,
-        iconSize: _iconSizeProp,
         textRelatedStyle,
-        iconStyle: _iconStyleProp,
-        ...rest
+        disabledPress,
+        ...restProps
     }: Props,
     ref: any,
 ) => {
@@ -163,110 +112,48 @@ const Button = (
         hovered,
     });
 
-    defaultStyles.useVariants({
+    buttonStyles.useVariants({
         variant,
         // @ts-ignore // TODO - fix this
         state: state as any,
         size,
+        shape,
     });
-
-    // const componentStyles = useComponentStyles(
-    //     'Button',
-    //     [styleProp, { customButtonColor, customTextColor }],
-    //     {
-    //         variant,
-    //         state: disabled ? 'disabled' : hovered ? 'hovered' : undefined,
-    //         size,
-    //     },
-    // );
-
-    // console.log({ hovered, componentStyles });
-
-    const isVariant = useCallback(
-        (variantComponent: ButtonVariant) => {
-            return variant === variantComponent;
-        },
-        [variant],
-    );
-
-    const iconSize = _iconSizeProp ?? sizeToIconSizeMap[size] ?? sizeToIconSizeMap.md;
+    const iconSize = sizeToIconSizeMap[size] ?? sizeToIconSizeMap.md;
     const elevationLevel = elevationMap[(!!hovered).toString()][variant] ?? 0;
 
-    const {
-        customLabelColor,
-        customLabelSize,
-        rippleColor,
-        surfaceStyle,
-        textStyle,
-        iconStyle,
-        iconContainerStyle,
-        accessibilityState,
-        stateLayerStyle,
-    } = useMemo(() => {
-        const { button, content, icon, iconTextMode, label, labelText, labelTextAddons } =
-            defaultStyles;
-
-        const backgroundColor = customButtonColor && !disabled ? customButtonColor : undefined;
-
-        const _iconStyle = [icon, isVariant('text') && iconTextMode];
-
-        const { color: labelColor, fontSize: labelFontSize } = labelStyle ?? {};
-
-        // TODO - remove this workaround
-        let _rippleColor: string | undefined;
-
-        try {
-            _rippleColor = setColor(labelColor).alpha(0.12).rgb().string();
-        } catch (e) {
-            _rippleColor = undefined;
-        }
-
+    const { surfaceStyle, accessibilityState, stateLayerStyle, contextValue } = useMemo(() => {
         return {
-            customLabelColor: labelColor,
-            customLabelSize: labelFontSize,
-            rippleColor: _rippleColor,
-            surfaceStyle: [
-                button,
-                content,
-                backgroundColor ? { backgroundColor } : {},
-                defaultStyles.root,
-                styleProp,
-                contentStyle,
-            ],
-
-            iconStyle: [_iconStyle, textRelatedStyle, _iconStyleProp] as unknown as ViewStyle,
-            iconContainerStyle: [defaultStyles.iconContainer, iconContainerStyleProp],
-            textStyle: [
-                // @ts-ignore // TODO - fix this
-                isVariant('text') ? (iconName || loading ? labelTextAddons : labelText) : label,
-                textRelatedStyle,
-                labelStyle,
-            ],
+            surfaceStyle: [buttonStyles.root, styleProp],
             accessibilityState: { disabled },
-            stateLayerStyle: [defaultStyles.stateLayer, stateLayerProps?.style],
+            stateLayerStyle: [buttonStyles.stateLayer, stateLayerProps?.style],
+            contextValue: {
+                variant,
+                size,
+                state: state as ButtonContextType['state'],
+                disabled,
+                iconSize,
+                textRelatedStyle,
+            } as ButtonContextType,
         };
-        // eslint-disable-next-line
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
+        shape,
         state,
         variant,
         size,
-        contentStyle,
-        customButtonColor,
         disabled,
-        iconContainerStyleProp,
-        iconName,
-        isVariant,
-        labelStyle,
-        loading,
         stateLayerProps?.style,
         styleProp,
+        iconSize,
+        textRelatedStyle,
     ]);
 
     const elevation = elevationProp === undefined ? elevationLevel ?? 0 : elevationProp;
 
     return (
         <Surface
-            {...rest}
+            {...restProps}
             style={surfaceStyle}
             elevation={
                 (disabled
@@ -287,50 +174,123 @@ const Button = (
                 accessibilityRole="button"
                 accessibilityState={accessibilityState}
                 accessible={accessible}
-                disabled={disabled}
-                rippleColor={rippleColor}
+                disabled={disabled || disabledPress}
                 ref={actionsRef}
                 testID={testID}>
-                <>
-                    {iconName && loading !== true ? (
-                        <View style={iconContainerStyle}>
-                            <Icon
-                                type={iconType}
-                                name={iconName}
-                                size={iconSize ?? customLabelSize}
-                                color={
-                                    typeof customLabelColor === 'string'
-                                        ? customLabelColor
-                                        : undefined
-                                }
-                                style={iconStyle}
-                            />
-                        </View>
-                    ) : null}
-                    {loading ? (
-                        <ActivityIndicator
-                            size={customLabelSize ?? iconSize}
-                            color={
-                                (typeof customLabelColor === 'string'
-                                    ? customLabelColor
-                                    : undefined) as string
-                            }
-                            style={iconStyle}
-                        />
-                    ) : null}
-                    <Text selectable={false} numberOfLines={1} style={textStyle}>
+                <ButtonContext.Provider value={contextValue}>
+                    <>
                         {children}
-                    </Text>
 
-                    <StateLayer
-                        testID={testID ? `${testID}-stateLayer` : ''}
-                        {...stateLayerProps}
-                        style={stateLayerStyle}
-                    />
-                </>
+                        <StateLayer
+                            testID={testID ? `${testID}-stateLayer` : ''}
+                            {...stateLayerProps}
+                            style={stateLayerStyle}
+                        />
+                    </>
+                </ButtonContext.Provider>
             </TouchableRipple>
         </Surface>
     );
 };
 
 export default memo(forwardRef(Button));
+
+/**
+ * Button.Icon - Renders an icon within the button
+ */
+export const ButtonIcon = memo(
+    ({ type, name, size: sizeProp, color: colorProp, style, ...rest }: IconProps) => {
+        const { labelColor, iconSize, variant, state, disabled, textRelatedStyle } =
+            useContext(ButtonContext);
+
+        const iconSizeResolved = sizeProp ?? iconSize;
+        const colorResolved =
+            colorProp ?? (typeof labelColor === 'string' ? labelColor : undefined);
+
+        buttonIconStyles.useVariants({
+            variant,
+            // @ts-ignore - state includes 'default' which is valid but not typed
+            state,
+        });
+
+        return (
+            <Icon
+                type={type}
+                name={name}
+                size={iconSizeResolved}
+                color={disabled ? undefined : colorResolved}
+                style={[buttonIconStyles.root, textRelatedStyle, style]}
+                {...rest}
+            />
+        );
+    },
+);
+
+ButtonIcon.displayName = 'Button_Icon';
+
+/**
+ * Button.Text - Renders text within the button
+ */
+export const ButtonText = memo(({ children, style, ...rest }: TextProps) => {
+    const { variant, state, size, textRelatedStyle } = useContext(ButtonContext);
+
+    buttonTextStyles.useVariants({
+        variant,
+        // @ts-ignore - state includes 'default' which is valid but not typed
+        state,
+        // @ts-ignore - size type mismatch
+        size,
+    });
+
+    return (
+        // @ts-ignore - deep type instantiation
+        <Text
+            selectable={false}
+            numberOfLines={1}
+            {...rest}
+            style={[buttonTextStyles.root, textRelatedStyle, style]}>
+            {children}
+        </Text>
+    );
+});
+
+ButtonText.displayName = 'Button_Text';
+
+/**
+ * Button.Loading - Renders a loading indicator within the button
+ */
+export const ButtonActivityIndicator = memo(
+    ({
+        size: sizeProp,
+        color: colorProp,
+        style,
+        ...rest
+    }: Omit<ActivityIndicatorProps, 'animating'>) => {
+        const { iconSize, variant, state } = useContext(ButtonContext);
+
+        const sizeResolved = sizeProp ?? iconSize;
+        // Default to onPrimary for contained variants, primary for others
+        const colorResolved = colorProp ?? (variant === 'contained' ? 'onPrimary' : 'primary');
+
+        buttonActivityIndicatorStyles.useVariants({
+            variant,
+            // @ts-ignore - state includes 'default' which is valid but not typed
+            state,
+        });
+        const activityIndicatorStyle = useMemo(() => {
+            return [buttonActivityIndicatorStyles.root, style] as StyleProp<ViewStyle>;
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [style, variant, state]);
+
+        return (
+            <ActivityIndicator
+                size={sizeResolved}
+                color={colorResolved}
+                style={activityIndicatorStyle}
+                {...rest}
+            />
+        );
+    },
+);
+
+ButtonActivityIndicator.displayName = 'Button_ActivityIndicator';
