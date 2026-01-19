@@ -26,6 +26,7 @@ import { Icon } from 'react-native-molecules/components/Icon';
 import { IconButton } from 'react-native-molecules/components/IconButton';
 import { Link } from 'react-native-molecules/components/Link';
 import { ListItem } from 'react-native-molecules/components/ListItem';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
 import { Menu } from 'react-native-molecules/components/Menu';
 import { Modal } from 'react-native-molecules/components/Modal';
 import { NavigationRail } from 'react-native-molecules/components/NavigationRail';
@@ -111,6 +112,7 @@ export const defaultScope = {
     Tabs,
     TimePickerModal,
     Tooltip,
+    LoadingIndicator,
     PortalProvider,
     createFastContext,
     ShortcutsManager,

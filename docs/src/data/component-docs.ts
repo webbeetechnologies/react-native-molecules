@@ -121,14 +121,31 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'Material 3 button set with text, outlined, contained, tonal, and elevated variants.',
         usage: 'Trigger primary workflows, confirm actions, or launch dialogs across surfaces.',
         highlights: [
+            'Compound component pattern with Button.Text, Button.Icon',
             'State layer + ripple feedback',
-            'Integrated loading indicator and icon slots',
+            'Built-in ActivityIndicator for loading states',
         ],
         whenToUse: [
             'You need accessible CTA with consistent spacing.',
             'Buttons must adapt to tokens via variant system.',
         ],
         related: ['IconButton', 'FAB', 'StateLayer'],
+        subcomponents: [
+            {
+                name: 'Button.Text',
+                description:
+                    'Renders styled text within the button. Automatically applies typography based on button size.',
+            },
+            {
+                name: 'Button.Icon',
+                description: 'Renders an icon. Accepts `name` and `type` props for icon selection.',
+            },
+            {
+                name: 'Button.ActivityIndicator',
+                description:
+                    'Renders a loading spinner. Automatically inherits size and color from button context.',
+            },
+        ],
     }),
     createMeta({
         name: 'Card',
@@ -416,6 +433,23 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'Navigation must respect React Navigation or web anchors.',
         ],
         related: ['Text', 'Button'],
+    }),
+    createMeta({
+        name: 'LoadingIndicator',
+        category: 'Feedback & Status',
+        description:
+            'Material 3 expressive loading indicator with morphing shapes and smooth animations.',
+        usage: 'Display indeterminate progress with engaging visual feedback.',
+        highlights: [
+            'Morphing shape animation with 7 distinct shapes',
+            'Contained variant with background',
+            'Customizable size and color',
+        ],
+        whenToUse: [
+            'You need visually engaging loading feedback for async operations.',
+            'Standard spinner does not convey the premium feel of your app.',
+        ],
+        related: ['ActivityIndicator', 'Button'],
     }),
     createMeta({
         name: 'ListItem',
