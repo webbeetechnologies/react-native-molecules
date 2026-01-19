@@ -16,11 +16,11 @@ import Svg, { Path } from 'react-native-svg';
 import {
     cookie4Path,
     cookie9Path,
-    type LoadingIndicatorProps,
     loadingIndicatorStyles as componentStyles,
     ovalPath,
     pentagonPath,
     pillPath,
+    type Props,
     softBurstPath,
     sunnyPath,
     useProcessProps,
@@ -117,7 +117,7 @@ const LoadingIndicator = ({
     variant = 'default',
     innerContainerProps,
     ...rest
-}: LoadingIndicatorProps) => {
+}: Props) => {
     const [currentPath, setCurrentPath] = useState(frames[0]);
 
     const progress = useSharedValue(0);

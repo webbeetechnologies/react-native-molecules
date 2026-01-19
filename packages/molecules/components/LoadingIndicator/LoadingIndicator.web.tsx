@@ -5,11 +5,11 @@ import {
     cookie4Path,
     cookie9Path,
     expressFastSpatial,
-    type LoadingIndicatorProps,
     loadingIndicatorStyles as componentStyles,
     ovalPath,
     pentagonPath,
     pillPath,
+    type Props,
     softBurstPath,
     sunnyPath,
     useProcessProps,
@@ -26,7 +26,7 @@ const LoadingIndicator = ({
     style,
     variant = 'default',
     innerContainerProps,
-}: LoadingIndicatorProps) => {
+}: Props) => {
     const id = useId();
     componentStyles.useVariants({
         variant: variant as 'contained',

@@ -6,4 +6,8 @@ export const LoadingIndicator = getRegisteredComponentWithFallback(
     LoadingIndicatorDefault,
 );
 
-export { loadingIndicatorStyles, loadingIndicatorStylesDefault } from './utils';
+export {
+    type LoadingIndicatorProps,
+    loadingIndicatorStyles,
+    loadingIndicatorStylesDefault,
+} from './utils';
