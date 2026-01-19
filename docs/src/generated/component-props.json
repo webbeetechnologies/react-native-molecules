@@ -48,33 +48,26 @@
         "name": "animating",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "color",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
+        "description": "Whether to show the indicator or hide it.",
         "defaultValue": null
       },
       {
         "name": "hidesWhenStopped",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether the indicator should hide when not animating.",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "number | \"small\" | \"large\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "The color of the spinner.\ncolor?: string;\n/**\nSize of the indicator.",
         "defaultValue": null
       },
       {
-        "name": "style",
-        "type": "((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | null) & ViewStyle) | undefined",
+        "name": "color",
+        "type": "string | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -101,7 +94,7 @@
         "name": "iconName",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Will be used as fallback if source is nullish or image doesn't load",
         "defaultValue": null
       },
       {
@@ -122,7 +115,7 @@
         "name": "label",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Will be used as fallback if link and iconName aren't passed",
         "defaultValue": null
       },
       {
@@ -143,14 +136,14 @@
         "name": "color",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Color of the Avatar\nWill not be visible if there's an image unless the image has transparency\nCan be color string or token",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "string | number | undefined",
         "optional": true,
-        "description": "",
+        "description": "Size of the Avatar\nCan be a number of a token",
         "defaultValue": null
       }
     ]
@@ -194,29 +187,29 @@
       {
         "name": "children",
         "type": "ReactNode",
-        "optional": false,
-        "description": "",
+        "optional": true,
+        "description": "Content of the button. Use Button.Icon and Button.Text compound components.",
         "defaultValue": null
       },
       {
         "name": "testID",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "testID to be used on tests.",
         "defaultValue": null
       },
       {
         "name": "accessibilityLabel",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Accessibility label for the button. This is read by the screen reader when the user taps the button.",
         "defaultValue": null
       },
       {
         "name": "accessibilityHint",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Accessibility hint for the button. This is read by the screen reader when the user taps the button.",
         "defaultValue": null
       },
       {
@@ -230,109 +223,25 @@
         "name": "variant",
         "type": "ButtonVariant | undefined",
         "optional": true,
-        "description": "",
+        "description": "Mode of the button. You can change the mode to adjust the styling to give it desired emphasis.\n- `text` - flat button without background or outline, used for the lowest priority actions, especially when presenting multiple options.\n- `outlined` - button with an outline without background, typically used for important, but not primary action – represents medium emphasis.\n- `contained` - button with a background color, used for important action, have the most visual impact and high emphasis.\n- `elevated` - button with a background color and elevation, used when absolutely necessary e.g. button requires visual separation from a patterned background.",
         "defaultValue": null
       },
       {
-        "name": "buttonColor",
-        "type": "string | undefined",
+        "name": "shape",
+        "type": "ButtonShape | undefined",
         "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "loading",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "iconType",
-        "type": "\"material-community\" | \"feather\" | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "iconName",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "iconSize",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
+        "description": "Shape of the button.\n- `rounded` - fully rounded corners (default)\n- `square` - square corners with medium border radius",
         "defaultValue": null
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPress",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPressIn",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPressOut",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onLongPress",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "contentStyle",
-        "type": "StyleProp<ViewStyle>",
-        "optional": true,
-        "description": "",
+        "description": "Whether the button is disabled. A disabled button is greyed out and `onPress` is not called on touch.",
         "defaultValue": null
       },
       {
         "name": "style",
-        "type": "StyleProp<TextStyle>",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "labelStyle",
-        "type": "TextStyle | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "iconContainerStyle",
-        "type": "StyleProp<ViewStyle>",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "iconStyle",
         "type": "StyleProp<TextStyle>",
         "optional": true,
         "description": "",
@@ -349,12 +258,19 @@
         "name": "stateLayerProps",
         "type": "ViewProps | undefined",
         "optional": true,
-        "description": "",
+        "description": "props for the stateLayer",
         "defaultValue": null
       },
       {
         "name": "textRelatedStyle",
         "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabledPress",
+        "type": "boolean | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -1277,42 +1193,42 @@
         "name": "accessibilityLabel",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Accessibility label for the chip. This is read by the screen reader when the user taps the chip.",
         "defaultValue": null
       },
       {
         "name": "onPress",
         "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Function to execute on press.",
         "defaultValue": null
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether the chip is disabled. A disabled chip is greyed out and `onPress` is not called on touch.",
         "defaultValue": null
       },
       {
         "name": "label",
         "type": "string",
         "optional": false,
-        "description": "",
+        "description": "label of the chip\nWill be truncated if it's longer than 20 characters",
         "defaultValue": null
       },
       {
         "name": "labelCharacterLimit",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "character limit of the label",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"outlined\" | \"elevated\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "Variant of the chip.\n- `elevated` - elevated chip with shadow and without outline.\n- `outlined` - chip with an outline. (outline will always have elevation 0 even if it's specified)",
         "defaultValue": null
       },
       {
@@ -1326,84 +1242,84 @@
         "name": "onClose",
         "type": "(() => void) | undefined",
         "optional": true,
-        "description": "",
+        "description": "callback event when the closeIcon is pressed",
         "defaultValue": null
       },
       {
         "name": "elevation",
         "type": "MD3Elevation | undefined",
         "optional": true,
-        "description": "",
+        "description": "elevation level of the elevated chip",
         "defaultValue": null
       },
       {
         "name": "selected",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "selected state",
         "defaultValue": null
       },
       {
         "name": "closeIconProps",
         "type": "Partial<IconButtonProps> | undefined",
         "optional": true,
-        "description": "",
+        "description": "props for the close icon\ndefault is { name: 'close', onPress: onClose, disabled, accessibilityLabel: 'Close' }",
         "defaultValue": null
       },
       {
         "name": "activityIndicatorProps",
         "type": "Partial<ActivityIndicatorProps> | undefined",
         "optional": true,
-        "description": "",
+        "description": "props for the ActivityIndicator\ndefault is { size: 18 }",
         "defaultValue": null
       },
       {
         "name": "selectedColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to style the chip color as selected.",
         "defaultValue": null
       },
       {
         "name": "selectionBackgroundColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to display overlay on selected chip",
         "defaultValue": null
       },
       {
         "name": "loading",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to show the ActivityIndicator or not",
         "defaultValue": null
       },
       {
         "name": "leftElementContainerStyle",
         "type": "ViewStyle | undefined",
         "optional": true,
-        "description": "",
+        "description": "left element container style",
         "defaultValue": null
       },
       {
         "name": "rightElementContainerStyle",
         "type": "ViewStyle | undefined",
         "optional": true,
-        "description": "",
+        "description": "right element container style",
         "defaultValue": null
       },
       {
         "name": "labelStyle",
         "type": "Partial<TextStyle> | undefined",
         "optional": true,
-        "description": "",
+        "description": "label style",
         "defaultValue": null
       },
       {
         "name": "stateLayerProps",
         "type": "ViewProps | undefined",
         "optional": true,
-        "description": "",
+        "description": "Pass down testID from chip props to touchable for Detox tests.",
         "defaultValue": null
       },
       {
@@ -1547,7 +1463,7 @@
         "name": "children",
         "type": "ReactNode",
         "optional": false,
-        "description": "",
+        "description": "Content of the `Dialog`.",
         "defaultValue": null
       },
       {
@@ -1561,14 +1477,14 @@
         "name": "isOpen",
         "type": "boolean",
         "optional": false,
-        "description": "",
+        "description": "Determines Whether the dialog is visible.",
         "defaultValue": null
       },
       {
         "name": "onClose",
         "type": "((() => void) & (() => void)) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Callback that is called when the user dismisses the dialog.",
         "defaultValue": null
       },
       {
@@ -1628,77 +1544,77 @@
         "name": "iconName",
         "type": "string",
         "optional": false,
-        "description": "",
+        "description": "name of the icon",
         "defaultValue": null
       },
       {
         "name": "iconType",
         "type": "\"material-community\" | \"feather\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "type of the icon",
         "defaultValue": null
       },
       {
         "name": "iconProps",
         "type": "Omit<IconProps, \"ref\" | \"name\" | \"type\"> | undefined",
         "optional": true,
-        "description": "",
+        "description": "icon component's props",
         "defaultValue": null
       },
       {
         "name": "label",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Label of the FAB, if provided the FAB will be on extended mode",
         "defaultValue": null
       },
       {
         "name": "labelProps",
         "type": "Omit<Partial<TextProps>, \"children\"> | undefined",
         "optional": true,
-        "description": "",
+        "description": "Props of the label",
         "defaultValue": null
       },
       {
         "name": "containerProps",
         "type": "Omit<SurfaceProps, \"ref\" | \"style\"> | undefined",
         "optional": true,
-        "description": "",
+        "description": "Props for the surface container",
         "defaultValue": null
       },
       {
         "name": "innerContainerStyle",
         "type": "ViewStyle | undefined",
         "optional": true,
-        "description": "",
+        "description": "Props for the innner touchable container",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "\"sm\" | \"md\" | \"lg\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "sizes of the FAB",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "FABVariant | undefined",
         "optional": true,
-        "description": "",
+        "description": "variants of the FAB",
         "defaultValue": null
       },
       {
         "name": "elevation",
         "type": "MD3Elevation | undefined",
         "optional": true,
-        "description": "",
+        "description": "Elevation level",
         "defaultValue": null
       },
       {
         "name": "stateLayerProps",
         "type": "ViewProps | undefined",
         "optional": true,
-        "description": "",
+        "description": "Props for the state layer",
         "defaultValue": null
       }
     ]
@@ -1711,21 +1627,21 @@
         "name": "onChange",
         "type": "(((e: TextInputChangeEvent) => void) & ((result: DocumentResult | DocumentResult[]) => any)) | undefined",
         "optional": true,
-        "description": "",
+        "description": "The Callback function to return the selected files as an array or object",
         "defaultValue": null
       },
       {
         "name": "multiple",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Allows multiple files to be selected from the system UI.",
         "defaultValue": null
       },
       {
         "name": "loading",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Displays the Spinner on the right side in place of the default upload icon",
         "defaultValue": null
       },
       {
@@ -1746,14 +1662,14 @@
         "name": "value",
         "type": "DocumentResult | DocumentResult[] | undefined",
         "optional": true,
-        "description": "",
+        "description": "To Control the value",
         "defaultValue": null
       },
       {
         "name": "progressIndicator",
         "type": "ReactNode",
         "optional": true,
-        "description": "",
+        "description": "To replace the default progress indicator",
         "defaultValue": null
       }
     ]
@@ -1766,7 +1682,7 @@
         "name": "children",
         "type": "ReactNode",
         "optional": false,
-        "description": "",
+        "description": "Text content of the HelperText.",
         "defaultValue": null
       },
       {
@@ -1780,21 +1696,21 @@
         "name": "testID",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "TestID used for testing purposes",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"error\" | \"info\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "Type of the helper text.",
         "defaultValue": null
       },
       {
         "name": "visible",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to display the helper text.",
         "defaultValue": null
       }
     ]
@@ -1814,28 +1730,28 @@
         "name": "leftInset",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "left inset of the divider.",
         "defaultValue": null
       },
       {
         "name": "rightInset",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "right inset of the divider.",
         "defaultValue": null
       },
       {
         "name": "bold",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether divider should be bolded.",
         "defaultValue": null
       },
       {
         "name": "spacing",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "Vertical spacing of the Divider",
         "defaultValue": null
       }
     ]
@@ -1853,70 +1769,70 @@
         "name": "accessibilityLabel",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Accessibility label for the button. This is read by the screen reader when the user taps the button.",
         "defaultValue": null
       },
       {
         "name": "onPress",
         "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Function to execute on press.",
         "defaultValue": null
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether the button is disabled. A disabled button is greyed out and `onPress` is not called on touch.",
         "defaultValue": null
       },
       {
         "name": "name",
         "type": "string",
         "optional": false,
-        "description": "",
+        "description": "Icon to display.",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "IconButtonVariant | undefined",
         "optional": true,
-        "description": "",
+        "description": "Mode of the icon button. By default there is no specified mode - only pressable icon will be rendered.",
         "defaultValue": null
       },
       {
         "name": "selected",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether icon button is selected. A selected button receives alternative combination of icon and container colors.",
         "defaultValue": null
       },
       {
         "name": "size",
-        "type": "number | \"sm\" | \"md\" | \"lg\" | \"xs\" | undefined",
+        "type": "number | \"sm\" | \"md\" | \"xs\" | \"lg\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "Size of the icon.",
         "defaultValue": null
       },
       {
         "name": "type",
         "type": "\"material-community\" | \"feather\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "Type of the icon. Default is material\nShould be a number or a Design Token",
         "defaultValue": null
       },
       {
         "name": "animated",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether an icon change is animated.",
         "defaultValue": null
       },
       {
         "name": "style",
         "type": "StyleProp<TextStyle>",
         "optional": true,
-        "description": "",
+        "description": "backgroundColor and color will be extracted from here and act as buttonBackgroundColor and iconColor",
         "defaultValue": null
       },
       {
@@ -1928,7 +1844,7 @@
       },
       {
         "name": "iconProps",
-        "type": "Omit<IconProps, \"style\" | \"name\" | \"type\" | \"size\" | \"color\"> | undefined",
+        "type": "Omit<IconProps, \"style\" | \"color\" | \"size\" | \"name\" | \"type\"> | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -1937,14 +1853,14 @@
         "name": "color",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "color of the icon",
         "defaultValue": null
       },
       {
         "name": "stateLayerProps",
         "type": "ViewProps | undefined",
         "optional": true,
-        "description": "",
+        "description": "Props for the state layer",
         "defaultValue": null
       }
     ]
@@ -1995,7 +1911,7 @@
         "name": "style",
         "type": "(((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) | null | undefined",
         "optional": true,
-        "description": "",
+        "description": "Style that is passed to the wrapping TouchableRipple element.",
         "defaultValue": null
       },
       {
@@ -2009,35 +1925,76 @@
         "name": "children",
         "type": "ReactNode",
         "optional": false,
-        "description": "",
+        "description": "Description text for the list item or callback which returns a React element to display the description.",
         "defaultValue": null
       },
       {
         "name": "divider",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether the divider shows or not.",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"default\" | \"menuItem\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "variant of the ListItem",
         "defaultValue": null
       },
       {
         "name": "selected",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether the ListItem is selected or not",
         "defaultValue": null
       },
       {
         "name": "hoverable",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether the ListItem is hoverable or not",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "LoadingIndicator",
+    "sourcePath": "react-native-molecules/components/LoadingIndicator",
+    "props": [
+      {
+        "name": "animating",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "Whether the indicator is animating. When false, the indicator is hidden.",
+        "defaultValue": null
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "Color of the indicator. Accepts theme color tokens (e.g., 'primary', 'secondary', 'error') or CSS color values.",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "number | \"sm\" | \"md\" | undefined",
+        "optional": true,
+        "description": "Size of the indicator. 'sm' = 24px, 'md' = 38px, or a custom number.",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "\"contained\" | \"default\" | undefined",
+        "optional": true,
+        "description": "Visual variant. 'contained' adds a circular background using primaryContainer color.",
+        "defaultValue": null
+      },
+      {
+        "name": "innerContainerProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
+        "description": "Props passed to the inner animated container.",
         "defaultValue": null
       }
     ]
@@ -2084,70 +2041,70 @@
         "name": "children",
         "type": "ReactNode",
         "optional": false,
-        "description": "",
+        "description": "Content of the `Modal`.",
         "defaultValue": null
       },
       {
         "name": "style",
         "type": "StyleProp<ViewStyle>",
         "optional": true,
-        "description": "",
+        "description": "Style for the wrapper of the modal.\nUse this prop to change the default wrapper style or to override safe area insets with marginTop and marginBottom.",
         "defaultValue": null
       },
       {
         "name": "testID",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "testID to be used on tests.",
         "defaultValue": null
       },
       {
         "name": "dismissible",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Determines whether clicking outside the modal dismiss it.",
         "defaultValue": null
       },
       {
         "name": "overlayAccessibilityLabel",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Accessibility label for the overlay. This is read by the screen reader when the user taps outside the modal.",
         "defaultValue": null
       },
       {
         "name": "elevation",
         "type": "MD3Elevation | undefined",
         "optional": true,
-        "description": "",
+        "description": "content elevation",
         "defaultValue": null
       },
       {
         "name": "isOpen",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "to determine whether the modal is visible or not",
         "defaultValue": null
       },
       {
         "name": "onClose",
         "type": "(() => void) | undefined",
         "optional": true,
-        "description": "",
+        "description": "onClose function will be trigger when the modal is dismissed",
         "defaultValue": null
       },
       {
         "name": "contentContainerStyle",
         "type": "StyleProp<ViewStyle>",
         "optional": true,
-        "description": "",
+        "description": "Style for the content of the modal",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "\"md\" | \"lg\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "Size of the modal\nmd - width and height - auto\nlg - maxWidth:600, maxHeight:800",
         "defaultValue": null
       },
       {
@@ -2217,49 +2174,49 @@
         "name": "value",
         "type": "string",
         "optional": false,
-        "description": "",
+        "description": "Value of the radio button",
         "defaultValue": null
       },
       {
         "name": "status",
         "type": "\"checked\" | \"unchecked\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "Status of radio button.",
         "defaultValue": null
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether radio is disabled.",
         "defaultValue": null
       },
       {
         "name": "onPress",
         "type": "(() => void) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Function to execute on press.",
         "defaultValue": null
       },
       {
         "name": "uncheckedColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Custom color for unchecked radio.",
         "defaultValue": null
       },
       {
         "name": "color",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Custom color for radio.",
         "defaultValue": null
       },
       {
         "name": "testID",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "testID to be used on tests.",
         "defaultValue": null
       }
     ]
@@ -2272,119 +2229,119 @@
         "name": "count",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "rating count",
         "defaultValue": null
       },
       {
         "name": "value",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "The rating value.",
         "defaultValue": null
       },
       {
         "name": "defaultValue",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "The default value for the uncontrolled state",
         "defaultValue": null
       },
       {
         "name": "onChange",
         "type": "((value: number) => void) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Callback function that is fired when the hover state changes.",
         "defaultValue": null
       },
       {
         "name": "readonly",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Removes all hover effects and pointer events.",
         "defaultValue": null
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "If `true`, the component is disabled",
         "defaultValue": null
       },
       {
         "name": "iconName",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "name of the empty icon",
         "defaultValue": null
       },
       {
         "name": "iconType",
         "type": "\"material-community\" | \"feather\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "the type of the empty icon",
         "defaultValue": null
       },
       {
         "name": "activeIconName",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "name of the active icon",
         "defaultValue": null
       },
       {
         "name": "activeIconType",
         "type": "\"material-community\" | \"feather\" | undefined",
         "optional": true,
-        "description": "",
+        "description": "type of the active icon",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "size of all the icons",
         "defaultValue": null
       },
       {
         "name": "color",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "color of the empty icon",
         "defaultValue": null
       },
       {
         "name": "activeColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "color of the active icon",
         "defaultValue": null
       },
       {
         "name": "iconContainerStyle",
         "type": "ViewStyle | undefined",
         "optional": true,
-        "description": "",
+        "description": "style of the icon container component",
         "defaultValue": null
       },
       {
         "name": "iconProps",
-        "type": "Omit<IconProps, \"ref\" | \"name\" | \"type\" | \"color\"> | undefined",
+        "type": "Omit<IconProps, \"ref\" | \"color\" | \"name\" | \"type\"> | undefined",
         "optional": true,
-        "description": "",
+        "description": "props for to pass down to all the icons",
         "defaultValue": null
       },
       {
         "name": "showTooltips",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "display tooltips",
         "defaultValue": null
       },
       {
         "name": "tooltipProps",
         "type": "TooltipProps | undefined",
         "optional": true,
-        "description": "",
+        "description": "for configuring tooltip\nwon't be used if showTooltips is false",
         "defaultValue": null
       }
     ]
@@ -3043,7 +3000,7 @@
         "name": "children",
         "type": "ReactNode",
         "optional": false,
-        "description": "",
+        "description": "Content of the `Surface`.",
         "defaultValue": null
       },
       {
@@ -3057,7 +3014,7 @@
         "name": "testID",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "TestID used for testing purposes",
         "defaultValue": null
       },
       {
@@ -3078,7 +3035,7 @@
         "name": "asChild",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "When `true`, the component will not render a wrapper element. Instead, it will\nmerge its props (styles, elevation shadow, ref) onto its immediate child element.\nThis follows the Radix UI \"Slot\" pattern for flexible component composition.",
         "defaultValue": null
       }
     ]
@@ -3170,56 +3127,56 @@
         "name": "style",
         "type": "StyleProp<TextStyle>",
         "optional": true,
-        "description": "",
+        "description": "Pass `fontSize` prop to modify the font size inside `TextInput`.\nPass `height` prop to set `TextInput` height.\nPass `backgroundColor` prop to set `TextInput` backgroundColor.",
         "defaultValue": null
       },
       {
         "name": "testID",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "testID to be used on tests.",
         "defaultValue": null
       },
       {
         "name": "numberOfLines",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "The number of lines to show in the input (Android only).",
         "defaultValue": null
       },
       {
         "name": "selectionColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Selection color of the input",
         "defaultValue": null
       },
       {
         "name": "multiline",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether the input can have multiple lines.",
         "defaultValue": null
       },
       {
         "name": "onChangeText",
         "type": "(((text: string) => void) & Function) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Callback that is called when the text input's text changes. Changed text is passed as an argument to the callback handler.",
         "defaultValue": null
       },
       {
         "name": "placeholder",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Placeholder for the input.",
         "defaultValue": null
       },
       {
         "name": "value",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Value of the text input.",
         "defaultValue": null
       },
       {
@@ -3233,119 +3190,119 @@
         "name": "variant",
         "type": "TextInputVariant | undefined",
         "optional": true,
-        "description": "",
+        "description": "Variant of the TextInput.\n- `flat` - flat input with an underline.\n- `outlined` - input with an outline.\n\nIn `outlined` variant, the background color of the label is derived from `colors?.background` in theme or the `backgroundColor` style.\nThis component render TextInputOutlined or TextInputFlat based on that props",
         "defaultValue": null
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "If true, user won't be able to interact with the component.",
         "defaultValue": null
       },
       {
         "name": "label",
         "type": "TextInputLabelProp | undefined",
         "optional": true,
-        "description": "",
+        "description": "The text or component to use for the floating label.",
         "defaultValue": null
       },
       {
         "name": "error",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to style the TextInput with error style.",
         "defaultValue": null
       },
       {
         "name": "underlineColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Inactive underline color of the input.",
         "defaultValue": null
       },
       {
         "name": "activeUnderlineColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Active underline color of the input.",
         "defaultValue": null
       },
       {
         "name": "outlineColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Inactive outline color of the input.",
         "defaultValue": null
       },
       {
         "name": "activeOutlineColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Active outline color of the input.",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "TextInputSize | undefined",
         "optional": true,
-        "description": "",
+        "description": "Sets min height with densed layout. For `TextInput` in `flat` mode\nheight is `64dp` or in dense layout - `52dp` with label or `40dp` without label.\nFor `TextInput` in `outlined` mode\nheight is `56dp` or in dense layout - `40dp` regardless of label.\nWhen you apply `height` prop in style the `dense` prop affects only `paddingVertical` inside `TextInput`",
         "defaultValue": null
       },
       {
         "name": "supportingText",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "The Supporting Text below the TextInput",
         "defaultValue": null
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "To display the required indicator in Supporting Text and in the Label",
         "defaultValue": null
       },
       {
         "name": "render",
         "type": "((props: RenderProps) => ReactNode) | undefined",
         "optional": true,
-        "description": "",
+        "description": "\nCallback to render a custom input component such as `react-native-text-input-mask`\ninstead of the default `TextInput` component from `react-native`.\n\nExample:\n```js\n<TextInput\n  label=\"Phone number\"\n  render={props =>\n    <TextInputMask\n      {...props}\n      mask=\"+[00] [000] [000] [000]\"\n    />\n  }\n/>\n```",
         "defaultValue": null
       },
       {
         "name": "inputContainerStyle",
         "type": "StyleProp<ViewStyle>",
         "optional": true,
-        "description": "",
+        "description": "Style of the Input Container",
         "defaultValue": null
       },
       {
         "name": "inputStyle",
         "type": "StyleProp<TextStyle>",
         "optional": true,
-        "description": "",
+        "description": "Style of the Input",
         "defaultValue": null
       },
       {
         "name": "rightElementStyle",
         "type": "StyleProp<TextStyle>",
         "optional": true,
-        "description": "",
+        "description": "Style of the rightElement",
         "defaultValue": null
       },
       {
         "name": "leftElementStyle",
         "type": "StyleProp<TextStyle>",
         "optional": true,
-        "description": "",
+        "description": "Style of the leftElement",
         "defaultValue": null
       },
       {
         "name": "stateLayerProps",
         "type": "ViewProps | undefined",
         "optional": true,
-        "description": "",
+        "description": "props for the stateLayer",
         "defaultValue": null
       }
     ]
@@ -3363,7 +3320,7 @@
         "name": "time",
         "type": "string",
         "optional": false,
-        "description": "",
+        "description": "hh:mm format",
         "defaultValue": null
       },
       {
@@ -3597,28 +3554,28 @@
         "name": "onPress",
         "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Function to execute on press. If not set, will cause the touchable to be disabled.",
         "defaultValue": null
       },
       {
         "name": "onLongPress",
         "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
         "optional": true,
-        "description": "",
+        "description": "Function to execute on long press.",
         "defaultValue": null
       },
       {
         "name": "children",
         "type": "((string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | ((state: PressableStateCallbackType) => React.ReactNode)) & (string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined>)) | null | undefined",
         "optional": true,
-        "description": "",
+        "description": "Content of the `TouchableRipple`.",
         "defaultValue": null
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to prevent interaction with the touchable.",
         "defaultValue": null
       },
       {
@@ -3632,42 +3589,42 @@
         "name": "borderless",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to render the ripple outside the view bounds.",
         "defaultValue": null
       },
       {
         "name": "background",
         "type": "Object | undefined",
         "optional": true,
-        "description": "",
+        "description": "Type of background drawabale to display the feedback (Android).\nhttps://reactnative.dev/docs/touchablenativefeedback#background",
         "defaultValue": null
       },
       {
         "name": "centered",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether to start the ripple at the center (Web).",
         "defaultValue": null
       },
       {
         "name": "rippleColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Color of the ripple effect (Android >= 5.0 and Web).",
         "defaultValue": null
       },
       {
         "name": "underlayColor",
         "type": "string | undefined",
         "optional": true,
-        "description": "",
+        "description": "Color of the underlay for the highlight effect (Android < 5.0 and iOS).",
         "defaultValue": null
       },
       {
         "name": "asChild",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "When `true`, the component will not render a wrapper element. Instead, it will\nmerge its props (styles, event handlers, ref) onto its immediate child element.\nThis follows the Radix UI \"Slot\" pattern for flexible component composition.",
         "defaultValue": null
       }
     ]
@@ -3680,28 +3637,28 @@
         "name": "topInset",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "Top Inset of the Divider.",
         "defaultValue": null
       },
       {
         "name": "bottomInset",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "Bottom Inset of the Divider.",
         "defaultValue": null
       },
       {
         "name": "bold",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "",
+        "description": "Whether divider should be bolded.",
         "defaultValue": null
       },
       {
         "name": "spacing",
         "type": "number | undefined",
         "optional": true,
-        "description": "",
+        "description": "Horizontal spacing of the Divider",
         "defaultValue": null
       }
     ]

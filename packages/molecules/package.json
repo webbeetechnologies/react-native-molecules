@@ -1,6 +1,6 @@
 {
     "name": "react-native-molecules",
-    "version": "0.5.0-beta.5",
+    "version": "0.5.0-beta.8",
     "author": "Thet Aung <thetaung.dev@gmail.com>",
     "license": "MIT",
     "main": "index.ts",
@@ -42,21 +42,28 @@
     },
     "dependencies": {
         "@gorhom/portal": "^1.0.14",
+        "@radix-ui/react-compose-refs": "^1.1.2",
         "@react-native-vector-icons/feather": "^12.4.0",
         "@react-native-vector-icons/material-design-icons": "^12.4.0",
         "color": "^4.2.3",
         "date-fns": "^4.1.0",
         "eventemitter2": "^6.4.9",
+        "flubber": "^0.4.2",
         "use-sync-external-store": "^1.2.0"
     },
     "peerDependencies": {
         "@react-native-documents/picker": "^10.1.2",
         "react": "19.1.0",
         "react-native": "0.81.4",
+        "react-native-svg": ">=12.1.0",
         "react-native-unistyles": "^3.0.15",
-        "react-native-web": "~0.21.1"
+        "react-native-web": "~0.21.1",
+        "react-native-reanimated": ">=4.0.0",
+        "react-native-redash": ">=18.0.0"
     },
     "devDependencies": {
+        "@types/flubber": "^0.4.0",
+        "react-native-svg": "^15.10.1",
         "@react-native-documents/picker": "^10.1.2",
         "@types/color": "^3.0.3",
         "@types/jest": "^29.1.2",
@@ -65,6 +72,7 @@
         "react": "19.1.0",
         "react-native": "0.81.4",
         "react-native-builder-bob": "^0.17.1",
+        "react-native-reanimated": "~4.1.1",
         "react-native-unistyles": "^3.0.15",
         "react-native-web": "~0.21.1"
     },

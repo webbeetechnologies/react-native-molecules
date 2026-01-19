@@ -1,7 +1,13 @@
 import { getRegisteredComponentWithFallback } from '../../core';
-import ButtonDefault from './Button';
+import ButtonDefault, { ButtonActivityIndicator, ButtonIcon, ButtonText } from './Button';
 
-export const Button = getRegisteredComponentWithFallback('Button', ButtonDefault);
+const ButtonBase = getRegisteredComponentWithFallback('Button', ButtonDefault);
+
+export const Button = Object.assign(ButtonBase, {
+    Icon: ButtonIcon,
+    Text: ButtonText,
+    ActivityIndicator: ButtonActivityIndicator,
+});
 
 export type { Props as ButtonProps } from './Button';
-export { defaultStyles } from './utils';
+export { buttonIconStyles, buttonStyles, buttonTextStyles } from './utils';

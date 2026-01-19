@@ -2,6 +2,7 @@ import { Switch } from 'react-native-molecules/components/Switch';
 import { useState } from 'react';
 import {
     Pressable,
+    ScrollView,
     // Button,
     // Platform,
     // ScrollView,
@@ -16,6 +17,7 @@ import { TouchableRipple } from 'react-native-molecules/components/TouchableRipp
 import { Button } from 'react-native-molecules/components/Button';
 // import { TextInput } from 'react-native-molecules/components/TextInput';
 import { getWebProps } from 'react-native-unistyles/web';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
 
 const Link = ({ style, ...rest }) => {
     const { ref, className } = getWebProps(style);
@@ -38,6 +40,7 @@ export default function Index() {
     // const [displayedComponents, setDisplayedComponents] = useState('date');
     const [multiSelectValue, setMultiSelectValue] = useState<string[]>(['1', '2', '3']);
     // console.log('multiSelectValue', multiSelectValue);
+    const [isLoading, setIsLoading] = useState(false);
 
     const singleSelectOptions = [
         { id: '1', label: 'Option 1' },
@@ -60,7 +63,9 @@ export default function Index() {
 
     return (
         <>
-            <View style={styles.container}>
+            <ScrollView style={styles.container} contentContainerStyle={{ gap: 20 }}>
+                <LoadingIndicator />
+                <LoadingIndicator variant="contained" />
                 <Switch />
                 <TouchableRipple asChild onPress={() => console.log('Pressed')} testID="test-id">
                     <Link href="/##">Home</Link>
@@ -68,6 +73,78 @@ export default function Index() {
                 <Button onPress={() => console.log('Pressed')} variant="elevated" elevation={5}>
                     Home
                 </Button>
+
+                {/* New Button API Examples */}
+                <Text style={{ fontWeight: 'bold', marginTop: 10 }}>
+                    Button with Text compound:
+                </Text>
+                <Button variant="contained" onPress={() => console.log('Submit')}>
+                    <Button.Text>Submit</Button.Text>
+                </Button>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Shape variants:</Text>
+                <View style={{ flexDirection: 'row', gap: 10 }}>
+                    <Button variant="contained" shape="rounded">
+                        <Button.Text>Rounded</Button.Text>
+                    </Button>
+                    <Button variant="contained" shape="square" size="xs">
+                        <Button.Text>Square xs</Button.Text>
+                    </Button>
+                    <Button variant="contained" shape="square" size="sm">
+                        <Button.Text>Square sm</Button.Text>
+                    </Button>
+                    <Button variant="contained" shape="square" size="md">
+                        <Button.Text>Square md</Button.Text>
+                    </Button>
+                    <Button variant="contained" shape="square" size="lg">
+                        <Button.Text>Square lg</Button.Text>
+                    </Button>
+                    <Button variant="contained" shape="square" size="xl">
+                        <Button.Text>Square xl</Button.Text>
+                    </Button>
+                </View>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Icon before text:</Text>
+                <Button
+                    loading={isLoading}
+                    variant="contained"
+                    onPress={() => {
+                        setIsLoading(true);
+                        setTimeout(() => {
+                            setIsLoading(false);
+                        }, 5000);
+                    }}>
+                    <Button.Icon name="plus" type="material-community" />
+                    <Button.Text>Add Item</Button.Text>
+                </Button>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Icon after text:</Text>
+                <Button variant="outlined" onPress={() => console.log('Next')}>
+                    <Button.Text>Next</Button.Text>
+                    <Button.Icon name="chevron-right" type="material-community" />
+                </Button>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Icons on both sides:</Text>
+                <Button variant="elevated" onPress={() => console.log('Profile')}>
+                    <Button.Icon name="account" type="material-community" />
+                    <Button.Text>Profile</Button.Text>
+                    <Button.Icon name="chevron-right" type="material-community" />
+                </Button>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 10 }}>
+                    Loading state (only spinner):
+                </Text>
+                <Button variant="contained" disabledPress>
+                    <Button.ActivityIndicator />
+                    <Button.Text>Submit</Button.Text>
+                </Button>
+                <Button variant="contained" disabledPress>
+                    <Button.ActivityIndicator />
+                </Button>
+                <Button variant="contained" disabled>
+                    <Button.ActivityIndicator />
+                </Button>
+
                 <Select options={singleSelectOptions}>
                     <Select.Trigger>
                         <Select.Value placeholder="Select an option" />
@@ -135,22 +212,20 @@ export default function Index() {
                 {/* <RNSwitch value={isOn} onValueChange={setIsOn} /> */}
                 {/* <Switch size={80} /> */}
                 {/* <ActivityIndicator size={100} color="red" style={styles.activityIndicator} /> */}
-            </View>
+            </ScrollView>
         </>
     );
 }
 
-const styles = StyleSheet.create(theme => ({
+const styles = StyleSheet.create((theme, rt) => ({
     activityIndicator: {
         marginTop: theme.spacings['20'],
     },
     container: {
-        flex: 1,
         gap: 20,
         padding: 20,
         backgroundColor: theme.colors.surface,
-        _web: {
-            minHeight: '100vh',
-        },
+        height: rt.screen.height,
+        _web: {},
     },
 }));

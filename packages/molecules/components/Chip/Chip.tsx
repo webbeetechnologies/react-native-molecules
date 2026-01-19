@@ -350,7 +350,7 @@ const RightElement = memo(
                 {onClose ? (
                     <IconButtonWithContrastColor
                         name="close"
-                        size={18}
+                        size={14}
                         accessibilityLabel="Close"
                         disabled={disabled}
                         onPress={onClose}

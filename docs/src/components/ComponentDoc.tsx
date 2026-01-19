@@ -87,6 +87,35 @@ export default function ComponentDoc({ name }: Props) {
                     </div>
                 </div>
             ) : null}
+
+            {meta.subcomponents?.length ? (
+                <div className="component-doc__subcomponents">
+                    <h3>Compound Components</h3>
+                    <table className="component-doc__subcomponents-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {meta.subcomponents.map(item => {
+                                const componentName = typeof item === 'string' ? item : item.name;
+                                const description =
+                                    typeof item === 'string' ? '-' : item.description || '-';
+                                return (
+                                    <tr key={componentName}>
+                                        <td>
+                                            <code>{componentName}</code>
+                                        </td>
+                                        <td>{description}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            ) : null}
         </div>
     );
 }

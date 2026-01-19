@@ -1,6 +1,6 @@
 ---
-title: "Button"
-description: "Material 3 button set with text, outlined, contained, tonal, and elevated variants."
+title: 'Button'
+description: 'Material 3 button set with text, outlined, contained, tonal, and elevated variants.'
 sidebar_position: 7
 ---
 
@@ -12,81 +12,208 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 
 ## Examples
 
-### Text Button
+### Basic Usage with Button.Text
+
+Use `Button.Text` compound component to render text within the button.
 
 <LiveCodeExample
     center
     code={`import { Button } from 'react-native-molecules/components/Button';
 
 export default function Example() {
+    return (
+        <Button variant="contained" onPress={() => console.log('Pressed')}>
+            <Button.Text>Submit</Button.Text>
+        </Button>
+    );
+}`}
+/>
+
+### Button Variants
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <View style={{ gap: 8, alignItems: 'center' }}>
+            <Button variant="text">
+                <Button.Text>Text Button</Button.Text>
+            </Button>
+            <Button variant="outlined">
+                <Button.Text>Outlined Button</Button.Text>
+            </Button>
+            <Button variant="contained">
+                <Button.Text>Contained Button</Button.Text>
+            </Button>
+            <Button variant="contained-tonal">
+                <Button.Text>Tonal Button</Button.Text>
+            </Button>
+            <Button variant="elevated">
+                <Button.Text>Elevated Button</Button.Text>
+            </Button>
+        </View>
+    );
+}`}
+/>
+
+### With Icon
+
+Use `Button.Icon` to add icons before or after text.
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <View style={{ gap: 8, alignItems: 'center' }}>
+            {/* Icon before text */}
+            <Button variant="contained">
+                <Button.Icon name="plus" type="material-community" />
+                <Button.Text>Add Item</Button.Text>
+            </Button>
+            
+            {/* Icon after text */}
+            <Button variant="outlined">
+                <Button.Text>Next</Button.Text>
+                <Button.Icon name="chevron-right" type="material-community" />
+            </Button>
+            
+            {/* Icons on both sides */}
+            <Button variant="elevated">
+                <Button.Icon name="account" type="material-community" />
+                <Button.Text>Profile</Button.Text>
+                <Button.Icon name="chevron-right" type="material-community" />
+            </Button>
+        </View>
+    );
+}`}
+/>
+
+### Shape Variants
+
+Buttons support `rounded` (default) and `square` shapes.
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+            <Button variant="contained" shape="rounded">
+                <Button.Text>Rounded</Button.Text>
+            </Button>
+            <Button variant="contained" shape="square">
+                <Button.Text>Square</Button.Text>
+            </Button>
+        </View>
+    );
+}`}
+/>
+
+### Sizes
+
+Buttons support `xs`, `sm` (default), `md`, `lg`, and `xl` sizes.
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+
+export default function Example() {
+    return (
+        <View style={{ gap: 8, alignItems: 'flex-start' }}>
+            <Button variant="contained" size="xs">
+                <Button.Text>Extra Small</Button.Text>
+            </Button>
+            <Button variant="contained" size="sm">
+                <Button.Text>Small</Button.Text>
+            </Button>
+            <Button variant="contained" size="md">
+                <Button.Text>Medium</Button.Text>
+            </Button>
+            <Button variant="contained" size="lg">
+                <Button.Text>Large</Button.Text>
+            </Button>
+            <Button variant="contained" size="xl">
+                <Button.Text>Extra Large</Button.Text>
+            </Button>
+        </View>
+    );
+}`}
+/>
+
+### Loading State with ActivityIndicator
+
+Use `Button.ActivityIndicator` to show a loading spinner. Set `disabledPress` to prevent interaction while loading.
+
+<LiveCodeExample
+    center
+    code={`import { useState } from 'react';
+import { View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+
+export default function Example() {
+    const [isLoading, setIsLoading] = useState(false);
+    
     const handlePress = () => {
-        console.log('Pressed text button');
+        setIsLoading(true);
+        setTimeout(() => setIsLoading(false), 2000);
     };
-
+    
     return (
-        <Button variant="text" onPress={handlePress}>
-            Default Button
-        </Button>
+        <View style={{ gap: 8, alignItems: 'center' }}>
+            {/* Loading with text */}
+            <Button 
+                variant="contained" 
+                onPress={handlePress}
+                disabledPress={isLoading}
+            >
+                {isLoading ? (
+                    <>
+                        <Button.ActivityIndicator />
+                        <Button.Text>Loading...</Button.Text>
+                    </>
+                ) : (
+                    <Button.Text>Submit</Button.Text>
+                )}
+            </Button>
+            
+            {/* Loading spinner only */}
+            <Button variant="contained" disabledPress>
+                <Button.ActivityIndicator />
+            </Button>
+        </View>
     );
 }`}
 />
 
-### Contained Button
+### Disabled State
 
 <LiveCodeExample
     center
-    code={`import { Button } from 'react-native-molecules/components/Button';
+    code={`import { View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
 
 export default function Example() {
     return (
-        <Button variant="contained" onPress={() => console.log('Pressed contained')}>
-            Contained Button
-        </Button>
-    );
-}`}
-/>
-
-### Outlined Button
-
-<LiveCodeExample
-    center
-    code={`import { Button } from 'react-native-molecules/components/Button';
-
-export default function Example() {
-    return (
-        <Button variant="outlined" onPress={() => console.log('Pressed outlined')}>
-            Outlined Button
-        </Button>
-    );
-}`}
-/>
-
-### Contained Tonal Button
-
-<LiveCodeExample
-    center
-    code={`import { Button } from 'react-native-molecules/components/Button';
-
-export default function Example() {
-    return (
-        <Button variant="contained-tonal" onPress={() => console.log('Pressed tonal')}>
-            Contained Tonal Button
-        </Button>
-    );
-}`}
-/>
-
-### Elevated Button
-
-<LiveCodeExample
-    center
-    code={`import { Button } from 'react-native-molecules/components/Button';
-
-export default function Example() {
-    return (
-        <Button variant="elevated" onPress={() => console.log('Pressed elevated')}>
-            Elevated Button
-        </Button>
+        <View style={{ gap: 8, alignItems: 'center' }}>
+            <Button variant="contained" disabled>
+                <Button.Text>Disabled Contained</Button.Text>
+            </Button>
+            <Button variant="outlined" disabled>
+                <Button.Text>Disabled Outlined</Button.Text>
+            </Button>
+            <Button variant="text" disabled>
+                <Button.Text>Disabled Text</Button.Text>
+            </Button>
+        </View>
     );
 }`}
 />

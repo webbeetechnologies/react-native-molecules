@@ -25,7 +25,7 @@ export const generateLightThemeColors = (
         error: palette.error40,
         errorContainer: palette.error90,
         onPrimary: palette.primary100,
-        onPrimaryContainer: palette.primary10,
+        onPrimaryContainer: palette.primary30,
         onSecondary: palette.secondary100,
         onSecondaryContainer: palette.secondary10,
         onTertiary: palette.tertiary100,

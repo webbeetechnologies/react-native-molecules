@@ -1,0 +1,159 @@
+---
+title: 'Loading Indicator'
+description: 'Material 3 expressive loading indicator with morphing shapes and smooth animations.'
+sidebar_position: 20
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="LoadingIndicator" />
+
+## Examples
+
+### Basic Usage
+
+<LiveCodeExample
+    center
+    code={`import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+
+export default function Example() {
+    return <LoadingIndicator />;
+}`}
+/>
+
+### Sizes
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+
+export default function Example() {
+    return (
+        <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+            <LoadingIndicator size="sm" />
+            <LoadingIndicator size="md" />
+            <LoadingIndicator size={64} />
+        </View>
+    );
+}`}
+/>
+
+### Custom Colors
+
+Use theme color tokens or custom color values.
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+
+export default function Example() {
+    return (
+        <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+            <LoadingIndicator color="primary" />
+            <LoadingIndicator color="secondary" />
+            <LoadingIndicator color="tertiary" />
+            <LoadingIndicator color="error" />
+            <LoadingIndicator color="#FF5722" />
+        </View>
+    );
+}`}
+/>
+
+### Contained Variant
+
+The `contained` variant adds a circular background using the `primaryContainer` color.
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+
+export default function Example() {
+    return (
+        <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+            <LoadingIndicator variant="default" />
+            <LoadingIndicator variant="contained" />
+        </View>
+    );
+}`}
+/>
+
+### Custom Background with Style
+
+Use the `style` prop to customize the background, padding, or other container styles.
+
+<LiveCodeExample
+    center
+    code={`import { View } from 'react-native';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+
+export default function Example() {
+    return (
+        <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+            {/* Custom background color */}
+            <LoadingIndicator 
+                color="onPrimary"
+                style={{ 
+                    backgroundColor: '#6750A4',
+                    padding: 12,
+                    borderRadius: 50,
+                }} 
+            />
+            
+            {/* With border */}
+            <LoadingIndicator 
+                style={{ 
+                    backgroundColor: '#F5F5F5',
+                    padding: 8,
+                    borderRadius: 50,
+                    borderWidth: 2,
+                    borderColor: '#E0E0E0',
+                }} 
+            />
+            
+            {/* Square background */}
+            <LoadingIndicator 
+                style={{ 
+                    backgroundColor: '#E8DEF8',
+                    padding: 16,
+                    borderRadius: 12,
+                }} 
+            />
+        </View>
+    );
+}`}
+/>
+
+### Controlled Animation
+
+Control the animation with the `animating` prop.
+
+<LiveCodeExample
+    center
+    code={`import { useState } from 'react';
+import { View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+
+export default function Example() {
+    const [isAnimating, setIsAnimating] = useState(true);
+    
+    return (
+        <View style={{ gap: 16, alignItems: 'center' }}>
+            <LoadingIndicator animating={isAnimating} />
+            <Button 
+                variant="contained" 
+                onPress={() => setIsAnimating(!isAnimating)}
+            >
+                <Button.Text>{isAnimating ? 'Stop' : 'Start'}</Button.Text>
+            </Button>
+        </View>
+    );
+}`}
+/>
+
+<ComponentProps name="LoadingIndicator" />

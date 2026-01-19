@@ -31,7 +31,7 @@ export type ComponentDocMeta = {
     highlights?: string[];
     whenToUse?: string[];
     related?: string[];
-    subcomponents?: string[];
+    subcomponents?: (string | { name: string; description?: string })[];
     inherits?: string[];
     propsNote?: string;
 };
