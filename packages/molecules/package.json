@@ -42,6 +42,7 @@
     },
     "dependencies": {
         "@gorhom/portal": "^1.0.14",
+        "@radix-ui/react-compose-refs": "^1.1.2",
         "@react-native-vector-icons/feather": "^12.4.0",
         "@react-native-vector-icons/material-design-icons": "^12.4.0",
         "color": "^4.2.3",
