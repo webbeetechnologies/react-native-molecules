@@ -64,7 +64,7 @@ export default function DatePickerModalHeader(props: DatePickerModalHeaderProps)
                             onPress={props.onSave}
                             disabled={props.saveLabelDisabled || false}
                             testID="dates-save">
-                            {saveLabel}
+                            <Button.Text>{saveLabel}</Button.Text>
                         </Button>
                     </View>
                 </SafeAreaView>

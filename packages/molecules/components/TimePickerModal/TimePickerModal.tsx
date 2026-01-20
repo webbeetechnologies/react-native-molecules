@@ -103,8 +103,12 @@ export function TimePickerModal({
                             accessibilityLabel="toggle keyboard"
                         />
                         <View style={styles.fill} />
-                        <Button onPress={onClose}>{cancelLabel}</Button>
-                        <Button onPress={onConfirm}>{confirmLabel}</Button>
+                        <Button onPress={onClose}>
+                            <Button.Text>{cancelLabel}</Button.Text>
+                        </Button>
+                        <Button onPress={onConfirm}>
+                            <Button.Text>{confirmLabel}</Button.Text>
+                        </Button>
                     </View>
                 </KeyboardAvoidingView>
             </Modal>

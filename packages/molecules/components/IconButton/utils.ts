@@ -215,11 +215,7 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
             {
                 variant: 'outlined',
                 state: 'hovered',
-                styles: {
-                    backgroundColor: theme.colors.inverseSurface,
-                    color: theme.colors.inverseOnSurface,
-                    borderWidth: 0,
-                },
+                styles: {},
             },
         ],
     },
