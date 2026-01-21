@@ -18,6 +18,7 @@ import { Button } from 'react-native-molecules/components/Button';
 // import { TextInput } from 'react-native-molecules/components/TextInput';
 import { getWebProps } from 'react-native-unistyles/web';
 import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+import { Icon } from 'react-native-molecules/components/Icon';
 
 const Link = ({ style, ...rest }) => {
     const { ref, className } = getWebProps(style);
@@ -33,6 +34,13 @@ const Link = ({ style, ...rest }) => {
         />
     );
 };
+
+declare module 'react-native-molecules/components/Icon' {
+    interface CustomIconTypes {
+        'my-custom-icons': true;
+        'another-icon-set': true;
+    }
+}
 
 export default function Index() {
     // const [isOn, setIsOn] = useState(false);
