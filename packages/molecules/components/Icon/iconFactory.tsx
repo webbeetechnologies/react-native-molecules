@@ -1,6 +1,6 @@
 // import { textFactory } from '../Text/textFactory';
 import { memoize } from '../../utils/lodash';
-import { IconPacks, type IconType } from './types';
+import type { IconType } from './types';
 
 const customIcons: any = {};
 
@@ -10,9 +10,9 @@ export const registerCustomIconType = (id: string, customIcon: any) => {
 
 export default memoize((type: IconType) => {
     switch (type) {
-        case IconPacks.MaterialCommunity:
+        case 'material-community':
             return require('@react-native-vector-icons/material-design-icons').default;
-        case IconPacks.Feather:
+        case 'feather':
             return require('@react-native-vector-icons/feather').default;
         default:
             if (Object.prototype.hasOwnProperty.call(customIcons, type)) {
