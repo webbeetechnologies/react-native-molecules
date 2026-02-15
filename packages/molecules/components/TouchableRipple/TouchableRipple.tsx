@@ -125,7 +125,7 @@ const TouchableRipple = (
     ref: any,
 ) => {
     // TODO - enable ripple onLongPress, need to check for mobile as well
-    const disabled = disabledProp || !onPress;
+    const disabled = disabledProp;
 
     const componentStyles = touchableRippleStyles;
 

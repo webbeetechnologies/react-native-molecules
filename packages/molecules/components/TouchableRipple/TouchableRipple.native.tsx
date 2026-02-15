@@ -61,7 +61,7 @@ const TouchableRipple = (
     }: Props,
     ref: any,
 ) => {
-    const disabled = disabledProp || !rest.onPress;
+    const disabled = disabledProp;
 
     const componentStyles = touchableRippleStyles;
 
