@@ -50,7 +50,17 @@ import type {
     TextInputSupportingTextCompoundProps,
     TextInputVariant,
 } from './types';
-import { getInputMinHeight, styles, TextInputContext, textInputIconStyles } from './utils';
+import {
+    getInputMinHeight,
+    styles,
+    TextInputContext,
+    textInputIconStyles,
+    textInputLabelStyles,
+    textInputLeftStyles,
+    textInputOutlineStyles,
+    textInputRightStyles,
+    textInputSupportingTextStyles,
+} from './utils';
 
 const BLUR_ANIMATION_DURATION = 180;
 const FOCUS_ANIMATION_DURATION = 150;
@@ -61,7 +71,7 @@ export type ElementProps = {
     focused: boolean;
 };
 
-export type Props = Omit<ViewStyle, 'style' | 'ref'> & {
+export type Props = Omit<NativeTextInputProps, 'style' | 'ref'> & {
     ref?: Ref<TextInputHandles | null>;
     /**
      * Variant of the TextInput.
@@ -152,7 +162,8 @@ export type Props = Omit<ViewStyle, 'style' | 'ref'> & {
      * Render custom input component.
      */
     render?: (props: RenderProps) => ReactNode;
-    inputProps?: Omit<NativeTextInputProps, 'value' | 'onChangeText'>;
+    rootContainerProps?: ViewProps;
+    inputStyle?: NativeTextInputProps['style'];
     placeholder?: string;
 };
 
@@ -193,7 +204,8 @@ const TextInput = ({
     render,
     placeholder,
     children,
-    inputProps,
+    rootContainerProps,
+    inputStyle,
     ...rest
 }: Props) => {
     const { hovered, actionsRef } = useActionState({ actionsToListen: ['hover'] });
@@ -366,7 +378,7 @@ const TextInput = ({
                 Platform.OS === 'ios' && !multiline
                     ? { lineHeight: undefined, textAlign: undefined }
                     : {},
-                inputProps?.style,
+                inputStyle,
             ],
             stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],
         }),
@@ -379,7 +391,7 @@ const TextInput = ({
             multiline,
             inputHeight,
             labelHeight,
-            inputProps?.style,
+            inputStyle,
             stateLayerProps?.style,
         ],
     );
@@ -428,7 +440,7 @@ const TextInput = ({
 
     return (
         <TextInputContext value={contextValue}>
-            <View style={style} {...rest}>
+            <View {...rootContainerProps} style={[style, rootContainerProps?.style]}>
                 <View ref={actionsRef} {...fieldProps} style={[styles.inputRow, fieldProps?.style]}>
                     {outlineElement}
                     {variant === 'flat' && (
@@ -443,7 +455,7 @@ const TextInput = ({
                     <View
                         {...inputWrapperProps}
                         style={[
-                            styles.labelContainer,
+                            styles.inputWrapper,
                             {
                                 minHeight: labelHeight,
                             },
@@ -463,7 +475,7 @@ const TextInput = ({
                             onBlur: handleBlur,
                             onChangeText: onChangeValue,
                             value: value,
-                            ...inputProps,
+                            ...rest,
                             style: computedStyles.textInputStyle,
                         })}
                     </View>
@@ -501,7 +513,7 @@ export const TextInputLabel = memo(
             state,
         } = useContext(TextInputContext);
 
-        styles.useVariants({
+        textInputLabelStyles.useVariants({
             variant: variant as any,
             state: state as any,
             size,
@@ -573,7 +585,7 @@ export const TextInputLabel = memo(
                 errorAnimation={errorAnimation}
                 labelLayout={labelLayout}
                 label={children}
-                floatingStyle={[styles.floatingLabel, floatingStyle]}
+                floatingStyle={[textInputLabelStyles.floatingLabel, floatingStyle]}
                 floatingLabelVerticalOffset={floatingLabelVerticalOffset}
                 required={required}
                 onLayoutAnimatedText={onLayoutLabel}
@@ -582,7 +594,7 @@ export const TextInputLabel = memo(
                 labelScale={labelScale}
                 wiggleOffsetX={labelWiggleXOffset}
                 maxFontSizeMultiplier={maxFontSizeMultiplier}
-                style={[styles.labelText, style]}
+                style={[textInputLabelStyles.labelText, style]}
             />
         );
     },
@@ -601,13 +613,10 @@ export const TextInputLeft = memo(
         onPress: onPressProp,
         ...rest
     }: TextInputElementCompoundProps) => {
-        const { forceFocus, onLayoutLeftElement, state, variant, size } =
-            useContext(TextInputContext);
+        const { forceFocus, onLayoutLeftElement, state } = useContext(TextInputContext);
 
-        styles.useVariants({
-            variant: variant as any,
+        textInputLeftStyles.useVariants({
             state: state as any,
-            size,
         });
 
         const handleLayout = useCallback(
@@ -634,7 +643,7 @@ export const TextInputLeft = memo(
         return (
             <Pressable
                 onPress={onPress}
-                style={[styles.leftElement, style]}
+                style={[textInputLeftStyles.leftElement, style]}
                 onLayout={handleLayout}
                 accessibilityRole="none"
                 {...rest}>
@@ -651,12 +660,10 @@ TextInputLeft.displayName = 'TextInput_Left';
  */
 export const TextInputRight = memo(
     ({ children, style, onPress: onPressProp, ...rest }: TextInputElementCompoundProps) => {
-        const { forceFocus, state, variant, size } = useContext(TextInputContext);
+        const { forceFocus, state } = useContext(TextInputContext);
 
-        styles.useVariants({
-            variant: variant as any,
+        textInputRightStyles.useVariants({
             state: state as any,
-            size,
         });
 
         const onPress = useCallback(
@@ -675,7 +682,7 @@ export const TextInputRight = memo(
         return (
             <Pressable
                 onPress={onPress}
-                style={[styles.leftElement, style]}
+                style={[textInputRightStyles.rightElement, style]}
                 accessibilityRole="none"
                 {...rest}>
                 {children}
@@ -718,16 +725,16 @@ TextInputIcon.displayName = 'TextInput_Icon';
  */
 export const TextInputSupportingText = memo(
     ({ children, style }: TextInputSupportingTextCompoundProps) => {
-        const { error, state, variant, size } = useContext(TextInputContext);
+        const { error, state } = useContext(TextInputContext);
 
-        styles.useVariants({
-            variant: variant as any,
+        textInputSupportingTextStyles.useVariants({
             state: state as any,
-            size,
         });
 
         return (
-            <HelperText variant={error ? 'error' : 'info'} style={[styles.supportingText, style]}>
+            <HelperText
+                variant={error ? 'error' : 'info'}
+                style={[textInputSupportingTextStyles.supportingText, style]}>
                 {children}
             </HelperText>
         );
@@ -741,12 +748,11 @@ TextInputSupportingText.displayName = 'TextInput_SupportingText';
  * Rendered automatically if not provided. Use this to customize border styles.
  */
 export const TextInputOutline = memo(({ style }: TextInputOutlineCompoundProps) => {
-    const { variant, state, size } = useContext(TextInputContext);
+    const { variant, state } = useContext(TextInputContext);
 
-    styles.useVariants({
+    textInputOutlineStyles.useVariants({
         variant: variant as any,
         state: state as any,
-        size,
     });
 
     if (variant === 'plain') {
@@ -754,11 +760,19 @@ export const TextInputOutline = memo(({ style }: TextInputOutlineCompoundProps) 
     }
 
     if (variant === 'flat') {
-        return <View style={[styles.underline, styles.activeIndicator, style]} />;
+        return (
+            <View
+                style={[
+                    textInputOutlineStyles.underline,
+                    textInputOutlineStyles.activeIndicator,
+                    style,
+                ]}
+            />
+        );
     }
 
     // outlined
-    return <View pointerEvents="none" style={[styles.outline, style]} />;
+    return <View pointerEvents="none" style={[textInputOutlineStyles.outline, style]} />;
 });
 
 TextInputOutline.displayName = 'TextInput_Outline';

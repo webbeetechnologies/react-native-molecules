@@ -25,4 +25,4 @@ export {
     type Props as TextInputProps,
 } from './TextInput';
 export type * from './types';
-export { TextInputContext, styles as textInputStyles } from './utils';
+export { TextInputContext } from './utils';

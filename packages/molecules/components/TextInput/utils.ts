@@ -62,6 +62,7 @@ export const getInputMinHeight = getRegisteredComponentUtilsWithFallback(
     'getInputMinHeight',
 );
 
+// Main TextInput component styles
 const textInputStylesDefault = StyleSheet.create(theme => ({
     root: {},
 
@@ -91,68 +92,100 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
             },
         ],
     },
-    leftElement: {
-        color: theme.colors.onSurfaceVariant,
-        iconSize: 20,
-        marginRight: theme.spacings['3'],
-        marginLeft: theme.spacings._1,
-        justifyContent: 'center',
 
-        state: {
-            disabled: {
-                color: theme.colors.onSurface,
-                opacity: 0.38,
-            },
-            error: {
-                color: theme.colors.onSurfaceVariant,
-            },
-            errorFocused: {
-                color: theme.colors.onSurfaceVariant,
-            },
-            errorFocusedAndHovered: {
-                color: theme.colors.onSurfaceVariant,
-            },
-            errorDisabled: {
-                color: theme.colors.onSurfaceVariant,
-                opacity: 0.38,
-            },
-            errorHovered: {
-                color: theme.colors.onSurfaceVariant,
-            },
+    input: {
+        color: theme.colors.onSurface,
+        ...theme.typescale.bodyLarge,
+        flexGrow: 1,
+
+        _web: {
+            outline: 'none',
         },
-    },
-    rightElement: {
-        color: theme.colors.onSurfaceVariant,
-        iconSize: 24,
-        marginRight: theme.spacings._1,
-        marginLeft: theme.spacings['3'],
-        justifyContent: 'center',
 
         variants: {
+            size: {
+                lg: {
+                    ...theme.typescale.bodyExtraLarge,
+                },
+                md: {
+                    ...theme.typescale.bodyLarge,
+                },
+                sm: {
+                    ...theme.typescale.bodyMedium,
+                },
+            },
+            variant: {
+                flat: {
+                    paddingTop: 12,
+                },
+            },
+
             state: {
                 disabled: {
                     color: theme.colors.onSurface,
                     opacity: 0.38,
                 },
                 error: {
-                    color: theme.colors.error,
+                    color: theme.colors.onSurface,
                 },
                 errorFocused: {
-                    color: theme.colors.error,
+                    color: theme.colors.onSurface,
                 },
                 errorFocusedAndHovered: {
-                    color: theme.colors.error,
+                    color: theme.colors.onSurface,
                 },
                 errorDisabled: {
-                    color: theme.colors.error,
+                    color: theme.colors.onSurface,
                     opacity: 0.38,
                 },
                 errorHovered: {
-                    color: theme.colors.onErrorContainer,
+                    color: theme.colors.onSurface,
                 },
             },
         },
     },
+
+    placeholder: {
+        color: theme.colors.onSurfaceVariant,
+    },
+
+    stateLayer: {
+        borderTopLeftRadius: theme.shapes.corner.extraSmall,
+        borderTopRightRadius: theme.shapes.corner.extraSmall,
+        variants: {
+            variant: {},
+            state: {},
+        },
+        compoundVariants: [
+            {
+                variant: 'flat',
+                state: 'hovered',
+                styles: {
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
+                },
+            },
+            {
+                variant: 'flat',
+                state: 'errorHovered',
+                styles: {
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
+                },
+            },
+        ],
+    },
+
+    inputWrapper: {
+        paddingTop: 0,
+        paddingBottom: 0,
+        flexGrow: 1,
+        flexShrink: 1,
+    },
+}));
+
+export const styles = getRegisteredComponentStylesWithFallback('TextInput', textInputStylesDefault);
+
+// TextInput.Label styles
+const textInputLabelStylesDefault = StyleSheet.create(theme => ({
     floatingLabel: {
         variants: {
             variant: {
@@ -162,6 +195,7 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
+
     labelText: {
         position: 'absolute',
         left: 0,
@@ -225,57 +259,95 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
-    input: {
-        color: theme.colors.onSurface,
-        ...theme.typescale.bodyLarge,
-        flexGrow: 1,
+}));
 
-        _web: {
-            outline: 'none',
-        },
+export const textInputLabelStyles = getRegisteredComponentStylesWithFallback(
+    'TextInputLabel',
+    textInputLabelStylesDefault,
+);
+
+// TextInput.Left styles
+const textInputLeftStylesDefault = StyleSheet.create(theme => ({
+    leftElement: {
+        color: theme.colors.onSurfaceVariant,
+        marginRight: theme.spacings['3'],
+        marginLeft: theme.spacings._1,
+        justifyContent: 'center',
 
         variants: {
-            size: {
-                lg: {
-                    ...theme.typescale.bodyExtraLarge,
-                },
-                md: {
-                    ...theme.typescale.bodyLarge,
-                },
-                sm: {
-                    ...theme.typescale.bodyMedium,
-                },
-            },
-            variant: {
-                flat: {
-                    paddingTop: 12,
-                },
-            },
-
             state: {
                 disabled: {
                     color: theme.colors.onSurface,
                     opacity: 0.38,
                 },
                 error: {
-                    color: theme.colors.onSurface,
+                    color: theme.colors.onSurfaceVariant,
                 },
                 errorFocused: {
-                    color: theme.colors.onSurface,
+                    color: theme.colors.onSurfaceVariant,
                 },
                 errorFocusedAndHovered: {
-                    color: theme.colors.onSurface,
+                    color: theme.colors.onSurfaceVariant,
                 },
                 errorDisabled: {
-                    color: theme.colors.onSurface,
+                    color: theme.colors.onSurfaceVariant,
                     opacity: 0.38,
                 },
                 errorHovered: {
-                    color: theme.colors.onSurface,
+                    color: theme.colors.onSurfaceVariant,
                 },
             },
         },
     },
+}));
+
+export const textInputLeftStyles = getRegisteredComponentStylesWithFallback(
+    'TextInputLeft',
+    textInputLeftStylesDefault,
+);
+
+// TextInput.Right styles
+const textInputRightStylesDefault = StyleSheet.create(theme => ({
+    rightElement: {
+        color: theme.colors.onSurfaceVariant,
+        marginRight: theme.spacings._1,
+        marginLeft: theme.spacings['3'],
+        justifyContent: 'center',
+
+        variants: {
+            state: {
+                disabled: {
+                    color: theme.colors.onSurface,
+                    opacity: 0.38,
+                },
+                error: {
+                    color: theme.colors.error,
+                },
+                errorFocused: {
+                    color: theme.colors.error,
+                },
+                errorFocusedAndHovered: {
+                    color: theme.colors.error,
+                },
+                errorDisabled: {
+                    color: theme.colors.error,
+                    opacity: 0.38,
+                },
+                errorHovered: {
+                    color: theme.colors.onErrorContainer,
+                },
+            },
+        },
+    },
+}));
+
+export const textInputRightStyles = getRegisteredComponentStylesWithFallback(
+    'TextInputRight',
+    textInputRightStylesDefault,
+);
+
+// TextInput.SupportingText styles
+const textInputSupportingTextStylesDefault = StyleSheet.create({
     supportingText: {
         variants: {
             state: {
@@ -288,9 +360,15 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
-    placeholder: {
-        color: theme.colors.onSurfaceVariant,
-    },
+});
+
+export const textInputSupportingTextStyles = getRegisteredComponentStylesWithFallback(
+    'TextInputSupportingText',
+    textInputSupportingTextStylesDefault,
+);
+
+// TextInput.Outline styles
+const textInputOutlineStylesDefault = StyleSheet.create(theme => ({
     outline: {
         position: 'absolute',
         left: 0,
@@ -380,6 +458,7 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
             },
         ],
     },
+
     activeIndicator: {
         variants: {
             variant: {
@@ -470,30 +549,7 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
             },
         ],
     },
-    stateLayer: {
-        borderTopLeftRadius: theme.shapes.corner.extraSmall,
-        borderTopRightRadius: theme.shapes.corner.extraSmall,
-        variants: {
-            variant: {},
-            state: {},
-        },
-        compoundVariants: [
-            {
-                variant: 'flat',
-                state: 'hovered',
-                styles: {
-                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
-                },
-            },
-            {
-                variant: 'flat',
-                state: 'errorHovered',
-                styles: {
-                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
-                },
-            },
-        ],
-    },
+
     underline: {
         position: 'absolute',
         left: 0,
@@ -502,23 +558,14 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
         height: 1,
         zIndex: 1,
     },
-    labelContainer: {
-        paddingTop: 0,
-        paddingBottom: 0,
-        flexGrow: 1,
-        flexShrink: 1,
-    },
 }));
 
-export const styles = getRegisteredComponentStylesWithFallback('TextInput', textInputStylesDefault);
+export const textInputOutlineStyles = getRegisteredComponentStylesWithFallback(
+    'TextInputOutline',
+    textInputOutlineStylesDefault,
+);
 
-export const inputLabelStyles = StyleSheet.create({
-    labelContainer: {
-        zIndex: 3,
-        justifyContent: 'center',
-    },
-});
-
+// TextInput.Icon styles
 const textInputIconStylesDefault = StyleSheet.create(theme => ({
     root: {
         variants: {
