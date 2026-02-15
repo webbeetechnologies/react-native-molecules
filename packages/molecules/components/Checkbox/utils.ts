@@ -132,31 +132,6 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
             },
         ],
     },
-    fillContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    animatedFill: {
-        width: 24 / 2 + (PADDING - 2),
-        height: 24 / 2 + (PADDING - 2),
-
-        variants: {
-            size: {
-                sm: {
-                    width: iconSizeMap.sm / 2 + (PADDING - 2),
-                    height: iconSizeMap.sm / 2 + (PADDING - 2),
-                },
-                md: {
-                    width: iconSizeMap.md / 2 + (PADDING - 2),
-                    height: iconSizeMap.md / 2 + (PADDING - 2),
-                },
-                lg: {
-                    width: iconSizeMap.lg / 2 + (PADDING - 2),
-                    height: iconSizeMap.lg / 2 + (PADDING - 2),
-                },
-            },
-        },
-    },
     icon: {
         color: theme.colors.onSurfaceVariant,
 
