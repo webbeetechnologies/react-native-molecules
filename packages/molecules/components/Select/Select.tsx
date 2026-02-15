@@ -807,7 +807,7 @@ SelectOption.displayName = 'Select_Option';
 
 // Select.SearchInput - handles search
 const SelectSearchInput = memo(
-    ({ autoFocus = true, ...textInputProps }: SelectSearchInputProps) => {
+    ({ autoFocus = true, children, ...textInputProps }: SelectSearchInputProps) => {
         const { searchQuery, setSearchQuery } = useSelectContextValue(state => ({
             searchQuery: state.searchQuery,
             setSearchQuery: state.setSearchQuery,
@@ -866,16 +866,19 @@ const SelectSearchInput = memo(
                 ref={textInputRef}
                 autoFocus={Platform.OS !== 'web' && autoFocus}
                 style={styles.searchInput}
-                left={<Icon onPress={onPressLeftIcon} name="magnify" size={20} />}
-                right={
-                    searchQuery ? (
-                        <IconButton name="close" size={20} onPress={onClearSearchQuery} />
-                    ) : undefined
-                }
                 size="sm"
                 variant="outlined"
-                {...inputProps}
-            />
+                {...inputProps}>
+                <TextInput.Left>
+                    <Icon onPress={onPressLeftIcon} name="magnify" size={20} />
+                </TextInput.Left>
+                {searchQuery && (
+                    <TextInput.Right>
+                        <IconButton name="close" size={20} onPress={onClearSearchQuery} />
+                    </TextInput.Right>
+                )}
+                {children}
+            </TextInput>
         );
     },
 );

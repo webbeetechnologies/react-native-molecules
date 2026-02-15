@@ -1,6 +1,6 @@
 ---
-title: "ElementGroup"
-description: "Utility wrapper for grouping inputs with shared borders and state styles."
+title: 'ElementGroup'
+description: 'Utility wrapper for grouping inputs with shared borders and state styles.'
 sidebar_position: 20
 ---
 
@@ -23,10 +23,10 @@ export default function Example() {
     return (
         <ElementGroup style={{ borderRadius: 12 }}>
             <Button variant="contained" onPress={() => {}}>
-                Button
+                <Button.Text>Button</Button.Text>
             </Button>
             <Button variant="contained" onPress={() => {}}>
-                <Icon name="chevron-down" size={26} />
+                <Button.Icon name="chevron-down" size={26} />
             </Button>
         </ElementGroup>
     );
@@ -45,8 +45,8 @@ export default function Example() {
     return (
         <ElementGroup borderRadius={12}>
             <TextInput variant="outlined" />
-            <Button variant="contained" onPress={() => {}}>
-                <Icon name="chevron-down" size={26} />
+            <Button variant="contained" onPress={() => {}} style={{ height: undefined }}>
+                <Button.Icon name="chevron-down" size={26} />
             </Button>
         </ElementGroup>
     );
@@ -77,7 +77,7 @@ export default function Example() {
     const onPressDrag = useCallback(() => {}, []);
 
     const inputProps = useMemo(
-        () => ({ variant: 'outlined', label: 'Select operator' } as TextInputProps),
+        () => ({ variant: 'outlined' } as TextInputProps),
         [],
     );
 
@@ -89,7 +89,9 @@ export default function Example() {
         <ElementGroup>
             <ElementGroup>
                 <Select records={records} inputProps={inputProps} />
-                <TextInput variant="outlined" label="value" />
+                <TextInput variant="outlined">
+                    <TextInput.Label>value</TextInput.Label>
+                </TextInput>
             </ElementGroup>
             <IconButton
                 name="delete"

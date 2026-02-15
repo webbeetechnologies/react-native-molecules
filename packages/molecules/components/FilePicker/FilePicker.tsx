@@ -1,8 +1,8 @@
-import { forwardRef, memo, type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
+import useControlledValue from '../../hooks/useControlledValue';
 import useFilePicker from '../../hooks/useFilePicker';
 import type { DocumentPickerOptions, DocumentResult } from '../../utils/DocumentPicker';
-import { ActivityIndicator } from '../ActivityIndicator';
 import { IconButton } from '../IconButton';
 import { TextInput, type TextInputProps } from '../TextInput';
 
@@ -10,6 +10,7 @@ export type OmitProp =
     | 'editable'
     | 'multiline'
     | 'onChangeText'
+    | 'onChange'
     | 'keyboardType'
     | 'defaultValue'
     | 'value'
@@ -24,12 +25,9 @@ export type Props = Omit<TextInputProps, OmitProp> &
          */
         multiple?: boolean;
         /**
-         * Displays the Spinner on the right side in place of the default upload icon
-         * @default false
+         * Default value for uncontrolled usage
          */
-        loading?: boolean;
-        left?: ReactNode;
-        right?: ReactNode;
+        defaultValue?: DocumentResult | DocumentResult[];
         /**
          * To Control the value
          */
@@ -37,32 +35,31 @@ export type Props = Omit<TextInputProps, OmitProp> &
         /**
          * The Callback function to return the selected files as an array or object
          */
-        onChange?: (result: DocumentResult | DocumentResult[]) => any;
-        /**
-         * To replace the default progress indicator
-         */
-        progressIndicator?: ReactNode;
+        onChange?: (result: DocumentResult | DocumentResult[] | undefined) => any;
     };
 
-const FilePicker = (
-    {
-        loading,
-        right: rightProp,
-        progressIndicator,
-        type,
-        multiple,
-        transitionStyle,
-        mode,
-        presentationStyle,
-        value,
-        onChange = () => {},
-        onCancel,
-        onError,
-        ...rest
-    }: Props,
-    ref: any,
-) => {
-    const [displayText, setDisplayText] = useState('');
+const FilePicker = ({
+    ref,
+    type,
+    multiple,
+    transitionStyle,
+    mode,
+    presentationStyle,
+    value: valueProp,
+    defaultValue,
+    onChange,
+    onCancel,
+    onError,
+    children,
+    ...rest
+}: Props) => {
+    const [value, onValueChange] = useControlledValue<
+        DocumentResult | DocumentResult[] | undefined
+    >({
+        value: valueProp,
+        defaultValue,
+        onChange,
+    });
 
     const { openFilePicker } = useFilePicker({
         type,
@@ -74,60 +71,34 @@ const FilePicker = (
         onError,
     });
 
-    const onSetInputValue = useCallback(
-        (response: DocumentResult | DocumentResult[] | undefined) => {
-            if (Array.isArray(response)) {
-                if (response.length > 1) {
-                    setDisplayText(`${response.length} file${response.length > 1 ? 's' : ''}`);
-                    return;
-                }
+    const displayText = useMemo(() => {
+        if (!value) return '';
 
-                setDisplayText(response[0].name || '');
-                return;
+        if (Array.isArray(value)) {
+            if (value.length > 1) {
+                return `${value.length} files`;
             }
+            return value[0]?.name || '';
+        }
 
-            setDisplayText(response?.name || '');
-        },
-        [],
-    );
+        return value.name || '';
+    }, [value]);
 
     const onPress = useCallback(() => {
         openFilePicker(response => {
-            onSetInputValue(response);
-
-            onChange?.(response);
+            onValueChange(response);
         });
-    }, [onChange, onSetInputValue, openFilePicker]);
-
-    const rightElement = useMemo(() => {
-        if (!loading) {
-            return (
-                <>
-                    {rightProp || (
-                        <IconButton type="material-community" name="upload" onPress={onPress} />
-                    )}
-                </>
-            );
-        } else {
-            return <>{progressIndicator || <ActivityIndicator />}</>;
-        }
-    }, [loading, onPress, progressIndicator, rightProp]);
-
-    // if the value changes, we only want file name or the length of the array to display the text
-    useEffect(() => {
-        onSetInputValue(value);
-    }, [onSetInputValue, value]);
+    }, [onValueChange, openFilePicker]);
 
     return (
-        <TextInput
-            label="Choose file"
-            {...rest}
-            value={displayText}
-            editable={false}
-            right={rightElement}
-            ref={ref}
-        />
+        <TextInput value={displayText} {...rest} editable={false} ref={ref}>
+            <TextInput.Label>Choose file</TextInput.Label>
+            <TextInput.Right>
+                <IconButton type="material-community" name="upload" onPress={onPress} />
+            </TextInput.Right>
+            {children}
+        </TextInput>
     );
 };
 
-export default memo(forwardRef(FilePicker));
+export default memo(FilePicker);

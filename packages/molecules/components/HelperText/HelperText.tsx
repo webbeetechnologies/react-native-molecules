@@ -24,41 +24,6 @@ export type Props = TextProps & {
     testID?: string;
 };
 
-/**
- * Helper text is used in conjuction with input elements to provide additional hints for the user.
- *
- * <div class="screenshots">
- *   <img class="small" src="screenshots/helper-text.gif" />
- * </div>
- *
- * ## Usage
- * ```js
- * import * as React from 'react';
- * import { View } from 'react-native';
- * import { HelperText, TextInput } from 'react-native-paper';
- *
- * const MyComponent = () => {
- *   const [text, setText] = React.useState('');
- *
- *    const onChangeText = text => setText(text);
- *
- *   const hasErrors = () => {
- *     return !text.includes('@');
- *   };
- *
- *  return (
- *     <View>
- *       <TextInput label="Email" value={text} onChangeText={onChangeText} />
- *       <HelperText variant="error" visible={hasErrors()}>
- *         Email address is invalid!
- *       </HelperText>
- *     </View>
- *   );
- * };
- *
- * export default MyComponent;
- * ```
- */
 const HelperText = ({
     style: styleProp,
     variant = 'info',

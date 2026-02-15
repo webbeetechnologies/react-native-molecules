@@ -23,6 +23,4 @@ export interface DatePickerInputProps
     endYear?: number;
     dockedPopoverContentProps?: ViewProps;
 }
-export interface DatePickerInputWithoutModalProps extends Omit<DatePickerInputProps, 'withModal'> {
-    inputButtons?: any;
-}
+export interface DatePickerInputWithoutModalProps extends Omit<DatePickerInputProps, 'withModal'> {}

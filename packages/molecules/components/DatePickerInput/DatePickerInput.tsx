@@ -5,6 +5,7 @@ import { useLatest, useToggle } from '../../hooks';
 import { noop } from '../../utils/lodash';
 import { DatePickerDocked } from '../DatePickerDocked';
 import { IconButton } from '../IconButton';
+import { TextInput } from '../TextInput';
 import DatePickerInputModal from './DatePickerInputModal';
 import DatePickerInputWithoutModal from './DatePickerInputWithoutModal';
 import type { DatePickerInputProps } from './types';
@@ -125,8 +126,9 @@ function DatePickerInput(
             validRange={validRange}
             onChange={onChange}
             // locale={locale}
-            inputButtons={rightElement}
-        />
+        >
+            <TextInput.Right>{rightElement}</TextInput.Right>
+        </DatePickerInputWithoutModal>
     );
 }
 

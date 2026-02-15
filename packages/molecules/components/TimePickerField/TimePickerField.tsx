@@ -26,10 +26,11 @@ const TimePickerField = (
         withModal = true,
         style,
         onBlur: onBlurProp,
-        modalProps = {},
-        iconButtonProps = {},
+        modalProps,
+        iconButtonProps,
         disabled,
         onFocus: onFocusProp,
+        children,
         ...rest
     }: Props,
     ref: any,
@@ -143,9 +144,10 @@ const TimePickerField = (
             onFocus={onFocus}
             onChangeText={onChangeText}
             style={componentStyles}
-            onBlur={onBlur}
-            right={rightElement}
-        />
+            onBlur={onBlur}>
+            <TextInput.Right>{rightElement}</TextInput.Right>
+            {children}
+        </TextInput>
     );
 };
 

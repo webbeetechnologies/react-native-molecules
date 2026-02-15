@@ -7,13 +7,11 @@ import { datePickerInputStyles } from './utils';
 
 function DatePickerInputWithoutModal(
     {
-        label,
         value,
         onChange: onChangeProp,
         // locale = 'en',
         validRange,
         inputMode,
-        inputButtons,
         dateFormat = 'dd/MM/yyyy',
         style,
         onBlur: onBlurProp,
@@ -61,14 +59,12 @@ function DatePickerInputWithoutModal(
             onBlur={onBlur}
             onFocus={onFocus}
             ref={inputRef}
-            label={label}
             value={formattedValue}
             keyboardType={'number-pad'}
             mask={dateFormat}
             onChangeText={onChangeText}
             // keyboardAppearance={theme.dark ? 'dark' : 'default'}
             // error={formattedValue ? !!error : false}
-            right={inputButtons}
             // supportingText={formattedValue ? error || undefined : undefined}
         />
     );

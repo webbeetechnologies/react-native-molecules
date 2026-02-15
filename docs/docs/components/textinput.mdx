@@ -1,6 +1,6 @@
 ---
-title: "TextInput"
-description: "Material text field with outlined and filled variants, leading/trailing adornments."
+title: 'TextInput'
+description: 'Material text field with outlined and filled variants, leading/trailing adornments.'
 sidebar_position: 48
 ---
 
@@ -12,23 +12,17 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 
 ## Examples
 
-### Default
+### Outlined Variant (default)
 
 <LiveCodeExample
     code={`import { TextInput } from 'react-native-molecules/components/TextInput';
 
 export default function Example() {
-    return <TextInput placeholder="Placeholder" />;
-}`}
-/>
-
-### Outlined Variant
-
-<LiveCodeExample
-    code={`import { TextInput } from 'react-native-molecules/components/TextInput';
-
-export default function Example() {
-    return <TextInput variant="outlined" placeholder="Placeholder" label="Label" />;
+    return (
+        <TextInput variant="outlined" placeholder="Enter text">
+            <TextInput.Label>Label</TextInput.Label>
+        </TextInput>
+    );
 }`}
 />
 
@@ -38,32 +32,27 @@ export default function Example() {
     code={`import { TextInput } from 'react-native-molecules/components/TextInput';
 
 export default function Example() {
-    return <TextInput variant="flat" placeholder="Placeholder" label="Label" />;
+    return (
+        <TextInput variant="flat" placeholder="Enter text">
+            <TextInput.Label>Label</TextInput.Label>
+        </TextInput>
+    );
 }`}
 />
 
 ### With Left Element
 
 <LiveCodeExample
-    code={`import { Icon } from 'react-native-molecules/components/Icon';
-import { TextInput } from 'react-native-molecules/components/TextInput';
+    code={`import { TextInput } from 'react-native-molecules/components/TextInput';
 
 export default function Example() {
     return (
-        <TextInput 
-            variant="flat" 
-            placeholder="Placeholder" 
-            label="Label" 
-            left={({ color, forceFocus }) => (
-                <Icon
-                    name="magnify"
-                    type="material-community"
-                    size={24}
-                    onPress={forceFocus}
-                    color={color}
-                />
-            )} 
-        />
+        <TextInput variant="outlined" placeholder="Search">
+            <TextInput.Left>
+                <TextInput.Icon name="magnify" type="material-community" />
+            </TextInput.Left>
+            <TextInput.Label>Search</TextInput.Label>
+        </TextInput>
     );
 }`}
 />
@@ -71,26 +60,108 @@ export default function Example() {
 ### With Right Element
 
 <LiveCodeExample
-    code={`import { Icon } from 'react-native-molecules/components/Icon';
-import { TextInput } from 'react-native-molecules/components/TextInput';
+    code={`import { TextInput } from 'react-native-molecules/components/TextInput';
 
 export default function Example() {
     return (
-        <TextInput 
-            variant="flat" 
-            placeholder="Placeholder" 
-            label="Label" 
-            right={({ color, forceFocus }) => (
-                <Icon
-                    name="magnify"
-                    type="material-community"
-                    size={24}
-                    onPress={forceFocus}
-                    color={color}
-                />
-            )} 
-        />
+        <TextInput variant="outlined" placeholder="Enter password" secureTextEntry={true}>
+            <TextInput.Label>Password</TextInput.Label>
+            <TextInput.Right>
+                <TextInput.Icon name="eye" type="material-community" />
+            </TextInput.Right>
+        </TextInput>
     );
+}`}
+/>
+
+### With Supporting Text
+
+We need an extra view wrapper because SupportingText is rendered outside of the input field without any wrapper
+
+<LiveCodeExample
+    code={`import { TextInput } from 'react-native-molecules/components/TextInput';
+
+export default function Example() {
+    return (
+        <View>
+            <TextInput variant="outlined" placeholder="Enter email">
+                <TextInput.Label>Email</TextInput.Label>
+                <TextInput.SupportingText>
+                    We'll never share your email
+                </TextInput.SupportingText>
+            </TextInput>
+        </View>
+    );
+}`}
+/>
+
+### Error State
+
+<LiveCodeExample
+    code={`import { TextInput } from 'react-native-molecules/components/TextInput';
+
+export default function Example() {
+    return (
+        <View>
+            <TextInput variant="outlined" placeholder="Enter email" error>
+                <TextInput.Left>
+                    <TextInput.Icon name="email" type="material-community" />
+                </TextInput.Left>
+                <TextInput.Label>Email</TextInput.Label>
+                <TextInput.Right>
+                    <TextInput.Icon name="alert-circle" type="material-community" />
+                </TextInput.Right>
+                <TextInput.SupportingText>
+                    Invalid email format
+                </TextInput.SupportingText>
+            </TextInput>
+        </View>
+    );
+}`}
+/>
+
+### Complete Example
+
+<LiveCodeExample
+    code={`import { TextInput } from 'react-native-molecules/components/TextInput';
+import { useState } from 'react';
+
+export default function Example() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+    return (
+        <>
+            <TextInput
+                style={{ marginRight: 12 }}
+                variant="outlined"
+                placeholder="Enter email"
+                value={email}
+                onChangeText={setEmail}>
+                <TextInput.Left>
+                    <TextInput.Icon name="email" type="material-community" />
+                </TextInput.Left>
+                <TextInput.Label>Email</TextInput.Label>
+            </TextInput>
+
+            <TextInput
+                variant="outlined"
+                placeholder="Enter password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={true}>
+                <TextInput.Label>Password</TextInput.Label>
+                <TextInput.Right onPress={() => setShowPassword(!showPassword)}>
+                    <TextInput.Icon
+                        name={showPassword ? "eye-off" : "eye"}
+                        type="material-community"
+                    />
+                </TextInput.Right>
+            </TextInput>
+        </>
+    );
+
 }`}
 />
 

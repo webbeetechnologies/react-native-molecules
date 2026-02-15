@@ -3,6 +3,7 @@ import { Keyboard, TextInput as TextInputNative, View } from 'react-native';
 
 import type { ModeType, ValidRangeType } from '../DatePickerInline';
 import DatePickerInputWithoutModal from '../DatePickerInput/DatePickerInputWithoutModal';
+import { TextInput } from '../TextInput';
 import type { LocalState, LocalStateRange, LocalStateSingle } from './types';
 import { datePickerModalEditStyles } from './utils';
 
@@ -91,14 +92,14 @@ Props) {
                     <DatePickerInputWithoutModal
                         inputMode="start"
                         ref={dateInput}
-                        label={label}
                         value={(state as LocalStateSingle).date}
                         onChange={onSingleInputChange}
                         onSubmitEditing={onSubmitInput}
                         validRange={validRange}
                         // locale={locale}
-                        autoComplete={'off'}
-                    />
+                        autoComplete={'off'}>
+                        <TextInput.Label>{label}</TextInput.Label>
+                    </DatePickerInputWithoutModal>
                 ) : null}
             </>
 
@@ -108,27 +109,27 @@ Props) {
                         <DatePickerInputWithoutModal
                             inputMode="start"
                             ref={startInput}
-                            label={startLabel}
                             value={(state as LocalStateRange).startDate}
                             onChange={onStartDateChange}
                             returnKeyType={'next'}
                             onSubmitEditing={onSubmitStartInput}
                             validRange={validRange}
                             // locale={locale}
-                            autoComplete={'off'}
-                        />
+                            autoComplete={'off'}>
+                            <TextInput.Label>{startLabel}</TextInput.Label>
+                        </DatePickerInputWithoutModal>
                         <View style={datePickerModalEditStyles.separator} />
                         <DatePickerInputWithoutModal
                             inputMode="end"
                             ref={endInput}
-                            label={endLabel}
                             value={(state as LocalStateRange).endDate}
                             onChange={onEndDateChange}
                             onSubmitEditing={onSubmitEndInput}
                             validRange={validRange}
                             // locale={locale}
-                            autoComplete="off"
-                        />
+                            autoComplete="off">
+                            <TextInput.Label>{endLabel}</TextInput.Label>
+                        </DatePickerInputWithoutModal>
                     </View>
                 ) : null}
             </>
