@@ -1,9 +1,6 @@
 import {
-    Children,
     cloneElement,
-    type FC,
-    isValidElement,
-    memo,
+    type ComponentType,
     type ReactElement,
     useCallback,
     useEffect,
@@ -24,21 +21,21 @@ import {
     type ViewStyle,
 } from 'react-native';
 
-import { useControlledValue } from '../../hooks';
+import { typedMemo } from '../../hocs';
+import { useControlledValue, useSubcomponents } from '../../hooks';
 import { noop } from '../../utils/lodash';
-import { HorizontalDivider, type HorizontalDividerProps } from '../HorizontalDivider';
 import type { TabItemProps } from './TabItem';
 import { tabsStyles } from './utils';
 
-export type TabsProps = ViewProps & {
+export type TabsProps<T extends string | number> = ViewProps & {
     /**
      * child tab name
      * */
-    value?: string;
+    value?: T;
     /**
      * defaultValue to preselected for uncontrolled mode
      * */
-    defaultValue?: string;
+    defaultValue?: T;
     /**
      * to enable scroll
      * */
@@ -46,7 +43,7 @@ export type TabsProps = ViewProps & {
     /**
      * on name change callback.
      * */
-    onChange?: (value: string) => void;
+    onChange?: (value: T) => void;
     /**
      * Disable the active indicator below.
      * */
@@ -58,10 +55,6 @@ export type TabsProps = ViewProps & {
 
     indicatorProps?: Omit<ViewStyle, 'style'>;
 
-    dividerStyle?: ViewStyle;
-
-    dividerProps?: Omit<HorizontalDividerProps, 'style'>;
-
     /** Define the background Variant. */
     variant?: 'primary' | 'secondary';
     activeColor?: string;
@@ -69,7 +62,7 @@ export type TabsProps = ViewProps & {
 
 const emptyObj = {};
 
-export const TabBase = ({
+export const TabBase = <T extends string | number>({
     children,
     value: valueProp,
     defaultValue,
@@ -80,84 +73,75 @@ export const TabBase = ({
     style,
     variant = 'primary',
     indicatorProps,
-    dividerStyle: dividerStyleProp = emptyObj,
-    dividerProps,
     activeColor: activeColorProp,
     testID,
     ...rest
-}: TabsProps) => {
+}: TabsProps<T>) => {
     tabsStyles.useVariants({
         variant,
     });
 
-    const validChildren = useMemo(
-        () =>
-            Children.toArray(children).filter(
-                child => isValidElement(child) && (child?.type as FC).displayName === 'Tabs_Item',
-            ),
-        [children],
-    );
+    const { Tabs_Item: tabItems } = useSubcomponents({
+        children,
+        allowedChildren: ['Tabs_Item'],
+    });
 
-    const nameToIndexMap = useMemo(
-        () =>
-            validChildren.reduce((acc, child, currentIndex) => {
-                acc[(child as ReactElement<TabItemProps>).props?.name] = currentIndex;
-
-                return acc;
-            }, {} as Record<string, number>),
-        [validChildren],
+    // Get ordered list of tab names for current children
+    const tabNames = useMemo(
+        () => tabItems.map(child => (child as ReactElement<TabItemProps<T>>).props?.name),
+        [tabItems],
     );
 
     const [value, onChange] = useControlledValue({
         value: valueProp,
         onChange: onChangeProp,
-        defaultValue: defaultValue || (validChildren[0] as ReactElement<TabItemProps>)?.props?.name,
+        defaultValue: defaultValue || tabNames[0],
     });
 
-    const valueIndex = nameToIndexMap[value];
+    const valueIndex = useMemo(() => tabNames.indexOf(value), [value, tabNames]);
+    const previousTabCountRef = useRef(tabNames.length);
 
     const positionAnimationRef = useRef(new Animated.Value(0));
     const widthAnimationRef = useRef(new Animated.Value(0));
     const scrollViewRef = useRef<RNScrollView>(null);
     const scrollViewPosition = useRef(0);
 
-    const tabItemPositions = useRef<Array<{ width: number; contentWidth: number }>>([]);
+    const tabItemPositions = useRef<Map<T, { width: number; contentWidth: number }>>(new Map());
     const [tabContainerWidth, setTabContainerWidth] = useState(0);
+    const [layoutVersion, setLayoutVersion] = useState(0);
 
     const itemPositionsMap = useMemo(() => {
-        return tabItemPositions.current.reduce((acc, item, index) => {
-            const previousItemsWidth = tabItemPositions.current
-                .slice(0, index)
-                .reduce((totalWidth, _item) => {
-                    totalWidth += _item.width || 0;
-
-                    return totalWidth;
-                }, 0);
+        // Build positions based on current render order
+        let accumulatedWidth = 0;
+        return tabNames.reduce((acc, name, index) => {
+            const itemData = tabItemPositions.current.get(name);
+            if (!itemData) return acc;
 
             acc[index] =
                 variant === 'primary'
-                    ? previousItemsWidth + (item.width - item.contentWidth) / 2
-                    : previousItemsWidth;
+                    ? accumulatedWidth + (itemData.width - itemData.contentWidth) / 2
+                    : accumulatedWidth;
 
+            accumulatedWidth += itemData.width || 0;
             return acc;
         }, {} as Record<number, number>);
-        // to make useMemo in sync with the ref
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [variant, tabItemPositions.current.length]);
+    }, [variant, tabNames, layoutVersion]);
 
     const itemWidthsMap = useMemo(() => {
-        return tabItemPositions.current.reduce((acc, item, index) => {
-            acc[index] = variant === 'primary' ? item.contentWidth : item.width;
+        return tabNames.reduce((acc, name, index) => {
+            const itemData = tabItemPositions.current.get(name);
+            if (!itemData) return acc;
 
+            acc[index] = variant === 'primary' ? itemData.contentWidth : itemData.width;
             return acc;
         }, {} as Record<number, number>);
-        // to make useMemo in sync with the ref
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [variant, tabItemPositions.current.length]);
+    }, [variant, tabNames, layoutVersion]);
 
     const scrollHandler = useCallback(
         (currValue: number) => {
-            if (tabItemPositions.current.length > currValue) {
+            if (tabItemPositions.current.size > currValue) {
                 const itemStartPosition = currValue === 0 ? 0 : itemPositionsMap[currValue - 1];
                 const itemEndPosition = itemPositionsMap[currValue];
 
@@ -182,45 +166,76 @@ export const TabBase = ({
         [itemPositionsMap, tabContainerWidth],
     );
 
+    // Animate indicator position and width when value changes
     useEffect(() => {
-        Animated.timing(positionAnimationRef.current, {
-            toValue: valueIndex,
-            useNativeDriver: false,
-            duration: 170,
-        }).start();
+        Animated.parallel([
+            Animated.timing(positionAnimationRef.current, {
+                toValue: valueIndex,
+                useNativeDriver: false,
+                duration: 170,
+            }),
+            Animated.timing(widthAnimationRef.current, {
+                toValue: valueIndex,
+                useNativeDriver: false,
+                duration: 170,
+            }),
+        ]).start();
 
-        scrollable && requestAnimationFrame(() => scrollHandler(valueIndex));
-    }, [positionAnimationRef, scrollHandler, valueIndex, scrollable]);
+        if (scrollable) {
+            requestAnimationFrame(() => scrollHandler(valueIndex));
+        }
+    }, [scrollHandler, valueIndex, scrollable]);
 
+    // Handle tab count changes
     useEffect(() => {
-        Animated.timing(widthAnimationRef.current, {
-            toValue: valueIndex,
-            useNativeDriver: false,
-            duration: 170,
-        }).start();
-    }, [positionAnimationRef, scrollHandler, valueIndex]);
+        const currentTabCount = tabNames.length;
+
+        if (currentTabCount !== previousTabCountRef.current) {
+            // Clean up positions for removed tabs
+            const currentTabNamesSet = new Set(tabNames);
+            tabItemPositions.current.forEach((_, name) => {
+                if (!currentTabNamesSet.has(name)) {
+                    tabItemPositions.current.delete(name);
+                }
+            });
+
+            // Trigger re-calculation
+            setLayoutVersion(v => v + 1);
+
+            // Clamp animated values when tabs are removed
+            if (currentTabCount < previousTabCountRef.current) {
+                const maxValidIndex = Math.max(0, currentTabCount - 1);
+                positionAnimationRef.current.setValue(Math.min(valueIndex, maxValidIndex));
+                widthAnimationRef.current.setValue(Math.min(valueIndex, maxValidIndex));
+            }
+        }
+
+        previousTabCountRef.current = currentTabCount;
+    }, [tabNames, valueIndex]);
 
     const onScrollHandler = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
         scrollViewPosition.current = event.nativeEvent.contentOffset.x;
     }, []);
 
-    const transitionInterpolateWithMap = useCallback(
-        (obj: Record<any, number>) => {
-            const countItems = validChildren.length;
-            if (countItems < 2 || !tabItemPositions.current.length) {
-                // if there's only one item, use the value of that
-                return Object.values(obj)[0] || 0;
-            }
-            const inputRange = Array.from(Array(countItems).keys());
-            const outputRange = Object.values(obj);
+    const transitionInterpolateWithMap = useCallback((obj: Record<number, number>) => {
+        const entries = Object.entries(obj);
+        const countItems = entries.length;
 
-            return positionAnimationRef.current.interpolate({
-                inputRange,
-                outputRange,
-            });
-        },
-        [validChildren.length],
-    );
+        if (countItems < 2 || !tabItemPositions.current.size) {
+            // If there's only one item or no layout data, use the first value
+            return Object.values(obj)[0] || 0;
+        }
+
+        // Use indices from the map entries to ensure inputRange matches outputRange
+        const inputRange = entries.map(([key]) => Number(key));
+        const outputRange = entries.map(([, val]) => val);
+
+        return positionAnimationRef.current.interpolate({
+            inputRange,
+            outputRange,
+            extrapolate: 'clamp',
+        });
+    }, []);
 
     const indicatorTransitionInterpolate = useMemo(() => {
         return transitionInterpolateWithMap(itemPositionsMap);
@@ -230,14 +245,12 @@ export const TabBase = ({
         return transitionInterpolateWithMap(itemWidthsMap);
     }, [transitionInterpolateWithMap, itemWidthsMap]);
 
-    const { containerStyle, itemsContainerStyle, dividerStyle, indicatorStyle } = useMemo(() => {
-        const { indicator, itemsContainer, divider } = tabsStyles;
+    const { containerStyle, indicatorStyle } = useMemo(() => {
+        const { indicator, itemsContainer } = tabsStyles;
         const { activeColor, ...restStyle } = tabsStyles.root;
 
         return {
-            containerStyle: [restStyle, style],
-            itemsContainerStyle: itemsContainer,
-            dividerStyle: [divider, dividerStyleProp],
+            containerStyle: [restStyle, itemsContainer, style],
             indicatorStyle: [
                 indicator,
                 {
@@ -254,7 +267,6 @@ export const TabBase = ({
         };
     }, [
         style,
-        dividerStyleProp,
         activeColorProp,
         indicatorTransitionInterpolate,
         widthTransitionInterpolate,
@@ -268,7 +280,6 @@ export const TabBase = ({
               ref: scrollViewRef,
               onScroll: onScrollHandler,
               showsHorizontalScrollIndicator: false,
-              style: itemsContainerStyle,
           }
         : {};
 
@@ -276,95 +287,88 @@ export const TabBase = ({
         setTabContainerWidth(layout.width);
     }, []);
 
-    const onLayoutItem = useCallback((event: LayoutChangeEvent, index: number) => {
+    const onLayoutItem = useCallback((event: LayoutChangeEvent, name: T) => {
         const { width } = event.nativeEvent.layout;
 
-        const currentItemPosition = tabItemPositions.current[index];
+        const currentItemPosition = tabItemPositions.current.get(name) || {
+            width: 0,
+            contentWidth: 0,
+        };
 
-        tabItemPositions.current[index] = {
+        tabItemPositions.current.set(name, {
             ...currentItemPosition,
             width: width,
-        };
+        });
+        setLayoutVersion(v => v + 1);
     }, []);
 
-    const onLayoutText = useCallback((event: LayoutChangeEvent, index: number) => {
+    const onLayoutText = useCallback((event: LayoutChangeEvent, name: T) => {
         const { width } = event.nativeEvent.layout;
 
-        const currentItemPosition = tabItemPositions.current[index];
+        const currentItemPosition = tabItemPositions.current.get(name) || {
+            width: 0,
+            contentWidth: 0,
+        };
 
-        tabItemPositions.current[index] = {
+        tabItemPositions.current.set(name, {
             ...currentItemPosition,
             contentWidth: width,
-        };
+        });
+        setLayoutVersion(v => v + 1);
     }, []);
 
     return (
-        <View
+        <Container
             {...rest}
             testID={testID}
+            {...containerProps}
             style={containerStyle}
             accessibilityRole="tablist"
             onLayout={onLayout}>
-            <>
-                <Container
-                    testID={testID && `${testID}--inner-container`}
-                    {...containerProps}
-                    style={itemsContainerStyle}>
-                    {validChildren.map((child, index) => (
-                        <ChildItem
-                            key={(child as ReactElement<TabItemProps>).props?.name}
-                            testID={testID && `${testID}--tab-item`}
-                            index={index}
-                            value={value}
-                            child={child as ReactElement<TabItemProps>}
-                            onChange={onChange}
-                            onLayout={onLayoutItem}
-                            onLayoutContent={onLayoutText}
-                            variant={variant}
-                        />
-                    ))}
-
-                    {!disableIndicator && (
-                        <Animated.View
-                            testID={testID && `${testID}--active-indicator`}
-                            {...indicatorProps}
-                            style={indicatorStyle}
-                        />
-                    )}
-                </Container>
-
-                <HorizontalDivider
-                    testID={testID && `${testID}--divider`}
-                    {...dividerProps}
-                    style={dividerStyle}
+            {tabItems.map(child => (
+                <ChildItem
+                    key={(child as ReactElement<TabItemProps<T>>).props?.name}
+                    testID={testID && `${testID}--tab-item`}
+                    value={value}
+                    child={child as ReactElement<TabItemProps<T>>}
+                    onChange={onChange}
+                    onLayout={onLayoutItem}
+                    onLayoutContent={onLayoutText}
+                    variant={variant}
                 />
-            </>
-        </View>
+            ))}
+
+            {!disableIndicator && (
+                <Animated.View
+                    testID={testID && `${testID}--active-indicator`}
+                    {...indicatorProps}
+                    style={indicatorStyle}
+                />
+            )}
+        </Container>
     );
 };
 
-type ChildItemProps = {
-    variant: TabsProps['variant'];
-    child: ReactElement<TabItemProps>;
-    onChange: TabsProps['onChange'];
-    onLayout: (event: LayoutChangeEvent, index: number) => void;
-    onLayoutContent: (event: LayoutChangeEvent, index: number) => void;
-    value: string;
-    index: number;
+type ChildItemProps<T extends string | number> = {
+    variant: TabsProps<T>['variant'];
+    child: ReactElement<TabItemProps<T>>;
+    onChange: TabsProps<T>['onChange'];
+    onLayout: (event: LayoutChangeEvent, name: T) => void;
+    onLayoutContent: (event: LayoutChangeEvent, name: T) => void;
+    value: string | number;
     testID?: string;
 };
 
-const ChildItem = memo(
-    ({
+const ChildItem = typedMemo(
+    <T extends string | number>({
         value,
         child,
         onChange,
         onLayout: onLayoutProp,
         onLayoutContent: onLayoutContentProp,
         variant,
-        index,
         testID,
-    }: ChildItemProps) => {
+    }: ChildItemProps<T>) => {
         const name = child.props?.name;
 
         const onPress = useCallback(() => {
@@ -373,16 +377,16 @@ const ChildItem = memo(
 
         const onLayout = useCallback(
             (e: LayoutChangeEvent) => {
-                onLayoutProp(e, index);
+                onLayoutProp(e, name);
             },
-            [index, onLayoutProp],
+            [name, onLayoutProp],
         );
 
         const onLayoutContent = useCallback(
             (e: LayoutChangeEvent) => {
-                onLayoutContentProp(e, index);
+                onLayoutContentProp(e, name);
             },
-            [index, onLayoutContentProp],
+            [name, onLayoutContentProp],
         );
 
         return cloneElement(child, {
@@ -396,4 +400,5 @@ const ChildItem = memo(
     },
 );
 
+(ChildItem as ComponentType).displayName = 'Tabs_ChildItem';
 TabBase.displayName = 'Tabs';

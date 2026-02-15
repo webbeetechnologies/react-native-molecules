@@ -1,29 +1,20 @@
-import {
-    Children,
-    cloneElement,
-    forwardRef,
-    isValidElement,
-    type JSXElementConstructor,
-    memo,
-    type ReactElement,
-    useCallback,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import { forwardRef, memo, type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { type LayoutChangeEvent, View, type ViewProps, type ViewStyle } from 'react-native';
 
 import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { StateLayer } from '../StateLayer';
 import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { tabsItemStyles } from './utils';
+import { TabItemContext, tabsItemStyles } from './utils';
 
-export type TabItemProps = Omit<TouchableRippleProps, 'children' | 'ref'> & {
+export type TabItemProps<T extends string | number> = Omit<
+    TouchableRippleProps,
+    'children' | 'ref'
+> & {
     /**
      * name of the tab. This should be unique like a route name
      * */
-    name: string;
+    name: T;
     /**
      * Allows to define if TabItem is active.
      * */
@@ -37,22 +28,11 @@ export type TabItemProps = Omit<TouchableRippleProps, 'children' | 'ref'> & {
     contentsContainerProps?: Omit<ViewProps, 'children' | 'style' | 'onLayout'>;
     onLayoutContent?: (e: LayoutChangeEvent) => void;
     accessibilityLabel?: string;
-    children: ReactElement<
-        {
-            active: boolean;
-            hovered: boolean;
-            variant: 'primary' | 'secondary';
-        },
-        JSXElementConstructor<{
-            active: boolean;
-            hovered: boolean;
-            variant: 'primary' | 'secondary';
-        }>
-    >;
+    children: ReactNode;
     stateLayerProps?: ViewProps;
 };
 
-const TabItem = (
+const TabItem = <T extends string | number>(
     {
         active = false,
         variant = 'primary',
@@ -65,7 +45,7 @@ const TabItem = (
         children,
         stateLayerProps,
         ...rest
-    }: TabItemProps,
+    }: TabItemProps<T>,
     ref: any,
 ) => {
     const { hovered, actionsRef } = useActionState({ ref, actionsToListen: ['hover'] });
@@ -110,36 +90,33 @@ const TabItem = (
         [active, accessibilityLabel, state],
     );
 
-    return (
-        <TouchableRipple
-            style={containerStyle}
-            accessibilityRole="tab"
-            accessibilityState={accessibilityState}
-            accessibilityValue={accessibilityValue}
-            {...rest}
-            ref={actionsRef}
-            onLayout={onLayout}>
-            <>
-                <View
-                    style={[tabsItemStyles.contentsContainer, contentsContainerStyleProp]}
-                    {...contentsContainerProps}
-                    onLayout={onLayoutHandled}>
-                    {Children.map(children, child => {
-                        if (!isValidElement(child)) return null;
-                        return cloneElement(child, {
-                            active,
-                            hovered,
-                            variant,
-                        });
-                    })}
-                </View>
+    const contextValue = useMemo(() => ({ active, hovered, variant }), [active, hovered, variant]);
 
-                <StateLayer
-                    {...stateLayerProps}
-                    style={[tabsItemStyles.stateLayer, stateLayerProps?.style]}
-                />
-            </>
-        </TouchableRipple>
+    return (
+        <TabItemContext.Provider value={contextValue}>
+            <TouchableRipple
+                style={containerStyle}
+                accessibilityRole="tab"
+                accessibilityState={accessibilityState}
+                accessibilityValue={accessibilityValue}
+                {...rest}
+                ref={actionsRef}
+                onLayout={onLayout}>
+                <>
+                    <View
+                        style={[tabsItemStyles.contentsContainer, contentsContainerStyleProp]}
+                        {...contentsContainerProps}
+                        onLayout={onLayoutHandled}>
+                        {children}
+                    </View>
+
+                    <StateLayer
+                        {...stateLayerProps}
+                        style={[tabsItemStyles.stateLayer, stateLayerProps?.style]}
+                    />
+                </>
+            </TouchableRipple>
+        </TabItemContext.Provider>
     );
 };
 

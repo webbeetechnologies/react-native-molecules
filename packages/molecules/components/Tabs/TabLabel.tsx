@@ -1,9 +1,9 @@
-import { type FC, memo, useMemo } from 'react';
+import { memo, useContext, useMemo } from 'react';
 import { type TextProps, type TextStyle } from 'react-native';
 
 import { Icon, type IconProps, type IconType } from '../Icon';
 import { Text } from '../Text';
-import { tabsLabelStyles } from './utils';
+import { TabItemContext, tabsLabelStyles } from './utils';
 
 const DEFAULT_ICON_SIZE = 24;
 
@@ -23,11 +23,6 @@ export type TabLabelProps = {
     iconStyle?: TextStyle;
 
     activeColor?: string;
-
-    active: boolean;
-    hovered: boolean;
-
-    variant: 'primary' | 'secondary';
 };
 
 const TabLabel = memo((props: TabLabelProps) => {
@@ -40,8 +35,9 @@ const TabLabel = memo((props: TabLabelProps) => {
         labelStyle: labelStyleProp,
         labelProps,
         label,
-        active,
     } = props;
+
+    const { active } = useContext(TabItemContext);
 
     // tabsLabelStyles.useVariants({
     //     variant,
@@ -81,4 +77,4 @@ const TabLabel = memo((props: TabLabelProps) => {
 
 TabLabel.displayName = 'TabLabel';
 
-export default TabLabel as unknown as FC<Omit<TabLabelProps, 'active' | 'hovered' | 'variant'>>;
+export default TabLabel;

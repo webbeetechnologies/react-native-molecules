@@ -1,10 +1,25 @@
+import { createContext } from 'react';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
 
+export type TabItemContextType = {
+    active: boolean;
+    hovered: boolean;
+    variant: 'primary' | 'secondary';
+};
+
+export const TabItemContext = createContext<TabItemContextType>({
+    active: false,
+    hovered: false,
+    variant: 'primary',
+});
+
 const tabsStylesDefault = StyleSheet.create(theme => ({
     root: {
         activeColor: theme.colors.primary,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.colors.outlineVariant,
     } as any,
 
     itemsContainer: {
@@ -30,8 +45,6 @@ const tabsStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
-
-    divider: {},
 }));
 
 const tabsItemStylesDefault = StyleSheet.create(theme => ({
