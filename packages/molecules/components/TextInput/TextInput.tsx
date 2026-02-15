@@ -139,9 +139,9 @@ export type Props = Omit<NativeTextInputProps, 'style' | 'ref'> & {
      */
     style?: StyleProp<ViewStyle>;
     /**
-     * Props for the container that is directly inside the root container which has horizontal layout
+     * Props for the container that is directly inside the context container which is horizontal layout
      */
-    fieldProps?: ViewProps;
+    containerProps?: ViewProps;
     /**
      * Style of the Input Container
      */
@@ -162,7 +162,6 @@ export type Props = Omit<NativeTextInputProps, 'style' | 'ref'> & {
      * Render custom input component.
      */
     render?: (props: RenderProps) => ReactNode;
-    rootContainerProps?: ViewProps;
     inputStyle?: NativeTextInputProps['style'];
     placeholder?: string;
 };
@@ -191,8 +190,8 @@ const TextInput = ({
 
     selectionColor,
     placeholderTextColor,
+    containerProps,
     style,
-    fieldProps,
     inputWrapperProps,
     stateLayerProps,
     onBlur,
@@ -204,7 +203,6 @@ const TextInput = ({
     render,
     placeholder,
     children,
-    rootContainerProps,
     inputStyle,
     ...rest
 }: Props) => {
@@ -440,50 +438,51 @@ const TextInput = ({
 
     return (
         <TextInputContext value={contextValue}>
-            <View {...rootContainerProps} style={[style, rootContainerProps?.style]}>
-                <View ref={actionsRef} {...fieldProps} style={[styles.inputRow, fieldProps?.style]}>
-                    {outlineElement}
-                    {variant === 'flat' && (
-                        <StateLayer
-                            testID={testID && `${testID}--stateLayer`}
-                            {...stateLayerProps}
-                            style={computedStyles.stateLayerStyle}
-                        />
-                    )}
+            <View
+                ref={actionsRef}
+                {...containerProps}
+                style={[styles.root, style, containerProps?.style]}>
+                {outlineElement}
+                {variant === 'flat' && (
+                    <StateLayer
+                        testID={testID && `${testID}--stateLayer`}
+                        {...stateLayerProps}
+                        style={computedStyles.stateLayerStyle}
+                    />
+                )}
 
-                    {TextInput_Left}
-                    <View
-                        {...inputWrapperProps}
-                        style={[
-                            styles.inputWrapper,
-                            {
-                                minHeight: labelHeight,
-                            },
-                            inputWrapperProps?.style,
-                        ]}>
-                        {TextInput_Label}
-                        {renderFunc({
-                            placeholder: placeholderText,
-                            ref: inputRefLocal,
-                            placeholderTextColor: placeholderTextColor,
-                            selectionColor: selectionColor,
-                            editable: !disabled && editable,
-                            underlineColorAndroid: 'transparent' as const,
-                            multiline,
-                            size,
-                            onFocus: handleFocus,
-                            onBlur: handleBlur,
-                            onChangeText: onChangeValue,
-                            value: value,
-                            ...rest,
-                            style: computedStyles.textInputStyle,
-                        })}
-                    </View>
-                    {TextInput_Right}
+                {TextInput_Left}
+                <View
+                    {...inputWrapperProps}
+                    style={[
+                        styles.inputWrapper,
+                        {
+                            minHeight: labelHeight,
+                        },
+                        inputWrapperProps?.style,
+                    ]}>
+                    {TextInput_Label}
+                    {renderFunc({
+                        placeholder: placeholderText,
+                        ref: inputRefLocal,
+                        placeholderTextColor: placeholderTextColor,
+                        selectionColor: selectionColor,
+                        editable: !disabled && editable,
+                        underlineColorAndroid: 'transparent' as const,
+                        multiline,
+                        size,
+                        onFocus: handleFocus,
+                        onBlur: handleBlur,
+                        onChangeText: onChangeValue,
+                        value: value,
+                        ...rest,
+                        style: computedStyles.textInputStyle,
+                    })}
                 </View>
-                {TextInput_SupportingText}
-                {restChildren}
+                {TextInput_Right}
             </View>
+            {TextInput_SupportingText}
+            {restChildren}
         </TextInputContext>
     );
 };

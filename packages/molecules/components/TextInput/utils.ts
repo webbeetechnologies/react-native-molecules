@@ -64,11 +64,10 @@ export const getInputMinHeight = getRegisteredComponentUtilsWithFallback(
 
 // Main TextInput component styles
 const textInputStylesDefault = StyleSheet.create(theme => ({
-    root: {},
-
-    inputRow: {
+    root: {
         flexDirection: 'row',
         paddingHorizontal: theme.spacings['4'],
+
         variants: {
             variant: {
                 outlined: {
@@ -381,7 +380,8 @@ const textInputOutlineStylesDefault = StyleSheet.create(theme => ({
         variants: {
             variant: {
                 outlined: {
-                    borderRadius: theme.shapes.corner.extraSmall,
+                    // this will be inherited from root
+                    // borderRadius: theme.shapes.corner.extraSmall,
                     borderColor: theme.colors.outline,
                     borderWidth: 1,
                 },
