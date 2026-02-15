@@ -1,9 +1,30 @@
+import { createContext } from 'react';
 import { StyleSheet } from 'react-native-unistyles';
 
 import {
     getRegisteredComponentStylesWithFallback,
     getRegisteredComponentUtilsWithFallback,
 } from '../../core';
+import type { TextInputContextType, TextInputStates } from './types';
+
+export const TextInputContext = createContext<TextInputContextType>({
+    variant: 'outlined',
+    size: 'sm',
+    state: 'default' as TextInputStates,
+    disabled: false,
+    error: false,
+    focused: false,
+    hovered: false,
+    hasValue: false,
+    hasLabel: false,
+    required: false,
+    multiline: false,
+    labelLayout: { measured: false, width: 0, height: 0 },
+    leftElementLayout: { measured: false, width: 0, height: 0 },
+    onLayoutLabel: () => {},
+    onLayoutLeftElement: () => {},
+    forceFocus: () => {},
+});
 
 export type States =
     | 'disabled'
@@ -42,55 +63,9 @@ export const getInputMinHeight = getRegisteredComponentUtilsWithFallback(
 );
 
 const textInputStylesDefault = StyleSheet.create(theme => ({
-    root: {
-        variants: {
-            variant: {
-                outlined: {},
-            },
-            state: {
-                focused: {
-                    ...({
-                        activeColor: theme.colors.primary,
-                    } as Record<string, any>),
-                },
-                hovered: {},
-                hoveredAndFocused: {
-                    ...({
-                        activeColor: theme.colors.primary,
-                    } as Record<string, any>),
-                },
-                disabled: {},
-                error: {
-                    ...({
-                        activeColor: theme.colors.error,
-                    } as Record<string, any>),
-                },
-                errorFocused: {
-                    ...({
-                        activeColor: theme.colors.error,
-                    } as Record<string, any>),
-                },
-                errorFocusedAndHovered: {
-                    ...({
-                        activeColor: theme.colors.error,
-                    } as Record<string, any>),
-                },
-                errorDisabled: {
-                    ...({
-                        activeColor: theme.colors.error,
-                    } as Record<string, any>),
-                },
-                errorHovered: {},
-            },
-            size: {
-                lg: {},
-                md: {},
-                sm: {},
-            },
-        },
-    },
+    root: {},
 
-    container: {
+    inputRow: {
         flexDirection: 'row',
         paddingHorizontal: theme.spacings['4'],
         variants: {
@@ -191,7 +166,7 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
         position: 'absolute',
         left: 0,
         color: theme.colors.onSurfaceVariant,
-        typescale: theme.typescale.bodyLarge,
+        ...theme.typescale.bodyLarge,
 
         variants: {
             size: {
@@ -250,10 +225,14 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
-    inputText: {
+    input: {
         color: theme.colors.onSurface,
         ...theme.typescale.bodyLarge,
         flexGrow: 1,
+
+        _web: {
+            outline: 'none',
+        },
 
         variants: {
             size: {
@@ -268,7 +247,9 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
                 },
             },
             variant: {
-                flat: {},
+                flat: {
+                    paddingTop: 12,
+                },
             },
 
             state: {
@@ -490,6 +471,12 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
         ],
     },
     stateLayer: {
+        borderTopLeftRadius: theme.shapes.corner.extraSmall,
+        borderTopRightRadius: theme.shapes.corner.extraSmall,
+        variants: {
+            variant: {},
+            state: {},
+        },
         compoundVariants: [
             {
                 variant: 'flat',
@@ -521,10 +508,6 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
         flexGrow: 1,
         flexShrink: 1,
     },
-    patchContainer: {
-        height: 24,
-        zIndex: 2,
-    },
 }));
 
 export const styles = getRegisteredComponentStylesWithFallback('TextInput', textInputStylesDefault);
@@ -535,3 +518,53 @@ export const inputLabelStyles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
+const textInputIconStylesDefault = StyleSheet.create(theme => ({
+    root: {
+        variants: {
+            state: {
+                default: {
+                    color: theme.colors.onSurfaceVariant,
+                },
+                focused: {
+                    color: theme.colors.onSurfaceVariant,
+                },
+                hovered: {
+                    color: theme.colors.onSurfaceVariant,
+                },
+                hoveredAndFocused: {
+                    color: theme.colors.onSurfaceVariant,
+                },
+                disabled: {
+                    color: theme.colors.onSurface,
+                    opacity: 0.38,
+                },
+                error: {
+                    color: theme.colors.error,
+                },
+                errorFocused: {
+                    color: theme.colors.error,
+                },
+                errorFocusedAndHovered: {
+                    color: theme.colors.error,
+                },
+                errorDisabled: {
+                    color: theme.colors.error,
+                    opacity: 0.38,
+                },
+                errorHovered: {
+                    color: theme.colors.onErrorContainer,
+                },
+            },
+            position: {
+                left: {},
+                right: {},
+            },
+        },
+    },
+}));
+
+export const textInputIconStyles = getRegisteredComponentStylesWithFallback(
+    'TextInputIcon',
+    textInputIconStylesDefault,
+);

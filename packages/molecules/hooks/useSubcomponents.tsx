@@ -6,7 +6,7 @@ export type UseSubcomponentsProps<T extends string> = {
     /**
      * array of displayName as string
      * */
-    allowedChildren: T[];
+    allowedChildren: (T | { name: T; allowMultiple?: boolean })[];
     /**
      * If true, also returns the remaining children that don't match any of the allowedChildren
      * in a `rest` property
@@ -44,49 +44,47 @@ function useSubcomponents<T extends string = string, IncludeRest extends boolean
     IncludeRest
 > {
     return useMemo(() => {
-        // this will create properties with default empty array values even if they don't exist in the children
-        const defaultContext = allowedChildren.reduce(
-            (context, childName) => {
-                return {
-                    ...context,
-                    [childName]: [],
-                };
-            },
-            includeRest ? { rest: [] as ReactNode[] } : {},
-        ) as UseSubcomponentsResult<T, IncludeRest>;
+        const configs = allowedChildren.map(entry =>
+            typeof entry === 'string'
+                ? { name: entry, allowMultiple: true as boolean }
+                : { name: entry.name, allowMultiple: entry.allowMultiple ?? true },
+        );
 
-        const childArray = Children.toArray(children);
+        const nameSet = new Set(configs.map(c => c.name));
+        const allowMultipleMap = new Map(configs.map(c => [c.name, c.allowMultiple]));
 
-        return childArray.reduce((context, child) => {
+        const result = configs.reduce((acc, { name }) => {
+            (acc as any)[name] = [];
+            return acc;
+        }, (includeRest ? { rest: [] } : {}) as UseSubcomponentsResult<T, IncludeRest>);
+
+        Children.forEach(children, child => {
             if (!isValidElement(child)) {
-                // Non-element children go to rest if includeRest is enabled
                 if (includeRest) {
-                    return {
-                        ...context,
-                        rest: [...(context as any).rest, child],
-                    };
+                    (result as any).rest.push(child);
                 }
-                return context;
+                return;
             }
 
-            const displayName = (child.type as FC)?.displayName as string | undefined;
+            const displayName = (child.type as FC)?.displayName as T | undefined;
 
-            if (!displayName || !allowedChildren.includes(displayName as T)) {
-                // Unmatched elements go to rest if includeRest is enabled
-                if (includeRest) {
-                    return {
-                        ...context,
-                        rest: [...(context as any).rest, child],
-                    };
+            if (displayName && nameSet.has(displayName)) {
+                if (allowMultipleMap.get(displayName)) {
+                    (result as any)[displayName].push(child);
+                } else {
+                    // Only keep the last matching child
+                    (result as any)[displayName] = [child];
                 }
-                return context;
+
+                return;
             }
 
-            return {
-                ...context,
-                [displayName]: [...(context as any)[displayName], child],
-            };
-        }, defaultContext);
+            if (includeRest) {
+                (result as any).rest.push(child);
+            }
+        });
+
+        return result;
     }, [allowedChildren, children, includeRest]);
 }
 

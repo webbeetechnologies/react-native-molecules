@@ -1,37 +1,96 @@
-import type { ReactElement, RefObject } from 'react';
+import type { ReactElement, ReactNode, RefObject } from 'react';
 import type {
     Animated,
-    BlurEvent,
-    ColorValue,
-    FocusEvent,
+    GestureResponderEvent,
+    LayoutChangeEvent,
+    PressableProps,
     StyleProp,
     TextInput as NativeTextInput,
+    TextProps,
     TextStyle,
+    ViewStyle,
 } from 'react-native';
 
+import type { IconProps } from '../Icon';
 import type { Props as TextInputProps } from './TextInput';
 
 export type TextInputLabelProp = string | ReactElement;
+
+// States for compound component context
+export type TextInputStates =
+    | 'disabled'
+    | 'focused'
+    | 'hovered'
+    | 'hoveredAndFocused'
+    | 'errorFocusedAndHovered'
+    | 'error'
+    | 'errorFocused'
+    | 'errorHovered'
+    | 'errorDisabled'
+    | 'default';
+
+// Context type for compound components
+export type TextInputContextType = {
+    // Variants
+    variant: TextInputVariant;
+    size: TextInputSize;
+    state: TextInputStates;
+
+    // State flags
+    disabled: boolean;
+    error: boolean;
+    focused: boolean;
+    hovered: boolean;
+    hasValue: boolean;
+    hasLabel: boolean;
+    required: boolean;
+    multiline: boolean;
+
+    // Layout
+    labelLayout: { measured: boolean; width: number; height: number };
+    leftElementLayout: { measured: boolean; width: number; height: number };
+    onLayoutLabel: (e: LayoutChangeEvent) => void;
+    onLayoutLeftElement: (e: LayoutChangeEvent) => void;
+
+    // Refs and handlers
+    forceFocus: () => void;
+};
+
+// Compound component props
+export type TextInputLabelCompoundProps = TextProps & {
+    children: TextInputLabelProp;
+    floatingStyle?: StyleProp<TextStyle>;
+    maxFontSizeMultiplier?: number;
+};
+
+export type TextInputElementCompoundProps = Omit<PressableProps, 'onPress'> & {
+    onPress?: null | ((event: GestureResponderEvent, forceFocus: () => void) => void) | undefined;
+    children: ReactNode;
+    style?: StyleProp<ViewStyle>;
+    onLayout?: (e: LayoutChangeEvent) => void;
+};
+
+export type TextInputIconCompoundProps = Omit<IconProps, 'color'> & {
+    color?: string;
+};
+
+export type TextInputSupportingTextCompoundProps = {
+    children: string;
+    style?: StyleProp<TextStyle>;
+};
+
+export type TextInputOutlineCompoundProps = {
+    style?: StyleProp<ViewStyle>;
+};
 
 export type TextInputSize = 'lg' | 'md' | 'sm';
 
 export type TextInputVariant = 'flat' | 'outlined' | 'plain';
 
-export type RenderProps = {
+export type RenderProps = Omit<TextInputProps, 'ref'> & {
     ref: RefObject<NativeTextInput | null>;
-    onChangeText?: (a: string) => void;
-    placeholder?: string;
-    placeholderTextColor?: ColorValue;
-    editable?: boolean;
-    selectionColor?: string;
-    onFocus?: (args: FocusEvent) => void;
-    onBlur?: (args: BlurEvent) => void;
-    underlineColorAndroid?: string;
-    style: any;
-    multiline?: boolean;
     size?: TextInputSize;
     numberOfLines?: number;
-    value?: string;
     adjustsFontSizeToFit?: boolean;
     testID?: string;
 };
@@ -54,17 +113,7 @@ export type InputBaseProps = {
     onChangeText?: (value: string) => void;
     onLayoutAnimatedText: (args: any) => void;
     componentStyles: Record<string, any>;
-} & Omit<
-    TextInputProps,
-    | 'style'
-    | 'activeOutlineColor'
-    | 'activeUnderlineColor'
-    | 'underlineColor'
-    | 'outlineColor'
-    | 'placeholderTextColor'
-    | 'selectionColor'
-    | 'containerStyle'
->;
+} & Omit<TextInputProps, 'style' | 'placeholderTextColor' | 'selectionColor' | 'containerStyle'>;
 
 export type InputLabelProps = {
     baseLabelTranslateX: number;

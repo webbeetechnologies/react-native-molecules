@@ -22,7 +22,6 @@ const iconButtonSizeToIconSizeMapDefault = {
 const iconButtonStylesDefault = StyleSheet.create(theme => ({
     root: {
         borderColor: theme.colors.outline,
-        color: theme.colors.onSurfaceVariant,
         borderRadius: theme.shapes.corner.full,
         overflow: 'hidden',
         borderWidth: 0,
@@ -73,16 +72,13 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
 
                 contained: {
                     backgroundColor: theme.colors.surfaceVariant,
-                    color: theme.colors.primary,
                 },
 
                 'contained-tonal': {
                     backgroundColor: theme.colors.surfaceVariant,
-                    color: theme.colors.onSurfaceVariant,
                 },
 
                 outlined: {
-                    color: theme.colors.onSurfaceVariant,
                     borderWidth: 1,
                 },
             },
@@ -92,30 +88,23 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
             {
                 variant: 'default',
                 state: 'selectedAndDisabled',
-                styles: {
-                    color: theme.colors.primary,
-                },
+                styles: {},
             },
             {
                 variant: 'default',
                 state: 'selected',
-                styles: {
-                    color: theme.colors.primary,
-                },
+                styles: {},
             },
             {
                 variant: 'default',
                 state: 'selectedAndHovered',
-                styles: {
-                    color: theme.colors.primary,
-                },
+                styles: {},
             },
             {
                 variant: 'contained',
                 state: 'selectedAndDisabled',
                 styles: {
                     backgroundColor: theme.colors.primary,
-                    color: theme.colors.onPrimary,
                 },
             },
             {
@@ -130,14 +119,13 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'selected',
                 styles: {
                     backgroundColor: theme.colors.primary,
-                    color: theme.colors.onPrimary,
                 },
             },
             {
                 variant: 'contained',
                 state: 'selectedAndHovered',
                 styles: {
-                    color: theme.colors.primary,
+                    backgroundColor: theme.colors.primary,
                 },
             },
             {
@@ -145,7 +133,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'hovered',
                 styles: {
                     backgroundColor: theme.colors.primary,
-                    color: theme.colors.onPrimary,
                 },
             },
             {
@@ -153,7 +140,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'selectedAndDisabled',
                 styles: {
                     backgroundColor: theme.colors.secondaryContainer,
-                    color: theme.colors.onSecondaryContainer,
                 },
             },
             {
@@ -168,7 +154,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'selected',
                 styles: {
                     backgroundColor: theme.colors.secondaryContainer,
-                    color: theme.colors.onSecondaryContainer,
                 },
             },
             {
@@ -176,7 +161,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'selectedAndHovered',
                 styles: {
                     backgroundColor: theme.colors.secondaryContainer,
-                    color: theme.colors.onSecondaryContainer,
                 },
             },
             {
@@ -184,7 +168,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'selectedAndDisabled',
                 styles: {
                     backgroundColor: theme.colors.inverseSurface,
-                    color: theme.colors.inverseOnSurface,
                     borderWidth: 0,
                 },
             },
@@ -200,7 +183,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'selected',
                 styles: {
                     backgroundColor: theme.colors.inverseSurface,
-                    color: theme.colors.inverseOnSurface,
                     borderWidth: 0,
                 },
             },
@@ -209,7 +191,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'selectedAndHovered',
                 styles: {
                     backgroundColor: theme.colors.secondaryContainer,
-                    color: theme.colors.onSecondaryContainer,
                 },
             },
             {
@@ -217,7 +198,6 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 state: 'hovered',
                 styles: {
                     backgroundColor: theme.colors.inverseSurface,
-                    color: theme.colors.inverseOnSurface,
                     borderWidth: 0,
                 },
             },
@@ -304,7 +284,143 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
         ],
     },
 
-    icon: {},
+    icon: {
+        color: theme.colors.onSurfaceVariant,
+
+        variants: {
+            variant: {
+                default: {},
+
+                contained: {
+                    color: theme.colors.primary,
+                },
+
+                'contained-tonal': {
+                    color: theme.colors.onSurfaceVariant,
+                },
+
+                outlined: {
+                    color: theme.colors.onSurfaceVariant,
+                },
+            },
+        },
+
+        compoundVariants: [
+            {
+                variant: 'default',
+                state: 'selectedAndDisabled',
+                styles: {
+                    color: theme.colors.primary,
+                },
+            },
+            {
+                variant: 'default',
+                state: 'selected',
+                styles: {
+                    color: theme.colors.primary,
+                },
+            },
+            {
+                variant: 'default',
+                state: 'selectedAndHovered',
+                styles: {
+                    color: theme.colors.primary,
+                },
+            },
+            {
+                variant: 'contained',
+                state: 'selectedAndDisabled',
+                styles: {
+                    color: theme.colors.onPrimary,
+                },
+            },
+            {
+                variant: 'contained',
+                state: 'disabled',
+                styles: {},
+            },
+            {
+                variant: 'contained',
+                state: 'selected',
+                styles: {
+                    color: theme.colors.onPrimary,
+                },
+            },
+            {
+                variant: 'contained',
+                state: 'selectedAndHovered',
+                styles: {
+                    color: theme.colors.onPrimary,
+                },
+            },
+            {
+                variant: 'contained',
+                state: 'hovered',
+                styles: {
+                    color: theme.colors.onPrimary,
+                },
+            },
+            {
+                variant: 'contained-tonal',
+                state: 'selectedAndDisabled',
+                styles: {
+                    color: theme.colors.onSecondaryContainer,
+                },
+            },
+            {
+                variant: 'contained-tonal',
+                state: 'disabled',
+                styles: {},
+            },
+            {
+                variant: 'contained-tonal',
+                state: 'selected',
+                styles: {
+                    color: theme.colors.onSecondaryContainer,
+                },
+            },
+            {
+                variant: 'contained-tonal',
+                state: 'selectedAndHovered',
+                styles: {
+                    color: theme.colors.onSecondaryContainer,
+                },
+            },
+            {
+                variant: 'outlined',
+                state: 'selectedAndDisabled',
+                styles: {
+                    color: theme.colors.inverseOnSurface,
+                },
+            },
+            {
+                variant: 'outlined',
+                state: 'disabled',
+                styles: {},
+            },
+            {
+                variant: 'outlined',
+                state: 'selected',
+                styles: {
+                    color: theme.colors.inverseOnSurface,
+                },
+            },
+            {
+                variant: 'outlined',
+                state: 'selectedAndHovered',
+                styles: {
+                    color: theme.colors.onSecondaryContainer,
+                },
+            },
+            {
+                variant: 'outlined',
+                state: 'hovered',
+                styles: {
+                    color: theme.colors.inverseOnSurface,
+                },
+            },
+        ],
+    },
 }));
 
 export const defaultStyles = getRegisteredComponentStylesWithFallback(

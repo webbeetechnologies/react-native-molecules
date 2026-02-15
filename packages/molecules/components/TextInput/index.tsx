@@ -1,7 +1,23 @@
 import { getRegisteredComponentWithFallback } from '../../core';
-import TextInputDefault from './TextInput';
+import TextInputDefault, {
+    TextInputIcon,
+    TextInputLabel,
+    TextInputLeft,
+    TextInputOutline,
+    TextInputRight,
+    TextInputSupportingText,
+} from './TextInput';
 
-export const TextInput = getRegisteredComponentWithFallback('TextInput', TextInputDefault);
+const TextInputBase = getRegisteredComponentWithFallback('TextInput', TextInputDefault);
+
+export const TextInput = Object.assign(TextInputBase, {
+    Label: TextInputLabel,
+    Left: TextInputLeft,
+    Right: TextInputRight,
+    Icon: TextInputIcon,
+    Outline: TextInputOutline,
+    SupportingText: TextInputSupportingText,
+});
 
 export {
     type ElementProps as TextInputElementProps,
@@ -9,4 +25,4 @@ export {
     type Props as TextInputProps,
 } from './TextInput';
 export type * from './types';
-export { styles as textInputStyles } from './utils';
+export { TextInputContext, styles as textInputStyles } from './utils';
