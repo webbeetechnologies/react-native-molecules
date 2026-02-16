@@ -2,6 +2,14 @@ import { Platform } from 'react-native';
 
 import type { DocumentPickerOptions, DocumentResult } from './types';
 
+class OperationCanceledError extends Error {
+    code = 'OPERATION_CANCELED';
+    constructor() {
+        super('user canceled the document picker');
+        this.name = 'OperationCanceledError';
+    }
+}
+
 const resolveFileData = (file: File): Promise<DocumentResult> => {
     return new Promise((resolve, reject) => {
         const mimeType = file.type;
@@ -31,10 +39,14 @@ const resolveFileData = (file: File): Promise<DocumentResult> => {
 const getDocumentAsyncWeb = async ({
     type = '*/*',
     multiple = false,
-}: DocumentPickerOptions): Promise<DocumentResult | DocumentResult[]> => {
+    onCancel,
+    onError,
+}: DocumentPickerOptions): Promise<DocumentResult[]> => {
     // SSR guard
     if (Platform.OS !== 'web') {
-        return { type: 'cancel' };
+        const error = new OperationCanceledError();
+        onCancel?.();
+        throw error;
     }
 
     const input = document.createElement('input');
@@ -49,19 +61,27 @@ const getDocumentAsyncWeb = async ({
 
     document.body.appendChild(input);
 
-    return new Promise(resolve => {
-        input.addEventListener('change', () => {
-            if (input.files) {
-                const response: Promise<DocumentResult>[] = [];
+    return new Promise((resolve, reject) => {
+        input.addEventListener('change', async () => {
+            try {
+                if (input.files && input.files.length > 0) {
+                    const response: Promise<DocumentResult>[] = [];
 
-                Array.from(input.files).forEach(file => response.push(resolveFileData(file)));
+                    Array.from(input.files).forEach(file => response.push(resolveFileData(file)));
 
-                return resolve(Promise.all(response));
-            } else {
-                resolve({ type: 'cancel' });
+                    const results = await Promise.all(response);
+                    resolve(results);
+                } else {
+                    const error = new OperationCanceledError();
+                    onCancel?.();
+                    reject(error);
+                }
+            } catch (error) {
+                onError?.(error);
+                reject(error);
+            } finally {
+                document.body.removeChild(input);
             }
-
-            document.body.removeChild(input);
         });
 
         const event = new MouseEvent('click');
@@ -69,8 +89,13 @@ const getDocumentAsyncWeb = async ({
     });
 };
 
+const pickSingle = (options: DocumentPickerOptions = {}) =>
+    getDocumentAsyncWeb({ ...options, multiple: false });
+
+const pickMultiple = (options: DocumentPickerOptions = {}) =>
+    getDocumentAsyncWeb({ ...options, multiple: true });
+
 export default {
-    pickSingle: ({ type }: DocumentPickerOptions) => getDocumentAsyncWeb({ type, multiple: false }),
-    pickMultiple: ({ type }: DocumentPickerOptions) =>
-        getDocumentAsyncWeb({ type, multiple: true }),
+    pickSingle,
+    pickMultiple,
 };

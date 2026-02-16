@@ -7,15 +7,11 @@ import {
 } from '../utils/DocumentPicker';
 import { isNil, omitBy } from '../utils/lodash';
 
-export const useFilePicker = ({
-    multiple,
-    onCancel,
-    onError,
-    ...options
-}: DocumentPickerOptions) => {
+export const useFilePicker = (options: DocumentPickerOptions) => {
     const openFilePicker = useCallback(
-        async (callback: (response: DocumentResult | DocumentResult[]) => void): Promise<void> => {
-            const omittedOptions = omitBy(options, isNil);
+        async (callback: (response: DocumentResult[]) => void) => {
+            const { multiple, ...rest } = options;
+            const omittedOptions = omitBy(rest, isNil);
 
             try {
                 let response;
@@ -30,16 +26,10 @@ export const useFilePicker = ({
             } catch (e: any) {
                 // eslint-disable-next-line no-console
                 console.log('FilePicker Error', e, e?.code);
-
-                if (e?.code === 'DOCUMENT_PICKER_CANCELED.') {
-                    onCancel?.();
-                    return;
-                }
-                // It might result in an error.
-                onError?.(e);
+                // Error and cancel callbacks are handled by DocumentPicker itself
             }
         },
-        [multiple, onCancel, onError, options],
+        [options],
     );
 
     return { openFilePicker };
