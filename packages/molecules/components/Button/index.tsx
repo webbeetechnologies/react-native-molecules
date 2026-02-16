@@ -10,4 +10,4 @@ export const Button = Object.assign(ButtonBase, {
 });
 
 export type { Props as ButtonProps } from './Button';
-export { buttonIconStyles, buttonStyles, buttonTextStyles } from './utils';
+export { ButtonContext, buttonIconStyles, buttonStyles, buttonTextStyles } from './utils';

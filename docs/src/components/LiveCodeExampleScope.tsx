@@ -6,7 +6,7 @@ import { ActivityIndicator } from 'react-native-molecules/components/ActivityInd
 import { Appbar } from 'react-native-molecules/components/Appbar';
 import { Avatar } from 'react-native-molecules/components/Avatar';
 import { Badge } from 'react-native-molecules/components/Badge';
-import { Button } from 'react-native-molecules/components/Button';
+import { Button, ButtonContext } from 'react-native-molecules/components/Button';
 import { Card } from 'react-native-molecules/components/Card';
 import { Checkbox } from 'react-native-molecules/components/Checkbox';
 import { Chip } from 'react-native-molecules/components/Chip';
@@ -42,7 +42,7 @@ import { Surface } from 'react-native-molecules/components/Surface';
 import { Switch } from 'react-native-molecules/components/Switch';
 import { Tabs } from 'react-native-molecules/components/Tabs';
 import { Text } from 'react-native-molecules/components/Text';
-import { TextInput } from 'react-native-molecules/components/TextInput';
+import { TextInput, TextInputContext } from 'react-native-molecules/components/TextInput';
 import { TextInputWithMask } from 'react-native-molecules/components/TextInputWithMask';
 import { TimePicker } from 'react-native-molecules/components/TimePicker';
 import { TimePickerField } from 'react-native-molecules/components/TimePickerField';
@@ -117,6 +117,8 @@ export const defaultScope = {
     createFastContext,
     ShortcutsManager,
     useHandleNumberFormat,
+    ButtonContext,
+    TextInputContext,
 };
 
 if ((defaultScope as any).default) {
