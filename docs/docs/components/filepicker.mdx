@@ -1,6 +1,6 @@
 ---
-title: "FilePicker"
-description: "Unified file picker experience bridging native DocumentPicker and web uploads."
+title: 'FilePicker'
+description: 'Unified file picker experience bridging native DocumentPicker and web uploads.'
 sidebar_position: 22
 ---
 
@@ -28,7 +28,7 @@ export default function Example() {
     code={`import { FilePicker } from 'react-native-molecules/components/FilePicker';
 
 export default function Example() {
-    return <FilePicker type={['image/*']} label="Choose image" multiple={false} variant="outlined" />;
+    return <FilePicker type={['image/*']} label="Choose image" multiple={false} variant="outlined" onCancel={() => console.log('onCancel')} />;
 }`}
 />
 

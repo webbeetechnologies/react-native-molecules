@@ -49,43 +49,69 @@ const getDocumentAsyncWeb = async ({
         throw error;
     }
 
-    const input = document.createElement('input');
-    input.style.display = 'none';
-    input.setAttribute('type', 'file');
-    // @ts-expect-error
-    input.setAttribute('accept', Array.isArray(type) ? type.join(',') : type);
-
-    if (multiple) {
-        input.setAttribute('multiple', 'multiple');
-    }
-
-    document.body.appendChild(input);
-
     return new Promise((resolve, reject) => {
-        input.addEventListener('change', async () => {
-            try {
-                if (input.files && input.files.length > 0) {
-                    const response: Promise<DocumentResult>[] = [];
+        try {
+            const input = document.createElement('input');
+            input.style.display = 'none';
+            input.setAttribute('type', 'file');
+            // @ts-expect-error
+            input.setAttribute('accept', Array.isArray(type) ? type.join(',') : type);
 
-                    Array.from(input.files).forEach(file => response.push(resolveFileData(file)));
-
-                    const results = await Promise.all(response);
-                    resolve(results);
-                } else {
-                    const error = new OperationCanceledError();
-                    onCancel?.();
-                    reject(error);
-                }
-            } catch (error) {
-                onError?.(error);
-                reject(error);
-            } finally {
-                document.body.removeChild(input);
+            if (multiple) {
+                input.setAttribute('multiple', 'multiple');
             }
-        });
 
-        const event = new MouseEvent('click');
-        input.dispatchEvent(event);
+            document.body.appendChild(input);
+
+            const cleanup = () => {
+                try {
+                    document.body.removeChild(input);
+                } catch (e) {
+                    // Input already removed, ignore
+                }
+            };
+
+            input.addEventListener('change', async () => {
+                try {
+                    if (input.files && input.files.length > 0) {
+                        const response: Promise<DocumentResult>[] = [];
+
+                        Array.from(input.files).forEach(file =>
+                            response.push(resolveFileData(file)),
+                        );
+
+                        const results = await Promise.all(response);
+                        resolve(results);
+                    }
+                } catch (error) {
+                    onError?.(error);
+                    reject(error);
+                } finally {
+                    cleanup();
+                }
+            });
+
+            input.addEventListener('cancel', () => {
+                const error = new OperationCanceledError();
+                onCancel?.();
+                cleanup();
+                reject(error);
+            });
+
+            input.addEventListener('error', () => {
+                const error = new Error('File picker error occurred');
+                onError?.(error);
+                cleanup();
+                reject(error);
+            });
+
+            const event = new MouseEvent('click');
+            input.dispatchEvent(event);
+        } catch (error) {
+            // Handle errors from file picker setup or opening
+            onError?.(error);
+            reject(error);
+        }
     });
 };
 
