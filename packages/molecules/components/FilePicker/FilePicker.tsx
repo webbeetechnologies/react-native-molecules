@@ -27,15 +27,15 @@ export type Props = Omit<TextInputProps, OmitProp> &
         /**
          * Default value for uncontrolled usage
          */
-        defaultValue?: DocumentResult | DocumentResult[];
+        defaultValue?: DocumentResult[];
         /**
          * To Control the value
          */
-        value?: DocumentResult | DocumentResult[];
+        value?: DocumentResult[];
         /**
          * The Callback function to return the selected files as an array or object
          */
-        onChange?: (result: DocumentResult | DocumentResult[] | undefined) => any;
+        onChange?: (result: DocumentResult[] | undefined) => any;
     };
 
 const FilePicker = ({
@@ -53,9 +53,7 @@ const FilePicker = ({
     children,
     ...rest
 }: Props) => {
-    const [value, onValueChange] = useControlledValue<
-        DocumentResult | DocumentResult[] | undefined
-    >({
+    const [value, onValueChange] = useControlledValue<DocumentResult[] | undefined>({
         value: valueProp,
         defaultValue,
         onChange,
@@ -74,14 +72,10 @@ const FilePicker = ({
     const displayText = useMemo(() => {
         if (!value) return '';
 
-        if (Array.isArray(value)) {
-            if (value.length > 1) {
-                return `${value.length} files`;
-            }
-            return value[0]?.name || '';
+        if (value.length > 1) {
+            return `${value.length} files`;
         }
-
-        return value.name || '';
+        return value[0]?.name || '';
     }, [value]);
 
     const onPress = useCallback(() => {
