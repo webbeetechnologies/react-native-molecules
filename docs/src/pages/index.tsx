@@ -1,6 +1,6 @@
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import ComponentShowcase from '@site/src/components/ComponentShowcase';
 import Heading from '@theme/Heading';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
@@ -36,7 +36,7 @@ export default function Home() {
             description="React Native + Web components built on Material 3">
             <HomepageHeader />
             <main>
-                <HomepageFeatures />
+                <ComponentShowcase />
             </main>
         </Layout>
     );

@@ -1,0 +1,218 @@
+.showcaseWrapper {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 12px;
+}
+
+/* Cell assignments */
+.cellChips {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+.cellIconButtons {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.cellSegmented {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.cellInputs {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.cellList {
+    grid-column: 3;
+    grid-row: 2 / 4;
+}
+
+.cellToolbar {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.cellShapes {
+    grid-column: 2;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Base cell style */
+.cell {
+    background: var(--bm-color-card);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.cell:hover {
+    transform: scale(1.01);
+}
+
+/* Sub-cell for the split bottom-center */
+.subCell {
+    background: var(--bm-color-card);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.subCell:hover {
+    transform: scale(1.02);
+}
+
+/* Chips cell layout */
+.chipsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Icon buttons row */
+.iconButtonsRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Inputs cell */
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* List cell */
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    align-items: stretch;
+}
+
+.listHeader {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 12px;
+}
+
+/* Toolbar row */
+.toolbarRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    background: var(--bm-color-surface);
+    border-radius: 28px;
+    padding: 4px;
+}
+
+/* Tagline below the grid */
+.tagline {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--ifm-font-color-base);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .cellChips,
+    .cellIconButtons,
+    .cellSegmented,
+    .cellInputs,
+    .cellList,
+    .cellToolbar,
+    .cellShapes {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .showcaseWrapper {
+        padding: 0 1rem;
+    }
+}
+
+@media screen and (max-width: 996px) and (min-width: 769px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cellChips {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .cellIconButtons {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .cellSegmented {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .cellInputs {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .cellList {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    .cellToolbar {
+        grid-column: 2;
+        grid-row: 3;
+    }
+
+    .cellShapes {
+        grid-column: 1 / 3;
+        grid-row: 4;
+    }
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .toolbarRow {
+    background: var(--bm-color-surface);
+}

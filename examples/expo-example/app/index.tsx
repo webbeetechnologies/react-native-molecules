@@ -1,23 +1,85 @@
 import { Switch } from 'react-native-molecules/components/Switch';
-import { useState } from 'react';
-import {
-    Pressable,
-    ScrollView,
-    // Button,
-    // Platform,
-    // ScrollView,
-    // Switch as RNSwitch,
-    Text,
-    TextInput,
-    View,
-} from 'react-native';
+import { useContext, useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { Select } from 'react-native-molecules/components/Select';
 import { StyleSheet, withUnistyles } from 'react-native-unistyles';
 import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
 import { Button } from 'react-native-molecules/components/Button';
-// import { TextInput } from 'react-native-molecules/components/TextInput';
+import { TextInput, TextInputContext } from 'react-native-molecules/components/TextInput';
 import { getWebProps } from 'react-native-unistyles/web';
 import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+import { Tabs } from 'react-native-molecules/components/Tabs';
+import { Checkbox } from 'react-native-molecules/components/Checkbox';
+
+// Example demonstrating dynamic tab addition/removal
+const DynamicTabsExample = () => {
+    const [tabs, setTabs] = useState([
+        { name: 'tab1', label: 'Tab 1' },
+        { name: 'tab2', label: 'Tab 2' },
+        { name: 'tab3', label: 'Tab 3' },
+    ]);
+    const [activeTab, setActiveTab] = useState('tab1');
+
+    const addTab = () => {
+        const newTabNumber = tabs.length + 1;
+        setTabs([...tabs, { name: `tab${newTabNumber}`, label: `Tab ${newTabNumber}` }]);
+    };
+
+    const removeTab = (tabName: string) => {
+        const newTabs = tabs.filter(t => t.name !== tabName);
+        if (newTabs.length > 0) {
+            // If removing the active tab, switch to the first available tab
+            if (activeTab === tabName) {
+                setActiveTab(newTabs[0].name);
+            }
+            setTabs(newTabs);
+        }
+    };
+
+    const removeLastTab = () => {
+        if (tabs.length > 1) {
+            const lastTab = tabs[tabs.length - 1];
+            removeTab(lastTab.name);
+        }
+    };
+
+    return (
+        <View style={{ gap: 10 }}>
+            <Text style={{ fontWeight: 'bold' }}>Dynamic Tabs Example:</Text>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+                <Button variant="contained" onPress={addTab}>
+                    <Button.Text>Add Tab</Button.Text>
+                </Button>
+                <Button variant="outlined" onPress={removeLastTab}>
+                    <Button.Text>Remove Last</Button.Text>
+                </Button>
+            </View>
+            <Tabs value={activeTab} onChange={setActiveTab} variant="primary">
+                {tabs.map(tab => (
+                    <Tabs.Item key={tab.name} name={tab.name}>
+                        <Tabs.Label label={tab.label} />
+                    </Tabs.Item>
+                ))}
+            </Tabs>
+            <View style={{ padding: 10, backgroundColor: '#f0f0f0', borderRadius: 8 }}>
+                <Text>Active: {activeTab}</Text>
+                <Text>Total tabs: {tabs.length}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 5 }}>
+                {tabs.map(tab => (
+                    <Button
+                        key={tab.name}
+                        variant="text"
+                        size="sm"
+                        onPress={() => removeTab(tab.name)}>
+                        <Button.Icon name="close" type="material-community" />
+                        <Button.Text>{tab.label}</Button.Text>
+                    </Button>
+                ))}
+            </View>
+        </View>
+    );
+};
 
 const Link = ({ style, ...rest }) => {
     const { ref, className } = getWebProps(style);
@@ -33,6 +95,36 @@ const Link = ({ style, ...rest }) => {
         />
     );
 };
+
+// Example: custom outline that is dashed when inactive and solid green when active
+const DashedOutline = () => {
+    const { focused, error } = useContext(TextInputContext);
+    const isActive = focused;
+
+    return (
+        <TextInput.Outline
+            style={{
+                borderStyle: isActive ? 'solid' : 'dashed',
+                ...(isActive && {
+                    borderColor: 'green',
+                }),
+            }}
+        />
+    );
+};
+DashedOutline.displayName = 'TextInput_Outline';
+
+const GreenLabel = () => {
+    const { focused, error } = useContext(TextInputContext);
+    const isActive = focused;
+
+    return (
+        <TextInput.Label style={isActive ? { color: isActive ? 'green' : undefined } : undefined}>
+            Custom Border
+        </TextInput.Label>
+    );
+};
+GreenLabel.displayName = 'TextInput_Label';
 
 export default function Index() {
     // const [isOn, setIsOn] = useState(false);
@@ -66,6 +158,20 @@ export default function Index() {
             <ScrollView style={styles.container} contentContainerStyle={{ gap: 20 }}>
                 <LoadingIndicator />
                 <LoadingIndicator variant="contained" />
+
+                <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Checkbox:</Text>
+                <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+                    <Checkbox size="sm" />
+                    <Checkbox size="md" />
+                    <Checkbox size="lg" />
+                    <Checkbox size="md" indeterminate />
+                    <Checkbox size="md" disabled />
+                </View>
+                <Checkbox label="Checkbox with label" size="md" />
+
+                {/* Dynamic Tabs Example - demonstrates add/remove tabs */}
+                <DynamicTabsExample />
+
                 <Switch />
                 <TouchableRipple asChild onPress={() => console.log('Pressed')} testID="test-id">
                     <Link href="/##">Home</Link>
@@ -106,7 +212,6 @@ export default function Index() {
 
                 <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Icon before text:</Text>
                 <Button
-                    loading={isLoading}
                     variant="contained"
                     onPress={() => {
                         setIsLoading(true);
@@ -114,7 +219,11 @@ export default function Index() {
                             setIsLoading(false);
                         }, 5000);
                     }}>
-                    <Button.Icon name="plus" type="material-community" />
+                    {isLoading ? (
+                        <Button.ActivityIndicator />
+                    ) : (
+                        <Button.Icon name="plus" type="material-community" />
+                    )}
                     <Button.Text>Add Item</Button.Text>
                 </Button>
 
@@ -178,8 +287,61 @@ export default function Index() {
                         </Select.Content>
                     </Select.Dropdown>
                 </Select>
-                <TextInput onBlur={() => {}} />
-                {/* <TextInput size="sm" variant="outlined" placeholder="Enter your name" /> */}
+                {/* TextInput Composable API */}
+                <Text style={{ fontWeight: 'bold', marginTop: 20 }}>
+                    TextInput - Composable API:
+                </Text>
+                <TextInput variant="outlined" size="sm" placeholder="Enter your name">
+                    <TextInput.Label>Name</TextInput.Label>
+                </TextInput>
+
+                <View>
+                    <TextInput variant="flat" size="sm" placeholder="Enter your email">
+                        <TextInput.Label>Email</TextInput.Label>
+                        <TextInput.SupportingText>
+                            We'll never share your email
+                        </TextInput.SupportingText>
+                    </TextInput>
+                </View>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 20 }}>TextInput - With Icons:</Text>
+                <TextInput variant="outlined" size="sm" placeholder="Enter username">
+                    <TextInput.Left>
+                        <TextInput.Icon name="account" type="material-community" />
+                    </TextInput.Left>
+                    <TextInput.Label>Username</TextInput.Label>
+                </TextInput>
+
+                <View>
+                    <TextInput variant="outlined" size="sm" error placeholder="Enter email">
+                        <TextInput.Left>
+                            <TextInput.Icon name="email" type="material-community" />
+                        </TextInput.Left>
+                        <TextInput.Label>Email</TextInput.Label>
+                        <TextInput.Right>
+                            <TextInput.Icon name="alert-circle" type="material-community" />
+                        </TextInput.Right>
+                        <TextInput.SupportingText>Invalid email format</TextInput.SupportingText>
+                    </TextInput>
+                </View>
+
+                <TextInput variant="flat" size="sm" placeholder="Enter password">
+                    <TextInput.Label>Password</TextInput.Label>
+                    <TextInput.Right>
+                        <TextInput.Icon name="eye" type="material-community" />
+                    </TextInput.Right>
+                </TextInput>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 20 }}>
+                    TextInput - Custom Outline (Dashed → Solid Green):
+                </Text>
+                <TextInput
+                    variant="outlined"
+                    size="sm"
+                    placeholder="Type to see solid green border">
+                    <GreenLabel />
+                    <DashedOutline />
+                </TextInput>
                 {/* <SelectV1
                     inputProps={{
                         variant: 'outlined',

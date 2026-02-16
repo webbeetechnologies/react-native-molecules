@@ -29,6 +29,7 @@
   --bm-color-surface: #fffbfe;
   --bm-color-surface-variant: #e7e0ec;
   --bm-color-outline: #938f99;
+  --bm-color-card: #ece6f0;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
@@ -69,6 +70,7 @@
   --bm-color-surface: #1c1b1f;
   --bm-color-surface-variant: #49454f;
   --bm-color-outline: #938f99;
+  --bm-color-card: #2b2930;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
   /* Shadcn-like tokens dark */

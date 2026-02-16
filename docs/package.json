@@ -27,7 +27,7 @@
         "react-dom": "19.1.0",
         "react-live": "^4.1.8",
         "react-native": "0.81.4",
-        "react-native-unistyles": "3.0.15",
+        "react-native-unistyles": "3.0.22",
         "react-native-web": "~0.21.1"
     },
     "devDependencies": {
