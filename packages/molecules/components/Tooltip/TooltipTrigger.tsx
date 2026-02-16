@@ -30,14 +30,6 @@ const TooltipTrigger = memo(({ children }: { children: ReactElement }) => {
         () => triggerRef?.current,
     );
 
-    const onPress = useCallback(
-        (e: unknown) => {
-            // @ts-ignore
-            children?.props?.onPress?.(e);
-        },
-        [children?.props],
-    );
-
     const onLongPress = useCallback(
         (e: unknown) => {
             // @ts-ignore
@@ -93,9 +85,8 @@ const TooltipTrigger = memo(({ children }: { children: ReactElement }) => {
                 ref: actionsRef,
                 onLongPress,
                 onPressOut,
-                onPress,
             }),
-        [children, onLongPress, onPress, onPressOut, actionsRef],
+        [children, onLongPress, onPressOut, actionsRef],
     );
 });
 
