@@ -10,6 +10,7 @@ import { getWebProps } from 'react-native-unistyles/web';
 import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
 import { Tabs } from 'react-native-molecules/components/Tabs';
 import { Checkbox } from 'react-native-molecules/components/Checkbox';
+import { IconButton } from 'react-native-molecules/components/IconButton';
 
 // Example demonstrating dynamic tab addition/removal
 const DynamicTabsExample = () => {
@@ -80,6 +81,7 @@ const DynamicTabsExample = () => {
         </View>
     );
 };
+import { Icon } from 'react-native-molecules/components/Icon';
 
 const Link = ({ style, ...rest }) => {
     const { ref, className } = getWebProps(style);
@@ -125,6 +127,12 @@ const GreenLabel = () => {
     );
 };
 GreenLabel.displayName = 'TextInput_Label';
+declare module 'react-native-molecules/components/Icon' {
+    interface CustomIconTypes {
+        'my-custom-icons': true;
+        'another-icon-set': true;
+    }
+}
 
 export default function Index() {
     // const [isOn, setIsOn] = useState(false);
@@ -158,6 +166,12 @@ export default function Index() {
             <ScrollView style={styles.container} contentContainerStyle={{ gap: 20 }}>
                 <LoadingIndicator />
                 <LoadingIndicator variant="contained" />
+
+                <IconButton
+                    name="home-outline"
+                    onPress={() => console.log('Pressed')}
+                    variant="outlined"
+                />
 
                 <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Checkbox:</Text>
                 <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>

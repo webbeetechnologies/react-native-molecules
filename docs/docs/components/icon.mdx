@@ -1,6 +1,6 @@
 ---
-title: "Icon"
-description: "Token-aware wrapper around react-native-vector-icons with unified API."
+title: 'Icon'
+description: 'Token-aware wrapper around react-native-vector-icons with unified API.'
 sidebar_position: 25
 ---
 
@@ -18,8 +18,47 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
     code={`import { Icon } from 'react-native-molecules/components/Icon';
 
 export default function Example() {
-    return <Icon name="share" type="material-community" />;
+    return <Icon name="share" type="material-community" size={24} />;
 }`}
 />
+
+## Registering Custom Icon Types
+
+You can register custom icon libraries using `registerCustomIconType`. To get full TypeScript support for your custom icon types, you need to extend the `CustomIconTypes` interface via declaration merging.
+
+### Step 1: Register the Icon Library
+
+```tsx
+import { registerCustomIconType } from 'react-native-molecules/components/Icon';
+import Ionicons from '@react-native-vector-icons/ionicons';
+
+// Register your custom icon library
+registerCustomIconType('ionicons', Ionicons);
+```
+
+### Step 2: Extend the TypeScript Types
+
+Create a type declaration file (e.g., `global.d.ts` or `types.d.ts`) in your project, or add the declaration directly to your root file (e.g., `App.tsx` or `index.tsx`):
+
+```typescript
+// global.d.ts (or App.tsx / index.tsx)
+declare module 'react-native-molecules/components/Icon' {
+    interface CustomIconTypes {
+        ionicons: true;
+        // Add more custom icon types as needed
+    }
+}
+```
+
+### Step 3: Use Your Custom Icons
+
+Now you can use your custom icon type with full TypeScript autocomplete:
+
+```tsx
+import { Icon } from 'react-native-molecules/components/Icon';
+
+// TypeScript will recognize 'ionicons' as a valid type!
+<Icon name="heart" type="ionicons" />;
+```
 
 <ComponentProps name="Icon" />

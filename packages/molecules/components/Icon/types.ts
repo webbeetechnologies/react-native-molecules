@@ -1,10 +1,5 @@
 import type { ColorValue, TextProps } from 'react-native';
 
-export enum IconPacks {
-    MaterialCommunity = 'material-community',
-    Feather = 'feather',
-}
-
 export interface VectorIconProps extends TextProps {
     /**
      * Size of the icon, can also be passed as fontSize in the style object.
@@ -28,7 +23,23 @@ export interface VectorIconProps extends TextProps {
     color?: ColorValue | number | undefined;
 }
 
-export type IconType = `${IconPacks}`; // in TS 4.1+, we can do this to make enum values as a union type
+/**
+ * Interface for registering custom icon types.
+ * Users can extend this interface via declaration merging to add their own icon types.
+ *
+ * @example
+ * // In your app's type declarations (e.g., global.d.ts or a dedicated types file)
+ * declare module 'react-native-molecules' {
+ *   interface CustomIconTypes {
+ *     'my-custom-icons': true;
+ *     'another-icon-set': true;
+ *   }
+ * }
+ */
+
+export interface CustomIconTypes {}
+
+export type IconType = 'material-community' | 'feather' | keyof CustomIconTypes;
 
 export type IconProps = VectorIconProps & {
     type?: IconType;

@@ -196,10 +196,7 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
             {
                 variant: 'outlined',
                 state: 'hovered',
-                styles: {
-                    backgroundColor: theme.colors.inverseSurface,
-                    borderWidth: 0,
-                },
+                styles: {},
             },
         ],
     },
@@ -278,7 +275,7 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
                 variant: 'outlined',
                 state: 'hovered',
                 styles: {
-                    backgroundColor: theme.colors.stateLayer.hover.inverseOnSurface,
+                    backgroundColor: theme.colors.stateLayer.hover.onSurfaceVariant,
                 },
             },
         ],
@@ -415,9 +412,7 @@ const iconButtonStylesDefault = StyleSheet.create(theme => ({
             {
                 variant: 'outlined',
                 state: 'hovered',
-                styles: {
-                    color: theme.colors.inverseOnSurface,
-                },
+                styles: {},
             },
         ],
     },
