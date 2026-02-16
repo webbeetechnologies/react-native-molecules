@@ -212,13 +212,11 @@ const config = {
                 name: 'react-native-web-plugin',
                 configureWebpack(webpackConfig, isServer, utils) {
                     webpackConfig.plugins = webpackConfig.plugins || [];
-                    if (!isServer) {
-                        webpackConfig.plugins.push(
-                            new webpack.DefinePlugin({
-                                __DEV__: JSON.stringify(process.env.NODE_ENV === 'development'),
-                            }),
-                        );
-                    }
+                    webpackConfig.plugins.push(
+                        new webpack.DefinePlugin({
+                            __DEV__: JSON.stringify(process.env.NODE_ENV === 'development'),
+                        }),
+                    );
 
                     const resolveAlias = {
                         'react-native$': 'react-native-web',
