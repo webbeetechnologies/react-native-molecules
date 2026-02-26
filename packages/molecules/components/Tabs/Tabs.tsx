@@ -22,7 +22,8 @@ import {
 } from 'react-native';
 
 import { typedMemo } from '../../hocs';
-import { useControlledValue, useSubcomponents } from '../../hooks';
+import { useControlledValue } from '../../hooks';
+import { extractSubcomponents } from '../../utils/extractSubcomponents';
 import { noop } from '../../utils/lodash';
 import type { TabItemProps } from './TabItem';
 import { tabsStyles } from './utils';
@@ -81,7 +82,7 @@ export const TabBase = <T extends string | number>({
         variant,
     });
 
-    const { Tabs_Item: tabItems } = useSubcomponents({
+    const { Tabs_Item: tabItems } = extractSubcomponents({
         children,
         allowedChildren: ['Tabs_Item'],
     });

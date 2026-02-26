@@ -3,25 +3,36 @@ import { View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
-import { useSubcomponents } from '../../hooks';
+import { extractSubcomponents } from '../../utils/extractSubcomponents';
 
 export type Props = Omit<ViewProps, 'children'> & {
     children: ReactElement | ReactElement[];
 };
 
-const allowedChildren = ['Drawer_Footer', 'Drawer_Header', 'Drawer_Content'];
+const allowedChildren = [
+    { name: 'Drawer_Footer', allowMultiple: false },
+    { name: 'Drawer_Header', allowMultiple: false },
+    { name: 'Drawer_Content', allowMultiple: false },
+];
 
 const Drawer = ({ style, children, ...rest }: Props) => {
-    const { Drawer_Header, Drawer_Footer, Drawer_Content } = useSubcomponents({
+    const {
+        Drawer_Header,
+        Drawer_Footer,
+        Drawer_Content,
+        rest: restChildren,
+    } = extractSubcomponents({
         children,
         allowedChildren,
+        includeRest: true,
     });
 
     return (
         <View style={[drawerStyles.root, style]} {...rest}>
-            {Drawer_Header[0]}
-            {Drawer_Content[0]}
-            {Drawer_Footer[0]}
+            {Drawer_Header}
+            {Drawer_Content}
+            {Drawer_Footer}
+            {restChildren}
         </View>
     );
 };

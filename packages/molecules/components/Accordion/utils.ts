@@ -1,6 +1,12 @@
+import { createContext } from 'react';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
+
+export const AccordionItemContext = createContext({
+    expanded: false,
+    onExpandedChange: (_expanded: boolean) => {},
+});
 
 const accordionStylesDefault = StyleSheet.create({
     root: {},

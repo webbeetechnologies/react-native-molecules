@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { View } from 'react-native';
 
-import { useControlledValue, useSubcomponents } from '../../hooks';
+import { useControlledValue } from '../../hooks';
 import { accordionStyles } from './utils';
 
 export type Props = Omit<ComponentPropsWithRef<typeof View>, 'children'> & {
@@ -37,8 +37,6 @@ const Accordion = (
         defaultValue: defaultExpandedItemIds,
         onChange: onChangeProp,
     });
-
-    const { AccordionItem } = useSubcomponents({ children, allowedChildren: ['AccordionItem'] });
 
     const onPressItem = useCallback(
         (id: string) => {
@@ -70,9 +68,7 @@ const Accordion = (
 
     return (
         <View style={[accordionStyles.root, style]} {...rest} ref={ref}>
-            <AccordionContext.Provider value={contextValue}>
-                {AccordionItem}
-            </AccordionContext.Provider>
+            <AccordionContext.Provider value={contextValue}>{children}</AccordionContext.Provider>
         </View>
     );
 };

@@ -18,6 +18,5 @@ export { useMediaQuery } from './useMediaQuery';
 export { useMergedRefs } from './useMergedRefs';
 export { default as usePrevious } from './usePrevious';
 export * from './useQueryFilter';
-export { default as useSubcomponents, type UseSubcomponentsProps } from './useSubcomponents';
 export * from './useTheme';
 export { default as useToggle } from './useToggle';

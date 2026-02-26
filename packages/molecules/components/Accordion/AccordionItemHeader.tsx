@@ -6,7 +6,7 @@ import type { WithElements } from '../../types';
 import { resolveStateVariant } from '../../utils';
 import { Text } from '../Text';
 import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { AccordionItemContext } from './AccordionItem';
+import { AccordionItemContext } from './utils';
 import { accordionItemHeaderStyles } from './utils';
 
 export type AccordionHeaderElementProps = {

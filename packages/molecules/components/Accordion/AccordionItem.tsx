@@ -10,8 +10,9 @@ import {
 } from 'react';
 import { View, type ViewProps } from 'react-native';
 
-import { useControlledValue, useSubcomponents } from '../../hooks';
+import { useControlledValue } from '../../hooks';
 import type { WithElements } from '../../types';
+import { extractSubcomponents } from '../../utils/extractSubcomponents';
 import { AccordionContext } from './Accordion';
 import { accordionItemStyles } from './utils';
 
@@ -45,9 +46,17 @@ const AccordionItem = memo(
 
             const groupContext = useContext(AccordionContext);
 
-            const { AccordionItem_Header, AccordionItem_Content } = useSubcomponents({
+            const {
+                AccordionItem_Header,
+                AccordionItem_Content,
+                rest: restChildren,
+            } = extractSubcomponents({
                 children,
-                allowedChildren: ['AccordionItem_Header', 'AccordionItem_Content'],
+                allowedChildren: [
+                    { name: 'AccordionItem_Header', allowMultiple: false },
+                    { name: 'AccordionItem_Content', allowMultiple: false },
+                ],
+                includeRest: true,
             });
 
             useEffect(() => {
@@ -76,8 +85,9 @@ const AccordionItem = memo(
             return (
                 <View style={[accordionItemStyles.root, style]} {...rest} ref={ref}>
                     <AccordionItemContext.Provider value={contextValue}>
-                        {AccordionItem_Header[0]}
-                        {contextValue.expanded ? AccordionItem_Content[0] : null}
+                        {AccordionItem_Header}
+                        {contextValue.expanded ? AccordionItem_Content : null}
+                        {restChildren}
                     </AccordionItemContext.Provider>
                 </View>
             );

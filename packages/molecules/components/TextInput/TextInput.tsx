@@ -34,8 +34,8 @@ import {
 import { useActionState } from '../../hooks/useActionState';
 import useControlledValue from '../../hooks/useControlledValue';
 import useLatest from '../../hooks/useLatest';
-import useSubcomponents from '../../hooks/useSubcomponents';
 import { createSyntheticEvent, resolveStateVariant } from '../../utils';
+import { extractSubcomponents } from '../../utils/extractSubcomponents';
 import { HelperText } from '../HelperText';
 import { Icon } from '../Icon';
 import { StateLayer } from '../StateLayer';
@@ -215,7 +215,7 @@ const TextInput = ({
         TextInput_SupportingText,
         TextInput_Outline,
         rest: restChildren,
-    } = useSubcomponents({
+    } = extractSubcomponents({
         children,
         allowedChildren: [
             { name: 'TextInput_Label', allowMultiple: false },

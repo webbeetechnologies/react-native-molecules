@@ -2,40 +2,62 @@ import {
     createContext,
     memo,
     type ReactElement,
+    type RefObject,
     useCallback,
     useEffect,
     useMemo,
     useRef,
 } from 'react';
-import { Text, type ViewProps, type ViewStyle } from 'react-native';
 
-import { useSubcomponents, useToggle } from '../../hooks';
-import { Popover, type PopoverProps } from '../Popover';
-import { tooltipStyles } from './utils';
+import { useToggle } from '../../hooks';
+import { extractSubcomponents } from '../../utils/extractSubcomponents';
 
-export type Props = Omit<PopoverProps, 'isOpen' | 'triggerRef'> & {
+export type Props = {
     fadeInDelay?: number;
     fadeOutDelay?: number;
-    showArrow?: boolean;
-    style?: ViewStyle;
-    children: ReactElement | ReactElement[];
     hoverableContent?: boolean;
+    children: ReactElement | ReactElement[];
 };
 
+export type TooltipContextValue = {
+    isOpen: boolean;
+    triggerRef: RefObject<any>;
+    onOpen: () => void;
+    onClose: () => void;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
+};
+
+export const TooltipContext = createContext<TooltipContextValue>({
+    isOpen: false,
+    onOpen: () => {},
+    onClose: () => {},
+    triggerRef: { current: null },
+});
+
 const Tooltip = ({
-    style,
     children,
     fadeInDelay = 100,
     fadeOutDelay = 300,
-    showArrow = false,
     hoverableContent = false,
-    ...rest
 }: Props) => {
     const { state: isOpen, setState: setIsOpen } = useToggle(false);
     const triggerRef = useRef(null);
     const timeOutRef = useRef<NodeJS.Timeout>(undefined);
-    const popoverTimeoutRef = useRef<NodeJS.Timeout>(undefined);
     const preventCloseRef = useRef(false);
+
+    const {
+        Tooltip_Trigger,
+        Tooltip_Content,
+        rest: restChildren,
+    } = extractSubcomponents({
+        children,
+        allowedChildren: [
+            { name: 'Tooltip_Trigger', allowMultiple: false },
+            { name: 'Tooltip_Content', allowMultiple: false },
+        ],
+        includeRest: true,
+    });
 
     const onClose = useCallback(() => {
         if (preventCloseRef.current) return;
@@ -48,34 +70,13 @@ const Tooltip = ({
         timeOutRef.current = setTimeout(() => setIsOpen(true), fadeInDelay);
     }, [fadeInDelay, setIsOpen]);
 
-    // const setPopoverOpen = useCallback(
-    //     (_isOpen: boolean) => {
-    //         clearTimeout(popoverTimeoutRef.current);
-    //         popoverTimeoutRef.current = setTimeout(
-    //             () => setIsOpen(_isOpen),
-    //             isOpen ? fadeInDelay : fadeOutDelay,
-    //         );
-    //     },
-    //     [fadeInDelay, fadeOutDelay, isOpen, setIsOpen],
-    // );
-
-    const { Tooltip_Trigger, Tooltip_Content } = useSubcomponents({
-        children,
-        allowedChildren: ['Tooltip_Trigger', 'Tooltip_Content'],
-    });
-
-    const contextValue = useMemo(
+    const contextValue = useMemo<TooltipContextValue>(
         () => ({
+            isOpen,
             triggerRef,
             onOpen,
             onClose,
-        }),
-        [onClose, onOpen],
-    );
-
-    const { popoverContentProps, popoverStyle } = useMemo(
-        () => ({
-            popoverContentProps: (hoverableContent
+            ...(hoverableContent
                 ? {
                       onMouseEnter: () => {
                           preventCloseRef.current = true;
@@ -88,50 +89,24 @@ const Tooltip = ({
                           setIsOpen(false);
                       },
                   }
-                : {}) as ViewProps,
-            popoverStyle: [tooltipStyles.content, style],
+                : {}),
         }),
-        [hoverableContent, setIsOpen, style],
+        [hoverableContent, isOpen, onClose, onOpen, setIsOpen],
     );
 
     useEffect(() => {
-        const popoverTimeout = popoverTimeoutRef;
-
         return () => {
             clearTimeout(timeOutRef.current);
-            clearTimeout(popoverTimeout.current);
         };
     }, []);
 
     return (
         <TooltipContext.Provider value={contextValue}>
-            {Tooltip_Trigger[0]}
-            {isOpen && (
-                <Popover
-                    isOpen={isOpen}
-                    inverted
-                    // placement={placement}
-                    showArrow={showArrow}
-                    // backdropStyles={styles.backdrop}
-                    triggerRef={triggerRef}
-                    // setIsOpen={setPopoverOpen}
-                    {...popoverContentProps}
-                    {...rest}
-                    style={popoverStyle}
-                    // contentTextStyles={contentTextStyles}
-                    // popoverContentProps={popoverContentProps}
-                    onClose={onClose}>
-                    <Text style={tooltipStyles.contentText}>{Tooltip_Content[0]}</Text>
-                </Popover>
-            )}
+            {Tooltip_Trigger}
+            {Tooltip_Content}
+            {restChildren}
         </TooltipContext.Provider>
     );
 };
-
-export const TooltipContext = createContext({
-    onOpen: () => {},
-    onClose: () => {},
-    triggerRef: null as any,
-});
 
 export default memo(Tooltip);

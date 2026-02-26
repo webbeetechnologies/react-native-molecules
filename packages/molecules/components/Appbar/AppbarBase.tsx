@@ -1,7 +1,7 @@
 import { createContext, memo, useMemo } from 'react';
 import { View } from 'react-native';
 
-import { useSubcomponents } from '../../hooks';
+import { extractSubcomponents } from '../../utils/extractSubcomponents';
 import { Surface } from '../Surface';
 import type { AppbarBaseProps, AppbarType } from './types';
 import { appbarBaseStyles } from './utils';
@@ -26,9 +26,19 @@ const AppbarBase = ({
         };
     }, [innerContainerStyleProp, scrolling, style]);
 
-    const { Appbar_Left, Appbar_Right, Appbar_Title } = useSubcomponents({
+    const {
+        Appbar_Left,
+        Appbar_Right,
+        Appbar_Title,
+        rest: restChildren,
+    } = extractSubcomponents({
         children,
-        allowedChildren: ['Appbar_Left', 'Appbar_Right', 'Appbar_Title'],
+        allowedChildren: [
+            { name: 'Appbar_Left', allowMultiple: false },
+            { name: 'Appbar_Right', allowMultiple: false },
+            { name: 'Appbar_Title', allowMultiple: false },
+        ],
+        includeRest: true,
     });
 
     const contextValue = useMemo(() => ({ type: _type }), [_type]);
@@ -37,17 +47,12 @@ const AppbarBase = ({
         <Surface elevation={elevation} style={containerStyle} {...rest}>
             <AppbarContext.Provider value={contextValue}>
                 <View style={innerContainerStyle}>
-                    {Appbar_Left[0]}
-                    <>
-                        {_type === 'center-aligned' || _type === 'small' ? (
-                            Appbar_Title[0]
-                        ) : (
-                            <View />
-                        )}
-                    </>
-                    {Appbar_Right[0]}
+                    {Appbar_Left}
+                    <>{_type === 'center-aligned' || _type === 'small' ? Appbar_Title : <View />}</>
+                    {Appbar_Right}
                 </View>
-                <>{(_type === 'medium' || _type === 'large') && Appbar_Title[0]}</>
+                {(_type === 'medium' || _type === 'large') && Appbar_Title}
+                {restChildren}
             </AppbarContext.Provider>
         </Surface>
     );
