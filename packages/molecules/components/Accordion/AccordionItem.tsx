@@ -1,5 +1,4 @@
 import {
-    createContext,
     forwardRef,
     memo,
     type ReactElement,
@@ -14,7 +13,7 @@ import { useControlledValue } from '../../hooks';
 import type { WithElements } from '../../types';
 import { extractSubcomponents } from '../../utils/extractSubcomponents';
 import { AccordionContext } from './Accordion';
-import { accordionItemStyles } from './utils';
+import { AccordionItemContext, accordionItemStyles } from './utils';
 
 export type Props = Omit<ViewProps, 'children'> &
     WithElements<ReactNode> & {
@@ -94,11 +93,6 @@ const AccordionItem = memo(
         },
     ),
 );
-
-export const AccordionItemContext = createContext({
-    expanded: false,
-    onExpandedChange: (_expanded: boolean) => {},
-});
 
 AccordionItem.displayName = 'AccordionItem';
 
