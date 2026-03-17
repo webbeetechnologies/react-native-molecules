@@ -5,6 +5,7 @@ import useFilePicker from '../../hooks/useFilePicker';
 import type { DocumentPickerOptions, DocumentResult } from '../../utils/DocumentPicker';
 import { IconButton } from '../IconButton';
 import { TextInput, type TextInputProps } from '../TextInput';
+import { FilePickerContext } from './utils';
 
 export type OmitProp =
     | 'editable'
@@ -84,14 +85,18 @@ const FilePicker = ({
         });
     }, [onValueChange, openFilePicker]);
 
+    const contextValue = useMemo(() => ({ onPressTrigger: onPress }), [onPress]);
+
     return (
-        <TextInput value={displayText} {...rest} editable={false} ref={ref}>
-            <TextInput.Label>Choose file</TextInput.Label>
-            <TextInput.Right>
-                <IconButton type="material-community" name="upload" onPress={onPress} />
-            </TextInput.Right>
-            {children}
-        </TextInput>
+        <FilePickerContext value={contextValue}>
+            <TextInput value={displayText} {...rest} editable={false} ref={ref}>
+                <TextInput.Label>Choose file</TextInput.Label>
+                <TextInput.Right>
+                    <IconButton type="material-community" name="upload" onPress={onPress} />
+                </TextInput.Right>
+                {children}
+            </TextInput>
+        </FilePickerContext>
     );
 };
 

@@ -12,14 +12,17 @@ import { Checkbox } from 'react-native-molecules/components/Checkbox';
 import { Chip } from 'react-native-molecules/components/Chip';
 import { DatePickerDocked } from 'react-native-molecules/components/DatePickerDocked';
 import { DatePickerInline } from 'react-native-molecules/components/DatePickerInline';
-import { DatePickerInput } from 'react-native-molecules/components/DatePickerInput';
+import {
+    DatePickerInput,
+    DatePickerInputContext,
+} from 'react-native-molecules/components/DatePickerInput';
 import { DatePickerModal } from 'react-native-molecules/components/DatePickerModal';
 import { DateTimePicker } from 'react-native-molecules/components/DateTimePicker';
 import { Dialog } from 'react-native-molecules/components/Dialog';
 import { Drawer } from 'react-native-molecules/components/Drawer';
 import { ElementGroup } from 'react-native-molecules/components/ElementGroup';
 import { FAB } from 'react-native-molecules/components/FAB';
-import { FilePicker } from 'react-native-molecules/components/FilePicker';
+import { FilePicker, FilePickerContext } from 'react-native-molecules/components/FilePicker';
 import { HelperText } from 'react-native-molecules/components/HelperText';
 import { HorizontalDivider } from 'react-native-molecules/components/HorizontalDivider';
 import { Icon } from 'react-native-molecules/components/Icon';
@@ -119,6 +122,8 @@ export const defaultScope = {
     useHandleNumberFormat,
     ButtonContext,
     TextInputContext,
+    DatePickerInputContext,
+    FilePickerContext,
 };
 
 if ((defaultScope as any).default) {
