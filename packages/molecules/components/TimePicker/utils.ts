@@ -41,6 +41,9 @@ const timePickerStylesDefault = StyleSheet.create(theme => ({
 
 const timePickerInputsStylesDefault = StyleSheet.create(theme => ({
     spaceBetweenInputsAndSwitcher: { width: 12 },
+    wrapper: {
+        alignItems: 'center',
+    },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -70,6 +73,27 @@ const timePickerInputsStylesDefault = StyleSheet.create(theme => ({
     betweenDot: {
         height: 12,
     },
+    supportingRow: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        width: '100%',
+        marginTop: 2,
+    },
+    supportingSlot: {
+        width: 96,
+        minHeight: theme.typescale.bodyMedium.lineHeight * 2,
+    },
+    supportingText: {
+        ...theme.typescale.bodyMedium,
+        fontSize: 12,
+        lineHeight: 16,
+        color: theme.colors.onSurfaceVariant,
+        textAlign: 'left',
+        paddingHorizontal: theme.spacings['1'],
+    },
+    supportingTextError: {
+        color: theme.colors.error,
+    },
 }));
 
 const timePickerInputStylesDefault = StyleSheet.create(theme => ({
@@ -91,6 +115,10 @@ const timePickerInputStylesDefault = StyleSheet.create(theme => ({
         color: theme.colors.onSurface,
         borderRadius: theme.shapes.corner.small,
 
+        _web: {
+            outline: 'none',
+        },
+
         variants: {
             state: {
                 highlighted: {
@@ -99,6 +127,20 @@ const timePickerInputStylesDefault = StyleSheet.create(theme => ({
                 },
             },
         },
+    },
+    keyboardInput: {
+        borderWidth: 2,
+        borderColor: 'transparent',
+    },
+    keyboardInputHighlighted: {
+        borderColor: theme.colors.primary,
+    },
+    inputError: {
+        backgroundColor: theme.colors.errorContainer,
+        color: theme.colors.onErrorContainer,
+    },
+    keyboardInputError: {
+        borderColor: theme.colors.error,
     },
     button: {
         overflow: 'hidden',
@@ -253,6 +295,7 @@ const timePickerModalStylesDefault = StyleSheet.create(theme => ({
     timePickerContainer: {
         padding: theme.spacings['6'],
         paddingTop: theme.spacings['2'],
+        paddingBottom: 0,
     },
     footer: {
         flexDirection: 'row',
