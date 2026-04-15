@@ -1,5 +1,5 @@
 import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-import { AppState, Dimensions, Platform, Pressable, StyleSheet, View } from 'react-native';
+import { AppState, Dimensions, Platform, Pressable, View } from 'react-native';
 import { ScopedTheme, UnistylesRuntime } from 'react-native-unistyles';
 
 import { Portal } from '../Portal';
@@ -10,6 +10,7 @@ import {
     useArrowStyles,
     usePopover,
 } from './common';
+import { popoverStyles } from './utils';
 
 const Popover = ({
     triggerRef,
@@ -145,12 +146,12 @@ const Popover = ({
                 {...(inverted
                     ? { name: UnistylesRuntime.themeName === 'dark' ? 'light' : 'dark' }
                     : ({} as { name: 'light' }))}>
-                <Pressable onPress={handleOutsidePress} style={styles.overlay} />
+                <Pressable onPress={handleOutsidePress} style={popoverStyles.overlay} />
 
                 <View
                     ref={popoverRef}
                     onLayout={handlePopoverLayout}
-                    style={[styles.popoverContainer, style, popoverStyle]}
+                    style={[popoverStyles.popoverContainer, style, popoverStyle]}
                     {...rest}>
                     {children}
                     {showArrow && popoverStyle.opacity === 1 && <View style={arrowStyles} />}
@@ -159,27 +160,5 @@ const Popover = ({
         </Portal>
     );
 };
-
-const styles = StyleSheet.create({
-    overlay: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'transparent',
-    },
-    popoverContainer: {
-        ...popoverDefaultStyles,
-        backgroundColor: 'white',
-        borderRadius: 4,
-        shadowColor: 'rgba(0, 0, 0, 1)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3.84,
-        elevation: 5,
-        zIndex: 100,
-    },
-});
 
 export default memo(Popover);
