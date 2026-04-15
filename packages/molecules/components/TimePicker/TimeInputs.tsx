@@ -22,6 +22,10 @@ type Props = {
     focused: PossibleClockTypes;
     hours: number;
     minutes: number;
+    hourLabel: string;
+    minuteLabel: string;
+    hourErrorText: string;
+    minuteErrorText: string;
     onFocusInput: (type: PossibleClockTypes) => any;
     onChange: (hoursMinutesAndFocused: {
         hours: number;
@@ -34,6 +38,10 @@ type Props = {
 function TimeInputs({
     hours,
     minutes,
+    hourLabel,
+    minuteLabel,
+    hourErrorText,
+    minuteErrorText,
     onFocusInput,
     focused,
     inputType,
@@ -76,8 +84,6 @@ function TimeInputs({
 
     const minutesRef = useLatest(minutes);
     const isPm = hours >= 12;
-    const hourErrorText = is24Hour ? 'Hour must be 0-23' : 'Hour must be 1-12';
-    const minuteErrorText = 'Minute must be 0-59';
     const onChangeHours = useCallback(
         (newHours: number) => {
             onChange({
@@ -205,7 +211,7 @@ function TimeInputs({
                                 timePickerInputsStyles.supportingText,
                                 hourError ? timePickerInputsStyles.supportingTextError : null,
                             ]}>
-                            {hourError ? hourErrorText : 'Hour'}
+                            {hourError ? hourErrorText : hourLabel}
                         </Text>
                     </View>
                     <View style={timePickerInputsStyles.hoursAndMinutesSeparator} />
@@ -215,7 +221,7 @@ function TimeInputs({
                                 timePickerInputsStyles.supportingText,
                                 minuteError ? timePickerInputsStyles.supportingTextError : null,
                             ]}>
-                            {minuteError ? minuteErrorText : 'Minute'}
+                            {minuteError ? minuteErrorText : minuteLabel}
                         </Text>
                     </View>
                     {!is24Hour && (

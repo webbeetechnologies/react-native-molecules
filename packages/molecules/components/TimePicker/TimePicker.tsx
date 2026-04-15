@@ -41,6 +41,10 @@ export type Props = {
     onFocusInput?: (type: PossibleClockTypes) => any;
     isLandscape?: boolean;
     style?: StyleProp<ViewStyle>;
+    hourLabel?: string;
+    minuteLabel?: string;
+    hourErrorText?: string;
+    minuteErrorText?: string;
 };
 
 const toTimeString = (value: Date | null | undefined): string => {
@@ -68,6 +72,10 @@ function TimePicker({
     inputType: inputTypeProp,
     isLandscape = false,
     style,
+    hourLabel = 'Hour',
+    minuteLabel = 'Minute',
+    hourErrorText,
+    minuteErrorText = 'Minute must be 0-59',
 }: Props) {
     const ctx = useOptionalDatePickerContext();
     const tpCtx = useOptionalTimePickerContext();
@@ -153,6 +161,12 @@ function TimePicker({
                     onChange={onChange}
                     onFocusInput={onFocusInput}
                     focused={focused}
+                    hourLabel={hourLabel}
+                    minuteLabel={minuteLabel}
+                    hourErrorText={
+                        hourErrorText ?? (is24Hour ? 'Hour must be 0-23' : 'Hour must be 1-12')
+                    }
+                    minuteErrorText={minuteErrorText}
                 />
                 <>
                     {inputType === inputTypes.picker ? (
