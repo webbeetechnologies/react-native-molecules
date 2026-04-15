@@ -9,6 +9,7 @@ export type Props = Omit<PopoverProps, 'setIsOpen' | 'onClose' | 'children'> & {
     closeOnSelect?: boolean;
     onClose: () => void;
     children: ReactElement | ReactElement[];
+    backdropStyles?: ViewStyle;
 };
 
 const emptyObj = {} as ViewStyle;
@@ -37,25 +38,9 @@ const Menu = ({
         [closeOnSelect, onClose],
     );
 
-    // const { menuItemsLength } = useMemo(
-    //     () => ({
-    //         menuItemsLength:
-    //             Children.map(children, child => child)?.filter(
-    //                 child => (child.type as FC)?.displayName === 'MenuItem',
-    //             )?.length || 0,
-    //     }),
-    //     [children],
-    // );
-    //
-    // console.log({ menuItemsLength });
-
     return (
-        <Popover
-            isOpen={isOpen}
-            onClose={onClose}
-            backdropStyles={backdropStyle}
-            style={style}
-            {...rest}>
+        <Popover isOpen={isOpen} onClose={onClose} style={style} {...rest}>
+            <Popover.Overlay style={backdropStyle} />
             <MenuContext.Provider value={contextValue}>{children}</MenuContext.Provider>
         </Popover>
     );

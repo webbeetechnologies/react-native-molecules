@@ -159,6 +159,47 @@ export default function Example() {
 
 ---
 
+## Auto-close popover on selection
+
+The popover defaults to `draft={false}`, so each calendar tap commits through the provider's `onChange`. Control `open` on the provider and close it from `onChange` to dismiss the popover the moment a date is picked.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DateField } from 'react-native-molecules/components/DateField';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+import { TextInput } from 'react-native-molecules/components/TextInput';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | null>(new Date());
+    const [open, setOpen] = useState(false);
+
+    return (
+        <DatePicker.Provider
+            value={date}
+            onChange={next => {
+                setDate(next);
+                setOpen(false);
+            }}
+            open={open}
+            onOpenChange={setOpen}>
+            <DateField>
+                <TextInput.Right>
+                    <DatePicker.Trigger>
+                        <IconButton name="calendar" />
+                    </DatePicker.Trigger>
+                </TextInput.Right>
+            </DateField>
+            <DatePicker.Popover>
+                <DatePicker.Calendar headerLayout="docked" />
+            </DatePicker.Popover>
+        </DatePicker.Provider>
+    );
+}`}
+/>
+
+---
+
 ## Date + time combos
 
 ### Side-by-side date field + time field

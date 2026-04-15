@@ -1,52 +1,19 @@
-import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-import { AppState, Dimensions, Platform, Pressable, View } from 'react-native';
-import { ScopedTheme, UnistylesRuntime } from 'react-native-unistyles';
+import { useCallback, useEffect, useLayoutEffect } from 'react';
+import { AppState, Dimensions, Platform } from 'react-native';
 
-import { Portal } from '../Portal';
-import {
-    DEFAULT_ARROW_SIZE,
-    popoverDefaultStyles,
-    type PopoverProps,
-    useArrowStyles,
-    usePopover,
-} from './common';
-import { popoverStyles } from './utils';
+import { popoverDefaultStyles } from './common';
+import type { UsePlatformMeasureArgs, UsePlatformMeasureResult } from './usePlatformMeasure';
 
-const Popover = ({
+export const usePlatformMeasure = ({
     triggerRef,
-    children,
     isOpen,
-    onClose,
-    position = 'bottom',
-    align = 'center',
-    style,
-    showArrow = false,
-    arrowSize = DEFAULT_ARROW_SIZE,
-    inverted = false,
+    calculatedPosition,
+    calculateAndSetPosition,
+    targetLayoutRef,
     triggerDimensions,
-    offset = 8,
-    ...rest
-}: PopoverProps) => {
-    const {
-        popoverLayoutRef,
-        targetLayoutRef,
-        actualPositionRef,
-        calculatedPosition,
-        calculateAndSetPosition,
-        handlePopoverLayout,
-    } = usePopover({
-        isOpen,
-        position,
-        align,
-        showArrow,
-        arrowSize,
-        offset,
-    });
-
-    const popoverRef = useRef<View>(null);
-
+}: UsePlatformMeasureArgs): UsePlatformMeasureResult => {
     const measureTarget = useCallback(() => {
-        if (triggerRef.current) {
+        if (triggerRef?.current) {
             triggerRef.current.measure(
                 (
                     _fx: number,
@@ -117,48 +84,7 @@ const Popover = ({
         };
     }, [isOpen, measureTarget]);
 
-    const arrowStyles = useArrowStyles({
-        showArrow,
-        arrowSize,
-        style,
-        calculatedPosition,
-        targetLayoutRef,
-        popoverLayoutRef,
-        actualPositionRef,
-    });
-
-    const popoverStyle = calculatedPosition ?? popoverDefaultStyles;
-    const Wrapper = inverted ? ScopedTheme : Fragment;
-
-    if (!isOpen && popoverStyle.opacity === 0) {
-        return null;
-    }
-
-    const handleOutsidePress = () => {
-        if (isOpen && onClose) {
-            onClose();
-        }
+    return {
+        popoverStyle: (calculatedPosition ?? popoverDefaultStyles) as any,
     };
-
-    return (
-        <Portal>
-            <Wrapper
-                {...(inverted
-                    ? { name: UnistylesRuntime.themeName === 'dark' ? 'light' : 'dark' }
-                    : ({} as { name: 'light' }))}>
-                <Pressable onPress={handleOutsidePress} style={popoverStyles.overlay} />
-
-                <View
-                    ref={popoverRef}
-                    onLayout={handlePopoverLayout}
-                    style={[popoverStyles.popoverContainer, style, popoverStyle]}
-                    {...rest}>
-                    {children}
-                    {showArrow && popoverStyle.opacity === 1 && <View style={arrowStyles} />}
-                </View>
-            </Wrapper>
-        </Portal>
-    );
 };
-
-export default memo(Popover);

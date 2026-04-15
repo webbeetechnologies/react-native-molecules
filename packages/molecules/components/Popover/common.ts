@@ -1,4 +1,5 @@
 import type { ReactNode, RefObject } from 'react';
+import { createContext } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LayoutRectangle, StyleProp, View, ViewStyle } from 'react-native';
 import { Dimensions, StyleSheet } from 'react-native';
@@ -15,10 +16,36 @@ export const popoverDefaultStyles = {
     opacity: 0,
 };
 
+export type PopoverContextValue = {
+    triggerRef: RefObject<View | any>;
+    isOpen: boolean;
+    onClose?: () => void;
+};
+
+export const PopoverContext = createContext<PopoverContextValue>({
+    isOpen: false,
+    triggerRef: { current: null },
+});
+
+export type PopoverPanelContextValue = {
+    calculatedPosition: ViewStyle | null;
+    targetLayoutRef: RefObject<LayoutRectangle | null>;
+    popoverLayoutRef: RefObject<LayoutRectangle | null>;
+    actualPositionRef: RefObject<Position | undefined>;
+    containerStyle?: StyleProp<ViewStyle>;
+};
+
+export const PopoverPanelContext = createContext<PopoverPanelContextValue>({
+    calculatedPosition: null,
+    targetLayoutRef: { current: null },
+    popoverLayoutRef: { current: null },
+    actualPositionRef: { current: undefined },
+});
+
 export type PopoverProps = {
     inverted?: boolean;
     /** Reference to the element the popover should anchor to */
-    triggerRef: RefObject<View | any>; // Allow different ref types
+    triggerRef?: RefObject<View | any>;
     /** Content to display inside the popover */
     children: ReactNode;
     /** Whether the popover is visible */
@@ -31,13 +58,10 @@ export type PopoverProps = {
     align?: Align;
     /** Optional style for the popover container */
     style?: StyleProp<ViewStyle>;
-    /** Show arrow pointing to the target */
-    showArrow?: boolean;
-    /** Size of the arrow */
-    arrowSize?: number;
-    withBackdropDismiss?: boolean;
+    /** Gap between the popover and the trigger along the main axis */
     offset?: number;
-    backdropStyles?: StyleProp<ViewStyle>;
+    /** Additional horizontal shift applied to the popover (positive = right) */
+    horizontalOffset?: number;
     /** Optional trigger dimensions to trigger re-measurement when changed */
     triggerDimensions?: { width: number; height: number } | null;
 };
@@ -165,13 +189,12 @@ export const adjustPositionForBoundaries = (
 // --- Arrow Style Hook ---
 
 interface UseArrowStylesProps {
-    showArrow?: boolean;
     arrowSize: number;
-    style?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
     calculatedPosition: ViewStyle | null;
     targetLayoutRef: RefObject<LayoutRectangle | null>;
     popoverLayoutRef: RefObject<LayoutRectangle | null>;
-    actualPositionRef: RefObject<Position | undefined>; // Use Position type
+    actualPositionRef: RefObject<Position | undefined>;
 }
 
 // Define a base style for the popover container to extract default background
@@ -183,9 +206,8 @@ const basePopoverStyle = StyleSheet.create({
 });
 
 export const useArrowStyles = ({
-    showArrow,
     arrowSize,
-    style,
+    containerStyle,
     calculatedPosition,
     targetLayoutRef,
     popoverLayoutRef,
@@ -193,7 +215,6 @@ export const useArrowStyles = ({
 }: UseArrowStylesProps): ViewStyle => {
     return useMemo(() => {
         if (
-            !showArrow ||
             !targetLayoutRef.current ||
             !popoverLayoutRef.current ||
             !calculatedPosition ||
@@ -213,7 +234,7 @@ export const useArrowStyles = ({
         } = targetLayoutRef.current;
 
         const arrowHalfSize = arrowSize / 2;
-        const popoverStyleFlat = StyleSheet.flatten(style || {});
+        const popoverStyleFlat = StyleSheet.flatten(containerStyle || {});
         const containerStyleFlat = StyleSheet.flatten(basePopoverStyle.container);
 
         const backgroundColor =
@@ -320,14 +341,11 @@ export const useArrowStyles = ({
             default:
                 return {};
         }
-        // Use refs directly in dependency array for useMemo
-        // React checks ref.current internally when deciding memoization
     }, [
-        showArrow,
         arrowSize,
-        style, // Include style for potential background/zIndex changes
+        containerStyle,
         calculatedPosition,
-        targetLayoutRef, // Dependency on the ref objects
+        targetLayoutRef,
         popoverLayoutRef,
         actualPositionRef,
     ]);
@@ -339,18 +357,16 @@ interface UsePopoverProps {
     isOpen: boolean;
     position: Position | undefined;
     align: Align | undefined;
-    showArrow: boolean | undefined;
-    arrowSize: number;
     offset?: number;
+    horizontalOffset?: number;
 }
 
 export const usePopover = ({
     isOpen,
     position = 'bottom',
     align = 'center',
-    showArrow = true,
-    arrowSize = DEFAULT_ARROW_SIZE,
     offset = 0,
+    horizontalOffset = 0,
 }: UsePopoverProps) => {
     const popoverLayoutRef = useRef<LayoutRectangle | null>(null);
     const targetLayoutRef = useRef<LayoutRectangle | null>(null);
@@ -359,22 +375,20 @@ export const usePopover = ({
 
     const calculateAndSetPosition = useCallback(() => {
         if (!targetLayoutRef.current || !popoverLayoutRef.current) {
-            setCalculatedPosition(popoverDefaultStyles); // Hide if layouts are not ready
+            setCalculatedPosition(popoverDefaultStyles);
             return;
         }
 
         const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-        const effectiveArrowSize = showArrow ? arrowSize : 0;
 
         let { top: initialTop, left: initialLeft } = getInitialPosition(
             position,
             align,
             targetLayoutRef.current,
             popoverLayoutRef.current,
-            effectiveArrowSize,
+            0,
         );
 
-        // Apply offset based on the initial intended position
         switch (position) {
             case 'top':
                 initialTop -= offset;
@@ -390,18 +404,20 @@ export const usePopover = ({
                 break;
         }
 
+        initialLeft += horizontalOffset;
+
         const { finalTop, finalLeft, finalPosition } = adjustPositionForBoundaries(
-            position, // Pass initial intended position for boundary check logic
-            initialTop, // Pass offset-adjusted top
-            initialLeft, // Pass offset-adjusted left
+            position,
+            initialTop,
+            initialLeft,
             targetLayoutRef.current,
             popoverLayoutRef.current,
             screenHeight,
             screenWidth,
-            effectiveArrowSize,
+            0,
         );
 
-        actualPositionRef.current = finalPosition; // Store the actual position after adjustments
+        actualPositionRef.current = finalPosition;
 
         setCalculatedPosition({
             position: 'absolute',
@@ -409,7 +425,7 @@ export const usePopover = ({
             left: finalLeft,
             opacity: 1,
         });
-    }, [position, align, showArrow, arrowSize, offset]); // Add offset to dependency array
+    }, [position, align, offset, horizontalOffset]);
 
     const handlePopoverLayout = useCallback(
         (event: { nativeEvent: { layout: LayoutRectangle } }) => {
@@ -435,7 +451,7 @@ export const usePopover = ({
             calculateAndSetPosition();
         }
         // This effect specifically handles prop changes
-    }, [isOpen, position, align, arrowSize, showArrow, calculateAndSetPosition]);
+    }, [isOpen, position, align, calculateAndSetPosition]);
 
     // Effect to reset layout refs when popover is closed
     useEffect(() => {

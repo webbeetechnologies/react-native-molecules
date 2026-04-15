@@ -1,18 +1,37 @@
-import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
-import { Pressable, View } from 'react-native';
+import {
+    cloneElement,
+    Fragment,
+    memo,
+    type ReactElement,
+    type ReactNode,
+    type Ref,
+    useContext,
+    useMemo,
+    useRef,
+} from 'react';
+import { Pressable, type PressableProps, type StyleProp, View, type ViewStyle } from 'react-native';
 import { ScopedTheme, UnistylesRuntime } from 'react-native-unistyles';
 
+import { mergeRefs } from '../../utils';
 import { Portal } from '../Portal';
 import {
     DEFAULT_ARROW_SIZE,
-    popoverDefaultStyles,
+    PopoverContext,
+    PopoverPanelContext,
+    type PopoverPanelContextValue,
     type PopoverProps,
     useArrowStyles,
     usePopover,
 } from './common';
+import { createPopoverRoot } from './PopoverRoot';
+import { usePlatformMeasure } from './usePlatformMeasure';
 import { popoverStyles } from './utils';
 
-const Popover = ({
+type PopoverPanelProps = PopoverProps & {
+    overlay?: ReactNode;
+};
+
+const PopoverPanel = ({
     triggerRef,
     children,
     isOpen,
@@ -20,17 +39,15 @@ const Popover = ({
     position = 'bottom',
     align = 'center',
     style,
-    showArrow = false,
-    arrowSize = DEFAULT_ARROW_SIZE,
     inverted = false,
     // @ts-ignore
     dataSet,
-    withBackdropDismiss = false,
     offset = 8,
-    backdropStyles,
+    horizontalOffset = 0,
     triggerDimensions,
+    overlay,
     ...rest
-}: PopoverProps) => {
+}: PopoverPanelProps) => {
     const {
         popoverLayoutRef,
         targetLayoutRef,
@@ -38,111 +55,31 @@ const Popover = ({
         calculatedPosition,
         calculateAndSetPosition,
         handlePopoverLayout,
-    } = usePopover({
-        isOpen,
-        position,
-        align,
-        showArrow,
-        arrowSize,
-        offset,
-    });
+    } = usePopover({ isOpen, position, align, offset, horizontalOffset });
 
     const popoverRef = useRef<View>(null);
 
-    const measureTarget = useCallback(() => {
-        if (triggerRef.current) {
-            triggerRef.current.measureInWindow(
-                (x: number, y: number, width: number, height: number) => {
-                    if (width !== 0 || height !== 0) {
-                        const newLayout = { x, y, width, height };
-                        const changed =
-                            !targetLayoutRef.current ||
-                            targetLayoutRef.current.x !== newLayout.x ||
-                            targetLayoutRef.current.y !== newLayout.y ||
-                            targetLayoutRef.current.width !== newLayout.width ||
-                            targetLayoutRef.current.height !== newLayout.height;
-
-                        if (changed) {
-                            targetLayoutRef.current = newLayout;
-                            calculateAndSetPosition();
-                        }
-                    } else {
-                        targetLayoutRef.current = null;
-                        calculateAndSetPosition();
-                    }
-                },
-            );
-        } else {
-            targetLayoutRef.current = null;
-            calculateAndSetPosition();
-        }
-    }, [triggerRef, calculateAndSetPosition, targetLayoutRef]);
-
-    useLayoutEffect(() => {
-        if (isOpen) {
-            const timeoutId = setTimeout(measureTarget, 0);
-            return () => clearTimeout(timeoutId);
-        }
-        return;
-    }, [isOpen, measureTarget, triggerDimensions]);
-
-    useLayoutEffect(() => {
-        if (!isOpen) return;
-        const handleResize = () => {
-            if (triggerRef.current && isOpen) {
-                window.requestAnimationFrame(measureTarget);
-            }
-        };
-        window.addEventListener('resize', handleResize);
-        window.addEventListener('scroll', handleResize, true);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            window.removeEventListener('scroll', handleResize, true);
-        };
-    }, [isOpen, measureTarget, triggerRef]);
-
-    useEffect(() => {
-        if (!isOpen || !onClose || withBackdropDismiss) return;
-        const handleClickOutside = (event: MouseEvent) => {
-            const popoverElement = popoverRef.current as any as HTMLElement;
-            const targetElement = triggerRef.current as any as HTMLElement;
-            if (
-                popoverElement &&
-                !popoverElement.contains(event.target as Node) &&
-                targetElement &&
-                !targetElement.contains(event.target as Node)
-            ) {
-                onClose();
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside, { capture: true });
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside, { capture: true });
-        };
-    }, [isOpen, onClose, popoverRef, triggerRef, withBackdropDismiss]);
-
-    const arrowStyles = useArrowStyles({
-        showArrow,
-        arrowSize,
-        style,
+    const { popoverStyle } = usePlatformMeasure({
+        triggerRef,
+        isOpen,
+        onClose,
         calculatedPosition,
+        calculateAndSetPosition,
         targetLayoutRef,
-        popoverLayoutRef,
-        actualPositionRef,
+        popoverRef,
+        triggerDimensions,
     });
 
-    const popoverStyle = useMemo(() => {
-        if (!calculatedPosition) return popoverDefaultStyles;
-
-        const scrollX = window.scrollX ?? window.pageXOffset ?? 0;
-        const scrollY = window.scrollY ?? window.pageYOffset ?? 0;
-
-        return {
-            ...calculatedPosition,
-            left: (calculatedPosition.left as number) + scrollX,
-            top: (calculatedPosition.top as number) + scrollY,
-        };
-    }, [calculatedPosition]);
+    const panelContextValue = useMemo<PopoverPanelContextValue>(
+        () => ({
+            calculatedPosition,
+            targetLayoutRef,
+            popoverLayoutRef,
+            actualPositionRef,
+            containerStyle: style,
+        }),
+        [calculatedPosition, targetLayoutRef, popoverLayoutRef, actualPositionRef, style],
+    );
 
     const Wrapper = inverted ? ScopedTheme : Fragment;
     const WrapperProps = inverted
@@ -155,22 +92,84 @@ const Popover = ({
 
     return (
         <Portal>
-            <Wrapper {...(WrapperProps as any)}>
-                {withBackdropDismiss && (
-                    <Pressable style={[popoverStyles.backdrop, backdropStyles]} onPress={onClose} />
-                )}
-                <View
-                    onLayout={handlePopoverLayout}
-                    style={[popoverStyles.popoverContainer, style, popoverStyle]}
-                    {...{ dataSet }}
-                    {...rest}
-                    ref={popoverRef}>
-                    {children}
-                    {showArrow && popoverStyle.opacity === 1 && <View style={arrowStyles} />}
-                </View>
-            </Wrapper>
+            <PopoverPanelContext value={panelContextValue}>
+                <Wrapper {...(WrapperProps as any)}>
+                    {overlay}
+                    <View
+                        onLayout={handlePopoverLayout}
+                        style={[popoverStyles.popoverContainer, style, popoverStyle]}
+                        {...{ dataSet }}
+                        {...rest}
+                        ref={popoverRef}>
+                        {children}
+                    </View>
+                </Wrapper>
+            </PopoverPanelContext>
         </Portal>
     );
 };
 
-export default memo(Popover);
+type PopoverTriggerProps = {
+    children: ReactElement;
+    ref?: Ref<any>;
+    triggerRef?: Ref<any>;
+};
+
+export const PopoverTrigger = memo(
+    ({ children, ref: refProp, triggerRef: triggerRefProp }: PopoverTriggerProps) => {
+        const { triggerRef } = useContext(PopoverContext);
+        const mergedRef = useMemo(
+            () => mergeRefs([triggerRef, refProp, triggerRefProp]),
+            [triggerRef, refProp, triggerRefProp],
+        );
+        return cloneElement(children as ReactElement<{ ref?: unknown }>, { ref: mergedRef });
+    },
+);
+PopoverTrigger.displayName = 'Popover_Trigger';
+
+export const PopoverContent = memo(({ children }: { children?: ReactNode }) => <>{children}</>);
+PopoverContent.displayName = 'Popover_Content';
+
+export const PopoverOverlay = memo(({ style, onPress, ...rest }: PressableProps) => {
+    const { isOpen, onClose } = useContext(PopoverContext);
+    if (!isOpen) return null;
+    return (
+        <Pressable
+            {...rest}
+            onPress={onPress ?? onClose}
+            style={[popoverStyles.overlay, style as StyleProp<ViewStyle>]}
+        />
+    );
+});
+PopoverOverlay.displayName = 'Popover_Overlay';
+
+type PopoverArrowProps = {
+    size?: number;
+    style?: StyleProp<ViewStyle>;
+};
+
+export const PopoverArrow = memo(({ size = DEFAULT_ARROW_SIZE, style }: PopoverArrowProps) => {
+    const {
+        calculatedPosition,
+        targetLayoutRef,
+        popoverLayoutRef,
+        actualPositionRef,
+        containerStyle,
+    } = useContext(PopoverPanelContext);
+
+    const arrowStyles = useArrowStyles({
+        arrowSize: size,
+        containerStyle,
+        calculatedPosition,
+        targetLayoutRef,
+        popoverLayoutRef,
+        actualPositionRef,
+    });
+
+    if (!arrowStyles || Object.keys(arrowStyles).length === 0) return null;
+    return <View style={[arrowStyles, style]} />;
+});
+
+PopoverArrow.displayName = 'Popover_Arrow';
+
+export default memo(createPopoverRoot(PopoverPanel));

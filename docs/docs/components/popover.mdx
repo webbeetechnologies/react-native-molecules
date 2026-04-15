@@ -1,6 +1,6 @@
 ---
 title: "Popover"
-description: "Positioned overlay anchored to a trigger with collision detection."
+description: "Composable overlay anchored to a trigger with collision detection."
 sidebar_position: 37
 ---
 
@@ -15,7 +15,7 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 ### Default
 
 <LiveCodeExample
-    code={`import { useRef, useState } from 'react';
+    code={`import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-molecules/components/Button';
 import { Popover } from 'react-native-molecules/components/Popover';
@@ -34,18 +34,159 @@ const styles = StyleSheet.create({
 });
 
 export default function Example() {
-    const triggerRef = useRef(null);
     const [open, setOpen] = useState(false);
 
     return (
         <View style={styles.container}>
-            <Button ref={triggerRef} onPress={() => setOpen(o => !o)}>
-                Show Popover
-            </Button>
-            <Popover triggerRef={triggerRef} isOpen={open} onClose={() => setOpen(false)}>
-                <View style={styles.content}>
-                    <Text>I'm a popover</Text>
-                </View>
+            <Popover isOpen={open} onClose={() => setOpen(false)}>
+                <Popover.Trigger>
+                    <Button onPress={() => setOpen(o => !o)}>Show Popover</Button>
+                </Popover.Trigger>
+                <Popover.Content>
+                    <View style={styles.content}>
+                        <Text>I'm a popover</Text>
+                    </View>
+                </Popover.Content>
+            </Popover>
+        </View>
+    );
+}`}
+/>
+
+### With Arrow
+
+Compose `<Popover.Arrow />` inside the content to render an arrow pointing at the trigger. Tune `size` and bump the Popover's `offset` to leave room for it.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+import { Popover } from 'react-native-molecules/components/Popover';
+import { Text } from 'react-native-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 48,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 260,
+    },
+    content: {
+        padding: 16,
+    },
+});
+
+export default function Example() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <View style={styles.container}>
+            <Popover isOpen={open} onClose={() => setOpen(false)} offset={16}>
+                <Popover.Trigger>
+                    <Button onPress={() => setOpen(o => !o)}>Show Popover</Button>
+                </Popover.Trigger>
+                <Popover.Content>
+                    <View style={styles.content}>
+                        <Text>I'm a popover with an arrow</Text>
+                    </View>
+                    <Popover.Arrow size={10} />
+                </Popover.Content>
+            </Popover>
+        </View>
+    );
+}`}
+/>
+
+### With Overlay (backdrop dismiss)
+
+Compose `<Popover.Overlay />` to render a full-screen backdrop that closes the popover on press. Useful on native where there's no document-level click-outside listener, or when you want a tinted scrim.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+import { Popover } from 'react-native-molecules/components/Popover';
+import { Text } from 'react-native-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 48,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 260,
+    },
+    content: {
+        padding: 16,
+    },
+    backdrop: {
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    },
+});
+
+export default function Example() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <View style={styles.container}>
+            <Popover isOpen={open} onClose={() => setOpen(false)}>
+                <Popover.Trigger>
+                    <Button onPress={() => setOpen(o => !o)}>Show Popover</Button>
+                </Popover.Trigger>
+                <Popover.Overlay style={styles.backdrop} />
+                <Popover.Content>
+                    <View style={styles.content}>
+                        <Text>Tap outside to close</Text>
+                    </View>
+                </Popover.Content>
+            </Popover>
+        </View>
+    );
+}`}
+/>
+
+### Positioning
+
+Use `position`, `align`, `offset`, and `horizontalOffset` to control placement. The popover auto-flips to the opposite side when it would overflow the viewport.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-molecules/components/Button';
+import { Popover } from 'react-native-molecules/components/Popover';
+import { Text } from 'react-native-molecules/components/Text';
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 80,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 260,
+    },
+    content: {
+        padding: 16,
+    },
+});
+
+export default function Example() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <View style={styles.container}>
+            <Popover
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                position="right"
+                align="start"
+                offset={12}
+                horizontalOffset={4}>
+                <Popover.Trigger>
+                    <Button onPress={() => setOpen(o => !o)}>Show Popover</Button>
+                </Popover.Trigger>
+                <Popover.Content>
+                    <View style={styles.content}>
+                        <Text>Positioned to the right</Text>
+                    </View>
+                </Popover.Content>
             </Popover>
         </View>
     );
