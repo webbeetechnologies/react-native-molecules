@@ -171,6 +171,7 @@ const datePickerModalEditStylesDefault = StyleSheet.create(theme => ({
 const datePickerPopoverHeaderStylesDefault = StyleSheet.create(theme => ({
     buttonContainer: {
         height: 46,
+        gap: theme.spacings['2'],
         // width: '50%',
         flexDirection: 'row',
         alignItems: 'center',

@@ -96,7 +96,7 @@ function HeaderItem({
                             <Icon
                                 onPress={handlePressDropDown}
                                 name={selecting && type === pickerType ? 'menu-up' : 'menu-down'}
-                                size={16}
+                                size={18}
                             />
                         )}
                     </View>
