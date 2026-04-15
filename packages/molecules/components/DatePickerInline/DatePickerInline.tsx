@@ -1,17 +1,17 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { View, type ViewStyle } from 'react-native';
 
 import { useControlledValue } from '../../hooks';
-import type {
-    LocalState,
-    LocalStateMultiple,
-    LocalStateRange,
-    LocalStateSingle,
-} from '../DatePickerModal/types';
+import DatePickerDockedHeader from './DatePickerDockedHeader';
 import DatePickerInlineBase from './DatePickerInlineBase';
 import DatePickerInlineHeader from './DatePickerInlineHeader';
-import type { DatePickerInlineBaseProps } from './types';
+import type { CalendarDate, CalendarDates, DatePickerInlineBaseProps } from './types';
 import { datePickerStyles } from './utils';
+
+type LocalState = LocalStateSingle | LocalStateMultiple | LocalStateRange;
+type LocalStateSingle = { date: CalendarDate };
+type LocalStateMultiple = { dates: CalendarDates };
+type LocalStateRange = { startDate: CalendarDate; endDate: CalendarDate };
 
 export type DatePickerInlineProps = DatePickerInlineBaseProps & {
     containerStyle?: ViewStyle;
@@ -25,6 +25,8 @@ const DatePickerInline = ({
     onChange,
     locale = 'en',
     mode = 'single',
+    headerLayout = 'inline',
+    HeaderComponent,
     containerStyle: containerStyleProp,
     ...rest
 }: DatePickerInlineProps) => {
@@ -40,16 +42,15 @@ const DatePickerInline = ({
         onChange: onInnerChange,
     });
 
-    const { containerStyle } = useMemo(() => {
-        return {
-            containerStyle: [datePickerStyles.container, datePickerStyles.root, containerStyleProp],
-        };
-    }, [containerStyleProp]);
+    const resolvedHeader =
+        HeaderComponent ??
+        (headerLayout === 'docked' ? DatePickerDockedHeader : DatePickerInlineHeader);
 
     return (
-        <View style={containerStyle}>
+        <View style={[datePickerStyles.container, datePickerStyles.root, containerStyleProp]}>
             <DatePickerInlineBase
                 {...rest}
+                headerLayout={headerLayout}
                 locale={locale}
                 mode={mode}
                 startDate={(state as LocalStateRange)?.startDate}
@@ -59,7 +60,7 @@ const DatePickerInline = ({
                 dates={(state as LocalStateMultiple)?.dates}
                 // TODO - fix ts issues
                 // @ts-ignore
-                HeaderComponent={DatePickerInlineHeader}
+                HeaderComponent={resolvedHeader}
             />
         </View>
     );

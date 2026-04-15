@@ -5,19 +5,19 @@ import { Accordion, AccordionItem } from 'react-native-molecules/components/Acco
 import { ActivityIndicator } from 'react-native-molecules/components/ActivityIndicator';
 import { Appbar } from 'react-native-molecules/components/Appbar';
 import { Avatar } from 'react-native-molecules/components/Avatar';
+import { Backdrop } from 'react-native-molecules/components/Backdrop';
 import { Badge } from 'react-native-molecules/components/Badge';
 import { Button, ButtonContext } from 'react-native-molecules/components/Button';
 import { Card } from 'react-native-molecules/components/Card';
 import { Checkbox } from 'react-native-molecules/components/Checkbox';
 import { Chip } from 'react-native-molecules/components/Chip';
-import { DatePickerDocked } from 'react-native-molecules/components/DatePickerDocked';
-import { DatePickerInline } from 'react-native-molecules/components/DatePickerInline';
+import { DateField } from 'react-native-molecules/components/DateField';
 import {
-    DatePickerInput,
-    DatePickerInputContext,
-} from 'react-native-molecules/components/DatePickerInput';
-import { DatePickerModal } from 'react-native-molecules/components/DatePickerModal';
-import { DateTimePicker } from 'react-native-molecules/components/DateTimePicker';
+    DatePicker,
+    DatePickerContext,
+    useDatePickerContext,
+    useOptionalDatePickerContext,
+} from 'react-native-molecules/components/DatePicker';
 import { Dialog } from 'react-native-molecules/components/Dialog';
 import { Drawer } from 'react-native-molecules/components/Drawer';
 import { ElementGroup } from 'react-native-molecules/components/ElementGroup';
@@ -27,6 +27,8 @@ import { HelperText } from 'react-native-molecules/components/HelperText';
 import { HorizontalDivider } from 'react-native-molecules/components/HorizontalDivider';
 import { Icon } from 'react-native-molecules/components/Icon';
 import { IconButton } from 'react-native-molecules/components/IconButton';
+import { If } from 'react-native-molecules/components/If';
+import { InputAddon } from 'react-native-molecules/components/InputAddon';
 import { Link } from 'react-native-molecules/components/Link';
 import { ListItem } from 'react-native-molecules/components/ListItem';
 import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
@@ -40,6 +42,7 @@ import { PortalProvider } from 'react-native-molecules/components/Portal';
 import { RadioButton } from 'react-native-molecules/components/RadioButton';
 import { Rating } from 'react-native-molecules/components/Rating';
 import { Select } from 'react-native-molecules/components/Select';
+import { Slot } from 'react-native-molecules/components/Slot';
 import { StateLayer } from 'react-native-molecules/components/StateLayer';
 import { Surface } from 'react-native-molecules/components/Surface';
 import { Switch } from 'react-native-molecules/components/Switch';
@@ -47,9 +50,12 @@ import { Tabs } from 'react-native-molecules/components/Tabs';
 import { Text } from 'react-native-molecules/components/Text';
 import { TextInput, TextInputContext } from 'react-native-molecules/components/TextInput';
 import { TextInputWithMask } from 'react-native-molecules/components/TextInputWithMask';
-import { TimePicker } from 'react-native-molecules/components/TimePicker';
-import { TimePickerField } from 'react-native-molecules/components/TimePickerField';
-import { TimePickerModal } from 'react-native-molecules/components/TimePickerModal';
+import { TimeField } from 'react-native-molecules/components/TimeField';
+import {
+    TimePicker,
+    TimePickerContext,
+    useOptionalTimePickerContext,
+} from 'react-native-molecules/components/TimePicker';
 import { Tooltip } from 'react-native-molecules/components/Tooltip';
 import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
 import { VerticalDivider } from 'react-native-molecules/components/VerticalDivider';
@@ -71,23 +77,26 @@ export const defaultScope = {
     ActivityIndicator,
     Accordion,
     AccordionItem,
+    Backdrop,
     Badge,
     Button,
     Checkbox,
     Text,
     Icon,
     IconButton,
+    If,
     Appbar,
     Chip,
-    DatePickerDocked,
-    DatePickerInline,
-    DatePickerInput,
-    DatePickerModal,
-    DateTimePicker,
+    DatePicker,
+    DatePickerContext,
+    useDatePickerContext,
+    useOptionalDatePickerContext,
+    DateField,
     Dialog,
     Drawer,
     FAB,
     HelperText,
+    InputAddon,
     ListItem,
     Menu,
     Modal,
@@ -96,10 +105,13 @@ export const defaultScope = {
     Popover,
     Portal,
     RadioButton,
+    Slot,
     Surface,
     TextInputWithMask,
+    TimeField,
     TimePicker,
-    TimePickerField,
+    TimePickerContext,
+    useOptionalTimePickerContext,
     TouchableRipple,
     HorizontalDivider,
     VerticalDivider,
@@ -113,7 +125,6 @@ export const defaultScope = {
     StateLayer,
     Switch,
     Tabs,
-    TimePickerModal,
     Tooltip,
     LoadingIndicator,
     PortalProvider,
@@ -122,7 +133,6 @@ export const defaultScope = {
     useHandleNumberFormat,
     ButtonContext,
     TextInputContext,
-    DatePickerInputContext,
     FilePickerContext,
 };
 

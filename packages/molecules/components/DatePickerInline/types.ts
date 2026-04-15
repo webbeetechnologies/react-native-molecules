@@ -13,6 +13,7 @@ export interface BaseMonthProps {
     onPressDate: (date: Date) => any;
     validRange?: ValidRangeType;
     customMonthStyles?: Record<string, any>;
+    showOutsideDays?: boolean;
 
     // some of these should be required in final implementation
     date?: CalendarDate;
@@ -52,7 +53,9 @@ export type BaseDatePickerProps = {
     startYear?: number;
     endYear?: number;
     HeaderComponent?: MemoExoticComponent<CalendarHeaderProps | any>;
+    headerLayout?: 'inline' | 'docked';
     monthStyle?: Record<string, any>;
+    showOutsideDays?: boolean;
 
     // here they are optional but in final implemenation they are required
     date?: CalendarDate;

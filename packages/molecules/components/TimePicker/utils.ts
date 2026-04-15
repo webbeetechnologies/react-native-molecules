@@ -218,6 +218,52 @@ const timePickerClockMinutesStylesDefault = StyleSheet.create(theme => ({
     textWhite: { color: '#fff' },
 }));
 
+const timePickerModalStylesDefault = StyleSheet.create(theme => ({
+    keyboardView: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
+    modalContent: {
+        minWidth: 287,
+        width: undefined,
+        maxWidth: undefined,
+        flex: undefined,
+        borderRadius: theme.shapes.corner.extraLarge,
+        overflow: 'hidden',
+    },
+    frame: {
+        backgroundColor: theme.colors.surface,
+    },
+    labelContainer: {
+        minHeight: 56,
+        justifyContent: 'flex-end',
+        paddingLeft: theme.spacings['6'],
+        paddingRight: theme.spacings['6'],
+        paddingTop: theme.spacings['6'],
+        paddingBottom: theme.spacings['2'],
+        alignSelf: 'flex-start',
+    },
+    label: {
+        letterSpacing: 1,
+        fontSize: theme.typescale.labelLarge.fontSize,
+        color: theme.colors.onSurface,
+        fontWeight: theme.typescale.labelLarge.fontWeight,
+    },
+    timePickerContainer: {
+        padding: theme.spacings['6'],
+        paddingTop: theme.spacings['2'],
+    },
+    footer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: theme.spacings['2'],
+        width: '100%',
+    },
+    inputTypeToggle: { margin: theme.spacings['1'] },
+    fill: { flex: 1 },
+}));
+
 const timePickerAmPmSwitcherStylesDefault = StyleSheet.create(theme => ({
     container: {
         width: 50,
@@ -290,4 +336,8 @@ export const timePickerClockMinutesStyles = getRegisteredComponentStylesWithFall
 export const timePickerAmPmSwitcherStyles = getRegisteredComponentStylesWithFallback(
     'TimePicker_AmPmSwitcher',
     timePickerAmPmSwitcherStylesDefault,
+);
+export const timePickerModalStyles = getRegisteredComponentStylesWithFallback(
+    'TimePickerModal',
+    timePickerModalStylesDefault,
 );

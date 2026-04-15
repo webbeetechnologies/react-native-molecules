@@ -43,6 +43,8 @@ function DatePickerInlineBaseChild(props: DatePickerInlineBaseProps) {
         HeaderComponent,
         onToggle,
         monthStyle,
+        showOutsideDays,
+        headerLayout,
     } = props;
     const [pickerType, setStore] = useDatePickerStore(state => state.pickerType);
 
@@ -125,6 +127,7 @@ function DatePickerInlineBaseChild(props: DatePickerInlineBaseProps) {
                     scrollMode={scrollMode}
                     disableWeekDays={disableWeekDays}
                     customMonthStyles={monthStyle}
+                    showOutsideDays={showOutsideDays}
                 />
             );
         },
@@ -140,6 +143,7 @@ function DatePickerInlineBaseChild(props: DatePickerInlineBaseProps) {
             scrollMode,
             disableWeekDays,
             monthStyle,
+            showOutsideDays,
         ],
     );
 
@@ -166,7 +170,9 @@ function DatePickerInlineBaseChild(props: DatePickerInlineBaseProps) {
                 renderItem={renderMonthComponent}
                 renderHeader={renderCalenderHeader}
             />
-            {isHorizontal && pickerType === 'year' && <YearPicker />}
+            {isHorizontal && pickerType === 'year' && (
+                <YearPicker layout={headerLayout === 'docked' ? 'list' : 'grid'} />
+            )}
             {isHorizontal && pickerType === 'month' && <MonthPicker />}
         </View>
     );

@@ -4,6 +4,11 @@
     "author": "Thet Aung <thetaung.dev@gmail.com>",
     "license": "MIT",
     "main": "index.ts",
+    "sideEffects": [
+        "components/DatePicker/context.tsx",
+        "components/Select/context.tsx",
+        "components/TimePicker/context.tsx"
+    ],
     "files": [
         "components",
         "context-bridge",

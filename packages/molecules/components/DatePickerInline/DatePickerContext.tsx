@@ -18,4 +18,5 @@ export const {
     Provider,
     useContext: useDatePickerStore,
     useContextValue: useDatePickerStoreValue,
+    useStoreRef: useDatePickerStoreRef,
 } = createFastContext<Store>();

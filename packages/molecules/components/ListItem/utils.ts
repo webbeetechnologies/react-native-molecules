@@ -56,7 +56,7 @@ const listItemStylesDefault = StyleSheet.create(theme => ({
         variants: {
             state: {
                 hovered: {
-                    backgroundColor: theme.colors.stateLayer.hover.primary,
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
                 },
             },
         },

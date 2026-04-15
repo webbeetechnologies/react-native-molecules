@@ -10,6 +10,7 @@ type Props = ViewProps & {
     generatedDays: {
         beforeWeekDay: boolean;
         afterWeekDay: boolean;
+        outside: boolean;
         year: number;
         month: number;
         dayOfMonth: number;
@@ -24,6 +25,7 @@ type Props = ViewProps & {
     }[];
     onPressDate: (date: Date) => any;
     disableWeekDays?: DisableWeekDaysType;
+    showOutsideDays?: boolean;
 };
 
 const Week = ({
@@ -31,6 +33,7 @@ const Week = ({
     generatedDays,
     onPressDate,
     disableWeekDays,
+    showOutsideDays,
     style,
     ...rest
 }: Props) => {
@@ -39,9 +42,10 @@ const Week = ({
             {generatedDays
                 .filter(gd => showWeekDay(gd.dayIndex, disableWeekDays))
                 .map(gd => {
+                    const isOutside = gd.beforeWeekDay || gd.afterWeekDay;
                     return (
                         <Fragment key={gd.dayIndex + weekIndex}>
-                            {gd.beforeWeekDay || gd.afterWeekDay ? (
+                            {isOutside && !showOutsideDays ? (
                                 <EmptyDay />
                             ) : (
                                 <Day
@@ -55,6 +59,7 @@ const Week = ({
                                     onPressDate={onPressDate}
                                     isToday={gd.isToday}
                                     disabled={gd.disabled}
+                                    outside={isOutside}
                                 />
                             )}
                         </Fragment>

@@ -1,9 +1,8 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { View } from 'react-native';
 
 import { format } from '../../utils/date-fns';
 import { Text } from '../Text';
-import { useDatePickerStoreValue } from './DatePickerContext';
 import { getCalendarHeaderHeight } from './DatePickerInlineHeader';
 import {
     addMonths,
@@ -14,6 +13,7 @@ import {
     getRealIndex,
     gridCounts,
     startAtIndex,
+    totalMonths,
     useRangeChecker,
 } from './dateUtils';
 import type { MonthMultiProps, MonthRangeProps, MonthSingleProps } from './types';
@@ -42,11 +42,9 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
         scrollMode,
         disableWeekDays,
         validRange,
+        showOutsideDays,
         // customMonthStyles,
     } = props;
-    const { localDate } = useDatePickerStoreValue(state => ({ localDate: state.localDate }));
-    // const monthStyles = useComponentStyles('DatePicker_Month', customMonthStyles);
-
     const isHorizontal = scrollMode === 'horizontal';
     const { isDisabled, isWithinValidRange } = useRangeChecker(validRange);
 
@@ -54,11 +52,11 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
         const realIndex = getRealIndex(index);
 
         const md = addMonths(new Date(), realIndex);
-        const y = mode === 'single' ? localDate.getFullYear() : md.getFullYear();
-        const m = mode === 'single' ? localDate.getMonth() : md.getMonth();
+        const y = md.getFullYear();
+        const m = md.getMonth();
 
         return { monthName: format(md, 'LLLL'), month: m, year: y };
-    }, [index, localDate, mode]);
+    }, [index]);
 
     const grid = useMemo(
         () =>
@@ -78,67 +76,34 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
         [year, month, index, isDisabled, mode, isWithinValidRange, startDate, endDate, dates, date],
     );
 
-    const { headerStyle, yearButtonStyle, yearInnerStyle, monthLabelStyle, weekContainerStyle } =
-        useMemo(() => {
-            // const {
-            //     monthLabel: _monthLabel,
-            //     yearButton,
-            //     yearButtonInner,
-            //     month: _monthStyle,
-            //     monthHeader,
-            //     dockedHeaderStyle,
-            //     weekContainerStyle: weekContainer,
-            // } = monthStyles;
-            // const { typescale, ...monthLabel } = _monthLabel;
+    const headerStyle = [
+        datePickerMonthStyles.monthHeader,
+        isHorizontal
+            ? [
+                  datePickerMonthStyles.dockedHeaderStyle,
+                  {
+                      marginTop: monthHeaderSingleMarginTop,
+                      marginBottom: monthHeaderSingleMarginBottom,
+                  },
+              ]
+            : null,
+    ];
 
-            return {
-                headerStyle: [
-                    datePickerMonthStyles.monthHeader,
-                    isHorizontal
-                        ? [
-                              datePickerMonthStyles.dockedHeaderStyle,
-                              {
-                                  marginTop: monthHeaderSingleMarginTop,
-                                  marginBottom: monthHeaderSingleMarginBottom,
-                              },
-                          ]
-                        : null,
-                ],
-                yearButtonStyle: datePickerMonthStyles.yearButton,
-                yearInnerStyle: datePickerMonthStyles.yearButtonInner,
-                monthLabelStyle: [datePickerMonthStyles.monthLabel],
-                weekContainerStyle: datePickerMonthStyles.weekContainerStyle,
-            };
-        }, [isHorizontal]);
-
-    const renderHeader = useCallback(() => {
-        if (!isHorizontal) {
-            return (
+    return (
+        <View>
+            {!isHorizontal ? (
                 <View style={headerStyle}>
-                    <View accessibilityLabel={`${monthName} ${year}`} style={yearButtonStyle}>
-                        <View style={yearInnerStyle}>
-                            <Text style={monthLabelStyle} selectable={false}>
+                    <View
+                        accessibilityLabel={`${monthName} ${year}`}
+                        style={[datePickerMonthStyles.yearButton]}>
+                        <View style={[datePickerMonthStyles.yearButtonInner]}>
+                            <Text style={datePickerMonthStyles.monthLabel} selectable={false}>
                                 {monthName} {year}
                             </Text>
                         </View>
                     </View>
                 </View>
-            );
-        }
-        return null;
-    }, [
-        headerStyle,
-        isHorizontal,
-        monthLabelStyle,
-        monthName,
-        year,
-        yearButtonStyle,
-        yearInnerStyle,
-    ]);
-
-    return (
-        <View>
-            {renderHeader()}
+            ) : null}
             {grid.map(({ weekIndex, generatedDays }) => (
                 <Week
                     key={weekIndex}
@@ -146,7 +111,8 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
                     generatedDays={generatedDays}
                     disableWeekDays={disableWeekDays}
                     onPressDate={onPressDate}
-                    style={weekContainerStyle}
+                    showOutsideDays={showOutsideDays}
+                    style={datePickerMonthStyles.weekContainerStyle}
                 />
             ))}
         </View>
@@ -190,7 +156,21 @@ function weeksOffset(index: number): number {
 }
 
 export function getIndexFromHorizontalOffset(offset: number, width: number): number {
-    return startAtIndex + Math.floor(offset / width);
+    if (!Number.isFinite(offset) || !Number.isFinite(width) || width <= 1) {
+        return startAtIndex;
+    }
+
+    const rawIndex = startAtIndex + Math.floor(offset / width);
+
+    if (rawIndex < 0) {
+        return 0;
+    }
+
+    if (rawIndex >= totalMonths) {
+        return totalMonths - 1;
+    }
+
+    return rawIndex;
 }
 
 export function getIndexFromVerticalOffset(offset: number): number {

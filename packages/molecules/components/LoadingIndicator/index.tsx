@@ -7,7 +7,7 @@ export const LoadingIndicator = getRegisteredComponentWithFallback(
 );
 
 export {
-    type LoadingIndicatorProps,
+    type Props as LoadingIndicatorProps,
     loadingIndicatorStyles,
     loadingIndicatorStylesDefault,
 } from './utils';

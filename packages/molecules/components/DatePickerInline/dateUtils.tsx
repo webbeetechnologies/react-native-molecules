@@ -219,21 +219,25 @@ export const generateCalendarGrid = ({
                 const isFirstWeek = weekGrid === 0;
                 const realDayIndex = emptyDays - dayIndex;
                 const beforeWeekDay = isFirstWeek && realDayIndex > 0;
-                const dayOfMonth = weekGrid * 7 + dayIndex - emptyDays + 1;
-                const afterWeekDay = dayOfMonth > daysInMonth;
+                const rawDayOfMonth = weekGrid * 7 + dayIndex - emptyDays + 1;
+                const afterWeekDay = rawDayOfMonth > daysInMonth;
+                const outside = beforeWeekDay || afterWeekDay;
 
-                const day = new Date(year, month, dayOfMonth);
+                const day = new Date(year, month, rawDayOfMonth);
+                const dayOfMonth = day.getDate();
+                const displayYear = day.getFullYear();
+                const displayMonth = day.getMonth();
                 const isToday = areDatesOnSameDay(day, today);
 
                 let inRange = false;
                 let disabled = isDisabled(day);
                 let selected = false;
 
-                let leftCrop = dayOfMonth === 1;
-                let rightCrop = dayOfMonth === daysInMonth;
+                let leftCrop = rawDayOfMonth === 1;
+                let rightCrop = rawDayOfMonth === daysInMonth;
 
-                const isFirstDayOfMonth = dayOfMonth === 1;
-                const isLastDayOfMonth = dayOfMonth === daysInMonth;
+                const isFirstDayOfMonth = rawDayOfMonth === 1;
+                const isLastDayOfMonth = rawDayOfMonth === daysInMonth;
 
                 if (mode === 'range') {
                     const selectedStartDay = areDatesOnSameDay(day, startDate);
@@ -267,8 +271,8 @@ export const generateCalendarGrid = ({
                     const safeDates = dates || [];
                     selected = safeDates.some(d => areDatesOnSameDay(day, d));
 
-                    const yesterday = new Date(year, month, dayOfMonth - 1);
-                    const tomorrow = new Date(year, month, dayOfMonth + 1);
+                    const yesterday = new Date(year, month, rawDayOfMonth - 1);
+                    const tomorrow = new Date(year, month, rawDayOfMonth + 1);
 
                     const yesterdaySelected = safeDates.some(d => areDatesOnSameDay(d, yesterday));
                     const tomorrowSelected = safeDates.some(d => areDatesOnSameDay(d, tomorrow));
@@ -316,8 +320,9 @@ export const generateCalendarGrid = ({
                 return {
                     beforeWeekDay,
                     afterWeekDay,
-                    year,
-                    month,
+                    outside,
+                    year: displayYear,
+                    month: displayMonth,
                     dayOfMonth,
                     dayIndex,
                     mode,

@@ -3,11 +3,13 @@ import { StyleSheet } from 'react-native-unistyles';
 import { getRegisteredComponentStylesWithFallback } from '../../core';
 import { daySize } from './dateUtils';
 
-export const dayNamesHeight = 44;
+export const dayNamesHeight = 48;
 
 // TODO make it flexible
-export const weekMargin = 6;
-export const weekSize = daySize + weekMargin;
+export const cellSize = 48;
+export const cellVerticalPadding = (cellSize - daySize) / 2;
+export const weekMargin = 0;
+export const weekSize = cellSize + weekMargin;
 export const montHeaderHeight = 56;
 export const monthHeaderSingleMarginTop = 4;
 export const monthHeaderSingleMarginBottom = 8 + 22 + 12;
@@ -33,8 +35,7 @@ const datePickerMonthStylesDefault = StyleSheet.create(theme => ({
         backgroundColor: theme.colors.surface,
     },
     monthLabel: {
-        ...theme.typescale.bodyMedium,
-        opacity: 0.7,
+        ...theme.typescale.labelLarge,
     },
     yearButton: {
         alignSelf: 'flex-start',
@@ -89,6 +90,30 @@ const datePickerYearPickerStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
+export const datePickerDayStateLayerStyles = StyleSheet.create(theme => ({
+    stateLayer: {
+        variants: {
+            state: {
+                hovered: {
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
+                },
+                todayAndHovered: {
+                    backgroundColor: theme.colors.stateLayer.hover.primary,
+                },
+                outsideAndHovered: {
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
+                },
+                selectedAndHovered: {
+                    backgroundColor: theme.colors.stateLayer.hover.onPrimary,
+                },
+                inRangeAndHovered: {
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
+                },
+            },
+        },
+    },
+}));
+
 const datePickerDayStylesDefault = StyleSheet.create(theme => ({
     containerStyle: {
         flex: 1,
@@ -101,6 +126,9 @@ const datePickerDayStylesDefault = StyleSheet.create(theme => ({
             state: {
                 disabled: {
                     opacity: 0.3,
+                },
+                outside: {
+                    opacity: 0.38,
                 },
             },
         },
@@ -117,7 +145,7 @@ const datePickerDayStylesDefault = StyleSheet.create(theme => ({
         variants: {
             state: {
                 inRange: {
-                    backgroundColor: theme.colors.primary,
+                    backgroundColor: 'transparent',
                 },
             },
         },
@@ -140,12 +168,13 @@ const datePickerDayStylesDefault = StyleSheet.create(theme => ({
                 },
 
                 inRange: {
-                    borderColor: theme.colors.primary,
+                    borderWidth: 0,
+                    borderColor: 'transparent',
                     button: {
-                        backgroundColor: theme.colors.primary,
+                        backgroundColor: 'transparent',
                     },
                     today: {
-                        borderColor: theme.colors.primary,
+                        borderColor: 'transparent',
                     },
                 },
             },
@@ -156,15 +185,17 @@ const datePickerDayStylesDefault = StyleSheet.create(theme => ({
         variants: {
             state: {
                 inRange: {
-                    borderColor: theme.colors.primary,
+                    borderWidth: 0,
+                    borderColor: 'transparent',
                     button: {
-                        backgroundColor: theme.colors.primary,
+                        backgroundColor: 'transparent',
                     },
                 },
             },
         },
     },
     text: {
+        ...theme.typescale.bodyLarge,
         variants: {
             state: {
                 selected: {
@@ -175,16 +206,16 @@ const datePickerDayStylesDefault = StyleSheet.create(theme => ({
                 },
 
                 inRange: {
-                    color: theme.colors.onPrimary,
+                    color: theme.colors.onSecondaryContainer,
 
                     day: {
-                        borderColor: theme.colors.primary,
+                        borderColor: 'transparent',
                     },
                     button: {
-                        backgroundColor: theme.colors.primary,
+                        backgroundColor: 'transparent',
                     },
                     today: {
-                        borderColor: theme.colors.primary,
+                        borderColor: 'transparent',
                     },
                 },
             },
@@ -205,7 +236,7 @@ const datePickerDayEmptyStylesDefault = StyleSheet.create({
 const datePickerWeekStylesDefault = StyleSheet.create({
     root: {
         flexDirection: 'row',
-        height: daySize,
+        height: cellSize,
     },
 });
 
@@ -214,7 +245,7 @@ const datePickerHeaderStylesDefault = StyleSheet.create(theme => ({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginHorizontal: theme.spacings['5'],
+        padding: theme.spacings['2'],
     },
     buttonContainer: {
         height: 56,
@@ -226,8 +257,7 @@ const datePickerHeaderStylesDefault = StyleSheet.create(theme => ({
     buttonWrapper: {},
     spacer: { flex: 1 },
     yearLabelStyle: {
-        ...theme.typescale.bodyMedium,
-        opacity: 0.7,
+        ...theme.typescale.labelLarge,
     },
     yearButtonStyle: {
         alignSelf: 'flex-start',
@@ -249,24 +279,25 @@ const dateDayNameStylesDefault = StyleSheet.create(theme => ({
         alignItems: 'center',
         backgroundColor: theme.colors.surface,
     },
-    dayName: { flex: 1, alignItems: 'center' },
+    dayName: { flex: 1, alignItems: 'center', ...theme.typescale.bodyLarge },
     dayNameLabel: {
-        opacity: 0.7,
-        ...theme.typescale.bodyMedium,
+        ...theme.typescale.bodyLarge,
     },
 }));
 
 const datePickerDayRangeStylesDefault = StyleSheet.create(theme => ({
     container: {
+        position: 'absolute',
+        top: cellVerticalPadding,
+        bottom: cellVerticalPadding,
+        left: 0,
+        right: 0,
         flexDirection: 'row',
 
         variants: {
             state: {
-                bothWays: {
-                    borderRadius: daySize / 2,
-                },
                 inRange: {
-                    backgroundColor: theme.colors.primary,
+                    backgroundColor: theme.colors.secondaryContainer,
                 },
                 isCrop: {
                     backgroundColor: undefined,
@@ -280,7 +311,7 @@ const datePickerDayRangeStylesDefault = StyleSheet.create(theme => ({
         variants: {
             state: {
                 isRightCrop: {
-                    backgroundColor: theme.colors.primary,
+                    backgroundColor: theme.colors.secondaryContainer,
                 },
             },
         },
@@ -291,13 +322,13 @@ const datePickerDayRangeStylesDefault = StyleSheet.create(theme => ({
         variants: {
             state: {
                 isLeftCrop: {
-                    backgroundColor: theme.colors.primary,
+                    backgroundColor: theme.colors.secondaryContainer,
                 },
             },
         },
     },
     centerCrop: {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.secondaryContainer,
         minWidth: daySize,
         minHeight: daySize,
 
@@ -317,7 +348,13 @@ const datePickerDayRangeStylesDefault = StyleSheet.create(theme => ({
 }));
 
 const datePickerYearItemStylesDefault = StyleSheet.create(theme => ({
+    content: {
+        alignItems: 'center',
+    },
     yearButton: {
+        borderRadius: theme.shapes.corner.full,
+        paddingHorizontal: 0,
+        overflow: 'hidden',
         variants: {
             state: {
                 selected: {

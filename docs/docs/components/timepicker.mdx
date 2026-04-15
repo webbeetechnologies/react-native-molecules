@@ -1,28 +1,111 @@
 ---
-title: "TimePicker"
-description: "Analog + digital time picker offering hours/minutes selection."
-sidebar_position: 50
+title: "Time Picker"
+description: "Provider-driven time primitives — field, trigger, clock, modal — sharing a single Date value."
+sidebar_position: 41
 ---
 
 import ComponentDoc from '@site/src/components/ComponentDoc';
 import ComponentProps from '@site/src/components/ComponentProps';
 import LiveCodeExample from '@site/src/components/LiveCodeExample';
 
-<ComponentDoc name="TimePicker" />
+# Time Picker
 
-## Examples
+Time components share the same provider used by the date picker. Mount `TimePicker.Provider` in `mode="time"` and the value is a single `Date` whose time portion is meaningful.
 
-### Default
+Selections are staged in **draft mode** by default — pair with `<DatePicker.Actions />` to commit. Pass `draft={false}` for auto-save.
+
+---
+
+## Full time picker (field + trigger + modal clock)
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+import { TextInput } from 'react-native-molecules/components/TextInput';
+import { TimeField } from 'react-native-molecules/components/TimeField';
+import { TimePicker } from 'react-native-molecules/components/TimePicker';
+
+export default function Example() {
+    const [time, setTime] = useState<Date | null>(new Date());
+
+    return (
+        <TimePicker.Provider mode="time" value={time} onChange={setTime}>
+            <TimeField>
+                <TextInput.Right>
+                    <TimePicker.Trigger>
+                        <IconButton name="clock-outline" />
+                    </TimePicker.Trigger>
+                </TextInput.Right>
+            </TimeField>
+            <TimePicker.Modal>
+                <TimePicker.Clock />
+            </TimePicker.Modal>
+        </TimePicker.Provider>
+    );
+}`}
+/>
+
+---
+
+## Just the field (typed entry only)
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { TimeField } from 'react-native-molecules/components/TimeField';
+import { TimePicker } from 'react-native-molecules/components/TimePicker';
+
+export default function Example() {
+    const [time, setTime] = useState<Date | null>(null);
+
+    return (
+        <TimePicker.Provider mode="time" value={time} onChange={setTime} draft={false}>
+            <TimeField />
+        </TimePicker.Provider>
+    );
+}`}
+/>
+
+---
+
+## Just the clock (standalone)
+
+`TimePicker.Clock` accepts `time` / `onTimeChange` directly when there's no provider.
 
 <LiveCodeExample
     code={`import { useState } from 'react';
 import { TimePicker } from 'react-native-molecules/components/TimePicker';
 
 export default function Example() {
-    const [time, setTime] = useState('10:15');
+    const [time, setTime] = useState('09:30');
 
-    return <TimePicker time={time} onTimeChange={({ time: value }) => setTime(value)} />;
+    return (
+        <TimePicker.Clock
+            time={time}
+            inputType="picker"
+            onTimeChange={({ time }) => setTime(time)}
+        />
+    );
 }`}
 />
 
+---
+
+## Component reference
+
+### TimeField
+
+<ComponentDoc name="TimeField" />
+
+<ComponentProps name="TimeField" />
+
+### TimePicker
+
+<ComponentDoc name="TimePicker" />
+
 <ComponentProps name="TimePicker" />
+
+### TimePickerModal
+
+<ComponentDoc name="TimePickerModal" />
+
+<ComponentProps name="TimePickerModal" />

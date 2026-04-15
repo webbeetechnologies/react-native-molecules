@@ -19,6 +19,12 @@ import { IconButton } from '../IconButton';
 import { Popover } from '../Popover';
 import { Text } from '../Text';
 import { TextInput, type TextInputHandles, type TextInputProps } from '../TextInput';
+import {
+    SelectContextProvider,
+    SelectDropdownContextProvider,
+    useSelectContextValue,
+    useSelectDropdownContextValue,
+} from './context';
 import type {
     DefaultItemT,
     SelectContentProps,
@@ -31,14 +37,7 @@ import type {
     SelectTriggerProps,
     SelectValueProps,
 } from './types';
-import {
-    SelectContextProvider,
-    SelectDropdownContextProvider,
-    styles,
-    triggerStyles,
-    useSelectContextValue,
-    useSelectDropdownContextValue,
-} from './utils';
+import { styles, triggerStyles } from './utils';
 
 const emptyArr: unknown[] = [];
 

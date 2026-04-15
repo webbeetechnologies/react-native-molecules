@@ -1,0 +1,287 @@
+---
+title: "Date Picker"
+description: "Provider-driven date and time primitives that compose into fields, triggers, calendars, popovers, and modals."
+sidebar_position: 13
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+# Date Picker
+
+Every date and time experience — single date, time, date+time combo, range — starts with a single `DatePicker.Provider`. The provider owns the value, draft, and open state. Fields, triggers, calendars, popovers, and modals all read from it as siblings; you compose only the pieces you need.
+
+Draft mode controls whether selections are staged until the user presses OK or commit immediately. Surfaces pick a sensible default: `DatePicker.Popover` defaults to **auto-save** (`draft={false}`) and `DatePicker.Modal` defaults to **staged** (`draft={true}`). Both auto-render a Cancel / OK footer (via `DatePicker.Actions`) when draft is on, and hide it when it's off. Pass `draft` on the provider to force either behavior globally, or on the surface to override just that surface.
+
+---
+
+## Full date picker (field + trigger + popover)
+
+The common pattern: typed input, icon trigger, docked calendar in a popover with Cancel / OK.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DateField } from 'react-native-molecules/components/DateField';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+import { TextInput } from 'react-native-molecules/components/TextInput';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | null>(new Date());
+
+    return (
+        <DatePicker.Provider value={date} onChange={setDate}>
+            <DateField>
+                <TextInput.Right>
+                    <DatePicker.Trigger>
+                        <IconButton name="calendar" />
+                    </DatePicker.Trigger>
+                </TextInput.Right>
+            </DateField>
+            <DatePicker.Popover>
+                <DatePicker.Calendar headerLayout="docked" />
+            </DatePicker.Popover>
+        </DatePicker.Provider>
+    );
+}`}
+/>
+
+---
+
+## Full date picker (field + trigger + modal)
+
+Same composition, swap `DatePicker.Popover` for `DatePicker.Modal` when you want a focused overlay instead of a docked surface. The modal renders its own Cancel / OK actions.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DateField } from 'react-native-molecules/components/DateField';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+import { TextInput } from 'react-native-molecules/components/TextInput';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | null>(new Date());
+
+    return (
+        <DatePicker.Provider value={date} onChange={setDate}>
+            <DateField>
+                <TextInput.Right>
+                    <DatePicker.Trigger>
+                        <IconButton name="calendar" />
+                    </DatePicker.Trigger>
+                </TextInput.Right>
+            </DateField>
+            <DatePicker.Modal>
+                <DatePicker.Calendar />
+            </DatePicker.Modal>
+        </DatePicker.Provider>
+    );
+}`}
+/>
+
+---
+
+## Button trigger with date label
+
+No field — use any button as the trigger and show the selected date inline.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Button } from 'react-native-molecules/components/Button';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+
+const formatLabel = (d: Date | null) =>
+    d ? d.toLocaleDateString(undefined, { dateStyle: 'medium' }) : 'Pick a date';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | null>(null);
+
+    return (
+        <DatePicker.Provider value={date} onChange={setDate}>
+            <DatePicker.Trigger>
+                <Button variant="outlined">
+                    <Button.Text>{formatLabel(date)}</Button.Text>
+                </Button>
+            </DatePicker.Trigger>
+            <DatePicker.Popover>
+                <DatePicker.Calendar headerLayout="docked" />
+            </DatePicker.Popover>
+        </DatePicker.Provider>
+    );
+}`}
+/>
+
+---
+
+## Just the field (no overlay)
+
+Typed-only — parse and validate what the user types, with no calendar surface.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DateField } from 'react-native-molecules/components/DateField';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | null>(null);
+
+    return (
+        <DatePicker.Provider value={date} onChange={setDate} draft={false}>
+            <DateField />
+        </DatePicker.Provider>
+    );
+}`}
+/>
+
+---
+
+## Just the calendar (standalone)
+
+`DatePicker.Calendar` works without a provider — give it `date` and `onChange` directly.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+
+export default function Example() {
+    const [date, setDate] = useState<Date | null>(new Date());
+
+    return (
+        <DatePicker.Calendar
+            mode="single"
+            date={date}
+            onChange={({ date }) => setDate(date ?? null)}
+        />
+    );
+}`}
+/>
+
+---
+
+## Date + time combos
+
+### Side-by-side date field + time field
+
+One provider in `mode="datetime"` holds a single `Date`; each field edits its slice.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { View } from 'react-native';
+import { DateField } from 'react-native-molecules/components/DateField';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+import { TimeField } from 'react-native-molecules/components/TimeField';
+
+export default function Example() {
+    const [value, setValue] = useState<Date | null>(new Date());
+
+    return (
+        <DatePicker.Provider mode="datetime" value={value} onChange={setValue} draft={false}>
+            <View style={{ flexDirection: 'row', gap: 12 }}>
+                <DateField style={{ flex: 1 }} />
+                <TimeField style={{ flex: 1 }} />
+            </View>
+        </DatePicker.Provider>
+    );
+}`}
+/>
+
+### Date + time in a single popover
+
+Calendar and clock side by side, shared draft, one OK to commit both.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { View } from 'react-native';
+import { DatePicker } from 'react-native-molecules/components/DatePicker';
+import { Icon } from 'react-native-molecules/components/Icon';
+import { Text } from 'react-native-molecules/components/Text';
+import { TimePicker } from 'react-native-molecules/components/TimePicker';
+import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
+
+const formatLabel = (d: Date | null) =>
+    d
+        ? d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })
+        : 'Pick date & time';
+
+export default function Example() {
+    const [value, setValue] = useState<Date | null>(new Date());
+
+    return (
+        <DatePicker.Provider mode="datetime" value={value} onChange={setValue}>
+            <DatePicker.Trigger>
+                <TouchableRipple
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 8,
+                        paddingHorizontal: 16,
+                        paddingVertical: 10,
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        borderColor: '#CAC4D0',
+                        alignSelf: 'flex-start',
+                    }}
+                    accessibilityRole="button">
+                    <Text>{formatLabel(value)}</Text>
+                    <Icon name="chevron-down" size={18} />
+                </TouchableRipple>
+            </DatePicker.Trigger>
+            <DatePicker.Popover align="center">
+                <View style={{ flexDirection: 'row', gap: 16, padding: 12 }}>
+                    <DatePicker.Calendar headerLayout="docked" />
+                    <TimePicker.Clock inputType="picker" />
+                </View>
+            </DatePicker.Popover>
+        </DatePicker.Provider>
+    );
+}`}
+/>
+
+---
+
+## Component reference
+
+### DatePickerProvider
+
+<ComponentDoc name="DatePickerProvider" />
+
+<ComponentProps name="DatePickerProvider" />
+
+### DatePickerTrigger
+
+<ComponentDoc name="DatePickerTrigger" />
+
+<ComponentProps name="DatePickerTrigger" />
+
+### DatePickerActions
+
+<ComponentDoc name="DatePickerActions" />
+
+<ComponentProps name="DatePickerActions" />
+
+### DateField
+
+<ComponentDoc name="DateField" />
+
+<ComponentProps name="DateField" />
+
+### DateCalendar
+
+<ComponentDoc name="DateCalendar" />
+
+`DatePicker.Calendar` accepts `headerLayout` — `"docked"` uses the two-up month/year layout (default inside `DatePicker.Popover`), `"inline"` uses the stacked header.
+
+<ComponentProps name="DateCalendar" />
+
+### DatePickerPopover
+
+<ComponentDoc name="DatePickerPopover" />
+
+<ComponentProps name="DatePickerPopover" />
+
+### DatePickerModal
+
+<ComponentDoc name="DatePickerModal" />
+
+<ComponentProps name="DatePickerModal" />

@@ -1,4 +1,4 @@
-import { type RefObject, useRef } from 'react';
+import { type RefObject, useCallback, useRef } from 'react';
 
 import { useActive } from './useActive';
 import { useFocus } from './useFocus';
@@ -14,16 +14,27 @@ export type UseActionStateProps = {
 export const useActionState = (
     props: UseActionStateProps & { ref?: RefObject<any> | React.ForwardedRef<any> } = {},
 ) => {
-    const ref = useRef(null);
-    const actionsRef = (
-        (props.ref as any)?.current === undefined ? ref : props.ref
-    ) as RefObject<any>;
+    const internalRef = useRef(null);
+    const externalRef = props.ref;
+
+    const actionsRef = useCallback(
+        (node: any) => {
+            internalRef.current = node;
+            if (typeof externalRef === 'function') {
+                externalRef(node);
+            } else if (externalRef) {
+                (externalRef as RefObject<any>).current = node;
+            }
+        },
+        [externalRef],
+    ) as unknown as RefObject<any>;
+
     const hovered =
-        useHover(actionsRef, props.actionsToListen?.includes('hover')) || !!props.hovered;
+        useHover(internalRef, props.actionsToListen?.includes('hover')) || !!props.hovered;
     const pressed =
-        useActive(actionsRef, props.actionsToListen?.includes('press')) || !!props.pressed;
+        useActive(internalRef, props.actionsToListen?.includes('press')) || !!props.pressed;
     const focused =
-        useFocus(actionsRef, props.actionsToListen?.includes('focus')) || !!props.focused;
+        useFocus(internalRef, props.actionsToListen?.includes('focus')) || !!props.focused;
 
     return {
         actionsRef,

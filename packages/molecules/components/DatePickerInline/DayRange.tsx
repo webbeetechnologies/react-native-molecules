@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import { resolveStateVariant } from '../../utils';
 import { datePickerDayRangeStyles } from './utils';
@@ -29,9 +29,7 @@ function DayRange({
     return (
         <>
             {(inRange || isCrop) && (
-                <View
-                    pointerEvents="none"
-                    style={[StyleSheet.absoluteFill, datePickerDayRangeStyles.container]}>
+                <View pointerEvents="none" style={datePickerDayRangeStyles.container}>
                     {isCrop && (
                         <>
                             <View style={datePickerDayRangeStyles.rightCrop} />

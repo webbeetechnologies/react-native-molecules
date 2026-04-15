@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-molecules/components/Button';
 import { Checkbox } from 'react-native-molecules/components/Checkbox';

@@ -1,7 +1,8 @@
-import { memo, useCallback, useMemo } from 'react';
-import { type StyleProp, View, type ViewStyle } from 'react-native';
+import { memo, useCallback } from 'react';
+import { View } from 'react-native';
 
-import { datePickerHeaderItemStyles } from '../DatePickerDocked/utils';
+import { datePickerHeaderItemStyles } from '../DatePicker/utils';
+import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 import { Text } from '../Text';
 import { TouchableRipple } from '../TouchableRipple';
@@ -42,10 +43,11 @@ function HeaderItem({
         onNext && onNext(type);
     }, [onNext, type]);
 
-    const containerStyle = useMemo(
-        () =>
-            [
+    return (
+        <View
+            style={[
                 datePickerHeaderItemStyles.buttonContainer,
+                // eslint-disable-next-line react-native/no-inline-styles
                 {
                     justifyContent: !onPressDropdown
                         ? 'flex-end'
@@ -53,22 +55,23 @@ function HeaderItem({
                         ? 'flex-start'
                         : 'center',
                 },
-            ] as StyleProp<ViewStyle>,
-        [onPressDropdown, onNext],
-    );
-
-    return (
-        <View style={containerStyle} pointerEvents={'box-none'}>
-            {!selecting && onPrev && (
-                <View style={datePickerHeaderItemStyles.buttonWrapper}>
+            ]}
+            pointerEvents={'box-none'}>
+            {onPrev && (
+                <View
+                    style={[
+                        datePickerHeaderItemStyles.buttonWrapper,
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        (selecting || disabled) && { opacity: 0 },
+                    ]}>
                     <IconButton
                         type="material-community"
                         name="chevron-left"
-                        size="md"
+                        size={24}
                         // Todo: Translate
                         accessibilityLabel={'Previous'}
                         onPress={handleOnPrevious}
-                        disabled={value === startDateYear}
+                        disabled={value === startDateYear || selecting || disabled}
                     />
                 </View>
             )}
@@ -80,27 +83,39 @@ function HeaderItem({
                     accessibilityLabel={`${value}`}
                     style={datePickerHeaderItemStyles.buttonStyle}>
                     <View style={datePickerHeaderItemStyles.innerStyle}>
-                        <Text style={datePickerHeaderItemStyles.labelStyle} selectable={false}>
+                        <Text
+                            style={[
+                                datePickerHeaderItemStyles.labelStyle,
+                                // eslint-disable-next-line react-native/no-inline-styles
+                                disabled && { opacity: 0.5 },
+                            ]}
+                            selectable={false}>
                             {value}
                         </Text>
-                        <IconButton
-                            onPress={handlePressDropDown}
-                            name={selecting && type === pickerType ? 'menu-up' : 'menu-down'}
-                            size="sm"
-                            disabled={disabled}
-                        />
+                        {!disabled && (
+                            <Icon
+                                onPress={handlePressDropDown}
+                                name={selecting && type === pickerType ? 'menu-up' : 'menu-down'}
+                                size={16}
+                            />
+                        )}
                     </View>
                 </TouchableRipple>
             )}
-            {!selecting && onNext && (
-                <View style={datePickerHeaderItemStyles.buttonWrapper}>
+            {onNext && (
+                <View
+                    style={[
+                        datePickerHeaderItemStyles.buttonWrapper,
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        (selecting || disabled) && { opacity: 0 },
+                    ]}>
                     <IconButton
                         name="chevron-right"
-                        size="md"
+                        size={24}
                         // Todo: Translate
                         accessibilityLabel={'Next'}
                         onPress={handleOnNext}
-                        disabled={value === endDateYear}
+                        disabled={value === endDateYear || selecting || disabled}
                     />
                 </View>
             )}

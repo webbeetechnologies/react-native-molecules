@@ -5,10 +5,7 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { resolveStateVariant } from '../../utils';
 import { range } from '../../utils/dateTimePicker';
-import {
-    datePickerDockedMonthItemStyles,
-    datePickerMonthPickerStyles,
-} from '../DatePickerDocked/utils';
+import { datePickerMonthItemStyles, datePickerMonthPickerStyles } from '../DatePicker/utils';
 import { HorizontalDivider } from '../HorizontalDivider';
 import { Icon } from '../Icon';
 import { ListItem } from '../ListItem/';
@@ -24,20 +21,6 @@ export default function MonthPicker() {
     // const monthPickerStyles = useComponentStyles('DatePickerDocked_MonthPicker');
     const flatList = useRef<FlatList<number> | null>(null);
     const months = range(0, 11);
-
-    const { containerStyle, monthStyle } = useMemo(() => {
-        const { backgroundColor, ...rest } = datePickerMonthPickerStyles.root;
-
-        return {
-            containerStyle: [
-                StyleSheet.absoluteFill,
-                styles.root,
-                { backgroundColor },
-                selectingMonth ? styles.opacity1 : styles.opacity0,
-            ],
-            monthStyle: rest,
-        };
-    }, [selectingMonth]);
 
     const handleOnChange = useCallback(
         (month: number) => {
@@ -56,11 +39,11 @@ export default function MonthPicker() {
                     month={item}
                     selected={localDate.getMonth() === item}
                     onPressMonth={handleOnChange}
-                    monthStyles={monthStyle}
+                    monthStyles={datePickerMonthPickerStyles.root}
                 />
             );
         },
-        [localDate, handleOnChange, monthStyle],
+        [localDate, handleOnChange],
     );
 
     if (!selectingMonth) {
@@ -68,7 +51,14 @@ export default function MonthPicker() {
     }
 
     return (
-        <View style={containerStyle} pointerEvents={selectingMonth ? 'auto' : 'none'}>
+        <View
+            style={[
+                StyleSheet.absoluteFill,
+                styles.root,
+                // { backgroundColor },
+                selectingMonth ? styles.opacity1 : styles.opacity0,
+            ]}
+            pointerEvents={selectingMonth ? 'auto' : 'none'}>
             <HorizontalDivider />
             <FlatList<number>
                 ref={flatList}
@@ -95,26 +85,20 @@ function MonthPure({
     const state = resolveStateVariant({
         selected,
     });
-    datePickerDockedMonthItemStyles.useVariants({
+
+    datePickerMonthItemStyles.useVariants({
         state: state as any,
     });
-    // const montLocalStyles = useComponentStyles('DatePickerDocked_MonthItem', monthStyles, {
-    //     state: resolveStateVariant({
-    //         selected,
-    //     }),
-    // });
-    const { monthInnerStyle, monthLabelStyle, monthButtonStyle, accessibilityState } =
-        useMemo(() => {
-            const { monthInner, monthLabel, monthButton } = datePickerDockedMonthItemStyles;
 
-            return {
-                monthInnerStyle: monthInner,
-                monthLabelStyle: monthLabel,
-                monthButtonStyle: [monthButton, monthStyles],
-                accessibilityState: { selected },
-            };
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [selected, monthStyles, state]);
+    const { monthButtonStyle, accessibilityState } = useMemo(() => {
+        const { monthButton } = datePickerMonthItemStyles;
+
+        return {
+            monthButtonStyle: [monthButton, monthStyles],
+            accessibilityState: { selected },
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selected, monthStyles, state]);
 
     const handleMonthPress = useCallback(() => {
         onPressMonth(month);
@@ -137,8 +121,8 @@ function MonthPure({
                     <View style={styles.spacer} />
                 )
             }>
-            <View style={monthInnerStyle}>
-                <Text style={monthLabelStyle} selectable={false}>
+            <View style={datePickerMonthItemStyles.monthInner}>
+                <Text style={datePickerMonthItemStyles.monthLabel} selectable={false}>
                     {format(new Date(2000, month, 1), 'MMMM')}
                 </Text>
             </View>

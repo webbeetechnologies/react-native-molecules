@@ -9,11 +9,12 @@ import {
     useRef,
     useState,
 } from 'react';
-import { StyleSheet, View } from 'react-native';
 
 import { useLatest } from '../../hooks';
 import AutoSizer from './AutoSizer';
-import { beginOffset, estimatedMonthHeight, totalMonths } from './dateUtils';
+import { useDatePickerStore } from './DatePickerContext';
+import { beginOffset, estimatedMonthHeight, getInitialIndex, totalMonths } from './dateUtils';
+import { addMonths, getRealIndex } from './dateUtils';
 import { getIndexFromVerticalOffset, getMonthHeight, getVerticalMonthsOffset } from './Month';
 import type { SwiperProps } from './SwiperUtils';
 import { montHeaderHeight } from './utils';
@@ -25,7 +26,16 @@ function Swiper({ scrollMode, renderItem, renderHeader, renderFooter, initialInd
         <>
             {renderHeader && renderHeader()}
             {isHorizontal ? (
-                <View style={styles.flex1}>{renderItem(initialIndex)}</View>
+                <AutoSizer>
+                    {({ width, height }) => (
+                        <HorizontalScroller
+                            width={width}
+                            height={height}
+                            initialIndex={initialIndex}
+                            renderItem={renderItem}
+                        />
+                    )}
+                </AutoSizer>
             ) : (
                 <AutoSizer>
                     {({ width, height }) => (
@@ -45,6 +55,142 @@ function Swiper({ scrollMode, renderItem, renderHeader, renderFooter, initialInd
 }
 
 const visibleArray = (i: number) => [i - 2, i - 1, i, i + 1, i + 2];
+const visibleHorizontalArray = (i: number) => [i - 1, i, i + 1];
+
+function HorizontalScroller({
+    width,
+    height,
+    initialIndex,
+    renderItem,
+}: {
+    renderItem: (index: number) => any;
+    width: number;
+    height: number;
+    initialIndex: number;
+}) {
+    const idx = useRef<number>(initialIndex);
+    const [visibleIndexes, setVisibleIndexes] = useState<number[]>(
+        visibleHorizontalArray(initialIndex),
+    );
+    const parentRef = useRef<HTMLDivElement | null>(null);
+    const [{ localDate }, setStore] = useDatePickerStore(state => state);
+    const settleTimerRef = useRef<number | null>(null);
+    const isRecenteringRef = useRef(false);
+
+    const syncIndex = useCallback(
+        (index: number) => {
+            idx.current = index;
+            setVisibleIndexes(visibleHorizontalArray(index));
+            setStore(prev => ({
+                ...prev,
+                localDate: addMonths(new Date(), getRealIndex(index)),
+            }));
+        },
+        [setStore],
+    );
+
+    const scrollToCenter = useCallback(
+        (behavior: ScrollBehavior = 'auto') => {
+            const element = parentRef.current;
+            if (!element) return;
+
+            isRecenteringRef.current = true;
+            element.scrollTo({
+                left: width,
+                top: 0,
+                behavior,
+            });
+            window.requestAnimationFrame(() => {
+                isRecenteringRef.current = false;
+            });
+        },
+        [width],
+    );
+
+    useIsomorphicLayoutEffect(() => {
+        scrollToCenter();
+    }, [scrollToCenter, visibleIndexes]);
+
+    useEffect(() => {
+        const targetIndex = getInitialIndex(localDate);
+        if (targetIndex === idx.current) return;
+        idx.current = targetIndex;
+        setVisibleIndexes(visibleHorizontalArray(targetIndex));
+    }, [localDate]);
+
+    useEffect(() => {
+        return () => {
+            if (settleTimerRef.current) {
+                window.clearTimeout(settleTimerRef.current);
+            }
+        };
+    }, []);
+
+    const onScroll = useCallback(
+        (e: UIEvent) => {
+            if (isRecenteringRef.current) {
+                return;
+            }
+
+            const left = e.currentTarget.scrollLeft;
+
+            if (settleTimerRef.current) {
+                window.clearTimeout(settleTimerRef.current);
+            }
+
+            settleTimerRef.current = window.setTimeout(() => {
+                const direction = left > width * 1.5 ? 1 : left < width * 0.5 ? -1 : 0;
+
+                if (direction !== 0) {
+                    syncIndex(idx.current + direction);
+                }
+
+                scrollToCenter(direction === 0 ? 'smooth' : 'auto');
+            }, 120);
+        },
+        [scrollToCenter, syncIndex, width],
+    );
+
+    const { containerStyle, innerContainerStyle, itemContainerStyle } = useMemo(() => {
+        return {
+            containerStyle: {
+                height,
+                width,
+                overflowX: 'auto',
+                overflowY: 'hidden',
+                scrollSnapType: 'x mandatory',
+                WebkitOverflowScrolling: 'touch',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+            },
+            innerContainerStyle: {
+                width: width * 3,
+                height,
+                position: 'relative',
+            },
+            itemContainerStyle: (vi: number) => ({
+                left: width * vi,
+                top: 0,
+                bottom: 0,
+                position: 'absolute',
+                width,
+                scrollSnapAlign: 'start',
+            }),
+        };
+    }, [height, width]);
+
+    return (
+        <div ref={parentRef} style={containerStyle as CSSProperties} onScroll={onScroll}>
+            <div style={innerContainerStyle as CSSProperties}>
+                {[0, 1, 2].map(vi => (
+                    <div key={vi} style={itemContainerStyle(vi) as CSSProperties}>
+                        {renderItem(visibleIndexes[vi])}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 function VerticalScroller({
     width,
@@ -63,18 +209,29 @@ function VerticalScroller({
     const [visibleIndexes, setVisibleIndexes] = useState<number[]>(visibleArray(initialIndex));
 
     const parentRef = useRef<HTMLDivElement | null>(null);
+    const [{ localDate }, setStore] = useDatePickerStore(state => state);
 
     useIsomorphicLayoutEffect(() => {
         const element = parentRef.current;
         if (!element) {
             return;
         }
-        const top = getVerticalMonthsOffset(idx.current) - montHeaderHeight;
-
         element.scrollTo({
-            top,
+            top: getVerticalMonthsOffset(idx.current) - montHeaderHeight,
         });
     }, [parentRef, idx]);
+
+    useEffect(() => {
+        const targetIndex = getInitialIndex(localDate);
+        if (targetIndex === idx.current) return;
+        idx.current = targetIndex;
+        setVisibleIndexes(visibleArray(targetIndex));
+        const element = parentRef.current;
+        if (!element) return;
+        element.scrollTo({
+            top: getVerticalMonthsOffset(targetIndex) - montHeaderHeight,
+        });
+    }, [localDate]);
 
     const setVisibleIndexesThrottled = useDebouncedCallback(setVisibleIndexes);
 
@@ -91,9 +248,13 @@ function VerticalScroller({
             if (idx.current !== index) {
                 idx.current = index;
                 setVisibleIndexesThrottled(visibleArray(index));
+                setStore(prev => ({
+                    ...prev,
+                    localDate: addMonths(new Date(), getRealIndex(index)),
+                }));
             }
         },
-        [setVisibleIndexesThrottled],
+        [setStore, setVisibleIndexesThrottled],
     );
 
     const { containerStyle, innerContainerStyle, itemContainerStyle } = useMemo(() => {
@@ -131,12 +292,6 @@ function VerticalScroller({
         </div>
     );
 }
-
-const styles = StyleSheet.create({
-    flex1: {
-        flex: 1,
-    },
-});
 
 export function useDebouncedCallback(callback: any): any {
     const mounted = useRef<boolean>(true);

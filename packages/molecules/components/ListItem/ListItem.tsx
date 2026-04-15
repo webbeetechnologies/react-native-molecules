@@ -37,6 +37,7 @@ export type Props = Omit<TouchableRippleProps, 'children'> &
          * @default true if onPress is passed
          */
         hoverable?: boolean;
+        contentStyle?: StyleProp<ViewStyle>;
     };
 
 const ListItem = (
@@ -52,6 +53,7 @@ const ListItem = (
         onPress,
         hoverable: hoverableProp = false,
         hovered: hoveredProp = false,
+        contentStyle: contentStyleProp,
         ...props
     }: Props,
     ref: any,
@@ -108,7 +110,7 @@ const ListItem = (
                             {typeof left === 'function' ? left({ hovered }) : left}
                         </View>
                     ) : null}
-                    <View style={contentStyle}>
+                    <View style={[contentStyle, contentStyleProp]}>
                         <ListItemContext.Provider value={contextValue}>
                             <>{children}</>
                         </ListItemContext.Provider>

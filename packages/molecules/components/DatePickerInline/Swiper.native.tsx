@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     type NativeScrollEvent,
     type NativeSyntheticEvent,
@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 
 import AutoSizer from './AutoSizer';
-import { beginOffset, estimatedMonthHeight, totalMonths } from './dateUtils';
+import { useDatePickerStore } from './DatePickerContext';
+import { beginOffset, estimatedMonthHeight, getInitialIndex, totalMonths } from './dateUtils';
+import { addMonths, getRealIndex } from './dateUtils';
 import {
     getHorizontalMonthOffset,
     getIndexFromVerticalOffset,
@@ -54,11 +56,16 @@ function SwiperInner({
     );
 
     const parentRef = useRef<ScrollView | null>(null);
+    const [{ localDate }, setStore] = useDatePickerStore(state => state);
 
     const scrollTo = useCallback(
         (index: number, animated: boolean) => {
             idx.current = index;
             setVisibleIndexes(getVisibleArray(index, { isHorizontal, height }));
+            setStore(prev => ({
+                ...prev,
+                localDate: addMonths(new Date(), getRealIndex(index)),
+            }));
 
             if (!parentRef.current) {
                 return;
@@ -81,12 +88,18 @@ function SwiperInner({
                 });
             }
         },
-        [parentRef, isHorizontal, width, height],
+        [parentRef, isHorizontal, width, height, setStore],
     );
 
     const scrollToInitial = useCallback(() => {
         scrollTo(idx.current, false);
     }, [scrollTo]);
+
+    useEffect(() => {
+        const targetIndex = getInitialIndex(localDate);
+        if (targetIndex === idx.current) return;
+        scrollTo(targetIndex, false);
+    }, [localDate, scrollTo]);
 
     const onMomentumScrollEnd = useCallback(
         (e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -103,9 +116,13 @@ function SwiperInner({
             if (idx.current !== newIndex) {
                 idx.current = newIndex;
                 setVisibleIndexes(getVisibleArray(newIndex, { isHorizontal, height }));
+                setStore(prev => ({
+                    ...prev,
+                    localDate: addMonths(new Date(), getRealIndex(newIndex)),
+                }));
             }
         },
-        [idx, height, isHorizontal],
+        [idx, height, isHorizontal, setStore],
     );
 
     const { innerContainerStyle, itemContainerStyle } = useMemo(() => {
