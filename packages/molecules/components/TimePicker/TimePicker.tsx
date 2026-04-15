@@ -121,6 +121,11 @@ function TimePicker({
 
             if (newDisplayMode !== displayMode) setDisplayMode(newDisplayMode);
 
+            if (params.focused) {
+                const nextFocused = params.focused;
+                setTimeout(() => onFocusInput(nextFocused), 300);
+            }
+
             onTimeChange?.({
                 time: `${`${params.hours}`.padStart(2, '0')}:${`${params.minutes}`.padStart(
                     2,
@@ -129,7 +134,7 @@ function TimePicker({
                 focused: params.focused,
             });
         },
-        [displayMode, onTimeChange],
+        [displayMode, onFocusInput, onTimeChange],
     );
 
     const memoizedValue = useMemo(
