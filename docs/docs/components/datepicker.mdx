@@ -14,6 +14,8 @@ Every date and time experience — single date, time, date+time combo, range —
 
 Draft mode controls whether selections are staged until the user presses OK or commit immediately. Surfaces pick a sensible default: `DatePicker.Popover` defaults to **auto-save** (`draft={false}`) and `DatePicker.Modal` defaults to **staged** (`draft={true}`). Both auto-render a Cancel / OK footer (via `DatePicker.Actions`) when draft is on, and hide it when it's off. Pass `draft` on the provider to force either behavior globally, or on the surface to override just that surface.
 
+Use the `locale` prop to localize month/day labels in calendar UIs. The prop is typed as `DatePickerLocale` (`Intl.LocalesArgument`), so it accepts locale strings (for example, `"en"`) and locale arrays.
+
 ---
 
 ## Full date picker (field + trigger + popover)
@@ -31,7 +33,7 @@ export default function Example() {
     const [date, setDate] = useState<Date | null>(new Date());
 
     return (
-        <DatePicker.Provider value={date} onChange={setDate}>
+        <DatePicker.Provider value={date} onChange={setDate} locale="en">
             <DateField>
                 <TextInput.Right>
                     <DatePicker.Trigger>
@@ -151,6 +153,7 @@ export default function Example() {
         <DatePicker.Calendar
             mode="single"
             date={date}
+            locale="en"
             onChange={({ date }) => setDate(date ?? null)}
         />
     );

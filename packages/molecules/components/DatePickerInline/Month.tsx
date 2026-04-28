@@ -1,7 +1,6 @@
 import { memo, useMemo } from 'react';
 import { View } from 'react-native';
 
-import { format } from '../../utils/date-fns';
 import { Text } from '../Text';
 import { getCalendarHeaderHeight } from './DatePickerInlineHeader';
 import {
@@ -43,6 +42,7 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
         disableWeekDays,
         validRange,
         showOutsideDays,
+        locale,
         // customMonthStyles,
     } = props;
     const isHorizontal = scrollMode === 'horizontal';
@@ -54,9 +54,10 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
         const md = addMonths(new Date(), realIndex);
         const y = md.getFullYear();
         const m = md.getMonth();
+        const name = new Intl.DateTimeFormat(locale, { month: 'long' }).format(md);
 
-        return { monthName: format(md, 'LLLL'), month: m, year: y };
-    }, [index]);
+        return { monthName: name, month: m, year: y };
+    }, [index, locale]);
 
     const grid = useMemo(
         () =>

@@ -5,6 +5,7 @@ import type { ValidRangeType } from '../DatePickerInline';
 import { registerPortalContext } from '../Portal';
 
 export type DatePickerMode = 'date' | 'time' | 'datetime' | 'range';
+export type DatePickerLocale = Intl.LocalesArgument;
 
 export type DateValue = Date | null;
 export type RangeValue = { start: Date | null; end: Date | null };
@@ -35,7 +36,7 @@ export type DatePickerContextType = {
     open: boolean;
     setOpen: (open: boolean) => void;
     triggerRef: RefObject<any>;
-    locale?: string;
+    locale?: DatePickerLocale;
     validRange?: ValidRangeType;
     is24Hour: boolean;
     dateFormat: string;

@@ -10,14 +10,13 @@ import {
 } from 'react-native';
 
 import { getRegisteredComponentWithFallback } from '../../core';
-import { format } from '../../utils/date-fns';
 import { DateField } from '../DateField';
 import { IconButton } from '../IconButton';
 import { Modal, type ModalProps } from '../Modal';
 import { Portal } from '../Portal';
 import { Text } from '../Text';
 import { TextInput } from '../TextInput';
-import type { DatePickerContextType, DatePickerValue } from './context';
+import type { DatePickerContextType, DatePickerLocale, DatePickerValue } from './context';
 import {
     DatePickerContext,
     useDatePickerContext,
@@ -42,6 +41,12 @@ export type DatePickerModalProps = Omit<ModalProps, 'children' | 'isOpen' | 'onC
     cancelLabel?: string;
     editIcon?: string;
     calendarIcon?: string;
+    emptySummaryLabel?: string;
+    editingSummaryLabel?: string;
+    dateInputLabel?: string;
+    showCalendarAccessibilityLabel?: string;
+    enterDateManuallyAccessibilityLabel?: string;
+    locale?: DatePickerLocale;
     headerLayout?: 'inline' | 'docked';
     /** Override the surface default draft mode. Modal defaults to `true` (staged commit). */
     draft?: boolean;
@@ -59,6 +64,11 @@ function DatePickerModalBody({
     cancelLabel = 'Cancel',
     editIcon = 'pencil',
     calendarIcon = 'calendar',
+    emptySummaryLabel = 'Select date',
+    editingSummaryLabel = 'Enter dates',
+    dateInputLabel = 'Date',
+    showCalendarAccessibilityLabel = 'Show calendar',
+    enterDateManuallyAccessibilityLabel = 'Enter date manually',
     headerLayout,
     ...rest
 }: BodyProps) {
@@ -97,15 +107,19 @@ function DatePickerModalBody({
             : ctx.draftValue;
 
     const summaryLabel = useMemo(() => {
-        if (editing) return 'Enter dates';
-        if (!draft) return 'Select date';
-        return format(draft, 'EEE, MMM d');
-    }, [draft, editing]);
+        if (editing) return editingSummaryLabel;
+        if (!draft) return emptySummaryLabel;
+        return new Intl.DateTimeFormat(ctx.locale, {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+        }).format(draft);
+    }, [ctx.locale, draft, editing, editingSummaryLabel, emptySummaryLabel]);
 
     const body = editing ? (
         <View style={datePickerModalStyles.inputContainer}>
             <DateField autoFocus>
-                <TextInput.Label>Date</TextInput.Label>
+                <TextInput.Label>{dateInputLabel}</TextInput.Label>
             </DateField>
         </View>
     ) : (
@@ -139,7 +153,9 @@ function DatePickerModalBody({
                                 <IconButton
                                     name={editing ? calendarIcon : editIcon}
                                     accessibilityLabel={
-                                        editing ? 'Show calendar' : 'Enter date manually'
+                                        editing
+                                            ? showCalendarAccessibilityLabel
+                                            : enterDateManuallyAccessibilityLabel
                                     }
                                     onPress={() => setEditing(prev => !prev)}
                                     style={datePickerModalStyles.modeToggle}
@@ -161,31 +177,24 @@ function DatePickerModalBody({
 function DatePickerModalLayer({
     base,
     draft: draftProp,
-    bodyProps,
-}: {
+    ...rest
+}: BodyProps & {
     base: DatePickerContextType;
     draft: boolean | undefined;
-    bodyProps: BodyProps;
 }) {
     const effectiveDraft = draftProp ?? base.providerDraft ?? true;
     const ctx = useMemo(() => withDraftLayer(base, effectiveDraft), [base, effectiveDraft]);
     if (!base.open) return null;
     return (
         <DatePickerContext value={ctx}>
-            <DatePickerModalBody {...bodyProps} />
+            <DatePickerModalBody {...rest} />
         </DatePickerContext>
     );
 }
 
-function DatePickerModalAdapter({
-    draft,
-    bodyProps,
-}: {
-    draft: boolean | undefined;
-    bodyProps: BodyProps;
-}) {
+function DatePickerModalAdapter({ draft, ...rest }: BodyProps & { draft: boolean | undefined }) {
     const base = useDatePickerContext();
-    return <DatePickerModalLayer base={base} draft={draft} bodyProps={bodyProps} />;
+    return <DatePickerModalLayer base={base} draft={draft} {...rest} />;
 }
 
 function DatePickerModalInner({
@@ -193,6 +202,7 @@ function DatePickerModalInner({
     onClose: onCloseProp,
     value: valueProp,
     onChange: onChangeProp,
+    locale,
     draft: draftProp,
     ...rest
 }: DatePickerModalProps) {
@@ -206,7 +216,7 @@ function DatePickerModalInner({
     );
 
     if (outer) {
-        return <DatePickerModalLayer base={outer} draft={draftProp} bodyProps={rest} />;
+        return <DatePickerModalLayer base={outer} draft={draftProp} {...rest} />;
     }
 
     return (
@@ -214,8 +224,9 @@ function DatePickerModalInner({
             value={valueProp}
             onChange={onChangeProp}
             open={isOpenProp}
+            locale={locale}
             onOpenChange={onOpenChange}>
-            <DatePickerModalAdapter draft={draftProp} bodyProps={rest} />
+            <DatePickerModalAdapter draft={draftProp} {...rest} />
         </DatePickerProvider>
     );
 }

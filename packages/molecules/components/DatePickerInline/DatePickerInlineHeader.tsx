@@ -1,7 +1,8 @@
-import { add, format } from 'date-fns';
+import { add } from 'date-fns';
 import { memo, useCallback, useMemo } from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 
+import type { DatePickerLocale } from '../DatePicker/context';
 import { useDatePickerStore, useDatePickerStoreValue } from './DatePickerContext';
 import type { DisableWeekDaysType } from './dateUtils';
 import DayNames from './DayNames';
@@ -13,7 +14,7 @@ const buttonContainerMarginTop = 4;
 const buttonContainerMarginBottom = 8;
 
 export type CalendarHeaderProps = {
-    locale?: string;
+    locale?: DatePickerLocale;
     scrollMode: 'horizontal' | 'vertical';
     disableWeekDays?: DisableWeekDaysType;
     style?: ViewStyle;
@@ -35,8 +36,11 @@ function DatePickerInlineHeader({
     const { monthName, year } = useMemo(() => {
         const y = localDate.getFullYear();
 
-        return { monthName: format(localDate, 'LLLL'), year: y };
-    }, [localDate]);
+        return {
+            monthName: new Intl.DateTimeFormat(locale, { month: 'long' }).format(localDate),
+            year: y,
+        };
+    }, [localDate, locale]);
 
     const { containerStyle } = useMemo(() => {
         // const { datePickerHeader, buttonContainer, buttonWrapper, spacer, ...rest } =

@@ -16,6 +16,7 @@ export const DatePicker = {
 
 export type {
     DatePickerContextType,
+    DatePickerLocale,
     DatePickerMode,
     DatePickerValue,
     DateValue,

@@ -14,6 +14,7 @@ export type DateFieldProps = Omit<
 > & {
     inputMode?: DateFieldInputMode;
     dateFormat?: string;
+    mask?: string;
 };
 
 const DEFAULT_DATE_FORMAT = 'dd/MM/yyyy';
@@ -93,13 +94,13 @@ function DateField({
 
     return (
         <TextInputWithMask
+            placeholder={dateFormat}
+            keyboardType="number-pad"
+            mask={dateFormat}
             {...rest}
             ref={ref}
             disabled={disabled}
             value={formattedValue}
-            placeholder={dateFormat}
-            keyboardType="number-pad"
-            mask={dateFormat}
             onChangeText={onChangeText}
             onBlur={onInnerBlur}
             onFocus={onInnerFocus}

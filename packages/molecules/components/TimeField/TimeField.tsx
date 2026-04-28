@@ -60,11 +60,11 @@ function TimeField({ ref, disabled: disabledProp, onBlur, onFocus, ...rest }: Ti
 
     return (
         <TextInput
+            placeholder={timeFormat[is24Hour ? '24' : '12'].format}
             {...rest}
             ref={ref}
             disabled={disabled}
             value={formatted}
-            placeholder={timeFormat[is24Hour ? '24' : '12'].format}
             onChangeText={onChangeText}
             onBlur={onInnerBlur}
             onFocus={onInnerFocus}

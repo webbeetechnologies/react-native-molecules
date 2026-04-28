@@ -4,7 +4,13 @@ import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { getRegisteredComponentWithFallback } from '../../core';
 import { useControlledValue } from '../../hooks';
 import type { ValidRangeType } from '../DatePickerInline';
-import type { DatePickerContextType, DatePickerMode, DatePickerValue, RangeValue } from './context';
+import type {
+    DatePickerContextType,
+    DatePickerLocale,
+    DatePickerMode,
+    DatePickerValue,
+    RangeValue,
+} from './context';
 import { DatePickerContext, withDraftLayer } from './context';
 
 const DATE_FORMAT_BY_MODE: Record<DatePickerMode, string> = {
@@ -30,7 +36,7 @@ export type DatePickerProviderProps = {
     defaultOpen?: boolean;
     onOpenChange?: (open: boolean) => void;
 
-    locale?: string;
+    locale?: DatePickerLocale;
     validRange?: ValidRangeType;
     is24Hour?: boolean;
     dateFormat?: string;

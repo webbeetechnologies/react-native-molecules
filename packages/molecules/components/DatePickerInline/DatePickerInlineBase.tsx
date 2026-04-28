@@ -173,7 +173,7 @@ function DatePickerInlineBaseChild(props: DatePickerInlineBaseProps) {
             {isHorizontal && pickerType === 'year' && (
                 <YearPicker layout={headerLayout === 'docked' ? 'list' : 'grid'} />
             )}
-            {isHorizontal && pickerType === 'month' && <MonthPicker />}
+            {isHorizontal && pickerType === 'month' && <MonthPicker locale={locale} />}
         </View>
     );
 }

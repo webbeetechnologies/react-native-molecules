@@ -1,10 +1,11 @@
-import { format, setMonth } from 'date-fns';
+import { setMonth } from 'date-fns';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import { FlatList, View, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { resolveStateVariant } from '../../utils';
 import { range } from '../../utils/dateTimePicker';
+import type { DatePickerLocale } from '../DatePicker/context';
 import { datePickerMonthItemStyles, datePickerMonthPickerStyles } from '../DatePicker/utils';
 import { HorizontalDivider } from '../HorizontalDivider';
 import { Icon } from '../Icon';
@@ -12,7 +13,7 @@ import { ListItem } from '../ListItem/';
 import { Text } from '../Text';
 import { useDatePickerStore, useDatePickerStoreValue } from './DatePickerContext';
 
-export default function MonthPicker() {
+export default function MonthPicker({ locale }: { locale?: DatePickerLocale }) {
     const [_, setStore] = useDatePickerStore(state => state);
     const { localDate, selectingMonth } = useDatePickerStoreValue(state => ({
         localDate: state.localDate,
@@ -40,10 +41,11 @@ export default function MonthPicker() {
                     selected={localDate.getMonth() === item}
                     onPressMonth={handleOnChange}
                     monthStyles={datePickerMonthPickerStyles.root}
+                    locale={locale}
                 />
             );
         },
-        [localDate, handleOnChange],
+        [localDate, handleOnChange, locale],
     );
 
     if (!selectingMonth) {
@@ -76,11 +78,13 @@ function MonthPure({
     selected,
     onPressMonth,
     monthStyles,
+    locale,
 }: {
     month: number;
     selected: boolean;
     onPressMonth: (newMonth: number) => any;
     monthStyles: ViewStyle;
+    locale?: DatePickerLocale;
 }) {
     const state = resolveStateVariant({
         selected,
@@ -99,6 +103,12 @@ function MonthPure({
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selected, monthStyles, state]);
+
+    const monthLabel = useMemo(
+        () =>
+            new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(2000, month, 1)),
+        [locale, month],
+    );
 
     const handleMonthPress = useCallback(() => {
         onPressMonth(month);
@@ -123,7 +133,7 @@ function MonthPure({
             }>
             <View style={datePickerMonthItemStyles.monthInner}>
                 <Text style={datePickerMonthItemStyles.monthLabel} selectable={false}>
-                    {format(new Date(2000, month, 1), 'MMMM')}
+                    {monthLabel}
                 </Text>
             </View>
         </ListItem>

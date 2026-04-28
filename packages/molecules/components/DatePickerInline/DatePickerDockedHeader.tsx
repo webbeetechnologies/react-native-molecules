@@ -1,8 +1,9 @@
-import { add, format, setYear } from 'date-fns';
+import { add, setYear } from 'date-fns';
 import { memo, useCallback, useMemo } from 'react';
 import { View, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
+import type { DatePickerLocale } from '../DatePicker/context';
 import { useDatePickerStoreRef, useDatePickerStoreValue } from './DatePickerContext';
 import type { DisableWeekDaysType } from './dateUtils';
 import DayNames from './DayNames';
@@ -10,7 +11,7 @@ import HeaderItem from './HeaderItem';
 import { datePickerHeaderStyles } from './utils';
 
 export type DockedHeaderProps = {
-    locale?: string;
+    locale?: DatePickerLocale;
     scrollMode: 'horizontal' | 'vertical';
     disableWeekDays?: DisableWeekDaysType;
     style?: ViewStyle;
@@ -30,8 +31,11 @@ function DatePickerDockedHeader({
     const isHorizontal = scrollMode === 'horizontal';
 
     const { monthName, year } = useMemo(
-        () => ({ monthName: format(localDate, 'LLL'), year: localDate.getFullYear() }),
-        [localDate],
+        () => ({
+            monthName: new Intl.DateTimeFormat(locale, { month: 'short' }).format(localDate),
+            year: localDate.getFullYear(),
+        }),
+        [localDate, locale],
     );
 
     const handleMonthDropdown = useCallback(() => {

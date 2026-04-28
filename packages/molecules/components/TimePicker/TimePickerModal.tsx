@@ -5,7 +5,11 @@ import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { getRegisteredComponentWithFallback } from '../../core';
 import { useControlledValue } from '../../hooks';
 import { DatePickerActions, DatePickerProvider } from '../DatePicker';
-import type { DatePickerContextType, DatePickerValue } from '../DatePicker/context';
+import type {
+    DatePickerContextType,
+    DatePickerLocale,
+    DatePickerValue,
+} from '../DatePicker/context';
 import {
     DatePickerContext,
     useDatePickerContext,
@@ -32,6 +36,7 @@ export type TimePickerModalProps = Omit<ModalProps, 'children' | 'isOpen' | 'onC
     onClose?: () => void;
     value?: DatePickerValue;
     onChange?: (value: DatePickerValue) => void;
+    locale?: DatePickerLocale;
     is24Hour?: boolean;
     inputType?: PossibleInputTypes;
     defaultInputType?: PossibleInputTypes;
@@ -119,31 +124,24 @@ function TimePickerModalBody({
 function TimePickerModalLayer({
     base,
     draft: draftProp,
-    bodyProps,
-}: {
+    ...rest
+}: BodyProps & {
     base: DatePickerContextType;
     draft: boolean | undefined;
-    bodyProps: BodyProps;
 }) {
     const effectiveDraft = draftProp ?? base.providerDraft ?? true;
     const ctx = useMemo(() => withDraftLayer(base, effectiveDraft), [base, effectiveDraft]);
     if (!base.open) return null;
     return (
         <DatePickerContext value={ctx}>
-            <TimePickerModalBody {...bodyProps} />
+            <TimePickerModalBody {...rest} />
         </DatePickerContext>
     );
 }
 
-function TimePickerModalAdapter({
-    draft,
-    bodyProps,
-}: {
-    draft: boolean | undefined;
-    bodyProps: BodyProps;
-}) {
+function TimePickerModalAdapter({ draft, ...rest }: BodyProps & { draft: boolean | undefined }) {
     const base = useDatePickerContext();
-    return <TimePickerModalLayer base={base} draft={draft} bodyProps={bodyProps} />;
+    return <TimePickerModalLayer base={base} draft={draft} {...rest} />;
 }
 
 const TimePickerModalDefault = memo(
@@ -152,6 +150,7 @@ const TimePickerModalDefault = memo(
         onClose: onCloseProp,
         value: valueProp,
         onChange: onChangeProp,
+        locale,
         is24Hour,
         draft: draftProp,
         ...rest
@@ -159,7 +158,7 @@ const TimePickerModalDefault = memo(
         const outer = useOptionalDatePickerContext();
 
         if (outer) {
-            return <TimePickerModalLayer base={outer} draft={draftProp} bodyProps={rest} />;
+            return <TimePickerModalLayer base={outer} draft={draftProp} {...rest} />;
         }
 
         return (
@@ -168,11 +167,12 @@ const TimePickerModalDefault = memo(
                 value={valueProp}
                 onChange={onChangeProp}
                 open={isOpenProp}
+                locale={locale}
                 onOpenChange={next => {
                     if (!next) onCloseProp?.();
                 }}
                 is24Hour={is24Hour}>
-                <TimePickerModalAdapter draft={draftProp} bodyProps={rest} />
+                <TimePickerModalAdapter draft={draftProp} {...rest} />
             </DatePickerProvider>
         );
     },

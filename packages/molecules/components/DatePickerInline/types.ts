@@ -1,11 +1,12 @@
 import type { MemoExoticComponent } from 'react';
 import type { ViewStyle } from 'react-native';
 
+import type { DatePickerLocale } from '../DatePicker/context';
 import type { CalendarHeaderProps } from './DatePickerInlineHeader';
 import type { DisableWeekDaysType } from './dateUtils';
 
 export interface BaseMonthProps {
-    locale: undefined | string;
+    locale: DatePickerLocale | undefined;
     scrollMode: 'horizontal' | 'vertical';
     disableWeekDays?: DisableWeekDaysType;
     mode: ModeType;
@@ -47,7 +48,7 @@ export type ValidRangeType = {
 };
 
 export type BaseDatePickerProps = {
-    locale?: string;
+    locale?: DatePickerLocale;
     disableWeekDays?: DisableWeekDaysType;
     validRange?: ValidRangeType;
     startYear?: number;
