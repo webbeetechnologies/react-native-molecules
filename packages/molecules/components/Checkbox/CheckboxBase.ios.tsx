@@ -37,20 +37,16 @@ const CheckboxIOS = (
         state: state as States,
         size,
     });
+    const checkedColor = colorProp;
 
-    const { checkedColor, iconSize, rippleColor, rippleContainerStyles, iconContainerStyles } =
-        useMemo(() => {
-            const _checkedColor = colorProp;
-
-            return {
-                checkedColor: _checkedColor,
-                iconSize: iconSizeMap[size],
-                rippleColor: setColor(_checkedColor).fade(0.32).rgb().string(),
-                rippleContainerStyles: [styles.root, style],
-                iconContainerStyles: { opacity: indeterminate || checked ? 1 : 0 },
-            };
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [checked, colorProp, indeterminate, style, state, size]);
+    const { rippleColor, rippleContainerStyles, iconContainerStyles } = useMemo(() => {
+        return {
+            rippleColor: setColor(checkedColor).fade(0.32).rgb().string(),
+            rippleContainerStyles: [styles.root, style],
+            iconContainerStyles: { opacity: indeterminate || checked ? 1 : 0 },
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checked, colorProp, indeterminate, style, state, size, checkedColor]);
 
     const onChange = useCallback(() => {
         onChangeProp?.(!checked);
@@ -76,7 +72,7 @@ const CheckboxIOS = (
                     allowFontScaling={false}
                     type="material-community"
                     name={icon}
-                    size={iconSize}
+                    size={iconSizeMap[size]}
                     color={checkedColor}
                 />
             </View>

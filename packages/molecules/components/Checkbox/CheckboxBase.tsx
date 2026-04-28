@@ -51,20 +51,18 @@ const CheckboxAndroid = (
         size,
     });
 
-    const { iconSize, rippleColor, rippleContainerStyles, stateLayerStyle, iconStyle } =
-        useMemo(() => {
-            const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
+    const { rippleColor, rippleContainerStyles, iconStyle } = useMemo(() => {
+        const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
 
-            return {
-                iconStyle: [styles.icon, _color],
-                iconSize: iconSizeMap[size],
-                // TODO - fix this on web
-                rippleColor:
-                    Platform.OS === 'web' ? undefined : setColor(_color).fade(0.32).rgb().string(),
-                rippleContainerStyles: [styles.root, style],
-                stateLayerStyle: [styles.stateLayer, stateLayerProps?.style],
-            };
-        }, [checked, colorProp, uncheckedColorProp, size, style, stateLayerProps?.style]);
+        return {
+            iconStyle: [styles.icon, _color],
+            // TODO - fix this on web
+            rippleColor:
+                Platform.OS === 'web' ? undefined : setColor(_color).fade(0.32).rgb().string(),
+            rippleContainerStyles: [styles.root, style],
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checked, colorProp, uncheckedColorProp, style, size, state]);
 
     const onChange = useCallback(() => {
         onChangeProp?.(!checked);
@@ -96,13 +94,13 @@ const CheckboxAndroid = (
                     allowFontScaling={false}
                     type="material-community"
                     name={icon}
-                    size={iconSize}
+                    size={iconSizeMap[size]}
                     style={iconStyle}
                 />
                 <StateLayer
                     testID={testID ? `${testID}-stateLayer` : ''}
                     {...stateLayerProps}
-                    style={stateLayerStyle}
+                    style={[styles.stateLayer, stateLayerProps?.style]}
                 />
             </>
         </TouchableRipple>
