@@ -17,6 +17,35 @@ const breakpoints = {
 
 type AppBreakpoints = typeof breakpoints;
 
+export const getDocusaurusThemeName = () => {
+    if (typeof window !== 'undefined') {
+        const persistedTheme =
+            window.localStorage.getItem('theme') ??
+            window.localStorage.getItem('docusaurus.theme') ??
+            window.localStorage.getItem('docusaurus.colorMode');
+
+        if (persistedTheme === 'dark' || persistedTheme === 'light') {
+            return persistedTheme;
+        }
+    }
+
+    if (typeof document === 'undefined') {
+        return 'light';
+    }
+
+    const { dataset, classList } = document.documentElement;
+
+    if (dataset.theme === 'dark' || classList.contains('theme-dark')) {
+        return 'dark';
+    }
+
+    if (dataset.theme === 'light' || classList.contains('theme-light')) {
+        return 'light';
+    }
+
+    return 'light';
+};
+
 // override library types
 declare module 'react-native-unistyles' {
     export interface UnistylesBreakpoints {}
@@ -30,7 +59,8 @@ declare module 'react-native-unistyles' {
 
 StyleSheet.configure({
     settings: {
-        initialTheme: 'light',
+        CSSVars: true,
+        initialTheme: getDocusaurusThemeName(),
         adaptiveThemes: false,
     },
     breakpoints,

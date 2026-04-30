@@ -29,6 +29,27 @@ type LayoutProps = {
     description?: string;
 };
 
+const toCssVarName = (key: string) => key.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+
+const applyThemeCssVars = (theme: unknown, root: HTMLElement, path = '') => {
+    if (typeof theme !== 'object' || theme === null) {
+        return;
+    }
+
+    Object.entries(theme as Record<string, unknown>).forEach(([key, value]) => {
+        const nextPath = path ? `${path}-${toCssVarName(key)}` : toCssVarName(key);
+
+        if (typeof value === 'string') {
+            root.style.setProperty(`--${nextPath}`, value);
+            return;
+        }
+
+        if (typeof value === 'object' && value !== null) {
+            applyThemeCssVars(value, root, nextPath);
+        }
+    });
+};
+
 function ColorModeSync() {
     const { colorMode } = useColorMode();
     const nextTheme = colorMode === 'dark' ? 'dark' : 'light';
@@ -41,6 +62,9 @@ function ColorModeSync() {
         if (UnistylesRuntime.themeName !== nextTheme) {
             UnistylesRuntime.setTheme(nextTheme);
         }
+
+        const root = document.documentElement;
+        applyThemeCssVars(UnistylesRuntime.getTheme(nextTheme), root);
     }, [nextTheme]);
 
     return null;
