@@ -1,4 +1,3 @@
-import setColor from 'color';
 import { forwardRef, memo, type PropsWithoutRef, useEffect, useMemo, useRef } from 'react';
 import type { ViewProps } from 'react-native';
 import { Animated, StyleSheet, View } from 'react-native';
@@ -77,58 +76,44 @@ const RadioButtonAndroid = (
         state: state as any,
     });
 
-    const {
-        containerStyles,
-        rippleColor,
-        radioStyles,
-        dotStyles,
-        dotContainerStyles,
-        stateLayerStyle,
-    } = useMemo(() => {
-        const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
-
-        let _rippleColor: string | undefined;
-
-        try {
-            _rippleColor = setColor(_color).alpha(0.32).rgb().string();
-        } catch (e) {
-            _rippleColor = undefined;
-        }
-
-        return {
-            containerStyles: [radioButtonStyles.container, radioButtonStyles.root, style],
-            rippleColor: _rippleColor,
-            radioStyles: [
-                radioButtonStyles.radio,
-                {
-                    borderWidth: borderAnim,
-                },
-                tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp, 'borderColor'),
-            ],
-            dotContainerStyles: [StyleSheet.absoluteFill, radioButtonStyles.radioContainer],
-            dotStyles: [
-                radioButtonStyles.dot,
-                {
-                    transform: [{ scale: radioAnim }],
-                },
-                tokenStylesParser.getColor(
-                    checked ? colorProp : uncheckedColorProp,
-                    'backgroundColor',
-                ),
-            ],
-            stateLayerStyle: [radioButtonStyles.stateLayer, stateLayerProps?.style],
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        borderAnim,
-        checked,
-        colorProp,
-        radioAnim,
-        stateLayerProps?.style,
-        uncheckedColorProp,
-        style,
-        state,
-    ]);
+    const { containerStyles, radioStyles, dotStyles, dotContainerStyles, stateLayerStyle } =
+        useMemo(() => {
+            return {
+                containerStyles: [radioButtonStyles.container, radioButtonStyles.root, style],
+                radioStyles: [
+                    radioButtonStyles.radio,
+                    {
+                        borderWidth: borderAnim,
+                    },
+                    tokenStylesParser.getColor(
+                        checked ? colorProp : uncheckedColorProp,
+                        'borderColor',
+                    ),
+                ],
+                dotContainerStyles: [StyleSheet.absoluteFill, radioButtonStyles.radioContainer],
+                dotStyles: [
+                    radioButtonStyles.dot,
+                    {
+                        transform: [{ scale: radioAnim }],
+                    },
+                    tokenStylesParser.getColor(
+                        checked ? colorProp : uncheckedColorProp,
+                        'backgroundColor',
+                    ),
+                ],
+                stateLayerStyle: [radioButtonStyles.stateLayer, stateLayerProps?.style],
+            };
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [
+            borderAnim,
+            checked,
+            colorProp,
+            radioAnim,
+            stateLayerProps?.style,
+            uncheckedColorProp,
+            style,
+            state,
+        ]);
 
     useEffect(() => {
         // Do not run animation on very first rendering
@@ -160,7 +145,6 @@ const RadioButtonAndroid = (
         <TouchableRipple
             {...rest}
             ref={actionsRef}
-            rippleColor={rippleColor}
             onPress={onPress}
             style={containerStyles}
             testID={testID}>

@@ -97,10 +97,6 @@ const timePickerInputsStylesDefault = StyleSheet.create(theme => ({
 }));
 
 const timePickerInputStylesDefault = StyleSheet.create(theme => ({
-    root: {
-        rippleColor: theme.colors.onPrimaryContainer,
-    } as any,
-
     container: {
         position: 'relative',
     },

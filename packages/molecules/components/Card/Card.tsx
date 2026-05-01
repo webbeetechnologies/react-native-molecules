@@ -51,7 +51,7 @@ const Card = (
             container: [cardStyles.container, cardStyles.root, style],
             innerContainer: [cardStyles.innerContainer, touchableContainerStyle],
         };
-        // eslint-disable-next-line
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [variant, state, style, touchableContainerStyle]);
 
     const elevation = elevationProp === undefined ? elevationLevel ?? 0 : elevationProp;

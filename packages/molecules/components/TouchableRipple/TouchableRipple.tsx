@@ -1,6 +1,7 @@
-import { forwardRef, memo, type ReactNode, useCallback, useMemo, useRef } from 'react';
+import { forwardRef, memo, type ReactNode, useCallback, useRef } from 'react';
 import {
     type GestureResponderEvent,
+    Platform,
     Pressable,
     type PressableProps,
     type StyleProp,
@@ -9,7 +10,9 @@ import {
 } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { useTheme } from '../../hooks/useTheme';
 import { Slot } from '../Slot';
+import { rippleColorFromBackground } from './rippleFromForegroundColor';
 import { touchableRippleStyles } from './utils';
 
 export type Props = PressableProps & {
@@ -46,6 +49,11 @@ export type Props = PressableProps & {
      * Color of the underlay for the highlight effect (Android < 5.0 and iOS).
      */
     underlayColor?: string;
+    /**
+     * Alpha used for auto-derived ripple color when `rippleColor` is not provided.
+     * @default 0.24
+     */
+    rippleAlpha?: number;
     /**
      * Content of the `TouchableRipple`.
      */
@@ -114,6 +122,7 @@ const TouchableRipple = (
         disabled: disabledProp,
         rippleColor: rippleColorProp,
         underlayColor: _underlayColor,
+        rippleAlpha = 0.24,
         onPress,
         children,
         onPressIn: onPressInProp,
@@ -126,24 +135,27 @@ const TouchableRipple = (
 ) => {
     // TODO - enable ripple onLongPress, need to check for mobile as well
     const disabled = disabledProp;
+    const theme = useTheme();
 
     const componentStyles = touchableRippleStyles;
 
-    const { rippleColor, containerStyle } = useMemo(() => {
-        const { rippleColor: defaultRippleColor } = componentStyles.root;
+    const { rippleColor: themeRippleFallback } = componentStyles.root;
 
-        return {
-            rippleColor: rippleColorProp || defaultRippleColor,
-            containerStyle: [
-                styles.touchable,
-                { borderRadius: 'inherit' },
-                borderless && styles.borderless,
-                // ...(Platform.OS === 'web' && !disabled ? ({ cursor: 'pointer' } as any) : {}),
-                componentStyles.root,
-                style,
-            ],
-        };
-    }, [borderless, componentStyles.root, rippleColorProp, style]);
+    const tokenResolvedColor =
+        typeof rippleColorProp === 'string'
+            ? theme.colors[rippleColorProp as keyof typeof theme.colors]
+            : undefined;
+
+    const rippleColorResolvedProp =
+        typeof tokenResolvedColor === 'string' ? tokenResolvedColor : rippleColorProp;
+    const containerStyle = [
+        styles.touchable,
+        { borderRadius: 'inherit' },
+        borderless && styles.borderless,
+        // ...(Platform.OS === 'web' && !disabled ? ({ cursor: 'pointer' } as any) : {}),
+        componentStyles.root,
+        style,
+    ];
 
     // Track whether pointer is currently down for handling pointer leave
     const isPointerDownRef = useRef(false);
@@ -164,6 +176,16 @@ const TouchableRipple = (
             currentTargetRef.current = button;
             const computedStyle = window.getComputedStyle(button);
             const dimensions = button.getBoundingClientRect();
+
+            const resolvedRippleColor =
+                rippleColorResolvedProp ??
+                (Platform.OS === 'web'
+                    ? rippleColorFromBackground(
+                          computedStyle.backgroundColor,
+                          String(themeRippleFallback),
+                          rippleAlpha,
+                      )
+                    : String(themeRippleFallback));
 
             let touchX: number;
             let touchY: number;
@@ -225,7 +247,7 @@ const TouchableRipple = (
             Object.assign(ripple.style, {
                 position: 'absolute',
                 pointerEvents: 'none',
-                backgroundColor: rippleColor,
+                backgroundColor: resolvedRippleColor,
                 borderRadius: '50%',
 
                 /* Transition configuration */
@@ -261,7 +283,14 @@ const TouchableRipple = (
                 });
             });
         },
-        [onPressInProp, disabled, centered, rippleColor],
+        [
+            onPressInProp,
+            disabled,
+            centered,
+            rippleColorResolvedProp,
+            themeRippleFallback,
+            rippleAlpha,
+        ],
     );
 
     const fadeOutRipples = useCallback((target: HTMLElement) => {

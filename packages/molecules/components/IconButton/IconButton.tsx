@@ -1,4 +1,3 @@
-import color from 'color';
 import { forwardRef, memo, useMemo } from 'react';
 import {
     type GestureResponderEvent,
@@ -112,13 +111,13 @@ const IconButton = (
         variant: variant as any,
         // @ts-ignore // TODO - fix this
         state,
+        // @ts-ignore // TODO - fix this
         size: typeof size === 'string' && size ? size : undefined,
     });
 
     const {
         iconColor,
         iconSize,
-        rippleColor,
         containerStyle,
         accessibilityState,
         // accessibilityTraits,
@@ -129,18 +128,9 @@ const IconButton = (
             iconButtonSizeToIconSizeMap[size as keyof typeof iconButtonSizeToIconSizeMap] ??
             (typeof size === 'number' && size ? (size as number) : undefined);
 
-        let _rippleColor: string | undefined;
-
-        try {
-            _rippleColor = color(_iconColor).alpha(0.12).rgb().string();
-        } catch (e) {
-            _rippleColor = undefined;
-        }
-
         return {
             iconColor: _iconColor,
             iconSize: iconSizeInNum,
-            rippleColor: _rippleColor,
             containerStyle: [
                 iconSizeInNum
                     ? {
@@ -164,7 +154,7 @@ const IconButton = (
             borderless
             centered
             onPress={onPress}
-            rippleColor={rippleColor}
+            rippleAlpha={0.12}
             accessibilityLabel={accessibilityLabel}
             style={containerStyle}
             // accessibilityTraits={accessibilityTraits}

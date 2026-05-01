@@ -10,8 +10,10 @@ import {
     type ViewStyle,
 } from 'react-native';
 
+import { useTheme } from '../../hooks/useTheme';
 import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
 import { Slot } from '../Slot';
+import { rippleColorFromBackground } from './rippleFromForegroundColor';
 import { touchableRippleStyles } from './utils';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
@@ -24,6 +26,7 @@ type Props = ComponentProps<typeof TouchableWithoutFeedback> & {
     onPress?: () => void | null;
     rippleColor?: string;
     underlayColor?: string;
+    rippleAlpha?: number;
     children: ReactNode;
     style?: StyleProp<ViewStyle>;
     /**
@@ -55,6 +58,7 @@ const TouchableRipple = (
         disabled: disabledProp,
         rippleColor: rippleColorProp,
         underlayColor: underlayColorProp,
+        rippleAlpha = 0.24,
         children,
         asChild = false,
         ...rest
@@ -62,20 +66,47 @@ const TouchableRipple = (
     ref: any,
 ) => {
     const disabled = disabledProp;
+    const theme = useTheme();
 
     const componentStyles = touchableRippleStyles;
 
     const { rippleColor, underlayColor, containerStyle } = useMemo(() => {
-        const { rippleColor: _rippleColor } = extractPropertiesFromStyles(
+        const { rippleColor: themeRippleColor, backgroundColor } = extractPropertiesFromStyles(
             [componentStyles.root, style],
-            ['rippleColor'],
+            ['rippleColor', 'backgroundColor'],
         );
+        const tokenResolvedColor =
+            typeof rippleColorProp === 'string'
+                ? theme.colors[rippleColorProp as keyof typeof theme.colors]
+                : undefined;
+        const rippleColorResolvedProp =
+            typeof tokenResolvedColor === 'string' ? tokenResolvedColor : rippleColorProp;
+
+        const fallback =
+            typeof themeRippleColor === 'string' && themeRippleColor.length > 0
+                ? themeRippleColor
+                : 'rgba(0, 0, 0, 0.32)';
+
+        const resolvedRipple =
+            rippleColorResolvedProp ??
+            (backgroundColor != null && backgroundColor !== ''
+                ? rippleColorFromBackground(String(backgroundColor), fallback, rippleAlpha)
+                : fallback);
+
         return {
-            rippleColor: rippleColorProp || _rippleColor,
-            underlayColor: underlayColorProp || rippleColorProp,
+            rippleColor: resolvedRipple,
+            underlayColor: underlayColorProp ?? resolvedRipple,
             containerStyle: [borderless && styles.borderless, componentStyles.root, style],
         };
-    }, [borderless, componentStyles.root, rippleColorProp, style, underlayColorProp]);
+    }, [
+        borderless,
+        componentStyles.root,
+        rippleColorProp,
+        style,
+        underlayColorProp,
+        rippleAlpha,
+        theme,
+    ]);
 
     // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
     // https://github.com/facebook/react-native/issues/6480

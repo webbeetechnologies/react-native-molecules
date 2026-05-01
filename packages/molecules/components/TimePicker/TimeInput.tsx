@@ -66,7 +66,7 @@ function TimeInput(
         return str.length === 1 ? `0${str}` : str;
     }, [value, inputFocused, rawText, error]);
 
-    const { rippleColor, containerStyle, textInputStyle, buttonStyle } = useMemo(() => {
+    const { containerStyle, textInputStyle, buttonStyle } = useMemo(() => {
         const {
             container,
             input,
@@ -79,7 +79,6 @@ function TimeInput(
         const isKeyboardInput = inputType === inputTypes.keyboard;
 
         return {
-            rippleColor: timePickerInputStyles.root?._rippleColor,
             containerStyle: container,
             textInputStyle: [
                 input,
@@ -146,11 +145,7 @@ function TimeInput(
             />
             <>
                 {onPress && inputType === inputTypes.picker ? (
-                    <TouchableRipple
-                        style={buttonStyle}
-                        rippleColor={rippleColor}
-                        onPress={onPressInput}
-                        borderless={true}>
+                    <TouchableRipple style={buttonStyle} onPress={onPressInput} borderless={true}>
                         <View />
                     </TouchableRipple>
                 ) : null}

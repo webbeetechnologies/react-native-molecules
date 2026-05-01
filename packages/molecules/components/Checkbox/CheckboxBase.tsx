@@ -1,6 +1,5 @@
-import setColor from 'color';
 import { forwardRef, memo, type PropsWithoutRef, useCallback, useMemo } from 'react';
-import { Platform, type ViewProps } from 'react-native';
+import { type ViewProps } from 'react-native';
 
 import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
@@ -51,14 +50,11 @@ const CheckboxAndroid = (
         size,
     });
 
-    const { rippleColor, rippleContainerStyles, iconStyle } = useMemo(() => {
+    const { rippleContainerStyles, iconStyle } = useMemo(() => {
         const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
 
         return {
             iconStyle: [styles.icon, _color],
-            // TODO - fix this on web
-            rippleColor:
-                Platform.OS === 'web' ? undefined : setColor(_color).fade(0.32).rgb().string(),
             rippleContainerStyles: [styles.root, style],
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +76,6 @@ const CheckboxAndroid = (
         <TouchableRipple
             {...rest}
             borderless
-            rippleColor={rippleColor}
             onPress={onChange}
             disabled={disabled}
             accessibilityRole="checkbox"

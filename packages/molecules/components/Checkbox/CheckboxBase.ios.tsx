@@ -1,4 +1,3 @@
-import setColor from 'color';
 import { forwardRef, memo, useCallback, useMemo } from 'react';
 import { View } from 'react-native';
 
@@ -39,9 +38,8 @@ const CheckboxIOS = (
     });
     const checkedColor = colorProp;
 
-    const { rippleColor, rippleContainerStyles, iconContainerStyles } = useMemo(() => {
+    const { rippleContainerStyles, iconContainerStyles } = useMemo(() => {
         return {
-            rippleColor: setColor(checkedColor).fade(0.32).rgb().string(),
             rippleContainerStyles: [styles.root, style],
             iconContainerStyles: { opacity: indeterminate || checked ? 1 : 0 },
         };
@@ -58,7 +56,6 @@ const CheckboxIOS = (
         <TouchableRipple
             {...rest}
             borderless
-            rippleColor={rippleColor}
             onPress={onChange}
             disabled={disabled}
             accessibilityRole="checkbox"

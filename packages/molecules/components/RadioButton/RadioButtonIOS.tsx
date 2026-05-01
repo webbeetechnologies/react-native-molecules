@@ -1,4 +1,3 @@
-import setColor from 'color';
 import { forwardRef, memo, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -56,32 +55,19 @@ const RadioButtonIOS = (
         state: state as any,
     });
 
-    const { containerStyle, iconContainerStyle, iconStyle, rippleColor } = useMemo(() => {
+    const { containerStyle, iconContainerStyle, iconStyle } = useMemo(() => {
         const _color = tokenStylesParser.getColor(checked ? colorProp : uncheckedColorProp);
-        let _rippleColor: string | undefined;
-
-        try {
-            _rippleColor = setColor(_color).alpha(0.32).rgb().string();
-        } catch (e) {
-            _rippleColor = undefined;
-        }
 
         return {
             containerStyle: [styles.container, radioButtonStyles.root, style],
             iconContainerStyle: { opacity: checked ? 1 : 0 },
             iconStyle: [radioButtonStyles.icon, _color],
-            rippleColor: _rippleColor,
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checked, colorProp, style, state, uncheckedColorProp]);
 
     return (
-        <TouchableRipple
-            {...rest}
-            ref={ref}
-            rippleColor={rippleColor}
-            onPress={onPress}
-            style={containerStyle}>
+        <TouchableRipple {...rest} ref={ref} onPress={onPress} style={containerStyle}>
             <View style={iconContainerStyle}>
                 <Icon
                     allowFontScaling={false}
