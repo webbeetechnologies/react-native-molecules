@@ -3,13 +3,13 @@ import { type TextProps, View, type ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
-import { HorizontalDivider, type HorizontalDividerProps } from '../HorizontalDivider';
+import { Divider, type DividerProps } from '../Divider';
 import { Text } from '../Text';
 
 export type Props = ViewProps & {
     title?: ReactNode;
     showDivider?: boolean;
-    dividerProps?: HorizontalDividerProps;
+    dividerProps?: Omit<DividerProps, 'mode'>;
     titleProps?: TextProps;
 };
 
@@ -45,11 +45,7 @@ const DrawerItemGroup = memo(
                     )}
                 </>
                 {children}
-                <>
-                    {showDivider && (
-                        <HorizontalDivider style={dividerStyle} {...dividerRestProps} />
-                    )}
-                </>
+                <>{showDivider && <Divider style={dividerStyle} {...dividerRestProps} />}</>
             </View>
         );
     },
