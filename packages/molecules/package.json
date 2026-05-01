@@ -6,6 +6,7 @@
     "main": "index.ts",
     "sideEffects": [
         "components/DatePicker/context.tsx",
+        "components/List/context.tsx",
         "components/Select/context.tsx",
         "components/TimePicker/context.tsx"
     ],
@@ -78,7 +79,7 @@
         "react-native": "0.81.4",
         "react-native-builder-bob": "^0.17.1",
         "react-native-reanimated": "~4.1.1",
-        "react-native-unistyles": "^3.0.22",
+        "react-native-unistyles": "^3.2.4",
         "react-native-web": "~0.21.1"
     },
     "eslintIgnore": [
