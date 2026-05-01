@@ -345,9 +345,14 @@ const TouchableRipple = (
         onPointerCancel: handlePointerCancel,
     };
 
+    const accessibilityRoleProp = (rest as { accessibilityRole?: unknown }).accessibilityRole;
+    const roleProp = (rest as { role?: unknown }).role;
+    const applyDefaultWebButtonRole =
+        !!onPress && accessibilityRoleProp === undefined && roleProp === undefined;
+
     return (
         <Component
-            {...(onPress ? { role: 'button' } : {})}
+            {...(applyDefaultWebButtonRole ? { role: 'button' } : {})}
             {...rest}
             style={containerStyle}
             ref={ref}
