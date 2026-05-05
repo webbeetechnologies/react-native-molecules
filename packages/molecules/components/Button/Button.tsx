@@ -81,6 +81,8 @@ export type Props = Omit<SurfaceProps, 'style'> &
         disabledPress?: boolean;
     };
 
+const emptyObj = {};
+
 const Button = (
     {
         disabled = false,
@@ -97,7 +99,7 @@ const Button = (
         style: styleProp,
         testID,
         accessible,
-        stateLayerProps = {},
+        stateLayerProps = emptyObj,
         elevation: elevationProp,
         textRelatedStyle,
         disabledPress,

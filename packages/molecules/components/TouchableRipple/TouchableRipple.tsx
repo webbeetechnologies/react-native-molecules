@@ -5,12 +5,12 @@ import {
     Pressable,
     type PressableProps,
     type StyleProp,
-    View,
     type ViewStyle,
 } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { useTheme } from '../../hooks/useTheme';
+import { noop } from '../../utils/lodash';
 import { Slot } from '../Slot';
 import { rippleColorFromBackground } from './rippleFromForegroundColor';
 import { touchableRippleStyles } from './utils';
@@ -123,7 +123,7 @@ const TouchableRipple = (
         rippleColor: rippleColorProp,
         underlayColor: _underlayColor,
         rippleAlpha = 0.24,
-        onPress,
+        onPress = noop,
         children,
         onPressIn: onPressInProp,
         onPressOut: onPressOutProp,
@@ -157,25 +157,16 @@ const TouchableRipple = (
         style,
     ];
 
-    // Track whether pointer is currently down for handling pointer leave
-    const isPointerDownRef = useRef(false);
-    // Store current target element to clean up ripples on pointer up/leave
-    const currentTargetRef = useRef<HTMLElement | null>(null);
+    // The active ripple is tracked so onPressOut can fade it. Driving the lifecycle
+    // off Pressable's press events (instead of raw pointer events) means a nested
+    // element that captures the gesture won't trigger an orphan ripple — Pressable
+    // only fires onPressIn when its own press is being handled.
+    const activeRippleRef = useRef<HTMLElement | null>(null);
 
-    // Using 'any' for event types to support both React DOM PointerEvent and React Native events
-    // This is a web-only file, so we primarily handle DOM pointer events
-    const handlePointerDown = useCallback(
-        (e: any) => {
-            onPressInProp?.(e as GestureResponderEvent);
-
-            if (disabled) return;
-
-            isPointerDownRef.current = true;
-
-            const button = e.currentTarget as HTMLElement;
-            currentTargetRef.current = button;
-            const computedStyle = window.getComputedStyle(button);
-            const dimensions = button.getBoundingClientRect();
+    const startRipple = useCallback(
+        (host: HTMLElement, x: number, y: number) => {
+            const computedStyle = window.getComputedStyle(host);
+            const dimensions = host.getBoundingClientRect();
 
             const resolvedRippleColor =
                 rippleColorResolvedProp ??
@@ -187,46 +178,14 @@ const TouchableRipple = (
                       )
                     : String(themeRippleFallback));
 
-            let touchX: number;
-            let touchY: number;
-
-            if (centered) {
-                // If centered, always position ripple at center
-                touchX = dimensions.width / 2;
-                touchY = dimensions.height / 2;
-            } else if ('clientX' in e && 'clientY' in e) {
-                // Web pointer event - calculate position relative to element
-                touchX = e.clientX - dimensions.left;
-                touchY = e.clientY - dimensions.top;
-            } else if (e.nativeEvent) {
-                // React Native gesture event
-                const { changedTouches, touches } = e.nativeEvent;
-                const touch = touches?.[0] ?? changedTouches?.[0];
-                if (touch) {
-                    touchX = touch.locationX ?? dimensions.width / 2;
-                    touchY = touch.locationY ?? dimensions.height / 2;
-                } else {
-                    touchX = dimensions.width / 2;
-                    touchY = dimensions.height / 2;
-                }
-            } else {
-                // Fallback to center (keyboard activation)
-                touchX = dimensions.width / 2;
-                touchY = dimensions.height / 2;
-            }
-
-            // Get the size of the button to determine how big the ripple should be
             const size = centered
-                ? // If ripple is always centered, we don't need to make it too big
-                  Math.min(dimensions.width, dimensions.height) * 1.25
-                : // Otherwise make it twice as big so clicking on one end spreads ripple to other
-                  Math.max(dimensions.width, dimensions.height) * 2;
+                ? Math.min(dimensions.width, dimensions.height) * 1.25
+                : Math.max(dimensions.width, dimensions.height) * 2;
 
-            // Create a container for our ripple effect so we don't need to change the parent's style
+            const expandDuration = Math.min(size * 1.5, 350);
+
             const container = document.createElement('span');
-
             container.setAttribute('data-molecules-ripple', '');
-
             Object.assign(container.style, {
                 position: 'absolute',
                 pointerEvents: 'none',
@@ -241,39 +200,28 @@ const TouchableRipple = (
                 overflow: centered ? 'visible' : 'hidden',
             });
 
-            // Create span to show the ripple effect
             const ripple = document.createElement('span');
-
             Object.assign(ripple.style, {
                 position: 'absolute',
                 pointerEvents: 'none',
                 backgroundColor: resolvedRippleColor,
                 borderRadius: '50%',
-
-                /* Transition configuration */
-                transitionProperty: 'transform opacity',
-                transitionDuration: `${Math.min(size * 1.5, 350)}ms`,
+                transitionProperty: 'transform, opacity',
+                transitionDuration: `${expandDuration}ms`,
                 transitionTimingFunction: 'linear',
                 transformOrigin: 'center',
-
-                /* We'll animate these properties */
                 transform: 'translate3d(-50%, -50%, 0) scale3d(0.1, 0.1, 0.1)',
                 opacity: '0.5',
-
-                // Position the ripple where cursor was
-                left: `${touchX}px`,
-                top: `${touchY}px`,
+                left: `${x}px`,
+                top: `${y}px`,
                 width: `${size}px`,
                 height: `${size}px`,
             });
 
-            // Finally, append it to DOM
             container.appendChild(ripple);
-            button.appendChild(container);
+            host.appendChild(container);
+            activeRippleRef.current = container;
 
-            // rAF runs in the same frame as the event handler
-            // Use double rAF to ensure the transition class is added in next frame
-            // This will make sure that the transition animation is triggered
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     Object.assign(ripple.style, {
@@ -283,96 +231,71 @@ const TouchableRipple = (
                 });
             });
         },
-        [
-            onPressInProp,
-            disabled,
-            centered,
-            rippleColorResolvedProp,
-            themeRippleFallback,
-            rippleAlpha,
-        ],
+        [centered, rippleColorResolvedProp, themeRippleFallback, rippleAlpha],
     );
 
-    const fadeOutRipples = useCallback((target: HTMLElement) => {
-        const containers = target.querySelectorAll(
-            '[data-molecules-ripple]',
-        ) as NodeListOf<HTMLElement>;
+    const fadeRipple = useCallback((container: HTMLElement | null) => {
+        if (!container) return;
+        const ripple = container.firstChild as HTMLElement | null;
+        if (!ripple) {
+            container.parentNode?.removeChild(container);
+            return;
+        }
 
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                containers.forEach(container => {
-                    const ripple = container.firstChild as HTMLSpanElement;
+        const onTransitionEnd = (ev: TransitionEvent) => {
+            if (ev.propertyName !== 'opacity') return;
+            ripple.removeEventListener('transitionend', onTransitionEnd);
+            container.parentNode?.removeChild(container);
+        };
+        ripple.addEventListener('transitionend', onTransitionEnd);
 
-                    Object.assign(ripple.style, {
-                        transitionDuration: '250ms',
-                        opacity: 0,
-                    });
-
-                    // Finally remove the span after the transition
-                    setTimeout(() => {
-                        const { parentNode } = container;
-
-                        if (parentNode) {
-                            parentNode.removeChild(container);
-                        }
-                    }, 500);
-                });
-            });
+        Object.assign(ripple.style, {
+            transitionDuration: '250ms',
+            opacity: '0',
         });
     }, []);
 
-    const handlePointerUp = useCallback(
-        (e: any) => {
-            onPressOutProp?.(e as GestureResponderEvent);
+    const handlePressIn = useCallback(
+        (e: GestureResponderEvent) => {
+            onPressInProp?.(e);
+            if (disabled) return;
 
-            if (disabled || !isPointerDownRef.current) return;
+            const host = e.currentTarget as unknown as HTMLElement | null;
+            if (!host || typeof host.appendChild !== 'function') return;
 
-            isPointerDownRef.current = false;
-            currentTargetRef.current = null;
+            const rect = host.getBoundingClientRect();
+            let x = rect.width / 2;
+            let y = rect.height / 2;
 
-            const target = e.currentTarget as HTMLElement;
-            fadeOutRipples(target);
+            if (!centered) {
+                const ne: any = e.nativeEvent;
+                if (ne) {
+                    if (typeof ne.locationX === 'number' && typeof ne.locationY === 'number') {
+                        x = ne.locationX;
+                        y = ne.locationY;
+                    } else if (typeof ne.clientX === 'number' && typeof ne.clientY === 'number') {
+                        x = ne.clientX - rect.left;
+                        y = ne.clientY - rect.top;
+                    }
+                }
+            }
+
+            startRipple(host, x, y);
         },
-        [onPressOutProp, disabled, fadeOutRipples],
+        [onPressInProp, disabled, centered, startRipple],
     );
 
-    const handlePointerLeave = useCallback(
-        (e: any) => {
-            // Only fade out if pointer was down (dragging out of element)
-            if (disabled || !isPointerDownRef.current) return;
-
-            isPointerDownRef.current = false;
-            currentTargetRef.current = null;
-
-            const target = e.currentTarget as HTMLElement;
-            fadeOutRipples(target);
+    const handlePressOut = useCallback(
+        (e: GestureResponderEvent) => {
+            onPressOutProp?.(e);
+            const container = activeRippleRef.current;
+            activeRippleRef.current = null;
+            fadeRipple(container);
         },
-        [disabled, fadeOutRipples],
+        [onPressOutProp, fadeRipple],
     );
 
-    const handlePointerCancel = useCallback(
-        (e: any) => {
-            if (disabled || !isPointerDownRef.current) return;
-
-            isPointerDownRef.current = false;
-            currentTargetRef.current = null;
-
-            const target = e.currentTarget as HTMLElement;
-            fadeOutRipples(target);
-        },
-        [disabled, fadeOutRipples],
-    );
-
-    const Component = asChild ? Slot : onPress ? Pressable : View;
-
-    // Use pointer events for universal compatibility (works on any HTML element)
-    // These events work with mouse, touch, and stylus inputs
-    const pointerEventProps = {
-        onPointerDown: handlePointerDown,
-        onPointerUp: handlePointerUp,
-        onPointerLeave: handlePointerLeave,
-        onPointerCancel: handlePointerCancel,
-    };
+    const Component = asChild ? Slot : Pressable;
 
     const accessibilityRoleProp = (rest as { accessibilityRole?: unknown }).accessibilityRole;
     const roleProp = (rest as { role?: unknown }).role;
@@ -386,8 +309,9 @@ const TouchableRipple = (
             style={containerStyle}
             ref={ref}
             onPress={onPress}
-            disabled={disabled}
-            {...pointerEventProps}>
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            disabled={disabled}>
             {children}
         </Component>
     );
