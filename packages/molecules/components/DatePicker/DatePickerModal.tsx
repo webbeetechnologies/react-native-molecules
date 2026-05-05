@@ -11,6 +11,7 @@ import {
 
 import { getRegisteredComponentWithFallback } from '../../core';
 import { DateField } from '../DateField';
+import type { DatePickerInlineProps } from '../DatePickerInline/DatePickerInline';
 import { IconButton } from '../IconButton';
 import { Modal, type ModalProps } from '../Modal';
 import { Portal } from '../Portal';
@@ -47,7 +48,7 @@ export type DatePickerModalProps = Omit<ModalProps, 'children' | 'isOpen' | 'onC
     showCalendarAccessibilityLabel?: string;
     enterDateManuallyAccessibilityLabel?: string;
     locale?: DatePickerLocale;
-    headerLayout?: 'inline' | 'docked';
+    headerLayout?: DatePickerInlineProps['headerLayout'];
     /** Override the surface default draft mode. Modal defaults to `true` (staged commit). */
     draft?: boolean;
 };

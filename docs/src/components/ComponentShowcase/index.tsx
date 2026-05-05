@@ -6,10 +6,11 @@ import { Chip } from 'react-native-molecules/components/Chip';
 import { FAB } from 'react-native-molecules/components/FAB';
 import { Icon } from 'react-native-molecules/components/Icon';
 import { IconButton } from 'react-native-molecules/components/IconButton';
-import { ListItem } from 'react-native-molecules/components/ListItem';
+import { List } from 'react-native-molecules/components/List';
 import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
 import { Switch } from 'react-native-molecules/components/Switch';
 import { Tabs } from 'react-native-molecules/components/Tabs';
+import { Text } from 'react-native-molecules/components/Text';
 import { TextInput } from 'react-native-molecules/components/TextInput';
 import { noop } from 'react-native-molecules/utils/lodash';
 
@@ -197,13 +198,13 @@ function ListCell() {
                             </Button>
                         </View>
                     ) : (
-                        <ListItem
+                        <List.Row
                             key={item.title}
                             hoverable
                             selected={i === highlightedIndex}
                             left={<Icon name={item.icon} size={20} />}>
-                            <ListItem.Title>{item.title}</ListItem.Title>
-                        </ListItem>
+                            <Text typescale="bodyLarge">{item.title}</Text>
+                        </List.Row>
                     ),
                 )}
             </View>

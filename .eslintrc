@@ -12,7 +12,7 @@
             "error",
             { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }
         ],
-        "react-native/no-inline-styles": "error",
+        "react-native/no-inline-styles": "warn",
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error"
     },

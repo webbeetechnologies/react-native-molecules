@@ -1,7 +1,9 @@
 import { Switch } from 'react-native-molecules/components/Switch';
 import { useContext, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Select } from 'react-native-molecules/components/Select';
+import { List } from 'react-native-molecules/components/List';
+import { Text } from 'react-native-molecules/components/Text';
 import { StyleSheet, withUnistyles } from 'react-native-unistyles';
 import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
 import { Button } from 'react-native-molecules/components/Button';
@@ -276,7 +278,9 @@ export default function Index() {
                         <Select.SearchInput />
                         <Select.Content>
                             {(item, _isSelected) => (
-                                <Select.Option value={item.id}>{item.label}</Select.Option>
+                                <Select.Option value={item.id}>
+                                    <Text typescale="labelLarge">{item.label}</Text>
+                                </Select.Option>
                             )}
                         </Select.Content>
                     </Select.Dropdown>
@@ -295,12 +299,29 @@ export default function Index() {
                         <Select.Content>
                             {(item, _isSelected) => (
                                 <Select.Option key={item.id} value={item.id}>
-                                    {item.label}
+                                    <Text typescale="labelLarge">{item.label}</Text>
                                 </Select.Option>
                             )}
                         </Select.Content>
                     </Select.Dropdown>
                 </Select>
+                <List items={singleSelectOptions}>
+                    <List.SearchInput placeholder="Search list items..." />
+                    <List.Content style={{ maxHeight: 220 }}>
+                        {(item, isSelected) => (
+                            <List.Item
+                                key={item.id}
+                                value={item.id}
+                                right={
+                                    isSelected ? (
+                                        <Icon name="check" type="material-community" size={18} />
+                                    ) : null
+                                }>
+                                <Text typescale="bodyLarge">{item.label}</Text>
+                            </List.Item>
+                        )}
+                    </List.Content>
+                </List>
                 {/* TextInput Composable API */}
                 <Text style={{ fontWeight: 'bold', marginTop: 20 }}>
                     TextInput - Composable API:

@@ -4,10 +4,10 @@ import { View, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import type { DatePickerLocale } from '../DatePicker/context';
-import { useDatePickerStoreRef, useDatePickerStoreValue } from './DatePickerContext';
 import type { DisableWeekDaysType } from './dateUtils';
 import DayNames from './DayNames';
 import HeaderItem from './HeaderItem';
+import { useDatePickerInlineStoreRef, useDatePickerInlineStoreValue } from './store';
 import { datePickerHeaderStyles } from './utils';
 
 export type DockedHeaderProps = {
@@ -23,8 +23,8 @@ function DatePickerDockedHeader({
     disableWeekDays,
     style: styleProp,
 }: DockedHeaderProps) {
-    const setStore = useDatePickerStoreRef().set;
-    const { localDate, pickerType } = useDatePickerStoreValue(state => ({
+    const setStore = useDatePickerInlineStoreRef().set;
+    const { localDate, pickerType } = useDatePickerInlineStoreValue(state => ({
         localDate: state.localDate,
         pickerType: state.pickerType,
     }));

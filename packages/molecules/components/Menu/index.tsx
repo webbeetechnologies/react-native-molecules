@@ -1,15 +1,19 @@
 import { getRegisteredComponentWithFallback } from '../../core';
-import MenuComponent from './Menu';
-import MenuDivider from './MenuDivider';
-import MenuItem from './MenuItem';
+import { List } from '../List';
+import MenuComponent, { MenuItem, MenuRoot, MenuTrigger } from './Menu';
+import { MenuRootContext } from './utils';
 
 export const MenuDefault = Object.assign(MenuComponent, {
+    Root: MenuRoot,
+    Trigger: MenuTrigger,
     Item: MenuItem,
-    Divider: MenuDivider,
+    Content: List.Content,
+    Group: List.Group,
+    SearchInput: List.SearchInput,
+    RootContext: MenuRootContext,
 });
 
 export const Menu = getRegisteredComponentWithFallback('Menu', MenuDefault);
 
-export type { Props as MenuProps } from './Menu';
-export type { Props as MenuItemProps } from './MenuItem';
-export { menuItemStyles, menuStyles } from './utils';
+export type { MenuItemProps, Props as MenuProps, MenuRootProps, MenuTriggerProps } from './Menu';
+export { MenuRootContext, menuStyles } from './utils';

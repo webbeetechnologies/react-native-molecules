@@ -16,7 +16,7 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'You have FAQ-style content that benefits from progressive disclosure.',
             'You need to keep filters or settings compact on small screens.',
         ],
-        related: ['Card', 'ListItem'],
+        related: ['Card', 'List'],
         subcomponents: ['AccordionItem', 'AccordionItem.Header', 'AccordionItem.Content'],
     }),
     createMeta({
@@ -87,7 +87,7 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'User data includes optional profile imagery.',
             'You need deterministic placeholders for offline usage.',
         ],
-        related: ['Badge', 'ListItem', 'Chip'],
+        related: ['Badge', 'List', 'Chip'],
     }),
     createMeta({
         name: 'Backdrop',
@@ -335,6 +335,18 @@ export const componentDocsMeta: ComponentDocMeta[] = [
         related: ['NavigationRail', 'Appbar'],
     }),
     createMeta({
+        name: 'Divider',
+        category: 'Surfaces & Layout',
+        description: 'Thin separator for lists, toolbars, and stacked layouts.',
+        usage: 'Use `mode` to switch between horizontal rules and vertical rules.',
+        highlights: ['Horizontal by default', 'Shared tokens for both orientations'],
+        whenToUse: [
+            'Separate list rows or settings sections.',
+            'Split inline actions in an Appbar or toolbar.',
+        ],
+        related: ['Surface', 'List', 'Appbar'],
+    }),
+    createMeta({
         name: 'DropdownList',
         category: 'Inputs & Controls',
         description: 'Base dropdown list primitive that powers selects and autocomplete menus.',
@@ -410,18 +422,6 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'Explain formatting expectations.',
         ],
         related: ['TextInput', 'StateLayer'],
-    }),
-    createMeta({
-        name: 'HorizontalDivider',
-        category: 'Surfaces & Layout',
-        description: 'Horizontal rule with Material tokens for spacing and color.',
-        usage: 'Separate settings sections or card content.',
-        highlights: ['Inset and padded variants', 'Supports label slot'],
-        whenToUse: [
-            'Visually divide stacked content.',
-            'Need responsive spacing that aligns to tokens.',
-        ],
-        related: ['VerticalDivider', 'Surface'],
     }),
     createMeta({
         name: 'Icon',
@@ -502,17 +502,21 @@ export const componentDocsMeta: ComponentDocMeta[] = [
         related: ['ActivityIndicator', 'Button'],
     }),
     createMeta({
-        name: 'ListItem',
-        category: 'Data Display',
-        description:
-            'Highly composable list row with leading/trailing slots, overlines, and ripples.',
-        usage: 'Display actionable rows inside menus, settings, and pickers.',
-        highlights: ['Leading avatar/icon slot', 'Density + emphasis tokens'],
-        whenToUse: [
-            'Rows trigger navigation or toggles.',
-            'You must mix secondary text and metadata in one row.',
+        name: 'List',
+        category: 'Inputs & Controls',
+        description: 'Headless selectable list primitives with search and custom content wrappers.',
+        usage: 'Compose list-driven selection UIs inside Menu, Popover, sheets, and custom dropdowns.',
+        highlights: [
+            'Controlled/uncontrolled selection',
+            'Search filtering',
+            'Custom ContainerComponent',
         ],
-        related: ['Menu', 'OptionList', 'Checkbox'],
+        whenToUse: [
+            'You need Select-like selection behavior without trigger/dropdown coupling.',
+            'You want custom rows while keeping shared selection and search state.',
+        ],
+        related: ['Menu', 'Select'],
+        subcomponents: ['List.Content', 'List.Item', 'List.SearchInput', 'List.Group', 'List.Row'],
     }),
     createMeta({
         name: 'Menu',
@@ -524,8 +528,8 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'User needs a small list of contextual actions.',
             'You require cascading operations without navigation.',
         ],
-        related: ['ActionSheet', 'DropdownList'],
-        subcomponents: ['Menu.Item'],
+        related: ['ActionSheet', 'DropdownList', 'List'],
+        subcomponents: ['Menu.Item', 'List.Content', 'List.Item'],
     }),
     createMeta({
         name: 'Modal',
@@ -620,7 +624,7 @@ export const componentDocsMeta: ComponentDocMeta[] = [
         highlights: ['Android/iOS specific drawings', 'Supports horizontal groups'],
         whenToUse: [
             'Only one option may be selected.',
-            'You need accessible labeling via ListItem wrappers.',
+            'You need accessible labeling via List rows.',
         ],
         related: ['Checkbox', 'Select'],
     }),
@@ -647,7 +651,7 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'Need multi-select chips or custom rendered values.',
             'Integrating with async data and virtualization.',
         ],
-        related: ['Chip'],
+        related: ['Chip', 'List'],
         subcomponents: [
             'Select.Trigger',
             'Select.Value',
@@ -832,18 +836,6 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'Need to match RN Paper/Material motion without extra deps.',
         ],
         related: ['StateLayer', 'Button'],
-    }),
-    createMeta({
-        name: 'VerticalDivider',
-        category: 'Surfaces & Layout',
-        description: 'Vertical rule for toolbars, Appbar, and dense layouts.',
-        usage: 'Separate inline controls or segments inside horizontal containers.',
-        highlights: ['Height + inset controls', 'Matches HorizontalDivider tokens'],
-        whenToUse: [
-            'Appbar needs to split primary and secondary actions.',
-            'You have inline filters that require grouping.',
-        ],
-        related: ['HorizontalDivider', 'Appbar'],
     }),
 ];
 

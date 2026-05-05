@@ -1,12 +1,12 @@
-import { add } from 'date-fns';
+import { add, setYear } from 'date-fns';
 import { memo, useCallback, useMemo } from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 
 import type { DatePickerLocale } from '../DatePicker/context';
-import { useDatePickerStore, useDatePickerStoreValue } from './DatePickerContext';
 import type { DisableWeekDaysType } from './dateUtils';
 import DayNames from './DayNames';
 import HeaderItem from './HeaderItem';
+import { useDatePickerInlineStore, useDatePickerInlineStoreValue } from './store';
 import { datePickerHeaderStyles, dayNamesHeight } from './utils';
 
 const buttonContainerHeight = 56;
@@ -26,10 +26,10 @@ function DatePickerInlineHeader({
     disableWeekDays,
     style: styleProp,
 }: CalendarHeaderProps) {
-    const [_, setStore] = useDatePickerStore(state => state);
-    const { localDate, isYearPickerType } = useDatePickerStoreValue(state => ({
+    const [_, setStore] = useDatePickerInlineStore(state => state);
+    const { localDate, pickerType } = useDatePickerInlineStoreValue(state => ({
         localDate: state.localDate,
-        isYearPickerType: state.pickerType === 'year',
+        pickerType: state.pickerType,
     }));
     const isHorizontal = scrollMode === 'horizontal';
 
@@ -58,16 +58,38 @@ function DatePickerInlineHeader({
         };
     }, [styleProp]);
 
-    const handleOnYearPress = useCallback(() => {
-        isHorizontal && setStore(prev => ({ pickerType: prev.pickerType ? undefined : 'year' }));
+    const handleOnMonthPress = useCallback(() => {
+        isHorizontal &&
+            setStore(prev => ({
+                pickerType: prev.pickerType === 'month' ? undefined : 'month',
+            }));
     }, [isHorizontal, setStore]);
 
-    const handleOnPrev = useCallback(() => {
+    const handleOnYearPress = useCallback(() => {
+        isHorizontal &&
+            setStore(prev => ({
+                pickerType: prev.pickerType === 'year' ? undefined : 'year',
+            }));
+    }, [isHorizontal, setStore]);
+
+    const handleMonthPrev = useCallback(() => {
         setStore(prev => ({ localDate: add(prev.localDate, { months: -1 }) }));
     }, [setStore]);
 
-    const handleOnNext = useCallback(() => {
+    const handleMonthNext = useCallback(() => {
         setStore(prev => ({ localDate: add(prev.localDate, { months: 1 }) }));
+    }, [setStore]);
+
+    const handleYearPrev = useCallback(() => {
+        setStore(prev => ({
+            localDate: setYear(prev.localDate, prev.localDate.getFullYear() - 1),
+        }));
+    }, [setStore]);
+
+    const handleYearNext = useCallback(() => {
+        setStore(prev => ({
+            localDate: setYear(prev.localDate, prev.localDate.getFullYear() + 1),
+        }));
     }, [setStore]);
 
     return (
@@ -76,18 +98,22 @@ function DatePickerInlineHeader({
                 {isHorizontal && (
                     <View style={containerStyle}>
                         <HeaderItem
-                            onPressDropdown={handleOnYearPress}
-                            type="year"
-                            value={`${monthName} ${year}`}
-                            pickerType="year"
-                            selecting={isYearPickerType}
+                            onPrev={handleMonthPrev}
+                            onNext={handleMonthNext}
+                            onPressDropdown={handleOnMonthPress}
+                            type="month"
+                            value={monthName}
+                            pickerType={pickerType}
+                            selecting={pickerType === 'month'}
                         />
                         <HeaderItem
-                            onNext={handleOnNext}
-                            onPrev={handleOnPrev}
-                            selecting={false}
+                            onNext={handleYearNext}
+                            onPrev={handleYearPrev}
+                            onPressDropdown={handleOnYearPress}
+                            type="year"
+                            selecting={pickerType === 'year'}
                             value={year}
-                            pickerType="year"
+                            pickerType={pickerType}
                         />
                     </View>
                 )}

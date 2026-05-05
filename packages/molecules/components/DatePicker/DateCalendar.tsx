@@ -11,7 +11,7 @@ import { useOptionalDatePickerContext } from './context';
 
 export type DateCalendarProps = DatePickerInlineProps;
 
-const DateCalendarDefault = memo((props: DateCalendarProps) => {
+const DateCalendarDefault = memo(({ headerLayout = 'default', ...props }: DateCalendarProps) => {
     const ctx = useOptionalDatePickerContext();
 
     const hasExplicitState =
@@ -22,7 +22,7 @@ const DateCalendarDefault = memo((props: DateCalendarProps) => {
         props.onChange !== undefined;
 
     const isRange = props.mode === 'range' || ctx?.mode === 'range';
-    const effectiveHeaderLayout = props.headerLayout ?? (ctx ? 'docked' : 'inline');
+    const effectiveHeaderLayout = headerLayout ?? (ctx ? 'docked' : 'inline');
     const showOutsideDays =
         props.showOutsideDays ?? (effectiveHeaderLayout === 'docked' && !isRange);
 
@@ -50,7 +50,7 @@ const DateCalendarDefault = memo((props: DateCalendarProps) => {
                 onChange={onChange}
                 locale={locale}
                 validRange={validRange}
-                headerLayout={props.headerLayout ?? 'docked'}
+                headerLayout={headerLayout}
                 showOutsideDays={showOutsideDays}
             />
         );
@@ -72,7 +72,7 @@ const DateCalendarDefault = memo((props: DateCalendarProps) => {
             onChange={onChange}
             locale={locale}
             validRange={validRange}
-            headerLayout={props.headerLayout ?? 'docked'}
+            headerLayout={headerLayout}
             showOutsideDays={showOutsideDays}
         />
     );

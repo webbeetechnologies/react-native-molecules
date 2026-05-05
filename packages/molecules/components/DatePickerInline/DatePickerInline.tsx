@@ -25,7 +25,7 @@ const DatePickerInline = ({
     onChange,
     locale = 'en',
     mode = 'single',
-    headerLayout = 'inline',
+    headerLayout = 'default',
     HeaderComponent,
     containerStyle: containerStyleProp,
     ...rest

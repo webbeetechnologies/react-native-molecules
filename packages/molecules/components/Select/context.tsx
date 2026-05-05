@@ -1,44 +1,27 @@
 import type { View } from 'react-native';
 
 import { createFastContext } from '../../fast-context';
+import {
+    ListContext,
+    ListContextProvider,
+    useListContext,
+    useListContextValue,
+    useListStoreRef,
+} from '../List';
 import { registerPortalContext } from '../Portal';
-import type { DefaultItemT, SelectContextValue, SelectDropdownContextValue } from './types';
-
-// SelectContext - holds value, onAdd, onRemove with fast-context for optimized rendering
-const selectContextDefaultValue: SelectContextValue<DefaultItemT> = {
-    value: null,
-    multiple: false,
-    onAdd: () => {},
-    onRemove: () => {},
-    disabled: false,
-    error: false,
-    labelKey: 'label',
-    options: [],
-    searchQuery: '',
-    setSearchQuery: () => {},
-    filteredOptions: [],
-};
-
-const {
-    useStoreRef: useSelectStoreRef,
-    Provider: SelectContextProvider,
-    useContext: useSelectContext,
-    useContextValue: useSelectContextValue,
-    Context: SelectContext,
-} = createFastContext<SelectContextValue<DefaultItemT>>(selectContextDefaultValue, true);
+import type { SelectDropdownContextValue } from './types';
 
 export {
-    SelectContext,
-    SelectContextProvider,
-    useSelectContext,
-    useSelectContextValue,
-    useSelectStoreRef,
+    ListContext as SelectContext,
+    ListContextProvider as SelectContextProvider,
+    useListContext as useSelectContext,
+    useListContextValue as useSelectContextValue,
+    useListStoreRef as useSelectStoreRef,
 };
 
 // SelectDropdownContext - holds isOpen, onClose, triggerRef with fast-context
 export type SelectDropdownContextType = SelectDropdownContextValue & {
     triggerRef: React.RefObject<View> | null;
-    contentRef: React.RefObject<any> | null;
     triggerLayout: { width: number; height: number } | null;
     setTriggerLayout: (layout: { width: number; height: number }) => void;
 };
@@ -48,7 +31,6 @@ const selectDropdownContextDefaultValue: SelectDropdownContextType = {
     onClose: () => {},
     onOpen: () => {},
     triggerRef: null,
-    contentRef: null,
     triggerLayout: null,
     setTriggerLayout: () => {},
 };
@@ -69,4 +51,4 @@ export {
     useSelectDropdownStoreRef,
 };
 
-registerPortalContext([SelectContext, SelectDropdownContext]);
+registerPortalContext([SelectDropdownContext]);

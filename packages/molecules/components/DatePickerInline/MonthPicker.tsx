@@ -1,30 +1,35 @@
 import { setMonth } from 'date-fns';
-import { memo, useCallback, useMemo, useRef } from 'react';
-import { FlatList, View, type ViewStyle } from 'react-native';
+import { memo, useCallback, useMemo } from 'react';
+import { FlatList, type FlatListProps, View, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { resolveStateVariant } from '../../utils';
 import { range } from '../../utils/dateTimePicker';
 import type { DatePickerLocale } from '../DatePicker/context';
 import { datePickerMonthItemStyles, datePickerMonthPickerStyles } from '../DatePicker/utils';
-import { HorizontalDivider } from '../HorizontalDivider';
+import { Divider } from '../Divider';
 import { Icon } from '../Icon';
-import { ListItem } from '../ListItem/';
+import { List, type ListContentProcessPropsArgs, useListContextValue } from '../List';
 import { Text } from '../Text';
-import { useDatePickerStore, useDatePickerStoreValue } from './DatePickerContext';
+import { useDatePickerInlineStore, useDatePickerInlineStoreValue } from './store';
+
+type MonthListItem = { id: number; label: string };
 
 export default function MonthPicker({ locale }: { locale?: DatePickerLocale }) {
-    const [_, setStore] = useDatePickerStore(state => state);
-    const { localDate, selectingMonth } = useDatePickerStoreValue(state => ({
+    const [_, setStore] = useDatePickerInlineStore(state => state);
+    const { localDate, selectingMonth } = useDatePickerInlineStoreValue(state => ({
         localDate: state.localDate,
         selectingMonth: state.pickerType === 'month',
     }));
-    // const monthPickerStyles = useComponentStyles('DatePickerDocked_MonthPicker');
-    const flatList = useRef<FlatList<number> | null>(null);
     const months = range(0, 11);
+    const monthItems = useMemo<MonthListItem[]>(
+        () => months.map(month => ({ id: month, label: String(month) })),
+        [months],
+    );
 
     const handleOnChange = useCallback(
-        (month: number) => {
+        (month: number | null) => {
+            if (month === null) return;
             setStore(prev => ({
                 localDate: setMonth(prev.localDate, month),
                 pickerType: undefined,
@@ -33,19 +38,26 @@ export default function MonthPicker({ locale }: { locale?: DatePickerLocale }) {
         [setStore],
     );
 
-    const renderItem = useCallback(
-        ({ item }: { item: number }) => {
-            return (
+    const processFlatListProps = useCallback(
+        ({
+            props,
+            items,
+        }: ListContentProcessPropsArgs<
+            MonthListItem,
+            Omit<FlatListProps<MonthListItem>, 'children' | 'ref'>
+        >): FlatListProps<MonthListItem> => ({
+            ...props,
+            data: items,
+            renderItem: ({ item }) => (
                 <Month
-                    month={item}
-                    selected={localDate.getMonth() === item}
-                    onPressMonth={handleOnChange}
+                    month={item.id}
                     monthStyles={datePickerMonthPickerStyles.root}
                     locale={locale}
                 />
-            );
-        },
-        [localDate, handleOnChange, locale],
+            ),
+            keyExtractor: item => `${item.id}`,
+        }),
+        [locale],
     );
 
     if (!selectingMonth) {
@@ -53,41 +65,45 @@ export default function MonthPicker({ locale }: { locale?: DatePickerLocale }) {
     }
 
     return (
-        <View
-            style={[
-                StyleSheet.absoluteFill,
-                styles.root,
-                // { backgroundColor },
-                selectingMonth ? styles.opacity1 : styles.opacity0,
-            ]}
-            pointerEvents={selectingMonth ? 'auto' : 'none'}>
-            <HorizontalDivider />
-            <FlatList<number>
-                ref={flatList}
-                style={styles.list}
-                data={months}
-                renderItem={renderItem}
-                keyExtractor={item => `${item}`}
-            />
-        </View>
+        <List
+            items={monthItems}
+            multiple={false}
+            value={localDate.getMonth()}
+            onChange={handleOnChange}>
+            <View
+                style={[
+                    StyleSheet.absoluteFill,
+                    styles.root,
+                    selectingMonth ? styles.opacity1 : styles.opacity0,
+                ]}
+                pointerEvents={selectingMonth ? 'auto' : 'none'}>
+                <Divider />
+                <List.Content<MonthListItem, typeof FlatList<MonthListItem>>
+                    ContainerComponent={FlatList<MonthListItem>}
+                    style={styles.list}
+                    processProps={processFlatListProps}
+                />
+            </View>
+        </List>
     );
 }
 
 function MonthPure({
     month,
-    selected,
-    onPressMonth,
     monthStyles,
     locale,
 }: {
     month: number;
-    selected: boolean;
-    onPressMonth: (newMonth: number) => any;
     monthStyles: ViewStyle;
     locale?: DatePickerLocale;
 }) {
+    const isSelected = useListContextValue(state => {
+        const selectedValue = state.value as any;
+        return (selectedValue?.id ?? selectedValue) === month;
+    });
+
     const state = resolveStateVariant({
-        selected,
+        selected: isSelected,
     });
 
     datePickerMonthItemStyles.useVariants({
@@ -99,31 +115,25 @@ function MonthPure({
 
         return {
             monthButtonStyle: [monthButton, monthStyles],
-            accessibilityState: { selected },
+            accessibilityState: { selected: isSelected },
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selected, monthStyles, state]);
+    }, [isSelected, monthStyles]);
 
     const monthLabel = useMemo(
-        () =>
-            new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(2000, month, 1)),
+        () => new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(2000, month, 1)),
         [locale, month],
     );
 
-    const handleMonthPress = useCallback(() => {
-        onPressMonth(month);
-    }, [onPressMonth, month]);
-
     return (
-        <ListItem
-            onPress={handleMonthPress}
+        <List.Item
+            value={month}
             accessibilityRole="button"
             accessibilityLabel={String(month)}
             accessibilityState={accessibilityState}
             style={monthButtonStyle}
             testID={`pick-month-${month}`}
             left={
-                selected ? (
+                isSelected ? (
                     <View style={styles.checkIconView}>
                         <Icon name="check" size={24} />
                     </View>
@@ -136,7 +146,7 @@ function MonthPure({
                     {monthLabel}
                 </Text>
             </View>
-        </ListItem>
+        </List.Item>
     );
 }
 const Month = memo(MonthPure);

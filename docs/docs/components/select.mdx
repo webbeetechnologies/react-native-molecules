@@ -26,15 +26,15 @@ const options = [
 
 export default function Example() {
     return (
-        <Select options={options} labelKey="label">
+        <Select options={options}>
             <Select.Trigger>
-                <Select.Value placeholder="Select an option" />
+                <Select.Value placeholder="Select an option" labelKey="label" />
             </Select.Trigger>
             <Select.Dropdown>
                 <Select.Content>
                     {(item, isSelected) => (
                         <Select.Option key={item.id} value={item.id}>
-                            {item.label}
+                            <Text typescale="labelLarge">{item.label}</Text>
                         </Select.Option>
                     )}
                 </Select.Content>
@@ -58,15 +58,15 @@ const options = [
 
 export default function Example() {
     return (
-        <Select multiple options={options} labelKey="label">
+        <Select multiple options={options}>
             <Select.Trigger>
-                <Select.Value placeholder="Select multiple options" />
+                <Select.Value placeholder="Select multiple options" labelKey="label" />
             </Select.Trigger>
             <Select.Dropdown>
                 <Select.Content>
                     {(item, isSelected) => (
                         <Select.Option key={item.id} value={item.id}>
-                            {item.label}
+                            <Text typescale="labelLarge">{item.label}</Text>
                         </Select.Option>
                     )}
                 </Select.Content>
@@ -91,16 +91,16 @@ const options = [
 
 export default function Example() {
     return (
-        <Select options={options} labelKey="label">
+        <Select options={options}>
             <Select.Trigger>
-                <Select.Value placeholder="Search and select" />
+                <Select.Value placeholder="Search and select" labelKey="label" />
             </Select.Trigger>
             <Select.Dropdown>
                 <Select.SearchInput placeholder="Search options..." />
                 <Select.Content>
                     {(item, isSelected) => (
                         <Select.Option key={item.id} value={item.id}>
-                            {item.label}
+                            <Text typescale="labelLarge">{item.label}</Text>
                         </Select.Option>
                     )}
                 </Select.Content>

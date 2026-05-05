@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 import AutoSizer from './AutoSizer';
-import { useDatePickerStore } from './DatePickerContext';
 import { beginOffset, estimatedMonthHeight, getInitialIndex, totalMonths } from './dateUtils';
 import { addMonths, getRealIndex } from './dateUtils';
 import {
@@ -18,6 +17,7 @@ import {
     getMonthHeight,
     getVerticalMonthsOffset,
 } from './Month';
+import { useDatePickerInlineStore } from './store';
 import type { SwiperProps } from './SwiperUtils';
 import { montHeaderHeight } from './utils';
 
@@ -56,7 +56,7 @@ function SwiperInner({
     );
 
     const parentRef = useRef<ScrollView | null>(null);
-    const [{ localDate }, setStore] = useDatePickerStore(state => state);
+    const [{ localDate }, setStore] = useDatePickerInlineStore(state => state);
 
     const scrollTo = useCallback(
         (index: number, animated: boolean) => {

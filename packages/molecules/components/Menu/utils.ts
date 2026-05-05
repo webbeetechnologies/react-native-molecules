@@ -1,6 +1,27 @@
+import { createContext, type RefObject } from 'react';
+import type { View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
+
+export const MenuContext = createContext({
+    closeOnSelect: true,
+    onClose: () => {},
+});
+
+export type MenuRootContextValue = {
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
+    triggerRef: RefObject<View | any>;
+};
+
+export const MenuRootContext = createContext<MenuRootContextValue>({
+    isOpen: false,
+    onOpen: () => {},
+    onClose: () => {},
+    triggerRef: { current: null },
+});
 
 const menuStylesDefault = StyleSheet.create(theme => ({
     root: {
@@ -17,74 +38,4 @@ const menuStylesDefault = StyleSheet.create(theme => ({
     },
 }));
 
-const menuItemStylesDefault = StyleSheet.create(theme => ({
-    root: {
-        paddingVertical: theme.spacings['2'],
-        flexDirection: 'row',
-        alignItems: 'center',
-
-        variants: {
-            state: {
-                disabled: {
-                    opacity: 0.38,
-                },
-                hovered: {},
-            },
-            size: {
-                default: {
-                    paddingHorizontal: theme.spacings['4'],
-                    height: 48,
-                },
-
-                dense: {
-                    paddingLeft: theme.spacings['4'],
-                    paddingRight: theme.spacings['2'],
-                    height: 32,
-                },
-            },
-        },
-    },
-
-    text: {
-        flex: 1,
-        color: theme.colors.onSurface,
-
-        size: {
-            default: {
-                ...theme.typescale.bodyLarge,
-            },
-
-            dense: {
-                ...theme.typescale.bodyMedium,
-            },
-        },
-    },
-
-    leftElement: {
-        marginRight: theme.spacings['5'],
-        marginLeft: theme.spacings['2'],
-    },
-    rightElement: {
-        marginRight: theme.spacings['2'],
-        marginLeft: theme.spacings['5'],
-    },
-
-    stateLayer: {
-        variants: {
-            state: {
-                disabled: {
-                    backgroundColor: 'transparent',
-                },
-                hovered: {
-                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
-                },
-            },
-        },
-    },
-}));
-
 export const menuStyles = getRegisteredComponentStylesWithFallback('Menu', menuStylesDefault);
-export const menuItemStyles = getRegisteredComponentStylesWithFallback(
-    'Menu_Item',
-    menuItemStylesDefault,
-);

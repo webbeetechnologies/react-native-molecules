@@ -1,6 +1,6 @@
 // Import commonly used components directly
 import * as React from 'react';
-import { Image, StyleSheet, useWindowDimensions, View } from 'react-native';
+import { FlatList, Image, SectionList, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Accordion, AccordionItem } from 'react-native-molecules/components/Accordion';
 import { ActivityIndicator } from 'react-native-molecules/components/ActivityIndicator';
 import { Appbar } from 'react-native-molecules/components/Appbar';
@@ -19,18 +19,18 @@ import {
     useOptionalDatePickerContext,
 } from 'react-native-molecules/components/DatePicker';
 import { Dialog } from 'react-native-molecules/components/Dialog';
+import { Divider } from 'react-native-molecules/components/Divider';
 import { Drawer } from 'react-native-molecules/components/Drawer';
 import { ElementGroup } from 'react-native-molecules/components/ElementGroup';
 import { FAB } from 'react-native-molecules/components/FAB';
 import { FilePicker, FilePickerContext } from 'react-native-molecules/components/FilePicker';
 import { HelperText } from 'react-native-molecules/components/HelperText';
-import { HorizontalDivider } from 'react-native-molecules/components/HorizontalDivider';
 import { Icon } from 'react-native-molecules/components/Icon';
 import { IconButton } from 'react-native-molecules/components/IconButton';
 import { If } from 'react-native-molecules/components/If';
 import { InputAddon } from 'react-native-molecules/components/InputAddon';
 import { Link } from 'react-native-molecules/components/Link';
-import { ListItem } from 'react-native-molecules/components/ListItem';
+import { List } from 'react-native-molecules/components/List';
 import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
 import { Menu } from 'react-native-molecules/components/Menu';
 import { Modal } from 'react-native-molecules/components/Modal';
@@ -58,7 +58,6 @@ import {
 } from 'react-native-molecules/components/TimePicker';
 import { Tooltip } from 'react-native-molecules/components/Tooltip';
 import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
-import { VerticalDivider } from 'react-native-molecules/components/VerticalDivider';
 import { createFastContext } from 'react-native-molecules/fast-context';
 import { useHandleNumberFormat } from 'react-native-molecules/hooks';
 import { ShortcutsManager } from 'react-native-molecules/shortcuts-manager';
@@ -71,6 +70,8 @@ export const defaultScope = {
     StyleSheet,
     View,
     Image,
+    FlatList,
+    SectionList,
     // Direct component imports
     registerPortalContext,
     Avatar,
@@ -97,7 +98,7 @@ export const defaultScope = {
     FAB,
     HelperText,
     InputAddon,
-    ListItem,
+    ListItem: List.Row,
     Menu,
     Modal,
     NavigationRail,
@@ -113,8 +114,7 @@ export const defaultScope = {
     TimePickerContext,
     useOptionalTimePickerContext,
     TouchableRipple,
-    HorizontalDivider,
-    VerticalDivider,
+    Divider,
     Select,
     Card,
     TextInput,
@@ -134,6 +134,7 @@ export const defaultScope = {
     ButtonContext,
     TextInputContext,
     FilePickerContext,
+    List,
 };
 
 if ((defaultScope as any).default) {

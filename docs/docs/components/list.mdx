@@ -1,0 +1,221 @@
+---
+title: "List"
+description: "Headless selectable list primitives with search and custom scroll wrappers."
+sidebar_position: 41
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="List" />
+
+## Examples
+
+### Searchable Single Select List
+
+<LiveCodeExample
+    center={false}
+    code={`import { List } from 'react-native-molecules/components/List';
+import { Icon } from 'react-native-molecules/components/Icon';
+
+const items = [
+    { id: 1, label: 'Apple' },
+    { id: 2, label: 'Banana' },
+    { id: 3, label: 'Cherry' },
+    { id: 4, label: 'Date' },
+];
+
+export default function Example() {
+    return (
+        <List items={items} searchKey="label">
+            <List.SearchInput placeholder="Search fruits..." />
+            <List.Content style={{ maxHeight: 240 }}>
+                {(item, isSelected) => (
+                    <List.Item
+                        key={item.id}
+                        value={item.id}
+                        right={isSelected ? <Icon name="check" size={18} /> : null}>
+                        <Text typescale="bodyLarge">{item.label}</Text>
+                    </List.Item>
+                )}
+            </List.Content>
+        </List>
+    );
+}`}
+/>
+
+### Multi Select With Grouped Items
+
+<LiveCodeExample
+    center={false}
+    code={`import { List } from 'react-native-molecules/components/List';
+
+const items = [
+    { id: 'frontend-react', label: 'React', group: 'Frontend' },
+    { id: 'frontend-vue', label: 'Vue', group: 'Frontend' },
+    { id: 'backend-node', label: 'Node.js', group: 'Backend' },
+    { id: 'backend-go', label: 'Go', group: 'Backend' },
+];
+
+export default function Example() {
+    return (
+        <List items={items} multiple hideSelected={false} searchKey="label" searchKey="label">
+            <List.SearchInput placeholder="Search technologies..." />
+
+            <List.Group label="Frontend">
+                <List.Content>
+                    {(item, isSelected) => {
+                        if (item.group !== 'Frontend') return null;
+                        return (
+                            <List.Item key={item.id} value={item.id}>
+                                <Text typescale="bodyLarge">
+                                    {item.label} {isSelected ? '(selected)' : ''}
+                                </Text>
+                            </List.Item>
+                        );
+                    }}
+                </List.Content>
+            </List.Group>
+
+            <List.Group label="Backend">
+                <List.Content>
+                    {(item, isSelected) => {
+                        if (item.group !== 'Backend') return null;
+                        return (
+                            <List.Item key={item.id} value={item.id}>
+                                <Text typescale="bodyLarge">
+                                    {item.label} {isSelected ? '(selected)' : ''}
+                                </Text>
+                            </List.Item>
+                        );
+                    }}
+                </List.Content>
+            </List.Group>
+        </List>
+    );
+}`}
+/>
+
+### Virtualized Container with `processProps`
+
+`<List.Content>` defaults to a `ScrollView` and renders the items returned by
+the `children` function inline. To use a virtualized container such as
+`FlatList` or `SectionList`, pass it via `ContainerComponent` and provide a
+`processProps` callback that maps the List context state into the props that
+container expects.
+
+<LiveCodeExample
+    center={false}
+    code={`import { FlatList } from 'react-native';
+import { List } from 'react-native-molecules/components/List';
+
+const ADJECTIVES = ['Red', 'Blue', 'Green', 'Dark', 'Bright', 'Wild', 'Soft', 'Cold', 'Hot', 'Old'];
+const NOUNS = ['Apple', 'Banana', 'Cherry', 'Mango', 'Grape', 'Peach', 'Lemon', 'Melon', 'Berry', 'Plum'];
+
+const items = Array.from({ length: 500 }, (_, i) => ({
+    id: i + 1,
+    label: ADJECTIVES[i % ADJECTIVES.length] + ' ' + NOUNS[Math.floor(i / ADJECTIVES.length) % NOUNS.length] + ' ' + (i + 1),
+}));
+
+export default function Example() {
+    return (
+        <List items={items} searchKey="label">
+            <List.SearchInput placeholder="Search 500 items..." />
+            <List.Content
+                ContainerComponent={FlatList}
+                style={{ maxHeight: 300 }}
+                processProps={({ props, items, isSelected, emptyState, isEmpty }) => ({
+                    ...props,
+                    data: items,
+                    renderItem: ({ item }) => (
+                        <List.Item value={item.id}>
+                            <Text typescale="bodyLarge">
+                                {item.label} {isSelected(item) ? '✓' : ''}
+                            </Text>
+                        </List.Item>
+                    ),
+                    keyExtractor: item => String(item.id),
+                    ListEmptyComponent: isEmpty ? emptyState : null,
+                })}
+            />
+        </List>
+    );
+}`}
+/>
+
+The `processProps` callback receives:
+
+- `props`: the user-provided props on `<List.Content>` (excluding `children`/`ref`).
+- `items`: the current `filteredItems` (after search/`hideSelected`).
+- `isEmpty`: convenience flag for `items.length === 0`.
+- `emptyState`: the resolved empty-state node (caller-provided or default).
+- `isSelected(item)`: returns whether an item is currently selected.
+
+Build a `renderItem` directly inside `processProps` using these args — that way
+the function shape matches whatever container you're targeting (`FlatList`,
+`SectionList`, or a custom virtualized list).
+
+#### SectionList
+
+The same hook works for `SectionList` &mdash; build the `sections` array from
+the items and write your own `renderItem`:
+
+<LiveCodeExample
+    center={false}
+    code={`import { SectionList } from 'react-native';
+import { List } from 'react-native-molecules/components/List';
+
+const GROUPS = ['Frontend', 'Backend', 'Mobile', 'DevOps', 'Data'];
+const BASES = ['React', 'Vue', 'Node', 'Go', 'Rust', 'Swift', 'Kotlin', 'Python', 'Java', 'Ruby'];
+
+const items = Array.from({ length: 500 }, (_, i) => ({
+    id: String(i + 1),
+    label: BASES[i % BASES.length] + ' Module ' + (i + 1),
+    group: GROUPS[i % GROUPS.length],
+}));
+
+export default function Example() {
+    return (
+        <List items={items} multiple searchKey="label">
+            <List.SearchInput placeholder="Search 500 items..." />
+            <List.Content
+                ContainerComponent={SectionList}
+                style={{ maxHeight: 300 }}
+                processProps={({ props, items, isSelected }) => {
+                    const sections = GROUPS.map(title => ({
+                        title,
+                        data: items.filter(item => item.group === title),
+                    })).filter(s => s.data.length > 0);
+                    return {
+                        ...props,
+                        sections,
+                        renderItem: ({ item }) => (
+                            <List.Item value={item.id}>
+                                <Text typescale="bodyLarge">
+                                    {item.label} {isSelected(item) ? '✓' : ''}
+                                </Text>
+                            </List.Item>
+                        ),
+                        keyExtractor: item => item.id,
+                        renderSectionHeader: ({ section }) => (
+                            <Text typescale="titleSmall" style={{ paddingHorizontal: 16, paddingVertical: 4, backgroundColor: 'transparent' }}>
+                                {section.title} ({section.data.length})
+                            </Text>
+                        ),
+                    };
+                }}
+            />
+        </List>
+    );
+}`}
+/>
+
+When `processProps` is omitted, `<List.Content>` keeps the default behavior:
+items are rendered inline as children of the container via the `children` render
+function.
+
+When `processProps` is provided, `children` is optional &mdash; do all rendering
+inside `processProps` (for example a chunked grid).
+
+<ComponentProps name="List" />

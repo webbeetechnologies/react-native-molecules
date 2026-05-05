@@ -6,6 +6,7 @@
     "main": "index.ts",
     "sideEffects": [
         "components/DatePicker/context.tsx",
+        "components/DatePickerInline/store.tsx",
         "components/List/context.tsx",
         "components/Select/context.tsx",
         "components/TimePicker/context.tsx"

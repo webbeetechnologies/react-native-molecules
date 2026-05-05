@@ -99,7 +99,7 @@
       },
       {
         "name": "iconType",
-        "type": "\"material-community\" | \"feather\" | undefined",
+        "type": "IconType | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -1360,100 +1360,19 @@
     ]
   },
   {
-    "name": "DatePickerDocked",
-    "sourcePath": "react-native-molecules/components/DatePickerDocked",
+    "name": "DateField",
+    "sourcePath": "react-native-molecules/components/DateField",
+    "props": []
+  },
+  {
+    "name": "DatePicker",
+    "sourcePath": "react-native-molecules/components/DatePicker",
     "props": []
   },
   {
     "name": "DatePickerInline",
     "sourcePath": "react-native-molecules/components/DatePickerInline",
     "props": []
-  },
-  {
-    "name": "DatePickerInput",
-    "sourcePath": "react-native-molecules/components/DatePickerInput",
-    "props": []
-  },
-  {
-    "name": "DatePickerModal",
-    "sourcePath": "react-native-molecules/components/DatePickerModal",
-    "props": []
-  },
-  {
-    "name": "DateTimePicker",
-    "sourcePath": "react-native-molecules/components/DateTimePicker",
-    "props": [
-      {
-        "name": "is24Hour",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "date",
-        "type": "Date | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onChange",
-        "type": "((date: Date | null) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "defaultValue",
-        "type": "Date | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "timePickerFieldProps",
-        "type": "Omit<Partial<TimePickerFieldProps>, \"onChangeText\" | \"value\" | \"date\" | \"onTimeChange\"> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "datePickerInputProps",
-        "type": "Omit<Partial<DatePickerInputProps>, \"onChange\" | \"value\"> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "datePickerInputRef",
-        "type": "RefObject<TextInputHandles | null> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "timePickerInputRef",
-        "type": "RefObject<TextInputHandles | null> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "Wrapper",
-        "type": "ComponentType<any> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "style",
-        "type": "ViewStyle | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ]
   },
   {
     "name": "Dialog",
@@ -1490,6 +1409,684 @@
       {
         "name": "iconProps",
         "type": "IconProps | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "Divider",
+    "sourcePath": "react-native-molecules/components/Divider",
+    "props": [
+      {
+        "name": "hitSlop",
+        "type": "number | Insets | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "id",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "needsOffscreenAlphaCompositing",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onLayout",
+        "type": "((event: LayoutChangeEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "pointerEvents",
+        "type": "\"box-none\" | \"none\" | \"box-only\" | \"auto\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "removeClippedSubviews",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "testID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "nativeID",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "collapsable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "collapsableChildren",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onBlur",
+        "type": "((e: BlurEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onFocus",
+        "type": "((e: FocusEvent) => void) | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "renderToHardwareTextureAndroid",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "focusable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tabIndex",
+        "type": "0 | -1 | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "shouldRasterizeIOS",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "isTVSelectable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hasTVPreferredFocus",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxShiftDistanceX",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxShiftDistanceY",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxTiltAngle",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "tvParallaxMagnification",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onStartShouldSetResponder",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMoveShouldSetResponder",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderEnd",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderGrant",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderReject",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderMove",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderRelease",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderStart",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderTerminationRequest",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onResponderTerminate",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onStartShouldSetResponderCapture",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMoveShouldSetResponderCapture",
+        "type": "((event: GestureResponderEvent) => boolean) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchStart",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchMove",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchEnd",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchCancel",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onTouchEndCapture",
+        "type": "((event: GestureResponderEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerEnter",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerEnterCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerLeave",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerLeaveCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerMove",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerMoveCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerCancel",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerCancelCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerDown",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerDownCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerUp",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onPointerUpCapture",
+        "type": "((event: PointerEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessible",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityActions",
+        "type": "readonly Readonly<{ name: AccessibilityActionName | string; label?: string | undefined; }>[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabel",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-label",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityRole",
+        "type": "AccessibilityRole | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityState",
+        "type": "AccessibilityState | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-busy",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-checked",
+        "type": "boolean | \"mixed\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-expanded",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-selected",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityHint",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityValue",
+        "type": "AccessibilityValue | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuemax",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuemin",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuenow",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-valuetext",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityAction",
+        "type": "((event: AccessibilityActionEvent) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "importantForAccessibility",
+        "type": "\"auto\" | \"yes\" | \"no\" | \"no-hide-descendants\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-hidden",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-modal",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "role",
+        "type": "Role | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLabelledBy",
+        "type": "string | string[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLiveRegion",
+        "type": "\"none\" | \"polite\" | \"assertive\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-live",
+        "type": "\"polite\" | \"assertive\" | \"off\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "screenReaderFocusable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityElementsHidden",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityViewIsModal",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityEscape",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onAccessibilityTap",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onMagicTap",
+        "type": "(() => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityIgnoresInvertColors",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLanguage",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityShowsLargeContentViewer",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityLargeContentTitle",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "accessibilityRespondsToUserInteraction",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "mode",
+        "type": "\"horizontal\" | \"vertical\" | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "leftInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "rightInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "topInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "bottomInset",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "bold",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "spacing",
+        "type": "number | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -1549,7 +2146,7 @@
       },
       {
         "name": "iconType",
-        "type": "\"material-community\" | \"feather\" | undefined",
+        "type": "IconType | undefined",
         "optional": true,
         "description": "type of the icon",
         "defaultValue": null
@@ -1624,13 +2221,6 @@
     "sourcePath": "react-native-molecules/components/FilePicker",
     "props": [
       {
-        "name": "onChange",
-        "type": "(((e: TextInputChangeEvent) => void) & ((result: DocumentResult | DocumentResult[]) => any)) | undefined",
-        "optional": true,
-        "description": "The Callback function to return the selected files as an array or object",
-        "defaultValue": null
-      },
-      {
         "name": "multiple",
         "type": "boolean | undefined",
         "optional": true,
@@ -1638,38 +2228,24 @@
         "defaultValue": null
       },
       {
-        "name": "loading",
-        "type": "boolean | undefined",
+        "name": "defaultValue",
+        "type": "DocumentResult[] | undefined",
         "optional": true,
-        "description": "Displays the Spinner on the right side in place of the default upload icon",
-        "defaultValue": null
-      },
-      {
-        "name": "left",
-        "type": "ReactNode",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "right",
-        "type": "ReactNode",
-        "optional": true,
-        "description": "",
+        "description": "Default value for uncontrolled usage",
         "defaultValue": null
       },
       {
         "name": "value",
-        "type": "DocumentResult | DocumentResult[] | undefined",
+        "type": "DocumentResult[] | undefined",
         "optional": true,
         "description": "To Control the value",
         "defaultValue": null
       },
       {
-        "name": "progressIndicator",
-        "type": "ReactNode",
+        "name": "onChange",
+        "type": "((result: DocumentResult[] | undefined) => any) | undefined",
         "optional": true,
-        "description": "To replace the default progress indicator",
+        "description": "The Callback function to return the selected files as an array or object",
         "defaultValue": null
       }
     ]
@@ -1711,47 +2287,6 @@
         "type": "boolean | undefined",
         "optional": true,
         "description": "Whether to display the helper text.",
-        "defaultValue": null
-      }
-    ]
-  },
-  {
-    "name": "HorizontalDivider",
-    "sourcePath": "react-native-molecules/components/HorizontalDivider",
-    "props": [
-      {
-        "name": "style",
-        "type": "StyleProp<ViewStyle>",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "leftInset",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "left inset of the divider.",
-        "defaultValue": null
-      },
-      {
-        "name": "rightInset",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "right inset of the divider.",
-        "defaultValue": null
-      },
-      {
-        "name": "bold",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "Whether divider should be bolded.",
-        "defaultValue": null
-      },
-      {
-        "name": "spacing",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "Vertical spacing of the Divider",
         "defaultValue": null
       }
     ]
@@ -1816,7 +2351,7 @@
       },
       {
         "name": "type",
-        "type": "\"material-community\" | \"feather\" | undefined",
+        "type": "IconType | undefined",
         "optional": true,
         "description": "Type of the icon. Default is material\nShould be a number or a Design Token",
         "defaultValue": null
@@ -1904,59 +2439,9 @@
     ]
   },
   {
-    "name": "ListItem",
-    "sourcePath": "react-native-molecules/components/ListItem",
-    "props": [
-      {
-        "name": "style",
-        "type": "(((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) | null | undefined",
-        "optional": true,
-        "description": "Style that is passed to the wrapping TouchableRipple element.",
-        "defaultValue": null
-      },
-      {
-        "name": "hovered",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "optional": false,
-        "description": "Description text for the list item or callback which returns a React element to display the description.",
-        "defaultValue": null
-      },
-      {
-        "name": "divider",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "Whether the divider shows or not.",
-        "defaultValue": null
-      },
-      {
-        "name": "variant",
-        "type": "\"default\" | \"menuItem\" | undefined",
-        "optional": true,
-        "description": "variant of the ListItem",
-        "defaultValue": null
-      },
-      {
-        "name": "selected",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "Whether the ListItem is selected or not",
-        "defaultValue": null
-      },
-      {
-        "name": "hoverable",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "Whether the ListItem is hoverable or not",
-        "defaultValue": null
-      }
-    ]
+    "name": "List",
+    "sourcePath": "react-native-molecules/components/List",
+    "props": []
   },
   {
     "name": "LoadingIndicator",
@@ -2028,6 +2513,83 @@
         "name": "children",
         "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
         "optional": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "backdropStyles",
+        "type": "ViewStyle | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "items",
+        "type": "DefaultListItemT[] | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "value",
+        "type": "string | number | (string | number)[] | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "defaultValue",
+        "type": "string | number | (string | number)[] | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onChange",
+        "type": "((value: DefaultListItemT[\"id\"] | DefaultListItemT[\"id\"][] | null, item: DefaultListItemT) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "multiple",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "labelKey",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "searchKey",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onSearchChange",
+        "type": "((query: string) => void) | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hideSelected",
+        "type": "boolean | undefined",
+        "optional": true,
         "description": "",
         "defaultValue": null
       }
@@ -2276,7 +2838,7 @@
       },
       {
         "name": "iconType",
-        "type": "\"material-community\" | \"feather\" | undefined",
+        "type": "IconType | undefined",
         "optional": true,
         "description": "the type of the empty icon",
         "defaultValue": null
@@ -2290,7 +2852,7 @@
       },
       {
         "name": "activeIconType",
-        "type": "\"material-community\" | \"feather\" | undefined",
+        "type": "IconType | undefined",
         "optional": true,
         "description": "type of the active icon",
         "defaultValue": null
@@ -3067,14 +3629,14 @@
       },
       {
         "name": "checkedIconType",
-        "type": "\"material-community\" | \"feather\" | undefined",
+        "type": "IconType | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
       },
       {
         "name": "uncheckedIconType",
-        "type": "\"material-community\" | \"feather\" | undefined",
+        "type": "IconType | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -3124,10 +3686,10 @@
     "sourcePath": "react-native-molecules/components/TextInput",
     "props": [
       {
-        "name": "style",
-        "type": "StyleProp<TextStyle>",
+        "name": "children",
+        "type": "React.ReactNode",
         "optional": true,
-        "description": "Pass `fontSize` prop to modify the font size inside `TextInput`.\nPass `height` prop to set `TextInput` height.\nPass `backgroundColor` prop to set `TextInput` backgroundColor.",
+        "description": "Children for composable API. Use TextInput.Label, TextInput.Left, TextInput.Right, etc.",
         "defaultValue": null
       },
       {
@@ -3138,17 +3700,38 @@
         "defaultValue": null
       },
       {
-        "name": "numberOfLines",
-        "type": "number | undefined",
+        "name": "onBlur",
+        "type": "(((e: BlurEvent) => void) & ((args: BlurEvent) => void)) | undefined",
         "optional": true,
-        "description": "The number of lines to show in the input (Android only).",
+        "description": "Callback when input loses focus.",
+        "defaultValue": null
+      },
+      {
+        "name": "onFocus",
+        "type": "(((e: FocusEvent) => void) & ((args: FocusEvent) => void)) | undefined",
+        "optional": true,
+        "description": "Callback when input is focused.",
         "defaultValue": null
       },
       {
         "name": "selectionColor",
-        "type": "string | undefined",
+        "type": "ColorValue | undefined",
         "optional": true,
         "description": "Selection color of the input",
+        "defaultValue": null
+      },
+      {
+        "name": "defaultValue",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "Default value for uncontrolled usage.",
+        "defaultValue": null
+      },
+      {
+        "name": "editable",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "If false, text is not editable.",
         "defaultValue": null
       },
       {
@@ -3160,28 +3743,35 @@
       },
       {
         "name": "onChangeText",
-        "type": "(((text: string) => void) & Function) | undefined",
+        "type": "(((text: string) => void) & ((text: string) => void)) | undefined",
         "optional": true,
-        "description": "Callback that is called when the text input's text changes. Changed text is passed as an argument to the callback handler.",
+        "description": "Callback that is called when the text input's text changes.",
         "defaultValue": null
       },
       {
         "name": "placeholder",
         "type": "string | undefined",
         "optional": true,
-        "description": "Placeholder for the input.",
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "placeholderTextColor",
+        "type": "ColorValue | undefined",
+        "optional": true,
+        "description": "Placeholder text color.",
         "defaultValue": null
       },
       {
         "name": "value",
         "type": "string | undefined",
         "optional": true,
-        "description": "Value of the text input.",
+        "description": "Value of the text input (for controlled usage).",
         "defaultValue": null
       },
       {
         "name": "ref",
-        "type": "React.Ref<NativeTextInput | null> | undefined",
+        "type": "React.Ref<TextInputHandles | null> | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -3190,7 +3780,14 @@
         "name": "variant",
         "type": "TextInputVariant | undefined",
         "optional": true,
-        "description": "Variant of the TextInput.\n- `flat` - flat input with an underline.\n- `outlined` - input with an outline.\n\nIn `outlined` variant, the background color of the label is derived from `colors?.background` in theme or the `backgroundColor` style.\nThis component render TextInputOutlined or TextInputFlat based on that props",
+        "description": "Variant of the TextInput.\n- `flat` - flat input with an underline.\n- `outlined` - input with an outline.\n- `plain` - plain input without any decoration.",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "TextInputSize | undefined",
+        "optional": true,
+        "description": "Size of the TextInput.",
         "defaultValue": null
       },
       {
@@ -3201,13 +3798,6 @@
         "defaultValue": null
       },
       {
-        "name": "label",
-        "type": "TextInputLabelProp | undefined",
-        "optional": true,
-        "description": "The text or component to use for the floating label.",
-        "defaultValue": null
-      },
-      {
         "name": "error",
         "type": "boolean | undefined",
         "optional": true,
@@ -3215,94 +3805,52 @@
         "defaultValue": null
       },
       {
-        "name": "underlineColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "Inactive underline color of the input.",
-        "defaultValue": null
-      },
-      {
-        "name": "activeUnderlineColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "Active underline color of the input.",
-        "defaultValue": null
-      },
-      {
-        "name": "outlineColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "Inactive outline color of the input.",
-        "defaultValue": null
-      },
-      {
-        "name": "activeOutlineColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "Active outline color of the input.",
-        "defaultValue": null
-      },
-      {
-        "name": "size",
-        "type": "TextInputSize | undefined",
-        "optional": true,
-        "description": "Sets min height with densed layout. For `TextInput` in `flat` mode\nheight is `64dp` or in dense layout - `52dp` with label or `40dp` without label.\nFor `TextInput` in `outlined` mode\nheight is `56dp` or in dense layout - `40dp` regardless of label.\nWhen you apply `height` prop in style the `dense` prop affects only `paddingVertical` inside `TextInput`",
-        "defaultValue": null
-      },
-      {
-        "name": "supportingText",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "The Supporting Text below the TextInput",
-        "defaultValue": null
-      },
-      {
         "name": "required",
         "type": "boolean | undefined",
         "optional": true,
-        "description": "To display the required indicator in Supporting Text and in the Label",
+        "description": "To display the required indicator in the Label",
         "defaultValue": null
       },
       {
-        "name": "render",
-        "type": "((props: RenderProps) => ReactNode) | undefined",
-        "optional": true,
-        "description": "\nCallback to render a custom input component such as `react-native-text-input-mask`\ninstead of the default `TextInput` component from `react-native`.\n\nExample:\n```js\n<TextInput\n  label=\"Phone number\"\n  render={props =>\n    <TextInputMask\n      {...props}\n      mask=\"+[00] [000] [000] [000]\"\n    />\n  }\n/>\n```",
-        "defaultValue": null
-      },
-      {
-        "name": "inputContainerStyle",
+        "name": "style",
         "type": "StyleProp<ViewStyle>",
         "optional": true,
+        "description": "Style of the container.",
+        "defaultValue": null
+      },
+      {
+        "name": "containerProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
+        "description": "Props for the container that is directly inside the context container which is horizontal layout",
+        "defaultValue": null
+      },
+      {
+        "name": "inputWrapperProps",
+        "type": "ViewProps | undefined",
+        "optional": true,
         "description": "Style of the Input Container",
-        "defaultValue": null
-      },
-      {
-        "name": "inputStyle",
-        "type": "StyleProp<TextStyle>",
-        "optional": true,
-        "description": "Style of the Input",
-        "defaultValue": null
-      },
-      {
-        "name": "rightElementStyle",
-        "type": "StyleProp<TextStyle>",
-        "optional": true,
-        "description": "Style of the rightElement",
-        "defaultValue": null
-      },
-      {
-        "name": "leftElementStyle",
-        "type": "StyleProp<TextStyle>",
-        "optional": true,
-        "description": "Style of the leftElement",
         "defaultValue": null
       },
       {
         "name": "stateLayerProps",
         "type": "ViewProps | undefined",
         "optional": true,
-        "description": "props for the stateLayer",
+        "description": "props for the stateLayer (flat variant)",
+        "defaultValue": null
+      },
+      {
+        "name": "render",
+        "type": "((props: RenderProps) => ReactNode) | undefined",
+        "optional": true,
+        "description": "Render custom input component.",
+        "defaultValue": null
+      },
+      {
+        "name": "inputStyle",
+        "type": "StyleProp<TextStyle>",
+        "optional": true,
+        "description": "",
         "defaultValue": null
       }
     ]
@@ -3313,20 +3861,25 @@
     "props": []
   },
   {
+    "name": "TimeField",
+    "sourcePath": "react-native-molecules/components/TimeField",
+    "props": []
+  },
+  {
     "name": "TimePicker",
     "sourcePath": "react-native-molecules/components/TimePicker",
     "props": [
       {
         "name": "time",
-        "type": "string",
-        "optional": false,
-        "description": "hh:mm format",
+        "type": "string | undefined",
+        "optional": true,
+        "description": "hh:mm format. Optional when mounted inside a DatePickerProvider — the provider's Date is read instead.",
         "defaultValue": null
       },
       {
         "name": "onTimeChange",
-        "type": "(params: { time: string; focused?: undefined | PossibleClockTypes; }) => any",
-        "optional": false,
+        "type": "((params: { time: string; focused?: undefined | PossibleClockTypes; }) => any) | undefined",
+        "optional": true,
         "description": "",
         "defaultValue": null
       },
@@ -3371,127 +3924,31 @@
         "optional": true,
         "description": "",
         "defaultValue": null
-      }
-    ]
-  },
-  {
-    "name": "TimePickerField",
-    "sourcePath": "react-native-molecules/components/TimePickerField",
-    "props": [
-      {
-        "name": "time",
-        "type": "string",
-        "optional": false,
-        "description": "",
-        "defaultValue": null
       },
       {
-        "name": "onTimeChange",
-        "type": "(time: string) => void",
-        "optional": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "is24Hour",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "withModal",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "modalProps",
-        "type": "Omit<TimePickerModalProps, \"ref\" | \"time\" | \"onClose\" | \"isOpen\" | \"onConfirm\"> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "iconButtonProps",
-        "type": "Omit<Partial<IconButtonProps>, \"ref\" | \"onPress\"> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ]
-  },
-  {
-    "name": "TimePickerModal",
-    "sourcePath": "react-native-molecules/components/TimePickerModal",
-    "props": [
-      {
-        "name": "is24Hour",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "label",
+        "name": "hourLabel",
         "type": "string | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "uppercase",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "cancelLabel",
+        "name": "minuteLabel",
         "type": "string | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "confirmLabel",
+        "name": "hourErrorText",
         "type": "string | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "time",
+        "name": "minuteErrorText",
         "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onConfirm",
-        "type": "(time: string) => any",
-        "optional": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "keyboardIcon",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "clockIcon",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "isLandscape",
-        "type": "boolean | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -3502,27 +3959,6 @@
     "name": "Tooltip",
     "sourcePath": "react-native-molecules/components/Tooltip",
     "props": [
-      {
-        "name": "children",
-        "type": "ReactNode & (ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[])",
-        "optional": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "style",
-        "type": "((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | null) & ViewStyle) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "showArrow",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
       {
         "name": "fadeInDelay",
         "type": "number | undefined",
@@ -3541,6 +3977,13 @@
         "name": "hoverableContent",
         "type": "boolean | undefined",
         "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
+        "optional": false,
         "description": "",
         "defaultValue": null
       }
@@ -3625,40 +4068,6 @@
         "type": "boolean | undefined",
         "optional": true,
         "description": "When `true`, the component will not render a wrapper element. Instead, it will\nmerge its props (styles, event handlers, ref) onto its immediate child element.\nThis follows the Radix UI \"Slot\" pattern for flexible component composition.",
-        "defaultValue": null
-      }
-    ]
-  },
-  {
-    "name": "VerticalDivider",
-    "sourcePath": "react-native-molecules/components/VerticalDivider",
-    "props": [
-      {
-        "name": "topInset",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "Top Inset of the Divider.",
-        "defaultValue": null
-      },
-      {
-        "name": "bottomInset",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "Bottom Inset of the Divider.",
-        "defaultValue": null
-      },
-      {
-        "name": "bold",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "Whether divider should be bolded.",
-        "defaultValue": null
-      },
-      {
-        "name": "spacing",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "Horizontal spacing of the Divider",
         "defaultValue": null
       }
     ]

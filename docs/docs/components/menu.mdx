@@ -15,11 +15,10 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 ### Default
 
 <LiveCodeExample
-    code={`import { useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+    code={`import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-molecules/components/Button';
 import { Icon } from 'react-native-molecules/components/Icon';
-import { Menu } from 'react-native-molecules/components/Menu';
+import { Divider } from 'react-native-molecules/components/Divider';
 import { Text } from 'react-native-molecules/components/Text';
 
 const styles = StyleSheet.create({
@@ -29,28 +28,112 @@ const styles = StyleSheet.create({
 });
 
 export default function Example() {
-    const triggerRef = useRef(null);
-    const [open, setOpen] = useState(false);
-
     return (
-        <>
-            <Button ref={triggerRef} onPress={() => setOpen(o => !o)}>
-                Toggle
-            </Button>
-            <Menu style={styles.menu} isOpen={open} onClose={() => setOpen(false)} triggerRef={triggerRef}>
-                <Menu.Item left={<Icon name="content-cut" size={22} />} right={<Text>⌘X</Text>}>
-                    Cut
+        <Menu.Root>
+            <Menu.Trigger>
+                <Button>Toggle</Button>
+            </Menu.Trigger>
+            <Menu style={styles.menu}>
+                <Menu.Item
+                    left={<Icon name="content-cut" size={22} />}
+                    right={<Text>⌘X</Text>}
+                    onPress={() => console.log('cut')}>
+                    <Text typescale="labelLarge">Cut</Text>
                 </Menu.Item>
-                <Menu.Item left={<Icon name="content-copy" size={22} />} right={<Text>⌘C</Text>}>
-                    Copy
+                <Menu.Item
+                    left={<Icon name="content-copy" size={22} />}
+                    right={<Text>⌘C</Text>}
+                    onPress={() => console.log('copy')}>
+                    <Text typescale="labelLarge">Copy</Text>
                 </Menu.Item>
-                <Menu.Item left={<Icon name="content-paste" size={22} />} right={<Text>⌘V</Text>}>
-                    Paste
+                <Menu.Item
+                    left={<Icon name="content-paste" size={22} />}
+                    right={<Text>⌘V</Text>}
+                    onPress={() => console.log('paste')}>
+                    <Text typescale="labelLarge">Paste</Text>
                 </Menu.Item>
-                <Menu.Divider />
-                <Menu.Item left={<Icon name="cloud" size={22} />}>Web Clipboard</Menu.Item>
+                <Divider />
+                <Menu.Item left={<Icon name="cloud" size={22} />} onPress={() => console.log('web-clipboard')}>
+                    <Text typescale="labelLarge">Web Clipboard</Text>
+                </Menu.Item>
             </Menu>
-        </>
+        </Menu.Root>
+    );
+}`}
+/>
+
+### Context Menu
+
+Open the menu at the cursor position on right-click. The menu's `triggerRef` accepts any object with a `measureInWindow` method, so you can swap in a "virtual" ref pointing at the mouse coordinates. Also provide a `contains` method that returns `false` so any outside click closes the menu.
+
+<LiveCodeExample
+    code={`import { useContext, useEffect, useRef } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Surface } from 'react-native-molecules/components/Surface';
+import { Text } from 'react-native-molecules/components/Text';
+import { Icon } from 'react-native-molecules/components/Icon';
+
+const styles = StyleSheet.create({
+    target: {
+        padding: 48,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 8,
+    },
+    menu: {
+        width: 220,
+    },
+});
+
+function ContextMenuTrigger({ children }) {
+    const { onOpen, triggerRef: menuTriggerRef } = useContext(Menu.RootContext);
+    const targetRef = useRef(null);
+
+    useEffect(() => {
+        const el = targetRef.current;
+        if (!el) return;
+        const handler = (e) => {
+            e.preventDefault();
+            const { clientX, clientY } = e;
+            menuTriggerRef.current = {
+                measureInWindow: (cb) => cb(clientX, clientY, 1, 1),
+                contains: () => false,
+            };
+            onOpen();
+        };
+        el.addEventListener('contextmenu', handler);
+        return () => el.removeEventListener('contextmenu', handler);
+    }, [onOpen, menuTriggerRef]);
+
+    return <View ref={targetRef}>{children}</View>;
+}
+
+export default function Example() {
+    return (
+        <Menu.Root>
+            <ContextMenuTrigger>
+                <Surface elevation={1} style={styles.target}>
+                    <Text>Right-click anywhere here</Text>
+                </Surface>
+            </ContextMenuTrigger>
+            <Menu style={styles.menu} position="bottom" align="start" offset={0}>
+                <Menu.Item
+                    left={<Icon name="content-cut" size={20} />}
+                    onPress={() => console.log('cut')}>
+                    <Text typescale="labelLarge">Cut</Text>
+                </Menu.Item>
+                <Menu.Item
+                    left={<Icon name="content-copy" size={20} />}
+                    onPress={() => console.log('copy')}>
+                    <Text typescale="labelLarge">Copy</Text>
+                </Menu.Item>
+                <Menu.Item
+                    left={<Icon name="content-paste" size={20} />}
+                    onPress={() => console.log('paste')}>
+                    <Text typescale="labelLarge">Paste</Text>
+                </Menu.Item>
+            </Menu>
+        </Menu.Root>
     );
 }`}
 />

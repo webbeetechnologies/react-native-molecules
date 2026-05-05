@@ -54,7 +54,7 @@ export type BaseDatePickerProps = {
     startYear?: number;
     endYear?: number;
     HeaderComponent?: MemoExoticComponent<CalendarHeaderProps | any>;
-    headerLayout?: 'inline' | 'docked';
+    headerLayout?: 'default' | 'docked';
     monthStyle?: Record<string, any>;
     showOutsideDays?: boolean;
 

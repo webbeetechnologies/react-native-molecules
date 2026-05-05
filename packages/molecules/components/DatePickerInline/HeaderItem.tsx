@@ -6,7 +6,7 @@ import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 import { Text } from '../Text';
 import { TouchableRipple } from '../TouchableRipple';
-import { useDatePickerStoreValue } from './DatePickerContext';
+import { useDatePickerInlineStoreValue } from './store';
 
 function HeaderItem({
     value,
@@ -25,7 +25,7 @@ function HeaderItem({
     onNext?: (type: 'month' | 'year' | undefined) => void;
     onPrev?: (type: 'month' | 'year' | undefined) => void;
 }) {
-    const { startDateYear, endDateYear } = useDatePickerStoreValue(state => ({
+    const { startDateYear, endDateYear } = useDatePickerInlineStoreValue(state => ({
         startDateYear: state.startDateYear,
         endDateYear: state.endDateYear,
     }));

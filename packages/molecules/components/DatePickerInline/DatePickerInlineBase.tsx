@@ -2,10 +2,10 @@ import { memo, useCallback, useEffect, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useLatest } from '../../hooks';
-import { defaultValue, Provider, useDatePickerStore } from './DatePickerContext';
 import { areDatesOnSameDay, dateToUnix, getEndOfDay, getInitialIndex } from './dateUtils';
 import Month from './Month';
 import MonthPicker from './MonthPicker';
+import { defaultValue, Provider, useDatePickerInlineStore } from './store';
 import Swiper from './Swiper';
 import type {
     CalendarDate,
@@ -46,7 +46,7 @@ function DatePickerInlineBaseChild(props: DatePickerInlineBaseProps) {
         showOutsideDays,
         headerLayout,
     } = props;
-    const [pickerType, setStore] = useDatePickerStore(state => state.pickerType);
+    const [pickerType, setStore] = useDatePickerInlineStore(state => state.pickerType);
 
     const scrollMode = mode === 'range' || mode === 'multiple' ? 'vertical' : 'horizontal';
     const isHorizontal = scrollMode === 'horizontal';

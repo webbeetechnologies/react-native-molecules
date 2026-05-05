@@ -1,4 +1,5 @@
 import { createFastContext } from '../../fast-context';
+import { registerPortalContext } from '../Portal/Portal';
 
 export type Store = {
     localDate: Date;
@@ -16,7 +17,10 @@ export const defaultValue = {
 
 export const {
     Provider,
-    useContext: useDatePickerStore,
-    useContextValue: useDatePickerStoreValue,
-    useStoreRef: useDatePickerStoreRef,
+    useContext: useDatePickerInlineStore,
+    useContextValue: useDatePickerInlineStoreValue,
+    useStoreRef: useDatePickerInlineStoreRef,
+    Context: DatePickerInlineStoreContext,
 } = createFastContext<Store>();
+
+registerPortalContext(DatePickerInlineStoreContext);

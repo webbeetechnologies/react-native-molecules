@@ -2,6 +2,21 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
 
+/** Web-only marker on Select.Option roots so keyboard nav does not depend on role/accessibilityRole overrides. */
+export const SELECT_OPTION_DATA_ATTR = 'data-molecules-select-option';
+
+const SELECT_OPTION_SELECTOR = `[${SELECT_OPTION_DATA_ATTR}], [data-option-id], [role="option"]`;
+
+export function collectWebSelectKeyboardOptionElements(container: ParentNode): HTMLElement[] {
+    return Array.from(container.querySelectorAll(SELECT_OPTION_SELECTOR)).filter(
+        (el): el is HTMLElement => {
+            if (!(el instanceof HTMLElement)) return false;
+            if (el.getAttribute('aria-disabled') === 'true') return false;
+            return true;
+        },
+    );
+}
+
 const triggerDefaultStyles = StyleSheet.create(theme => ({
     trigger: {
         borderRadius: theme.shapes.corner.extraSmall,
@@ -83,56 +98,9 @@ export const defaultStyles = StyleSheet.create(theme => ({
         gap: 6,
         maxWidth: '90%',
     },
-    groupLabel: {
-        paddingHorizontal: theme.spacings['4'],
-        paddingVertical: theme.spacings['2'],
-        fontWeight: '600',
-        color: theme.colors.onSurface,
-    },
-    item: {
-        paddingHorizontal: theme.spacings['4'],
-        paddingVertical: theme.spacings['3'],
-        backgroundColor: 'transparent',
-
-        _web: {
-            cursor: 'pointer',
-            outlineStyle: 'none',
-            _hover: {
-                backgroundColor: theme.colors.stateLayer.hover.primary,
-            },
-            _focus: {
-                backgroundColor: theme.colors.stateLayer.focussed.primary,
-            },
-        },
-    },
-    itemSelected: {
-        backgroundColor: theme.colors.stateLayer.hover.primary,
-    },
-    itemDisabled: {
-        opacity: 0.38,
-        _web: {
-            cursor: 'not-allowed',
-        },
-    },
-    itemDisabledText: {
-        color: theme.colors.onSurfaceVariant,
-    },
     searchInput: {
         marginHorizontal: theme.spacings['2'],
         marginVertical: theme.spacings['3'],
-    },
-    searchInputInput: {
-        height: 42,
-    },
-    emptyState: {
-        paddingHorizontal: theme.spacings['4'],
-        paddingVertical: theme.spacings['6'],
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    emptyStateText: {
-        color: theme.colors.onSurfaceVariant,
-        fontSize: 14,
     },
 }));
 

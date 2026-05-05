@@ -2,9 +2,41 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
 
+const defaultStyles = StyleSheet.create(theme => ({
+    groupLabel: {
+        paddingHorizontal: theme.spacings['4'],
+        paddingVertical: theme.spacings['2'],
+        fontWeight: '600',
+        color: theme.colors.onSurface,
+    },
+    searchInput: {
+        marginHorizontal: theme.spacings['2'],
+        marginVertical: theme.spacings['3'],
+    },
+    searchInputInput: {
+        height: 42,
+    },
+    emptyState: {
+        paddingHorizontal: theme.spacings['4'],
+        paddingVertical: theme.spacings['6'],
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    emptyStateText: {
+        color: theme.colors.onSurfaceVariant,
+        fontSize: 14,
+    },
+}));
+
+export const listStyles = getRegisteredComponentStylesWithFallback('List', defaultStyles);
+
 const listItemStylesDefault = StyleSheet.create(theme => ({
     root: {
         backgroundColor: theme.colors.surface,
+
+        _web: {
+            outlineStyle: 'none',
+        },
 
         variants: {
             state: {
@@ -12,20 +44,23 @@ const listItemStylesDefault = StyleSheet.create(theme => ({
                     opacity: 0.38,
                 },
                 hovered: {},
+                focused: {},
 
                 selected: {
+                    backgroundColor: theme.colors.surfaceVariant,
+                },
+                selectedAndFocused: {
                     backgroundColor: theme.colors.surfaceVariant,
                 },
             },
             variant: {
                 default: {
-                    paddingTop: theme.spacings['2'],
-                    paddingBottom: theme.spacings['2'],
                     paddingLeft: theme.spacings['4'],
                     paddingRight: theme.spacings['6'],
+                    minHeight: 56,
+                    justifyContent: 'center',
                 },
                 menuItem: {
-                    paddingVertical: theme.spacings['2'],
                     paddingHorizontal: theme.spacings['3'],
                     minHeight: 48,
                     justifyContent: 'center',
@@ -37,20 +72,22 @@ const listItemStylesDefault = StyleSheet.create(theme => ({
     innerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        minHeight: 40,
     },
 
     content: {
         flex: 1,
         justifyContent: 'center',
+        minHeight: 40,
     },
 
     leftElement: {
-        marginRight: theme.spacings['3'],
+        marginRight: theme.spacings['4'],
         marginLeft: theme.spacings._1,
     },
     rightElement: {
         marginRight: theme.spacings._1,
-        marginLeft: theme.spacings['3'],
+        marginLeft: theme.spacings['4'],
     },
     stateLayer: {
         variants: {
@@ -58,58 +95,18 @@ const listItemStylesDefault = StyleSheet.create(theme => ({
                 hovered: {
                     backgroundColor: theme.colors.stateLayer.hover.onSurface,
                 },
-            },
-        },
-    },
-}));
-
-const listItemTitleStylesDefault = StyleSheet.create(theme => ({
-    root: {
-        color: theme.colors.onSurface,
-        ...theme.typescale.bodyLarge,
-
-        variants: {
-            variant: {
-                menuItem: {
-                    ...theme.typescale.labelLarge,
+                focused: {
+                    backgroundColor: theme.colors.stateLayer.hover.onSurface,
                 },
-            },
-            state: {
-                hovered: {},
-                disabled: {},
-            },
-        },
-    },
-}));
-
-const listItemDescriptionStylesDefault = StyleSheet.create(theme => ({
-    root: {
-        color: theme.colors.onSurfaceVariant,
-        ...theme.typescale.bodyMedium,
-
-        variants: {
-            variant: {
-                menuItem: {
-                    ...theme.typescale.bodySmall,
+                selectedAndFocused: {
+                    backgroundColor: theme.colors.stateLayer.focussed.onSurface,
                 },
-            },
-            state: {
-                disabled: {},
-                hovered: {},
             },
         },
     },
 }));
 
 export const listItemStyles = getRegisteredComponentStylesWithFallback(
-    'ListItem',
+    'List_Item',
     listItemStylesDefault,
-);
-export const listItemTitleStyles = getRegisteredComponentStylesWithFallback(
-    'ListItem_Title',
-    listItemTitleStylesDefault,
-);
-export const listItemDescriptionStyles = getRegisteredComponentStylesWithFallback(
-    'ListItem_Description',
-    listItemDescriptionStylesDefault,
 );

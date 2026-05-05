@@ -12,10 +12,10 @@ import {
 
 import { useLatest } from '../../hooks';
 import AutoSizer from './AutoSizer';
-import { useDatePickerStore } from './DatePickerContext';
 import { beginOffset, estimatedMonthHeight, getInitialIndex, totalMonths } from './dateUtils';
 import { addMonths, getRealIndex } from './dateUtils';
 import { getIndexFromVerticalOffset, getMonthHeight, getVerticalMonthsOffset } from './Month';
+import { useDatePickerInlineStore } from './store';
 import type { SwiperProps } from './SwiperUtils';
 import { montHeaderHeight } from './utils';
 
@@ -73,7 +73,7 @@ function HorizontalScroller({
         visibleHorizontalArray(initialIndex),
     );
     const parentRef = useRef<HTMLDivElement | null>(null);
-    const [{ localDate }, setStore] = useDatePickerStore(state => state);
+    const [{ localDate }, setStore] = useDatePickerInlineStore(state => state);
     const settleTimerRef = useRef<number | null>(null);
     const isRecenteringRef = useRef(false);
 
@@ -209,7 +209,7 @@ function VerticalScroller({
     const [visibleIndexes, setVisibleIndexes] = useState<number[]>(visibleArray(initialIndex));
 
     const parentRef = useRef<HTMLDivElement | null>(null);
-    const [{ localDate }, setStore] = useDatePickerStore(state => state);
+    const [{ localDate }, setStore] = useDatePickerInlineStore(state => state);
 
     useIsomorphicLayoutEffect(() => {
         const element = parentRef.current;
