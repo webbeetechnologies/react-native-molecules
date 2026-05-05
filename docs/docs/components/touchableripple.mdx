@@ -108,11 +108,15 @@ export default function Example() {
 When `asChild` is `true`, TouchableRipple won't render a wrapper element. Instead, it merges its props (styles, event handlers, ref) onto its immediate child element. This follows the Radix UI "Slot" pattern for flexible component composition.
 
 :::note
+The child must be a Pressable-like component for the ripple to fire — TouchableRipple drives the ripple off the press lifecycle, so a plain `View` child won't show ripples. To compose with non-pressable wrappers like `Surface`, invert the relationship: make the wrapper `asChild` and let TouchableRipple be the pressable child (this is how `Button` is built).
+:::
+
+:::note
 When using `asChild`, only a single child element is allowed. On native Android, the ripple effect won't work with `asChild` since `TouchableNativeFeedback` requires a View wrapper.
 :::
 
 <LiveCodeExample
-    code={`import { StyleSheet, View } from 'react-native';
+    code={`import { StyleSheet } from 'react-native';
 import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
 import { Text } from 'react-native-molecules/components/Text';
 import { Surface } from 'react-native-molecules/components/Surface';
@@ -129,11 +133,11 @@ justifyContent: 'center',
 
 export default function Example() {
     return (
-        <TouchableRipple asChild onPress={() => console.log('Pressed')}>
-            <Surface style={styles.card} elevation={2}>
+        <Surface asChild elevation={2}>
+            <TouchableRipple style={styles.card} onPress={() => console.log('Pressed')}>
                 <Text>Pressable Surface (asChild)</Text>
-            </Surface>
-        </TouchableRipple>
+            </TouchableRipple>
+        </Surface>
     );
 }`}
 />
