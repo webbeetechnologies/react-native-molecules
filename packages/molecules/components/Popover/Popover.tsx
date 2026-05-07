@@ -27,9 +27,7 @@ import { createPopoverRoot } from './PopoverRoot';
 import { usePlatformMeasure } from './usePlatformMeasure';
 import { popoverStyles } from './utils';
 
-type PopoverPanelProps = PopoverProps & {
-    overlay?: ReactNode;
-};
+type PopoverPanelProps = PopoverProps & { backdrop?: ReactNode };
 
 const PopoverPanel = ({
     triggerRef,
@@ -45,7 +43,7 @@ const PopoverPanel = ({
     offset = 8,
     horizontalOffset = 0,
     triggerDimensions,
-    overlay,
+    backdrop,
     ...rest
 }: PopoverPanelProps) => {
     const {
@@ -93,8 +91,8 @@ const PopoverPanel = ({
     return (
         <Portal>
             <PopoverPanelContext value={panelContextValue}>
+                {backdrop}
                 <Wrapper {...(WrapperProps as any)}>
-                    {overlay}
                     <View
                         onLayout={handlePopoverLayout}
                         style={[popoverStyles.popoverContainer, style, popoverStyle]}
@@ -127,10 +125,7 @@ export const PopoverTrigger = memo(
 );
 PopoverTrigger.displayName = 'Popover_Trigger';
 
-export const PopoverContent = memo(({ children }: { children?: ReactNode }) => <>{children}</>);
-PopoverContent.displayName = 'Popover_Content';
-
-export const PopoverOverlay = memo(({ style, onPress, ...rest }: PressableProps) => {
+export const PopoverBackdrop = memo(({ style, onPress, ...rest }: PressableProps) => {
     const { isOpen, onClose } = useContext(PopoverContext);
     if (!isOpen) return null;
     return (
@@ -141,7 +136,7 @@ export const PopoverOverlay = memo(({ style, onPress, ...rest }: PressableProps)
         />
     );
 });
-PopoverOverlay.displayName = 'Popover_Overlay';
+PopoverBackdrop.displayName = 'Popover_Backdrop';
 
 type PopoverArrowProps = {
     size?: number;

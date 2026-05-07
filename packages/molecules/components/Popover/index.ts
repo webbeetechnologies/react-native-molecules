@@ -1,18 +1,12 @@
 import { getRegisteredComponentWithFallback } from '../../core';
-import PopoverDefault, {
-    PopoverArrow,
-    PopoverContent,
-    PopoverOverlay,
-    PopoverTrigger,
-} from './Popover';
+import PopoverDefault, { PopoverArrow, PopoverBackdrop, PopoverTrigger } from './Popover';
 
 const PopoverBase = getRegisteredComponentWithFallback('Popover', PopoverDefault);
 
 export const Popover = Object.assign(PopoverBase, {
     Trigger: PopoverTrigger,
-    Content: PopoverContent,
     Arrow: PopoverArrow,
-    Overlay: PopoverOverlay,
+    Backdrop: PopoverBackdrop,
 });
 
 export type { Align, PopoverProps, Position } from './common';

@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LayoutRectangle, StyleProp, View, ViewStyle } from 'react-native';
 import { Dimensions, StyleSheet } from 'react-native';
 
+import { registerPortalContext } from '../Portal';
+
 export type Position = 'top' | 'left' | 'right' | 'bottom';
 export type Align = 'start' | 'center' | 'end';
 
@@ -26,6 +28,8 @@ export const PopoverContext = createContext<PopoverContextValue>({
     isOpen: false,
     triggerRef: { current: null },
 });
+
+registerPortalContext(PopoverContext);
 
 export type PopoverPanelContextValue = {
     calculatedPosition: ViewStyle | null;
