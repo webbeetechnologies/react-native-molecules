@@ -198,13 +198,10 @@ function ListCell() {
                             </Button>
                         </View>
                     ) : (
-                        <List.Row
-                            key={item.title}
-                            hoverable
-                            selected={i === highlightedIndex}
-                            left={<Icon name={item.icon} size={20} />}>
+                        <List.Item key={item.title} hoverable selected={i === highlightedIndex}>
+                            <Icon name={item.icon} size={20} />
                             <Text typescale="bodyLarge">{item.title}</Text>
-                        </List.Row>
+                        </List.Item>
                     ),
                 )}
             </View>

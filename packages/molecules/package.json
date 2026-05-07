@@ -9,7 +9,8 @@
         "components/DatePickerInline/store.tsx",
         "components/List/context.tsx",
         "components/Select/context.tsx",
-        "components/TimePicker/context.tsx"
+        "components/TimePicker/context.tsx",
+        "components/Popover/common.ts"
     ],
     "files": [
         "components",

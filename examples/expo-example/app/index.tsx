@@ -287,7 +287,6 @@ export default function Index() {
                 </Select>
                 <Select
                     multiple
-                    hideSelected={false}
                     options={multiSelectOptions}
                     value={multiSelectValue}
                     onChange={value => setMultiSelectValue(value as string[])}>
@@ -305,21 +304,13 @@ export default function Index() {
                         </Select.Content>
                     </Select.Dropdown>
                 </Select>
-                <List items={singleSelectOptions}>
-                    <List.SearchInput placeholder="Search list items..." />
+                <List>
                     <List.Content style={{ maxHeight: 220 }}>
-                        {(item, isSelected) => (
-                            <List.Item
-                                key={item.id}
-                                value={item.id}
-                                right={
-                                    isSelected ? (
-                                        <Icon name="check" type="material-community" size={18} />
-                                    ) : null
-                                }>
+                        {singleSelectOptions.map(item => (
+                            <List.Item key={item.id} value={item.id}>
                                 <Text typescale="bodyLarge">{item.label}</Text>
                             </List.Item>
-                        )}
+                        ))}
                     </List.Content>
                 </List>
                 {/* TextInput Composable API */}

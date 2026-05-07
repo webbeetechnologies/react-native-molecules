@@ -7,12 +7,10 @@ const listContextDefaultValue: ListContextValue<DefaultListItemT> = {
     multiple: false,
     onAdd: () => {},
     onRemove: () => {},
+    isSelectedId: () => false,
     disabled: false,
     error: false,
-    items: [],
-    searchQuery: '',
-    setSearchQuery: () => {},
-    filteredItems: [],
+    allowDeselect: false,
 };
 
 const {

@@ -1,149 +1,117 @@
-import type { ComponentProps, ComponentType, ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import {
+    type AccessibilityRole,
     type GestureResponderEvent,
-    ScrollView,
-    type TextInputProps,
-    type ViewProps,
+    type ScrollViewProps,
+    type StyleProp,
+    type ViewStyle,
 } from 'react-native';
 
-import type { InternalListItemProps as ListItemProps } from './List';
+import type { TouchableRippleProps } from '../TouchableRipple';
+
+export type ListItemId = string | number;
 
 export type DefaultListItemT = {
-    id: string | number;
+    id?: ListItemId;
     label?: string;
     selectable?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 };
 
-export type ListValue<
-    Option extends DefaultListItemT,
-    Multiple extends boolean,
-> = Multiple extends true ? Option['id'][] : Option['id'] | null;
+export type ListValue<Multiple extends boolean = false> = Multiple extends true
+    ? ListItemId[]
+    : ListItemId | null;
 
-export type ListContextValue<Option extends DefaultListItemT = DefaultListItemT> = {
-    value: Option['id'] | Option['id'][] | null;
+export type ListEmptyStateRender = (ctx: {
+    /** True when `items` (the raw input) has at least one entry. */
+    hasItems: boolean;
+}) => ReactNode;
+
+export type ListContextValue<Option extends object = DefaultListItemT> = {
+    value: ListItemId | ListItemId[] | null;
     multiple: boolean;
     onAdd: (item: Option) => void;
     onRemove: (item: Option) => void;
+    isSelectedId: (id: ListItemId) => boolean;
     disabled?: boolean;
     error: boolean;
-    items: Option[];
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
-    filteredItems: Option[];
+    allowDeselect: boolean;
 };
 
-type ListPropsBase<Option extends DefaultListItemT = DefaultListItemT> = {
+type ListPropsBase = {
     children: ReactNode;
-    items: Option[];
     disabled?: boolean;
     error?: boolean;
-    searchKey?: string;
-    onSearchChange?: (query: string) => void;
-    hideSelected?: boolean;
+    /**
+     * Whether re-clicking the currently-selected row should remove it. Defaults
+     * to `true` for multiple, `false` for single (re-clicking the picked row
+     * in a "pick one and close" flow shouldn't clear the value).
+     */
+    allowDeselect?: boolean;
 };
 
-type SingleListProps<Option extends DefaultListItemT = DefaultListItemT> = {
+type SingleListProps<Option extends object = DefaultListItemT> = {
     multiple?: false | undefined;
-    value?: ListValue<Option, false>;
-    defaultValue?: ListValue<Option, false>;
-    onChange?: (
-        value: ListValue<Option, false>,
-        item: Option,
-        event?: GestureResponderEvent,
-    ) => void;
+    value?: ListValue<false>;
+    defaultValue?: ListValue<false>;
+    onChange?: (value: ListValue<false>, item: Option, event?: GestureResponderEvent) => void;
 };
 
-type MultipleListProps<Option extends DefaultListItemT = DefaultListItemT> = {
+type MultipleListProps<Option extends object = DefaultListItemT> = {
     multiple: true;
-    value?: ListValue<Option, true>;
-    defaultValue?: ListValue<Option, true>;
-    onChange?: (
-        value: ListValue<Option, true>,
-        item: Option,
-        event?: GestureResponderEvent,
-    ) => void;
+    value?: ListValue<true>;
+    defaultValue?: ListValue<true>;
+    onChange?: (value: ListValue<true>, item: Option, event?: GestureResponderEvent) => void;
 };
 
-export type ListProps<Option extends DefaultListItemT = DefaultListItemT> = ListPropsBase<Option> &
+export type ListProps<Option extends object = DefaultListItemT> = ListPropsBase &
     (SingleListProps<Option> | MultipleListProps<Option>);
 
+export type ListContentProps = Omit<ScrollViewProps, 'children'> & {
+    children?: ReactNode;
+};
+
 /**
- * Arguments passed to the `processProps` callback on `<List.Content>`.
+ * Props for `<List.Item>`. When `value` is provided, the item participates in the
+ * surrounding `<List>` context — it derives its `selected` state from the context's
+ * value and toggles selection on press (unless `shouldToggleOnPress` is false).
  *
- * Use these to adapt `List` context state into the prop contract required by
- * a custom container (for example `FlatList`'s `data`/`renderItem` or
- * `SectionList`'s `sections`/`renderItem`).
+ * Without `value`, the item is a plain styled row (use it for menu-style entries
+ * that don't represent a selectable option).
+ *
+ * Note: when `value` is set, both `onPress` and the selection toggle fire on press,
+ * in that order. For most cases that's fine — pass `onPress` for side effects
+ * (e.g. closing a menu) and let the toggle drive `onChange`. Pass
+ * `onBeforeToggle` for side effects that should only run when the built-in
+ * toggle will happen. Set `shouldToggleOnPress={false}` to suppress the toggle entirely.
+ *
+ * Deselection: by default, single-select rows do **not** deselect on re-click
+ * (use `<List allowDeselect>` to opt in or out at the list level).
  */
-export type ListContentProcessPropsArgs<
-    Option extends DefaultListItemT = DefaultListItemT,
-    ContainerProps extends Record<string, any> = Record<string, any>,
-> = {
-    /** The user-provided props on `<List.Content>` minus `children`/`ref`. */
-    props: ContainerProps;
-    /** The current `filteredItems` from the List context. */
-    items: Option[];
-    /** True when there are no items to render after filtering. */
-    isEmpty: boolean;
-    /** Resolved empty state node (caller-provided or the default). */
-    emptyState: ReactNode;
-    /** Returns whether the given item is currently selected. */
-    isSelected: (item: Option) => boolean;
-};
-
-type ListContentPropsShared<C extends ComponentType<any> = typeof ScrollView> = Partial<
-    Omit<ComponentProps<C>, 'children' | 'ref'>
+export type ListItemProps<Option extends object = DefaultListItemT> = Omit<
+    TouchableRippleProps,
+    'children' | 'onPress'
 > & {
-    /**
-     * The component used to render the scrollable container. Defaults to ScrollView.
-     * The rest of the props on `<List.Content>` are inferred from this component's props.
-     *
-     * Required props (e.g. `FlatList`'s `data`/`renderItem`) can be supplied
-     * either directly or via `processProps`.
-     */
-    ContainerComponent?: C;
-    emptyState?: ReactNode;
-};
-
-export type ListContentProps<
-    Option extends DefaultListItemT = DefaultListItemT,
-    C extends ComponentType<any> = typeof ScrollView,
-> = ListContentPropsShared<C> &
-    (
-        | {
-              /**
-               * Optional when `processProps` renders rows/items itself (e.g. chunked grid rows).
-               */
-              processProps: (
-                  args: ListContentProcessPropsArgs<
-                      Option,
-                      Omit<ComponentProps<C>, 'children' | 'ref'>
-                  >,
-              ) => ComponentProps<C>;
-              children?: (item: Option, isSelected: boolean) => ReactNode;
-          }
-        | {
-              processProps?: undefined;
-              children: (item: Option, isSelected: boolean) => ReactNode;
-          }
-    );
-
-export type ListGroupProps = ViewProps & {
-    children: ReactNode;
-    label?: string;
-};
-
-export type ListItemOptionProps<Option extends DefaultListItemT = DefaultListItemT> = Omit<
-    ListItemProps,
-    'children' | 'selected' | 'disabled' | 'onPress'
-> & {
-    value: Option['id'];
-    children: ReactNode;
-    onPress?: (item: Option, event: GestureResponderEvent) => void;
+    ref?: RefObject<unknown>;
+    children?: ReactNode;
+    value?: ListItemId;
+    style?: StyleProp<ViewStyle>;
+    variant?: 'default' | 'menuItem';
+    selected?: boolean;
     disabled?: boolean;
+    hovered?: boolean;
+    hoverable?: boolean;
     shouldToggleOnPress?: boolean;
-    accessibilityRole?: any;
+    /** Runs after `onPress`, before the built-in selection toggle. */
+    onBeforeToggle?: (event: GestureResponderEvent) => void;
+    onPress?: (event: GestureResponderEvent) => void;
+    accessibilityRole?: AccessibilityRole;
     accessibilityState?: Record<string, unknown>;
+    /** Reserved for generic item shape; not consumed directly. */
+    __optionType?: Option;
 };
 
-export type ListSearchInputProps = Omit<TextInputProps, 'value' | 'onChangeText'>;
+export type ListItemElementProps = {
+    children?: ReactNode;
+    style?: StyleProp<ViewStyle>;
+};

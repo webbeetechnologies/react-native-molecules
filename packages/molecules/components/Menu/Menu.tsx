@@ -29,20 +29,16 @@ type MenuBaseProps = Omit<
     style?: ViewStyle;
     closeOnSelect?: boolean;
     children: ReactElement | ReactElement[];
-    backdropStyles?: ViewStyle;
-    items?: DefaultListItemT[];
     disabled?: boolean;
-    searchKey?: string;
-    onSearchChange?: (query: string) => void;
-    hideSelected?: boolean;
+    allowDeselect?: boolean;
 };
 
 type SingleMenuProps = {
     multiple?: false | undefined;
-    value?: ListValue<DefaultListItemT, false>;
-    defaultValue?: ListValue<DefaultListItemT, false>;
+    value?: ListValue<false>;
+    defaultValue?: ListValue<false>;
     onChange?: (
-        value: ListValue<DefaultListItemT, false>,
+        value: ListValue<false>,
         item: DefaultListItemT,
         event?: GestureResponderEvent,
     ) => void;
@@ -50,10 +46,10 @@ type SingleMenuProps = {
 
 type MultipleMenuProps = {
     multiple: true;
-    value?: ListValue<DefaultListItemT, true>;
-    defaultValue?: ListValue<DefaultListItemT, true>;
+    value?: ListValue<true>;
+    defaultValue?: ListValue<true>;
     onChange?: (
-        value: ListValue<DefaultListItemT, true>,
+        value: ListValue<true>,
         item: DefaultListItemT,
         event?: GestureResponderEvent,
     ) => void;
@@ -61,34 +57,25 @@ type MultipleMenuProps = {
 
 export type Props = MenuBaseProps & (SingleMenuProps | MultipleMenuProps);
 
-const emptyObj = {} as ViewStyle;
-
-const emptyArr = [] as DefaultListItemT[];
-
 const Menu = ({
     children,
     style: styleProp,
-    backdropStyles = emptyObj,
     closeOnSelect = true,
-    items,
     value,
     defaultValue,
     onChange,
     multiple,
     disabled,
-    searchKey,
-    onSearchChange,
-    hideSelected,
+    allowDeselect,
     ...rest
 }: Props) => {
     const { isOpen, onClose, triggerRef } = useContext(MenuRootContext);
 
-    const { backdropStyle, style } = useMemo(() => {
+    const { style } = useMemo(() => {
         return {
-            backdropStyle: [menuStyles.backdrop, backdropStyles] as unknown as ViewStyle,
             style: [menuStyles.root, styleProp] as unknown as ViewStyle,
         };
-    }, [backdropStyles, styleProp]);
+    }, [styleProp]);
 
     const contextValue = useMemo(
         () => ({
@@ -99,20 +86,16 @@ const Menu = ({
     );
 
     const listProps = {
-        items: items ?? emptyArr,
         multiple,
         value,
         defaultValue,
         onChange,
         disabled,
-        searchKey,
-        onSearchChange,
-        hideSelected,
+        allowDeselect,
     } as ListProps<DefaultListItemT>;
 
     return (
         <Popover isOpen={isOpen} onClose={onClose} style={style} triggerRef={triggerRef} {...rest}>
-            <Popover.Overlay style={backdropStyle} />
             <List {...listProps}>
                 <MenuContext.Provider value={contextValue}>{children}</MenuContext.Provider>
             </List>
@@ -187,9 +170,9 @@ export const MenuItem = memo(({ onPress, children, ...rest }: MenuItemProps) => 
     );
 
     return (
-        <List.Row {...rest} variant="menuItem" onPress={handlePress}>
+        <List.Item variant="menuItem" {...rest} onPress={handlePress}>
             {children}
-        </List.Row>
+        </List.Item>
     );
 });
 

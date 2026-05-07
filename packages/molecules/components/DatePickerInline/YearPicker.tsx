@@ -1,12 +1,12 @@
 import { setYear } from 'date-fns';
 import { memo, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
-import { FlatList, type FlatListProps, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { getYearRange, resolveStateVariant } from '../../utils';
 import { datePickerMonthItemStyles, datePickerMonthPickerStyles } from '../DatePicker/utils';
 import { Divider } from '../Divider';
 import { Icon } from '../Icon';
-import { List, type ListContentProcessPropsArgs, useListContextValue } from '../List';
+import { List, type ListItemId, useListContextValue } from '../List';
 import { Text } from '../Text';
 import { useDatePickerInlineStore } from './store';
 import { datePickerYearItemStyles, datePickerYearPickerStyles } from './utils';
@@ -69,10 +69,10 @@ function YearPickerGrid() {
     }, [selectingYear]);
 
     const handleOnChange = useCallback(
-        (year: number | null) => {
-            if (year === null) return;
+        (value: ListItemId | null) => {
+            if (typeof value !== 'number') return;
             setStore(prev => ({
-                localDate: setYear(prev.localDate, year),
+                localDate: setYear(prev.localDate, value),
                 pickerType: undefined,
             }));
         },
@@ -88,48 +88,26 @@ function YearPickerGrid() {
         [],
     );
 
-    const processGridFlatListProps = useCallback(
-        ({
-            props,
-            items,
-            isEmpty,
-            emptyState,
-        }: ListContentProcessPropsArgs<
-            YearListItem,
-            Omit<FlatListProps<YearListItem>, 'children' | 'ref'>
-        >): FlatListProps<YearListItem> => ({
-            ...props,
-            data: items,
-            numColumns: NUM_COLUMNS,
-            contentContainerStyle: gridStyles.grid,
-            columnWrapperStyle: gridStyles.row,
-            renderItem: ({ item }) => (
-                <View style={gridStyles.cell}>
-                    <YearPill year={item.id} yearStyles={yearStyle} />
-                </View>
-            ),
-            keyExtractor: item => `${item.id}`,
-            getItemLayout: getRowLayout,
-            initialScrollIndex: Math.floor(initialScrollOffset / GRID_ITEM_HEIGHT),
-            removeClippedSubviews: true,
-            ListEmptyComponent: isEmpty
-                ? function GridListEmpty() {
-                      return <>{emptyState}</>;
-                  }
-                : undefined,
-        }),
-        [getRowLayout, initialScrollOffset, yearStyle],
-    );
-
     return (
-        <List items={yearItems} multiple={false} value={selectedYear} onChange={handleOnChange}>
+        <List multiple={false} value={selectedYear} onChange={handleOnChange}>
             <View style={containerStyle} pointerEvents={selectingYear ? 'auto' : 'none'}>
                 <Divider />
-                <List.Content<YearListItem, typeof FlatList<YearListItem>>
+                <FlatList<YearListItem>
                     ref={flatListRef}
-                    ContainerComponent={FlatList<YearListItem>}
                     style={gridStyles.list}
-                    processProps={processGridFlatListProps}
+                    data={yearItems}
+                    numColumns={NUM_COLUMNS}
+                    contentContainerStyle={gridStyles.grid}
+                    columnWrapperStyle={gridStyles.row}
+                    renderItem={({ item }) => (
+                        <View style={gridStyles.cell}>
+                            <YearPill year={item.id} yearStyles={yearStyle} />
+                        </View>
+                    )}
+                    keyExtractor={item => `${item.id}`}
+                    getItemLayout={getRowLayout}
+                    initialScrollIndex={Math.floor(initialScrollOffset / GRID_ITEM_HEIGHT)}
+                    removeClippedSubviews
                 />
             </View>
         </List>
@@ -149,17 +127,18 @@ function YearPillPure({ year, yearStyles }: { year: number; yearStyles: Record<s
     return (
         <List.Item
             value={year}
-            contentStyle={datePickerYearItemStyles.content}
             accessibilityRole="button"
             accessibilityLabel={String(year)}
             style={[yearStyles, datePickerYearItemStyles.yearButton]}
             testID={`pick-year-${year}`}>
-            <Text
-                typescale="bodyLarge"
-                style={datePickerYearItemStyles.yearLabel}
-                selectable={false}>
-                {year}
-            </Text>
+            <View style={datePickerYearItemStyles.content}>
+                <Text
+                    typescale="bodyLarge"
+                    style={datePickerYearItemStyles.yearLabel}
+                    selectable={false}>
+                    {year}
+                </Text>
+            </View>
         </List.Item>
     );
 }
@@ -186,10 +165,10 @@ function YearPickerList() {
     }, [selectedYear, years]);
 
     const handleOnChange = useCallback(
-        (year: number | null) => {
-            if (year === null) return;
+        (value: ListItemId | null) => {
+            if (typeof value !== 'number') return;
             setStore(prev => ({
-                localDate: setYear(prev.localDate, year),
+                localDate: setYear(prev.localDate, value),
                 pickerType: undefined,
             }));
         },
@@ -205,34 +184,19 @@ function YearPickerList() {
         [],
     );
 
-    const processFlatListProps = useCallback(
-        ({
-            props,
-            items,
-        }: ListContentProcessPropsArgs<
-            YearListItem,
-            Omit<FlatListProps<YearListItem>, 'children' | 'ref'>
-        >): FlatListProps<YearListItem> => ({
-            ...props,
-            data: items,
-            renderItem: ({ item }) => <YearRow year={item.id} />,
-            keyExtractor: item => `${item.id}`,
-            initialScrollIndex,
-            getItemLayout,
-        }),
-        [getItemLayout, initialScrollIndex],
-    );
-
     if (!selectingYear) return null;
 
     return (
-        <List items={yearItems} multiple={false} value={selectedYear} onChange={handleOnChange}>
+        <List multiple={false} value={selectedYear} onChange={handleOnChange}>
             <View style={[StyleSheet.absoluteFill, listStyles.root]} pointerEvents="auto">
                 <Divider />
-                <List.Content<YearListItem, typeof FlatList<YearListItem>>
-                    ContainerComponent={FlatList<YearListItem>}
+                <FlatList<YearListItem>
                     style={listStyles.list}
-                    processProps={processFlatListProps}
+                    data={yearItems}
+                    renderItem={({ item }) => <YearRow year={item.id} />}
+                    keyExtractor={item => `${item.id}`}
+                    initialScrollIndex={initialScrollIndex}
+                    getItemLayout={getItemLayout}
                 />
             </View>
         </List>
@@ -255,16 +219,16 @@ function YearRowPure({ year }: { year: number }) {
             accessibilityRole="button"
             accessibilityLabel={String(year)}
             style={datePickerMonthItemStyles.monthButton}
-            testID={`pick-year-${year}`}
-            left={
-                isSelected ? (
+            testID={`pick-year-${year}`}>
+            <View style={listStyles.left}>
+                {isSelected ? (
                     <View style={listStyles.checkIconView}>
                         <Icon name="check" size={24} />
                     </View>
                 ) : (
                     <View style={listStyles.spacer} />
-                )
-            }>
+                )}
+            </View>
             <View style={datePickerMonthItemStyles.monthInner}>
                 <Text style={datePickerMonthItemStyles.monthLabel} selectable={false}>
                     {year}
@@ -313,4 +277,5 @@ const listStyles = StyleSheet.create({
     list: { flex: 1 },
     checkIconView: { marginLeft: 16 },
     spacer: { width: 44 },
+    left: { marginRight: 8 },
 });

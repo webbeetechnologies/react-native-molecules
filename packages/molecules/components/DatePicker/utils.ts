@@ -232,6 +232,8 @@ const datePickerPopoverMonthItemStylesDefault = StyleSheet.create(theme => ({
         width: '100%',
         overflow: 'hidden',
         padding: theme.spacings['0'],
+        justifyContent: 'flex-start',
+
         variants: {
             state: {
                 selected: {

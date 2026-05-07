@@ -1,6 +1,6 @@
 ---
 title: "List"
-description: "Headless selectable list primitives with search and custom scroll wrappers."
+description: "Headless selectable list state for custom list UIs."
 sidebar_position: 41
 ---
 
@@ -10,9 +10,16 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 
 <ComponentDoc name="List" />
 
+## Quick reference
+
+- **Selection state** — `value` / `defaultValue` / `onChange`, single or `multiple`. IDs are `string | number`.
+- **Building blocks** — use `<List.Item value>` for toggle behavior, and `useListContextValue` for state-aware custom layouts.
+- **Rendering** — render anything you want inside `<List>`: `List.Content`, `FlatList`, `SectionList`, grouped UIs, loading states, etc.
+- **No data/search abstraction** — filtering, grouping, pagination, and loading are fully consumer-owned.
+
 ## Examples
 
-### Searchable Single Select List
+### Single-select with `List.Content`
 
 <LiveCodeExample
     center={false}
@@ -28,87 +35,68 @@ const items = [
 
 export default function Example() {
     return (
-        <List items={items} searchKey="label">
-            <List.SearchInput placeholder="Search fruits..." />
+        <List>
             <List.Content style={{ maxHeight: 240 }}>
-                {(item, isSelected) => (
-                    <List.Item
-                        key={item.id}
-                        value={item.id}
-                        right={isSelected ? <Icon name="check" size={18} /> : null}>
+                {items.map(item => (
+                    <List.Item key={item.id} value={item.id}>
                         <Text typescale="bodyLarge">{item.label}</Text>
+                        {/* render your own right icon/layout if needed */}
                     </List.Item>
-                )}
+                ))}
             </List.Content>
         </List>
     );
 }`}
 />
 
-### Multi Select With Grouped Items
+### Static content
+
+If you want to render sections, loading placeholders, or any other custom layout yourself, pass normal children to `<List.Content>`. Selection still works for `<List.Item value>`.
 
 <LiveCodeExample
     center={false}
-    code={`import { List } from 'react-native-molecules/components/List';
-
-const items = [
-    { id: 'frontend-react', label: 'React', group: 'Frontend' },
-    { id: 'frontend-vue', label: 'Vue', group: 'Frontend' },
-    { id: 'backend-node', label: 'Node.js', group: 'Backend' },
-    { id: 'backend-go', label: 'Go', group: 'Backend' },
-];
+    code={`import { View } from 'react-native';
+import { List } from 'react-native-molecules/components/List';
 
 export default function Example() {
     return (
-        <List items={items} multiple hideSelected={false} searchKey="label" searchKey="label">
-            <List.SearchInput placeholder="Search technologies..." />
+        <List multiple>
+            <List.Content style={{ maxHeight: 320 }}>
+                <View style={{ paddingHorizontal: 16, paddingVertical: 4 }}>
+                    <Text typescale="titleSmall">Frontend</Text>
+                </View>
+                <List.Item value="react">
+                    <Text typescale="bodyLarge">React</Text>
+                </List.Item>
+                <List.Item value="vue">
+                    <Text typescale="bodyLarge">Vue</Text>
+                </List.Item>
 
-            <List.Group label="Frontend">
-                <List.Content>
-                    {(item, isSelected) => {
-                        if (item.group !== 'Frontend') return null;
-                        return (
-                            <List.Item key={item.id} value={item.id}>
-                                <Text typescale="bodyLarge">
-                                    {item.label} {isSelected ? '(selected)' : ''}
-                                </Text>
-                            </List.Item>
-                        );
-                    }}
-                </List.Content>
-            </List.Group>
-
-            <List.Group label="Backend">
-                <List.Content>
-                    {(item, isSelected) => {
-                        if (item.group !== 'Backend') return null;
-                        return (
-                            <List.Item key={item.id} value={item.id}>
-                                <Text typescale="bodyLarge">
-                                    {item.label} {isSelected ? '(selected)' : ''}
-                                </Text>
-                            </List.Item>
-                        );
-                    }}
-                </List.Content>
-            </List.Group>
+                <View style={{ paddingHorizontal: 16, paddingVertical: 4 }}>
+                    <Text typescale="titleSmall">Backend</Text>
+                </View>
+                <List.Item value="node">
+                    <Text typescale="bodyLarge">Node.js</Text>
+                </List.Item>
+                <List.Item value="go">
+                    <Text typescale="bodyLarge">Go</Text>
+                </List.Item>
+            </List.Content>
         </List>
     );
 }`}
 />
 
-### Virtualized Container with `processProps`
+### Single-select: re-clicking does not deselect
 
-`<List.Content>` defaults to a `ScrollView` and renders the items returned by
-the `children` function inline. To use a virtualized container such as
-`FlatList` or `SectionList`, pass it via `ContainerComponent` and provide a
-`processProps` callback that maps the List context state into the props that
-container expects.
+By default, single-select rows do **not** deselect on re-click — clicking the picked row in a "pick one and close" flow shouldn't clear the value. Multi-select keeps the toggle behavior. Override with `<List allowDeselect={true | false}>`.
+
+### FlatList using context
 
 <LiveCodeExample
     center={false}
     code={`import { FlatList } from 'react-native';
-import { List } from 'react-native-molecules/components/List';
+import { List, useListContextValue } from 'react-native-molecules/components/List';
 
 const ADJECTIVES = ['Red', 'Blue', 'Green', 'Dark', 'Bright', 'Wild', 'Soft', 'Cold', 'Hot', 'Old'];
 const NOUNS = ['Apple', 'Banana', 'Cherry', 'Mango', 'Grape', 'Peach', 'Lemon', 'Melon', 'Berry', 'Plum'];
@@ -118,48 +106,117 @@ const items = Array.from({ length: 500 }, (_, i) => ({
     label: ADJECTIVES[i % ADJECTIVES.length] + ' ' + NOUNS[Math.floor(i / ADJECTIVES.length) % NOUNS.length] + ' ' + (i + 1),
 }));
 
+function VirtualizedList() {
+    const isSelectedId = useListContextValue(state => state.isSelectedId);
+    return (
+        <FlatList
+            data={items}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => (
+                <List.Item value={item.id}>
+                    <Text typescale="bodyLarge">
+                        {item.label} {isSelectedId(item.id) ? '✓' : ''}
+                    </Text>
+                </List.Item>
+            )}
+            style={{ maxHeight: 300 }}
+        />
+    );
+}
+
 export default function Example() {
     return (
-        <List items={items} searchKey="label">
-            <List.SearchInput placeholder="Search 500 items..." />
-            <List.Content
-                ContainerComponent={FlatList}
+        <List>
+            <VirtualizedList />
+        </List>
+    );
+}`}
+/>
+
+### `FlatList` with “load more”
+
+Use `FlatList` to drive server-side pagination or “load more” behavior. Keep loading and paging state in your own component.
+
+<LiveCodeExample
+    center={false}
+    code={`import { useEffect, useState } from 'react';
+import { FlatList } from 'react-native';
+import { List } from 'react-native-molecules/components/List';
+
+const PAGE_SIZE = 25;
+
+async function fetchPage(page: number) {
+    // Replace with real API call
+    await new Promise(r => setTimeout(r, 300));
+    const start = page * PAGE_SIZE;
+    const items = Array.from({ length: PAGE_SIZE }, (_, i) => ({
+        id: start + i + 1,
+        label: \`Item #\${start + i + 1}\`,
+    }));
+    const hasMore = page < 3; // pretend there are 4 pages
+    return { items, hasMore };
+}
+
+export default function Example() {
+    const [page, setPage] = useState(0);
+    const [items, setItems] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+
+    useEffect(() => {
+        let cancelled = false;
+        setLoading(true);
+        setPage(0);
+        fetchPage(0).then(result => {
+            if (cancelled) return;
+            setItems(result.items);
+            setHasMore(result.hasMore);
+            setLoading(false);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    const loadMore = () => {
+        if (loading || !hasMore) return;
+        const nextPage = page + 1;
+        setLoading(true);
+        fetchPage(nextPage).then(result => {
+            setItems(prev => [...prev, ...result.items]);
+            setHasMore(result.hasMore);
+            setPage(nextPage);
+            setLoading(false);
+        });
+    };
+
+    return (
+        <List>
+            <FlatList
                 style={{ maxHeight: 300 }}
-                processProps={({ props, items, isSelected, emptyState, isEmpty }) => ({
-                    ...props,
-                    data: items,
-                    renderItem: ({ item }) => (
-                        <List.Item value={item.id}>
-                            <Text typescale="bodyLarge">
-                                {item.label} {isSelected(item) ? '✓' : ''}
-                            </Text>
-                        </List.Item>
-                    ),
-                    keyExtractor: item => String(item.id),
-                    ListEmptyComponent: isEmpty ? emptyState : null,
-                })}
+                data={items}
+                keyExtractor={item => String(item.id)}
+                renderItem={({ item }) => (
+                    <List.Item value={item.id}>
+                        <Text typescale="bodyLarge">{item.label}</Text>
+                    </List.Item>
+                )}
+                onEndReached={loadMore}
+                onEndReachedThreshold={0.5}
+                ListFooterComponent={
+                    loading ? (
+                        <Text style={{ padding: 16, textAlign: 'center' }}>Loading more…</Text>
+                    ) : null
+                }
             />
         </List>
     );
 }`}
 />
 
-The `processProps` callback receives:
+### `SectionList`-style grouping in userland
 
-- `props`: the user-provided props on `<List.Content>` (excluding `children`/`ref`).
-- `items`: the current `filteredItems` (after search/`hideSelected`).
-- `isEmpty`: convenience flag for `items.length === 0`.
-- `emptyState`: the resolved empty-state node (caller-provided or default).
-- `isSelected(item)`: returns whether an item is currently selected.
-
-Build a `renderItem` directly inside `processProps` using these args — that way
-the function shape matches whatever container you're targeting (`FlatList`,
-`SectionList`, or a custom virtualized list).
-
-#### SectionList
-
-The same hook works for `SectionList` &mdash; build the `sections` array from
-the items and write your own `renderItem`:
+For grouped lists, compute sections yourself and feed them into `SectionList`. `List` still owns selection, but you fully control the grouping model.
 
 <LiveCodeExample
     center={false}
@@ -169,53 +226,53 @@ import { List } from 'react-native-molecules/components/List';
 const GROUPS = ['Frontend', 'Backend', 'Mobile', 'DevOps', 'Data'];
 const BASES = ['React', 'Vue', 'Node', 'Go', 'Rust', 'Swift', 'Kotlin', 'Python', 'Java', 'Ruby'];
 
-const items = Array.from({ length: 500 }, (_, i) => ({
+const items = Array.from({ length: 100 }, (_, i) => ({
     id: String(i + 1),
     label: BASES[i % BASES.length] + ' Module ' + (i + 1),
     group: GROUPS[i % GROUPS.length],
 }));
 
+function buildSections(filteredItems: typeof items) {
+    const byGroup = new Map<string, typeof items>();
+    for (const item of filteredItems) {
+        const key = item.group;
+        if (!byGroup.has(key)) byGroup.set(key, []);
+        byGroup.get(key)!.push(item);
+    }
+    return Array.from(byGroup.entries()).map(([key, data]) => ({
+        key,
+        title: key,
+        data,
+    }));
+}
+
 export default function Example() {
     return (
-        <List items={items} multiple searchKey="label">
-            <List.SearchInput placeholder="Search 500 items..." />
-            <List.Content
-                ContainerComponent={SectionList}
-                style={{ maxHeight: 300 }}
-                processProps={({ props, items, isSelected }) => {
-                    const sections = GROUPS.map(title => ({
-                        title,
-                        data: items.filter(item => item.group === title),
-                    })).filter(s => s.data.length > 0);
-                    return {
-                        ...props,
-                        sections,
-                        renderItem: ({ item }) => (
-                            <List.Item value={item.id}>
-                                <Text typescale="bodyLarge">
-                                    {item.label} {isSelected(item) ? '✓' : ''}
-                                </Text>
-                            </List.Item>
-                        ),
-                        keyExtractor: item => item.id,
-                        renderSectionHeader: ({ section }) => (
-                            <Text typescale="titleSmall" style={{ paddingHorizontal: 16, paddingVertical: 4, backgroundColor: 'transparent' }}>
-                                {section.title} ({section.data.length})
-                            </Text>
-                        ),
-                    };
-                }}
+        <List multiple>
+            <SectionList
+                style={{ maxHeight: 320 }}
+                sections={buildSections(items)}
+                keyExtractor={item => String(item.id)}
+                renderItem={({ item }) => (
+                    <List.Item value={item.id}>
+                        <Text typescale="bodyLarge">{item.label}</Text>
+                    </List.Item>
+                )}
+                renderSectionHeader={({ section }) => (
+                    <Text
+                        typescale="titleSmall"
+                        style={{ paddingHorizontal: 16, paddingVertical: 4 }}>
+                        {section.title} ({section.data.length})
+                    </Text>
+                )}
             />
         </List>
     );
 }`}
 />
 
-When `processProps` is omitted, `<List.Content>` keeps the default behavior:
-items are rendered inline as children of the container via the `children` render
-function.
+## Notes
 
-When `processProps` is provided, `children` is optional &mdash; do all rendering
-inside `processProps` (for example a chunked grid).
+- **`<List.Item value>` + `onPress`** — when `value` is set, both `onPress` and the selection toggle fire on press, in that order. Use `onPress` for side effects (closing a menu, analytics) and let the toggle drive `onChange`. Set `shouldToggleOnPress={false}` to suppress the toggle.
 
 <ComponentProps name="List" />

@@ -8,8 +8,6 @@ export const MenuDefault = Object.assign(MenuComponent, {
     Trigger: MenuTrigger,
     Item: MenuItem,
     Content: List.Content,
-    Group: List.Group,
-    SearchInput: List.SearchInput,
     RootContext: MenuRootContext,
 });
 

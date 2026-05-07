@@ -504,19 +504,23 @@ export const componentDocsMeta: ComponentDocMeta[] = [
     createMeta({
         name: 'List',
         category: 'Inputs & Controls',
-        description: 'Headless selectable list primitives with search and custom content wrappers.',
+        description: 'Headless selectable list primitives with pluggable containers.',
         usage: 'Compose list-driven selection UIs inside Menu, Popover, sheets, and custom dropdowns.',
         highlights: [
-            'Controlled/uncontrolled selection',
-            'Search filtering',
-            'Custom ContainerComponent',
+            'Single or multiple selection (controlled or uncontrolled)',
+            'Consumer-owned rendering, filtering, grouping, and loading',
+            'Works with any list container via `useListContextValue`',
         ],
         whenToUse: [
             'You need Select-like selection behavior without trigger/dropdown coupling.',
-            'You want custom rows while keeping shared selection and search state.',
+            'You want custom rows while keeping shared selection state.',
+            'You want to own filtering, pagination, grouping, and virtualization outside the primitive.',
         ],
         related: ['Menu', 'Select'],
-        subcomponents: ['List.Content', 'List.Item', 'List.SearchInput', 'List.Group', 'List.Row'],
+        subcomponents: [
+            'List.Content',
+            'List.Item',
+        ],
     }),
     createMeta({
         name: 'Menu',
@@ -646,7 +650,7 @@ export const componentDocsMeta: ComponentDocMeta[] = [
         status: 'beta',
         description: 'Next-gen select experience with chips, multi-select, and context providers.',
         usage: 'Offer tokenized, multi-value selections with advanced filtering.',
-        highlights: ['Context-driven architecture', 'Reusable Trigger, Value, Group, Option slots'],
+        highlights: ['Context-driven architecture', 'Reusable Trigger, Value, Option slots'],
         whenToUse: [
             'Need multi-select chips or custom rendered values.',
             'Integrating with async data and virtualization.',
@@ -657,7 +661,6 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'Select.Value',
             'Select.Content',
             'Select.Option',
-            'Select.Group',
         ],
     }),
     createMeta({

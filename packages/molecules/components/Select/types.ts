@@ -1,21 +1,16 @@
 import type { ComponentType, ReactNode } from 'react';
-import type { GestureResponderEvent, ViewProps } from 'react-native';
+import type { GestureResponderEvent, TextInputProps, ViewProps } from 'react-native';
 
-import type { ListValue } from '../List';
+import type { ListContentProps, ListItemId, ListValue } from '../List';
 import type { PopoverProps } from '../Popover';
 
-export type {
-    ListContentProps as SelectContentProps,
-    ListContextValue as SelectContextValue,
-    ListGroupProps as SelectGroupProps,
-    ListSearchInputProps as SelectSearchInputProps,
-} from '../List';
+export type { ListContextValue as SelectContextValue } from '../List';
 
 export type DefaultItemT = {
     id: string | number;
     label?: string;
     selectable?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 };
 
 // SelectDropdownContext types
@@ -25,41 +20,62 @@ export type SelectDropdownContextValue = {
     onOpen: () => void;
 };
 
+export type SelectSearchMode = 'client' | 'external';
+
+export type SelectSearchKey<Option extends object = DefaultItemT> =
+    | string
+    | string[]
+    | ((item: Option, query: string) => boolean);
+
+export type SelectSearchContextValue<Option extends DefaultItemT = DefaultItemT> = {
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+    allOptions: Option[];
+    options: Option[];
+    optionById: Map<ListItemId, Option>;
+    getOptionId: (item: Option) => ListItemId;
+};
+
 // SelectProvider props
 type SelectPropsBase<Option extends DefaultItemT = DefaultItemT> = {
     children: ReactNode;
     disabled?: boolean;
     error?: boolean;
     options: Option[];
-    searchKey?: string;
+    searchKey?: SelectSearchKey<Option>;
+    searchQuery?: string;
+    defaultSearchQuery?: string;
     onSearchChange?: (query: string) => void;
-    hideSelected?: boolean;
+    searchMode?: SelectSearchMode;
+    allowDeselect?: boolean;
+    getItemId?: (item: Option) => ListItemId;
 };
+
+export type SelectSearchInputProps = Omit<TextInputProps, 'value' | 'onChangeText'>;
 
 type SingleSelectProps<Option extends DefaultItemT = DefaultItemT> = {
     multiple?: false | undefined;
-    value?: ListValue<Option, false>;
-    defaultValue?: ListValue<Option, false>;
-    onChange?: (
-        value: ListValue<Option, false>,
-        item: Option,
-        event?: GestureResponderEvent,
-    ) => void;
+    value?: ListValue<false>;
+    defaultValue?: ListValue<false>;
+    onChange?: (value: ListValue<false>, item: Option, event?: GestureResponderEvent) => void;
 };
 
 type MultipleSelectProps<Option extends DefaultItemT = DefaultItemT> = {
     multiple: true;
-    value?: ListValue<Option, true>;
-    defaultValue?: ListValue<Option, true>;
-    onChange?: (
-        value: ListValue<Option, true>,
-        item: Option,
-        event?: GestureResponderEvent,
-    ) => void;
+    value?: ListValue<true>;
+    defaultValue?: ListValue<true>;
+    onChange?: (value: ListValue<true>, item: Option, event?: GestureResponderEvent) => void;
 };
 
 export type SelectProps<Option extends DefaultItemT = DefaultItemT> = SelectPropsBase<Option> &
     (SingleSelectProps<Option> | MultipleSelectProps<Option>);
+
+export type SelectContentProps<Option extends DefaultItemT = DefaultItemT> = Omit<
+    ListContentProps,
+    'children'
+> & {
+    children?: ReactNode | ((item: Option, isSelected: boolean) => ReactNode);
+};
 
 // Select.Trigger props
 export type SelectTriggerProps = ViewProps & {

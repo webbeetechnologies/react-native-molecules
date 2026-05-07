@@ -9,7 +9,7 @@ import {
     useListStoreRef,
 } from '../List';
 import { registerPortalContext } from '../Portal';
-import type { SelectDropdownContextValue } from './types';
+import type { DefaultItemT, SelectDropdownContextValue, SelectSearchContextValue } from './types';
 
 export {
     ListContext as SelectContext,
@@ -43,12 +43,37 @@ const {
     Context: SelectDropdownContext,
 } = createFastContext<SelectDropdownContextType>(selectDropdownContextDefaultValue, true);
 
+const selectSearchContextDefaultValue: SelectSearchContextValue<DefaultItemT> = {
+    searchQuery: '',
+    setSearchQuery: () => {},
+    allOptions: [],
+    options: [],
+    optionById: new Map(),
+    getOptionId: item => item.id,
+};
+
+const {
+    useStoreRef: useSelectSearchStoreRef,
+    Provider: SelectSearchContextProvider,
+    useContext: useSelectSearchContext,
+    useContextValue: useSelectSearchContextValue,
+    Context: SelectSearchContext,
+} = createFastContext<SelectSearchContextValue<DefaultItemT>>(
+    selectSearchContextDefaultValue,
+    true,
+);
+
 export {
     SelectDropdownContext,
     SelectDropdownContextProvider,
+    SelectSearchContext,
+    SelectSearchContextProvider,
     useSelectDropdownContext,
     useSelectDropdownContextValue,
     useSelectDropdownStoreRef,
+    useSelectSearchContext,
+    useSelectSearchContextValue,
+    useSelectSearchStoreRef,
 };
 
-registerPortalContext([SelectDropdownContext]);
+registerPortalContext([SelectDropdownContext, SelectSearchContext]);

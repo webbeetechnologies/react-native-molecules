@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     type AccessibilityRole,
     type GestureResponderEvent,
@@ -9,30 +9,75 @@ import {
 } from 'react-native';
 
 import { typedMemo } from '../../hocs';
-import { useActionState } from '../../hooks';
+import { useActionState, useControlledValue } from '../../hooks';
 import { useToggle } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { Chip } from '../Chip';
 import { Icon } from '../Icon';
+import { IconButton } from '../IconButton';
 import { List } from '../List';
 import { Popover } from '../Popover';
 import { Text } from '../Text';
+import { TextInput, type TextInputHandles, type TextInputProps } from '../TextInput';
 import {
     SelectDropdownContextProvider,
+    SelectSearchContextProvider,
     useSelectContextValue,
     useSelectDropdownContextValue,
+    useSelectSearchContextValue,
 } from './context';
 import type {
     DefaultItemT,
+    SelectContentProps,
     SelectDropdownProps,
     SelectOptionProps,
     SelectProps,
+    SelectSearchContextValue,
+    SelectSearchInputProps,
+    SelectSearchKey,
     SelectTriggerProps,
     SelectValueProps,
 } from './types';
 import { collectWebSelectKeyboardOptionElements, styles, triggerStyles } from './utils';
 
 const emptyArr: unknown[] = [];
+
+const getDisplayLabel = (item: DefaultItemT, labelKey?: string) => {
+    const itemLabelKey = typeof item.labelKey === 'string' ? item.labelKey : undefined;
+    const key = labelKey ?? itemLabelKey ?? 'label';
+    const value = item[key];
+    return value == null ? String(item.id) : String(value);
+};
+
+const getNested = (item: unknown, path: string): unknown => {
+    if (item == null || typeof item !== 'object') return undefined;
+    if (!path.includes('.')) return (item as Record<string, unknown>)[path];
+    let val: unknown = item;
+    for (const part of path.split('.')) {
+        if (val == null || typeof val !== 'object') return undefined;
+        val = (val as Record<string, unknown>)[part];
+    }
+    return val;
+};
+
+const matchesByKey = (item: unknown, key: string, lowerQuery: string): boolean =>
+    String(getNested(item, key) ?? '')
+        .toLowerCase()
+        .includes(lowerQuery);
+
+const applySearch = <T extends object>(
+    items: T[],
+    searchKey: SelectSearchKey<T> | undefined,
+    query: string,
+): T[] => {
+    if (!query) return items;
+    if (typeof searchKey === 'function') {
+        return items.filter(item => searchKey(item, query));
+    }
+    const keys = Array.isArray(searchKey) ? searchKey : [searchKey || 'label'];
+    const lowerQuery = query.toLowerCase();
+    return items.filter(item => keys.some(key => matchesByKey(item, key, lowerQuery)));
+};
 
 const SelectDropdownProvider = memo(
     ({
@@ -90,12 +135,84 @@ const Select = typedMemo(
     <Option extends DefaultItemT = DefaultItemT>({
         children,
         options = emptyArr as Option[],
+        searchKey,
+        searchQuery: searchQueryProp,
+        defaultSearchQuery,
+        onSearchChange,
+        searchMode = 'client',
+        getItemId,
         ...listProps
     }: SelectProps<Option>) => {
+        const [searchQuery, setSearchQuery] = useControlledValue<string>({
+            value: searchQueryProp,
+            defaultValue: defaultSearchQuery ?? '',
+            onChange: onSearchChange,
+        });
+
+        const getOptionId = useMemo(
+            () => (getItemId ?? ((item: Option) => item.id)) as (item: Option) => string | number,
+            [getItemId],
+        );
+
+        const filteredOptions = useMemo(() => {
+            if (searchMode === 'external') return options;
+            return applySearch(options, searchKey, searchQuery);
+        }, [options, searchKey, searchMode, searchQuery]);
+
+        const optionById = useMemo(() => {
+            const map = new Map<string | number, Option>();
+            for (const option of options) {
+                map.set(getOptionId(option), option);
+            }
+            return map;
+        }, [getOptionId, options]);
+
+        const searchContextValue = useMemo(
+            () =>
+                ({
+                    searchQuery,
+                    setSearchQuery,
+                    allOptions: options,
+                    options: filteredOptions,
+                    optionById,
+                    getOptionId,
+                } as unknown as SelectSearchContextValue<DefaultItemT>),
+            [filteredOptions, getOptionId, optionById, options, searchQuery, setSearchQuery],
+        );
+
         return (
-            <List {...listProps} items={options}>
-                <SelectDropdownProvider>{children}</SelectDropdownProvider>
-            </List>
+            <SelectSearchContextProvider value={searchContextValue}>
+                <List {...listProps}>
+                    <SelectDropdownProvider>{children}</SelectDropdownProvider>
+                </List>
+            </SelectSearchContextProvider>
+        );
+    },
+);
+
+const SelectContent = typedMemo(
+    <Option extends DefaultItemT = DefaultItemT>({
+        children,
+        ...rest
+    }: SelectContentProps<Option>) => {
+        const { options, getOptionId } = useSelectSearchContextValue(state => ({
+            options: state.options as Option[],
+            getOptionId: state.getOptionId as (item: Option) => string | number,
+        }));
+        const isSelectedId = useSelectContextValue(state => state.isSelectedId);
+
+        if (typeof children !== 'function') {
+            return <List.Content {...rest}>{children}</List.Content>;
+        }
+
+        return (
+            <List.Content {...rest}>
+                {options.map(item => (
+                    <Fragment key={String(getOptionId(item))}>
+                        {children(item, isSelectedId(getOptionId(item)))}
+                    </Fragment>
+                ))}
+            </List.Content>
         );
     },
 );
@@ -170,42 +287,43 @@ SelectTrigger.displayName = 'Select_Trigger';
 
 const SelectValue = memo(
     ({ placeholder, labelKey, renderValue, style, ...rest }: SelectValueProps) => {
-        const { value, multiple, onRemove, options } = useSelectContextValue(state => ({
+        const { value, multiple, onRemove } = useSelectContextValue(state => ({
             value: state.value,
             multiple: state.multiple,
             onRemove: state.onRemove,
-            options: state.items,
+        }));
+        const { optionById } = useSelectSearchContextValue(state => ({
+            optionById: state.optionById,
         }));
 
         const resolvedValue = useMemo(() => {
-            const resolve = (item: any) => {
-                if (item === null || item === undefined) return null;
-                const id = typeof item === 'object' ? item.id : item;
-                const found = options.find(o => o.id === id);
-                return found || item;
+            const resolve = (id: unknown) => {
+                if (id === null || id === undefined) return null;
+                const found = optionById.get(id as string | number);
+                return found || { id: id as string | number };
             };
 
             if (multiple) {
                 return (Array.isArray(value) ? value : []).map(resolve).filter(Boolean);
             }
             return resolve(value);
-        }, [value, multiple, options]);
+        }, [optionById, value, multiple]);
 
         const displayValue = useMemo(() => {
             if (!resolvedValue) return placeholder || '';
             if (multiple && (resolvedValue as any[]).length === 0) return placeholder || '';
 
             if (renderValue) {
-                return renderValue(resolvedValue as any);
+                return renderValue(resolvedValue as DefaultItemT | DefaultItemT[] | null);
             }
 
             if (multiple) {
                 const values = resolvedValue as DefaultItemT[];
                 // For multi-select, show chips
-                return values.map(item => item[labelKey || 'label'] || String(item.id)).join(', ');
+                return values.map(item => getDisplayLabel(item, labelKey)).join(', ');
             } else {
                 const singleValue = resolvedValue as DefaultItemT;
-                return singleValue[labelKey || 'label'] || String(singleValue.id || singleValue);
+                return getDisplayLabel(singleValue, labelKey);
             }
         }, [resolvedValue, multiple, labelKey, placeholder, renderValue]);
 
@@ -246,7 +364,7 @@ const SelectValueItem = typedMemo(
 
         return (
             <Chip.Input
-                label={item[item.labelKey || 'label'] || String(item.id || item)}
+                label={getDisplayLabel(item)}
                 size="sm"
                 selected
                 left={<></>}
@@ -417,8 +535,6 @@ const KeyboardNavigationWrapper = memo(({ children }: { children: React.ReactNod
 
 SelectDropdown.displayName = 'Select_Dropdown';
 
-const SelectGroup = List.Group;
-
 // Select.Item - select item that uses context
 const SelectOption = memo(
     <Option extends DefaultItemT = DefaultItemT>({
@@ -434,33 +550,29 @@ const SelectOption = memo(
             onAdd,
             onRemove,
             disabled: selectDisabled,
-            items,
+            isSelectedId,
         } = useSelectContextValue(state => ({
             multiple: state.multiple,
             onAdd: state.onAdd,
             onRemove: state.onRemove,
             disabled: state.disabled,
-            items: state.items,
+            isSelectedId: state.isSelectedId,
+        }));
+        const { allOptions, getOptionId } = useSelectSearchContextValue(state => ({
+            allOptions: state.allOptions,
+            getOptionId: state.getOptionId,
         }));
 
         const option = useMemo(() => {
-            const found = items.find(i => i.id === value);
+            const found = allOptions.find(i => getOptionId(i as Option) === value);
             if (found) return found as Option;
             return {
                 id: value,
                 ...(optionDisabledProp ? { selectable: false } : {}),
             } as Option;
-        }, [items, optionDisabledProp, value]);
+        }, [allOptions, getOptionId, optionDisabledProp, value]);
 
-        const isSelected = useSelectContextValue(state => {
-            if (multiple) {
-                const values = state.value as any[];
-                return values?.some(v => (v?.id ?? v) === option.id) || false;
-            }
-
-            const singleValue = state.value as any;
-            return (singleValue?.id ?? singleValue) === option.id || false;
-        });
+        const isSelected = isSelectedId(value);
 
         const { onClose } = useSelectDropdownContextValue(state => ({
             onClose: state.onClose,
@@ -495,7 +607,7 @@ const SelectOption = memo(
                 style={style}
                 value={value}
                 shouldToggleOnPress={false}
-                onPress={(_, event) => handlePress(event)}
+                onPress={handlePress}
                 disabled={isOptionDisabled}
                 accessibilityState={{ selected: isSelected, disabled: isOptionDisabled }}
                 {...(Platform.OS === 'web'
@@ -523,7 +635,56 @@ const SelectOption = memo(
 
 SelectOption.displayName = 'Select_Option';
 
-const SelectSearchInput = List.SearchInput;
+const SelectSearchInput = memo(({ children, ...textInputProps }: SelectSearchInputProps) => {
+    const { searchQuery, setSearchQuery } = useSelectSearchContextValue(state => ({
+        searchQuery: state.searchQuery,
+        setSearchQuery: state.setSearchQuery,
+    }));
+
+    const textInputRef = useRef<TextInputHandles>(null);
+
+    const handleChangeText = useCallback(
+        (text: string) => {
+            setSearchQuery(text);
+        },
+        [setSearchQuery],
+    );
+
+    const inputProps = {
+        ...textInputProps,
+        value: searchQuery,
+        onChangeText: handleChangeText,
+        placeholder: textInputProps.placeholder || 'Search...',
+        inputStyle: styles.searchInputInput,
+    } as TextInputProps;
+
+    const onPressLeftIcon = useCallback(() => {
+        textInputRef.current?.focus();
+    }, []);
+
+    const onClearSearchQuery = useCallback(() => {
+        handleChangeText('');
+    }, [handleChangeText]);
+
+    return (
+        <TextInput
+            ref={textInputRef}
+            style={styles.searchInput}
+            size="sm"
+            variant="outlined"
+            {...inputProps}>
+            <TextInput.Left>
+                <Icon onPress={onPressLeftIcon} name="magnify" size={20} />
+            </TextInput.Left>
+            {searchQuery ? (
+                <TextInput.Right>
+                    <IconButton name="close" size={20} onPress={onClearSearchQuery} />
+                </TextInput.Right>
+            ) : null}
+            {children}
+        </TextInput>
+    );
+});
 
 SelectSearchInput.displayName = 'Select_SearchInput';
 
@@ -531,8 +692,7 @@ const SelectWithSubcomponents = Object.assign(Select, {
     Trigger: SelectTrigger,
     Value: SelectValue,
     Dropdown: SelectDropdown,
-    Content: List.Content,
-    Group: SelectGroup,
+    Content: SelectContent,
     Option: SelectOption,
     SearchInput: SelectSearchInput,
 });

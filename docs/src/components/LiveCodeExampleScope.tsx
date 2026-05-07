@@ -30,7 +30,7 @@ import { IconButton } from 'react-native-molecules/components/IconButton';
 import { If } from 'react-native-molecules/components/If';
 import { InputAddon } from 'react-native-molecules/components/InputAddon';
 import { Link } from 'react-native-molecules/components/Link';
-import { List } from 'react-native-molecules/components/List';
+import { List, useListContextValue } from 'react-native-molecules/components/List';
 import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
 import { Menu } from 'react-native-molecules/components/Menu';
 import { Modal } from 'react-native-molecules/components/Modal';
@@ -98,7 +98,6 @@ export const defaultScope = {
     FAB,
     HelperText,
     InputAddon,
-    ListItem: List.Row,
     Menu,
     Modal,
     NavigationRail,
@@ -135,6 +134,7 @@ export const defaultScope = {
     TextInputContext,
     FilePickerContext,
     List,
+    useListContextValue,
 };
 
 if ((defaultScope as any).default) {

@@ -1,6 +1,6 @@
 import { setMonth } from 'date-fns';
 import { memo, useCallback, useMemo } from 'react';
-import { FlatList, type FlatListProps, View, type ViewStyle } from 'react-native';
+import { FlatList, View, type ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { resolveStateVariant } from '../../utils';
@@ -9,7 +9,7 @@ import type { DatePickerLocale } from '../DatePicker/context';
 import { datePickerMonthItemStyles, datePickerMonthPickerStyles } from '../DatePicker/utils';
 import { Divider } from '../Divider';
 import { Icon } from '../Icon';
-import { List, type ListContentProcessPropsArgs, useListContextValue } from '../List';
+import { List, type ListItemId, useListContextValue } from '../List';
 import { Text } from '../Text';
 import { useDatePickerInlineStore, useDatePickerInlineStoreValue } from './store';
 
@@ -28,36 +28,14 @@ export default function MonthPicker({ locale }: { locale?: DatePickerLocale }) {
     );
 
     const handleOnChange = useCallback(
-        (month: number | null) => {
-            if (month === null) return;
+        (value: ListItemId | null) => {
+            if (typeof value !== 'number') return;
             setStore(prev => ({
-                localDate: setMonth(prev.localDate, month),
+                localDate: setMonth(prev.localDate, value),
                 pickerType: undefined,
             }));
         },
         [setStore],
-    );
-
-    const processFlatListProps = useCallback(
-        ({
-            props,
-            items,
-        }: ListContentProcessPropsArgs<
-            MonthListItem,
-            Omit<FlatListProps<MonthListItem>, 'children' | 'ref'>
-        >): FlatListProps<MonthListItem> => ({
-            ...props,
-            data: items,
-            renderItem: ({ item }) => (
-                <Month
-                    month={item.id}
-                    monthStyles={datePickerMonthPickerStyles.root}
-                    locale={locale}
-                />
-            ),
-            keyExtractor: item => `${item.id}`,
-        }),
-        [locale],
     );
 
     if (!selectingMonth) {
@@ -65,11 +43,7 @@ export default function MonthPicker({ locale }: { locale?: DatePickerLocale }) {
     }
 
     return (
-        <List
-            items={monthItems}
-            multiple={false}
-            value={localDate.getMonth()}
-            onChange={handleOnChange}>
+        <List multiple={false} value={localDate.getMonth()} onChange={handleOnChange}>
             <View
                 style={[
                     StyleSheet.absoluteFill,
@@ -78,10 +52,17 @@ export default function MonthPicker({ locale }: { locale?: DatePickerLocale }) {
                 ]}
                 pointerEvents={selectingMonth ? 'auto' : 'none'}>
                 <Divider />
-                <List.Content<MonthListItem, typeof FlatList<MonthListItem>>
-                    ContainerComponent={FlatList<MonthListItem>}
+                <FlatList<MonthListItem>
                     style={styles.list}
-                    processProps={processFlatListProps}
+                    data={monthItems}
+                    renderItem={({ item }) => (
+                        <Month
+                            month={item.id}
+                            monthStyles={datePickerMonthPickerStyles.root}
+                            locale={locale}
+                        />
+                    )}
+                    keyExtractor={item => `${item.id}`}
                 />
             </View>
         </List>
@@ -131,16 +112,16 @@ function MonthPure({
             accessibilityLabel={String(month)}
             accessibilityState={accessibilityState}
             style={monthButtonStyle}
-            testID={`pick-month-${month}`}
-            left={
-                isSelected ? (
+            testID={`pick-month-${month}`}>
+            <View style={styles.left}>
+                {isSelected ? (
                     <View style={styles.checkIconView}>
                         <Icon name="check" size={24} />
                     </View>
                 ) : (
                     <View style={styles.spacer} />
-                )
-            }>
+                )}
+            </View>
             <View style={datePickerMonthItemStyles.monthInner}>
                 <Text style={datePickerMonthItemStyles.monthLabel} selectable={false}>
                     {monthLabel}
@@ -164,6 +145,9 @@ const styles = StyleSheet.create(theme => ({
 
     spacer: {
         width: 44,
+    },
+    left: {
+        marginRight: theme.spacings['2'],
     },
 
     list: {

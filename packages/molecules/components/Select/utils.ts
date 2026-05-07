@@ -102,6 +102,9 @@ export const defaultStyles = StyleSheet.create(theme => ({
         marginHorizontal: theme.spacings['2'],
         marginVertical: theme.spacings['3'],
     },
+    searchInputInput: {
+        height: 42,
+    },
 }));
 
 export const triggerStyles = getRegisteredComponentStylesWithFallback(

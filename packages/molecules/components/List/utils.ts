@@ -3,19 +3,6 @@ import { StyleSheet } from 'react-native-unistyles';
 import { getRegisteredComponentStylesWithFallback } from '../../core';
 
 const defaultStyles = StyleSheet.create(theme => ({
-    groupLabel: {
-        paddingHorizontal: theme.spacings['4'],
-        paddingVertical: theme.spacings['2'],
-        fontWeight: '600',
-        color: theme.colors.onSurface,
-    },
-    searchInput: {
-        marginHorizontal: theme.spacings['2'],
-        marginVertical: theme.spacings['3'],
-    },
-    searchInputInput: {
-        height: 42,
-    },
     emptyState: {
         paddingHorizontal: theme.spacings['4'],
         paddingVertical: theme.spacings['6'],
@@ -33,6 +20,9 @@ export const listStyles = getRegisteredComponentStylesWithFallback('List', defau
 const listItemStylesDefault = StyleSheet.create(theme => ({
     root: {
         backgroundColor: theme.colors.surface,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: theme.spacings['4'],
 
         _web: {
             outlineStyle: 'none',
@@ -58,36 +48,13 @@ const listItemStylesDefault = StyleSheet.create(theme => ({
                     paddingLeft: theme.spacings['4'],
                     paddingRight: theme.spacings['6'],
                     minHeight: 56,
-                    justifyContent: 'center',
                 },
                 menuItem: {
                     paddingHorizontal: theme.spacings['3'],
-                    minHeight: 48,
-                    justifyContent: 'center',
+                    minHeight: 40,
                 },
             },
         },
-    },
-
-    innerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        minHeight: 40,
-    },
-
-    content: {
-        flex: 1,
-        justifyContent: 'center',
-        minHeight: 40,
-    },
-
-    leftElement: {
-        marginRight: theme.spacings['4'],
-        marginLeft: theme.spacings._1,
-    },
-    rightElement: {
-        marginRight: theme.spacings._1,
-        marginLeft: theme.spacings['4'],
     },
     stateLayer: {
         variants: {
