@@ -56,11 +56,13 @@ const PopoverPanel = ({
     } = usePopover({ isOpen, position, align, offset, horizontalOffset });
 
     const popoverRef = useRef<View>(null);
+    const hasBackdrop = !!backdrop;
 
     const { popoverStyle } = usePlatformMeasure({
         triggerRef,
         isOpen,
         onClose,
+        dismissOnClickOutside: !hasBackdrop,
         calculatedPosition,
         calculateAndSetPosition,
         targetLayoutRef,

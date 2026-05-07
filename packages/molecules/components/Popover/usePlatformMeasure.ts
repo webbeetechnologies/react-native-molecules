@@ -7,6 +7,7 @@ export type UsePlatformMeasureArgs = {
     triggerRef: RefObject<View | any> | undefined;
     isOpen: boolean;
     onClose?: () => void;
+    dismissOnClickOutside?: boolean;
     calculatedPosition: ViewStyle | null;
     calculateAndSetPosition: () => void;
     targetLayoutRef: RefObject<LayoutRectangle | null>;
@@ -23,6 +24,7 @@ export const usePlatformMeasure = ({
     triggerRef,
     isOpen,
     onClose,
+    dismissOnClickOutside = true,
     calculatedPosition,
     calculateAndSetPosition,
     targetLayoutRef,
@@ -82,7 +84,7 @@ export const usePlatformMeasure = ({
     }, [isOpen, measureTarget, triggerRef]);
 
     useEffect(() => {
-        if (!isOpen || !onClose) return;
+        if (!isOpen || !onClose || !dismissOnClickOutside) return;
         const handleClickOutside = (event: MouseEvent) => {
             const popoverElement = popoverRef.current as any as HTMLElement;
             const targetElement = triggerRef?.current as any as HTMLElement;
@@ -99,7 +101,7 @@ export const usePlatformMeasure = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside, { capture: true });
         };
-    }, [isOpen, onClose, popoverRef, triggerRef]);
+    }, [dismissOnClickOutside, isOpen, onClose, popoverRef, triggerRef]);
 
     const popoverStyle = useMemo(() => {
         if (!calculatedPosition) return popoverDefaultStyles;
