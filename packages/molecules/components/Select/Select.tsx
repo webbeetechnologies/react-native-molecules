@@ -131,7 +131,7 @@ const SelectDropdownProvider = memo(
     },
 );
 
-const Select = typedMemo(
+export const SelectRoot = typedMemo(
     <Option extends DefaultItemT = DefaultItemT>({
         children,
         options = emptyArr as Option[],
@@ -190,7 +190,7 @@ const Select = typedMemo(
     },
 );
 
-const SelectContent = typedMemo(
+export const SelectContent = typedMemo(
     <Option extends DefaultItemT = DefaultItemT>({
         children,
         ...rest
@@ -217,7 +217,7 @@ const SelectContent = typedMemo(
     },
 );
 
-const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
+export const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
     const { isOpen, onOpen, onClose, triggerRef, setTriggerLayout } = useSelectDropdownContextValue(
         state => ({
             isOpen: state.isOpen,
@@ -289,7 +289,7 @@ const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
 
 SelectTrigger.displayName = 'Select_Trigger';
 
-const SelectValue = memo(
+export const SelectValue = memo(
     ({ placeholder, labelKey, renderValue, style, ...rest }: SelectValueProps) => {
         const { value, multiple, onRemove } = useSelectContextValue(state => ({
             value: state.value,
@@ -381,7 +381,7 @@ const SelectValueItem = typedMemo(
 SelectValue.displayName = 'Select_Value';
 
 // Select.Dropdown - popover with keyboard navigation
-const SelectDropdown = memo(
+export const SelectDropdown = memo(
     ({
         children,
         WrapperComponent,
@@ -540,7 +540,7 @@ const KeyboardNavigationWrapper = memo(({ children }: { children: React.ReactNod
 SelectDropdown.displayName = 'Select_Dropdown';
 
 // Select.Item - select item that uses context
-const SelectOption = memo(
+export const SelectOption = memo(
     <Option extends DefaultItemT = DefaultItemT>({
         value,
         children,
@@ -639,7 +639,7 @@ const SelectOption = memo(
 
 SelectOption.displayName = 'Select_Option';
 
-const SelectSearchInput = memo(({ children, ...textInputProps }: SelectSearchInputProps) => {
+export const SelectSearchInput = memo(({ children, ...textInputProps }: SelectSearchInputProps) => {
     const { searchQuery, setSearchQuery } = useSelectSearchContextValue(state => ({
         searchQuery: state.searchQuery,
         setSearchQuery: state.setSearchQuery,
@@ -692,7 +692,7 @@ const SelectSearchInput = memo(({ children, ...textInputProps }: SelectSearchInp
 
 SelectSearchInput.displayName = 'Select_SearchInput';
 
-const SelectWithSubcomponents = Object.assign(Select, {
+const SelectWithSubcomponents = Object.assign(SelectRoot, {
     Trigger: SelectTrigger,
     Value: SelectValue,
     Dropdown: SelectDropdown,
