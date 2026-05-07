@@ -218,10 +218,11 @@ const SelectContent = typedMemo(
 );
 
 const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
-    const { onOpen, isOpen, triggerRef, setTriggerLayout } = useSelectDropdownContextValue(
+    const { isOpen, onOpen, onClose, triggerRef, setTriggerLayout } = useSelectDropdownContextValue(
         state => ({
-            onOpen: state.onOpen,
             isOpen: state.isOpen,
+            onOpen: state.onOpen,
+            onClose: state.onClose,
             triggerRef: state.triggerRef,
             setTriggerLayout: state.setTriggerLayout,
         }),
@@ -257,10 +258,13 @@ const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
     );
 
     const handlePress = useCallback(() => {
-        if (!isOpen && !disabled) {
+        if (disabled) return;
+        if (!isOpen) {
             onOpen();
+        } else {
+            onClose();
         }
-    }, [isOpen, onOpen, disabled]);
+    }, [isOpen, onOpen, onClose, disabled]);
 
     return (
         <Pressable
@@ -343,7 +347,7 @@ const SelectValue = memo(
         }
 
         return (
-            <Text style={style} {...rest}>
+            <Text style={[{ flex: 1 }, style]} selectable={false} {...rest}>
                 {displayValue}
             </Text>
         );
