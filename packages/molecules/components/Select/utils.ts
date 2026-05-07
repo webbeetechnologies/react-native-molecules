@@ -92,11 +92,15 @@ const triggerDefaultStyles = StyleSheet.create(theme => ({
 }));
 
 export const defaultStyles = StyleSheet.create(theme => ({
+    valueText: {
+        flex: 1,
+    },
     chipContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 6,
         maxWidth: '90%',
+        flex: 1,
     },
     searchInput: {
         marginHorizontal: theme.spacings['2'],

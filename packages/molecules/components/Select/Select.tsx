@@ -347,7 +347,7 @@ const SelectValue = memo(
         }
 
         return (
-            <Text style={[{ flex: 1 }, style]} selectable={false} {...rest}>
+            <Text style={[styles.valueText, style]} selectable={false} {...rest}>
                 {displayValue}
             </Text>
         );
