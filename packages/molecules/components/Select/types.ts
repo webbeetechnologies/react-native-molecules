@@ -82,6 +82,8 @@ export type SelectTriggerProps = ViewProps & {
     children?: ReactNode;
 };
 
+export type SelectTriggerOutlineProps = ViewProps;
+
 // Select.Value props
 export type SelectValueProps = ViewProps & {
     placeholder?: string;

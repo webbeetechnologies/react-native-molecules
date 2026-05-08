@@ -39,6 +39,13 @@ const triggerDefaultStyles = StyleSheet.create(theme => ({
             },
         },
     },
+    triggerIcon: {
+        marginLeft: theme.spacings['2'],
+        color: theme.colors.onSurfaceVariant,
+    },
+}));
+
+const outlineDefaultStyles = StyleSheet.create(theme => ({
     outline: {
         position: 'absolute',
         top: 0,
@@ -85,10 +92,6 @@ const triggerDefaultStyles = StyleSheet.create(theme => ({
             },
         },
     },
-    triggerIcon: {
-        marginLeft: theme.spacings['2'],
-        color: theme.colors.onSurfaceVariant,
-    },
 }));
 
 export const defaultStyles = StyleSheet.create(theme => ({
@@ -114,6 +117,10 @@ export const defaultStyles = StyleSheet.create(theme => ({
 export const triggerStyles = getRegisteredComponentStylesWithFallback(
     'Select_Trigger',
     triggerDefaultStyles,
+);
+export const selectOutlineStyles = getRegisteredComponentStylesWithFallback(
+    'SelectOutline',
+    outlineDefaultStyles,
 );
 
 export const styles = getRegisteredComponentStylesWithFallback('Select', defaultStyles);

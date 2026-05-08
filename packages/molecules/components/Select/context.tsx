@@ -24,6 +24,7 @@ export type SelectDropdownContextType = SelectDropdownContextValue & {
     triggerRef: React.RefObject<View> | null;
     triggerLayout: { width: number; height: number } | null;
     setTriggerLayout: (layout: { width: number; height: number }) => void;
+    triggerHovered?: boolean;
 };
 
 const selectDropdownContextDefaultValue: SelectDropdownContextType = {
@@ -33,6 +34,7 @@ const selectDropdownContextDefaultValue: SelectDropdownContextType = {
     triggerRef: null,
     triggerLayout: null,
     setTriggerLayout: () => {},
+    triggerHovered: false,
 };
 
 const {

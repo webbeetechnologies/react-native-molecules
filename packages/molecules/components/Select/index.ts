@@ -1,7 +1,25 @@
 import { getRegisteredComponentWithFallback } from '../../core';
-import SelectDefault from './Select';
+import SelectRoot, {
+    SelectContent,
+    SelectDropdown,
+    SelectOption,
+    SelectSearchInput,
+    SelectTrigger,
+    SelectTriggerOutline,
+    SelectValue,
+} from './Select';
 
-export const Select = getRegisteredComponentWithFallback('Select', SelectDefault);
+const SelectWithSubcomponents = Object.assign(SelectRoot, {
+    Trigger: SelectTrigger,
+    TriggerOutline: SelectTriggerOutline,
+    Value: SelectValue,
+    Dropdown: SelectDropdown,
+    Content: SelectContent,
+    Option: SelectOption,
+    SearchInput: SelectSearchInput,
+});
+
+export const Select = getRegisteredComponentWithFallback('Select', SelectWithSubcomponents);
 
 export * from './context';
 export type * from './types';

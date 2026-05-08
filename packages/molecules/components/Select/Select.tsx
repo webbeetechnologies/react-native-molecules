@@ -19,8 +19,8 @@ import {
 } from 'react-native';
 
 import { typedMemo } from '../../hocs';
-import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
+import { extractSubcomponents } from '../../utils/extractSubcomponents';
 import { Chip } from '../Chip';
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
@@ -33,6 +33,7 @@ import {
     SelectSearchContextProvider,
     useSelectContextValue,
     useSelectDropdownContextValue,
+    useSelectDropdownStoreRef,
     useSelectSearchContextValue,
 } from './context';
 import type {
@@ -44,21 +45,50 @@ import type {
     SelectSearchContextValue,
     SelectSearchInputProps,
     SelectSearchKey,
+    SelectTriggerOutlineProps,
     SelectTriggerProps,
     SelectValueProps,
 } from './types';
-import { collectWebSelectKeyboardOptionElements, styles, triggerStyles } from './utils';
+import {
+    collectWebSelectKeyboardOptionElements,
+    selectOutlineStyles,
+    styles,
+    triggerStyles,
+} from './utils';
 
 const emptyArr: unknown[] = [];
 
-const getDisplayLabel = (item: DefaultItemT, labelKey?: string) => {
+export const getSelectTriggerState = ({
+    isOpen,
+    hovered,
+    disabled,
+    error,
+}: {
+    isOpen: boolean;
+    hovered: boolean;
+    disabled: boolean;
+    error: boolean;
+}) =>
+    resolveStateVariant({
+        focused: isOpen,
+        hovered,
+        disabled,
+        error,
+        hoveredAndFocused: hovered && isOpen,
+        errorFocused: error && isOpen,
+        errorHovered: error && hovered,
+        errorFocusedAndHovered: error && isOpen && hovered,
+        errorDisabled: error && disabled,
+    }) as any;
+
+export const getDisplayLabel = (item: DefaultItemT, labelKey?: string) => {
     const itemLabelKey = typeof item.labelKey === 'string' ? item.labelKey : undefined;
     const key = labelKey ?? itemLabelKey ?? 'label';
     const value = item[key];
     return value == null ? String(item.id) : String(value);
 };
 
-const getNested = (item: unknown, path: string): unknown => {
+export const getNested = (item: unknown, path: string): unknown => {
     if (item == null || typeof item !== 'object') return undefined;
     if (!path.includes('.')) return (item as Record<string, unknown>)[path];
     let val: unknown = item;
@@ -69,12 +99,12 @@ const getNested = (item: unknown, path: string): unknown => {
     return val;
 };
 
-const matchesByKey = (item: unknown, key: string, lowerQuery: string): boolean =>
+export const matchesByKey = (item: unknown, key: string, lowerQuery: string): boolean =>
     String(getNested(item, key) ?? '')
         .toLowerCase()
         .includes(lowerQuery);
 
-const applySearch = <T extends object>(
+export const applySearch = <T extends object>(
     items: T[],
     searchKey: SelectSearchKey<T> | undefined,
     query: string,
@@ -88,7 +118,7 @@ const applySearch = <T extends object>(
     return items.filter(item => keys.some(key => matchesByKey(item, key, lowerQuery)));
 };
 
-const SelectDropdownProvider = memo(
+export const SelectDropdownProvider = memo(
     ({
         children,
         isOpen: isOpenProp,
@@ -226,7 +256,7 @@ export const SelectContent = typedMemo(
     },
 );
 
-export const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) => {
+export const SelectTrigger = memo(({ children, style, ...rest }: SelectTriggerProps) => {
     const { isOpen, onOpen, onClose, triggerRef, setTriggerLayout } = useSelectDropdownContextValue(
         state => ({
             isOpen: state.isOpen,
@@ -236,26 +266,28 @@ export const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) 
             setTriggerLayout: state.setTriggerLayout,
         }),
     );
+    const setSelectDropdownContext = useSelectDropdownStoreRef().set;
 
     const { disabled, error } = useSelectContextValue(state => ({
         disabled: state.disabled,
         error: state.error,
     }));
 
-    const { hovered } = useActionState({ ref: triggerRef, actionsToListen: ['hover'] });
+    const [hovered, setHovered] = useState(false);
+
+    const { Select_TriggerOutline, rest: restChildren } = extractSubcomponents({
+        children,
+        allowedChildren: [{ name: 'Select_TriggerOutline', allowMultiple: false }] as const,
+        includeRest: true,
+    });
 
     triggerStyles.useVariants({
-        state: resolveStateVariant({
-            focused: isOpen,
+        state: getSelectTriggerState({
+            isOpen,
             hovered,
             disabled: !!disabled,
             error: !!error,
-            hoveredAndFocused: hovered && isOpen,
-            errorFocused: !!error && isOpen,
-            errorHovered: !!error && hovered,
-            errorFocusedAndHovered: !!error && isOpen && hovered,
-            errorDisabled: !!error && !!disabled,
-        }) as any,
+        }),
     });
 
     const handleLayout = useCallback(
@@ -275,28 +307,66 @@ export const SelectTrigger = ({ children, style, ...rest }: SelectTriggerProps) 
         }
     }, [isOpen, onOpen, onClose, disabled]);
 
+    const handleHoverIn = useCallback(() => {
+        setHovered(true);
+        setSelectDropdownContext(() => ({ triggerHovered: true }));
+    }, [setSelectDropdownContext]);
+
+    const handleHoverOut = useCallback(() => {
+        setHovered(false);
+        setSelectDropdownContext(() => ({ triggerHovered: false }));
+    }, [setSelectDropdownContext]);
+
+    const outlineElement =
+        Select_TriggerOutline.length > 0 ? Select_TriggerOutline : <SelectTriggerOutline />;
+
     return (
         <Pressable
             ref={triggerRef}
             onPress={handlePress}
             onLayout={handleLayout}
+            onHoverIn={handleHoverIn}
+            onHoverOut={handleHoverOut}
             style={[triggerStyles.trigger, style]}
             accessibilityRole="combobox"
             accessibilityState={{ expanded: isOpen, disabled: !!disabled }}
             disabled={disabled}
             {...rest}>
-            {children}
+            {restChildren}
             <Icon
                 name={isOpen ? 'chevron-up' : 'chevron-down'}
                 size={20}
                 style={triggerStyles.triggerIcon}
             />
-            <View style={triggerStyles.outline} />
+            {outlineElement}
         </Pressable>
     );
-};
+});
 
 SelectTrigger.displayName = 'Select_Trigger';
+
+export const SelectTriggerOutline = memo(({ style }: SelectTriggerOutlineProps) => {
+    const { isOpen, triggerHovered } = useSelectDropdownContextValue(state => ({
+        isOpen: state.isOpen,
+        triggerHovered: state.triggerHovered,
+    }));
+    const { disabled, error } = useSelectContextValue(state => ({
+        disabled: state.disabled,
+        error: state.error,
+    }));
+    selectOutlineStyles.useVariants({
+        state: getSelectTriggerState({
+            isOpen,
+            hovered: !!triggerHovered,
+            disabled: !!disabled,
+            error: !!error,
+        }),
+    });
+
+    return <View pointerEvents="none" style={[selectOutlineStyles.outline, style]} />;
+});
+
+SelectTriggerOutline.displayName = 'Select_TriggerOutline';
 
 export const SelectValue = memo(
     ({ placeholder, labelKey, renderValue, style, ...rest }: SelectValueProps) => {
@@ -686,11 +756,11 @@ export const SelectSearchInput = memo(({ children, ...textInputProps }: SelectSe
             size="sm"
             variant="outlined"
             {...inputProps}>
-            <TextInput.Left tabIndex={-1}>
+            <TextInput.Left>
                 <Icon onPress={onPressLeftIcon} name="magnify" size={20} />
             </TextInput.Left>
             {searchQuery ? (
-                <TextInput.Right tabIndex={-1}>
+                <TextInput.Right>
                     <IconButton name="close" size={20} onPress={onClearSearchQuery} />
                 </TextInput.Right>
             ) : null}
@@ -701,14 +771,4 @@ export const SelectSearchInput = memo(({ children, ...textInputProps }: SelectSe
 
 SelectSearchInput.displayName = 'Select_SearchInput';
 
-const SelectWithSubcomponents = Object.assign(SelectRoot, {
-    Trigger: SelectTrigger,
-    Value: SelectValue,
-    Dropdown: SelectDropdown,
-    Content: SelectContent,
-    Option: SelectOption,
-    SearchInput: SelectSearchInput,
-});
-
-export default SelectWithSubcomponents;
-export { SelectDropdownProvider };
+export default SelectRoot;
