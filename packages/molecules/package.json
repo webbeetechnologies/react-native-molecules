@@ -35,7 +35,7 @@
         "run:testcases": "pnpm workspace test-cases start",
         "test": "MOLECULES_ENV=storybook jest && pnpm test-storybook",
         "test-jest": "jest",
-        "bundle": "MOLECULES_ENV=release rm -rf dist && mkdir -p dist && npm pack --pack-destination=dist",
+        "bundle": "MOLECULES_ENV=release rm -rf dist && mkdir -p dist && pnpm pack --pack-destination=dist",
         "do-release": "npm publish ./dist/react-native-molecules-$npm_package_version.tgz --access=public",
         "release": "pnpm bundle && pnpm do-release",
         "release:dev": "npm version prerelease --preid=dev && pnpm release --tag=dev",
