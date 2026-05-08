@@ -644,6 +644,7 @@ export const TextInputLeft = memo(
                 style={[textInputLeftStyles.leftElement, style]}
                 onLayout={handleLayout}
                 accessibilityRole="none"
+                tabIndex={-1}
                 {...rest}>
                 {children}
             </Pressable>
@@ -682,6 +683,7 @@ export const TextInputRight = memo(
                 onPress={onPress}
                 style={[textInputRightStyles.rightElement, style]}
                 accessibilityRole="none"
+                tabIndex={-1}
                 {...rest}>
                 {children}
             </Pressable>
