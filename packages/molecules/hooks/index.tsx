@@ -12,6 +12,7 @@ export {
 } from './useHandleNumberFormat';
 export * from './useHover';
 export * from './useKeyboardDismissable';
+export * from './useMediaQuery';
 export * from './useQueryFilter';
 export * from './useTheme';
 export * from '@react-native-molecules/utils/hooks';

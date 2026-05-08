@@ -42,7 +42,18 @@ import { Portal, registerPortalContext } from 'react-native-molecules/components
 import { PortalProvider } from 'react-native-molecules/components/Portal';
 import { RadioButton } from 'react-native-molecules/components/RadioButton';
 import { Rating } from 'react-native-molecules/components/Rating';
-import { Select } from 'react-native-molecules/components/Select';
+import {
+    Select,
+    useSelectContext,
+    useSelectContextValue,
+    useSelectDropdownContext,
+    useSelectDropdownContextValue,
+    useSelectDropdownStoreRef,
+    useSelectSearchContext,
+    useSelectSearchContextValue,
+    useSelectSearchStoreRef,
+    useSelectStoreRef,
+} from 'react-native-molecules/components/Select';
 import { Slot } from 'react-native-molecules/components/Slot';
 import { StateLayer } from 'react-native-molecules/components/StateLayer';
 import { Surface } from 'react-native-molecules/components/Surface';
@@ -135,6 +146,15 @@ export const defaultScope = {
     FilePickerContext,
     List,
     useListContextValue,
+    useSelectContext,
+    useSelectContextValue,
+    useSelectDropdownContext,
+    useSelectDropdownContextValue,
+    useSelectDropdownStoreRef,
+    useSelectSearchContext,
+    useSelectSearchContextValue,
+    useSelectSearchStoreRef,
+    useSelectStoreRef,
 };
 
 if ((defaultScope as any).default) {
