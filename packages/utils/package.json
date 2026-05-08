@@ -15,7 +15,8 @@
         "bundle": "rm -rf dist && mkdir -p dist && npm pack --pack-destination=dist",
         "do-release": "npm publish ./dist/react-native-molecules-utils-$npm_package_version.tgz --access=public",
         "release": "pnpm bundle && pnpm do-release",
-        "release:dev": "npm version prerelease --preid=dev && pnpm release --tag=dev",
+        "release:dev": "npm version prerelease --preid=dev --tag-version-prefix=\"react-native-molecules-utils-v\" && pnpm release --tag=dev",
+        "release:beta": "npm version prerelease --preid=beta --tag-version-prefix=\"react-native-molecules-utils-v\" && pnpm release --tag=beta",
         "type-check": "tsc --noEmit -p tsconfig.json"
     },
     "dependencies": {
