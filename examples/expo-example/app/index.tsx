@@ -12,7 +12,7 @@ import { Tabs } from 'react-native-molecules/components/Tabs';
 import { Text } from 'react-native-molecules/components/Text';
 import { TextInput, TextInputContext } from 'react-native-molecules/components/TextInput';
 import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
-import { StyleSheet, withUnistyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { getWebProps } from 'react-native-unistyles/web';
 
 // Example demonstrating dynamic tab addition/removal
@@ -84,7 +84,6 @@ const DynamicTabsExample = () => {
         </View>
     );
 };
-import { Icon } from 'react-native-molecules/components/Icon';
 
 type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'style'> & {
     style?: Parameters<typeof getWebProps>[0];
@@ -98,7 +97,7 @@ const Link = ({ style, ...rest }: LinkProps) => {
 
 // Example: custom outline that is dashed when inactive and solid green when active
 const DashedOutline = () => {
-    const { focused, error } = useContext(TextInputContext);
+    const { focused } = useContext(TextInputContext);
     const isActive = focused;
 
     return (
@@ -115,7 +114,7 @@ const DashedOutline = () => {
 DashedOutline.displayName = 'TextInput_Outline';
 
 const GreenLabel = () => {
-    const { focused, error } = useContext(TextInputContext);
+    const { focused } = useContext(TextInputContext);
     const isActive = focused;
 
     return (
@@ -139,6 +138,7 @@ export default function Index() {
     const [multiSelectValue, setMultiSelectValue] = useState<string[]>(['1', '2', '3']);
     // console.log('multiSelectValue', multiSelectValue);
     const [isLoading, setIsLoading] = useState(false);
+    const handlePress = () => {};
 
     const singleSelectOptions = [
         { id: '1', label: 'Option 1' },
@@ -165,11 +165,7 @@ export default function Index() {
                 <LoadingIndicator />
                 <LoadingIndicator variant="contained" />
 
-                <IconButton
-                    name="home-outline"
-                    onPress={() => console.log('Pressed')}
-                    variant="outlined"
-                />
+                <IconButton name="home-outline" onPress={handlePress} variant="outlined" />
 
                 <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Checkbox:</Text>
                 <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
@@ -185,10 +181,10 @@ export default function Index() {
                 <DynamicTabsExample />
 
                 <Switch />
-                <TouchableRipple asChild onPress={() => console.log('Pressed')} testID="test-id">
+                <TouchableRipple asChild onPress={handlePress} testID="test-id">
                     <Link href="/##">Home</Link>
                 </TouchableRipple>
-                <Button onPress={() => console.log('Pressed')} variant="elevated" elevation={5}>
+                <Button onPress={handlePress} variant="elevated" elevation={5}>
                     Home
                 </Button>
 
@@ -196,7 +192,7 @@ export default function Index() {
                 <Text style={{ fontWeight: 'bold', marginTop: 10 }}>
                     Button with Text compound:
                 </Text>
-                <Button variant="contained" onPress={() => console.log('Submit')}>
+                <Button variant="contained" onPress={handlePress}>
                     <Button.Text>Submit</Button.Text>
                 </Button>
 
@@ -240,13 +236,13 @@ export default function Index() {
                 </Button>
 
                 <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Icon after text:</Text>
-                <Button variant="outlined" onPress={() => console.log('Next')}>
+                <Button variant="outlined" onPress={handlePress}>
                     <Button.Text>Next</Button.Text>
                     <Button.Icon name="chevron-right" type="material-community" />
                 </Button>
 
                 <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Icons on both sides:</Text>
-                <Button variant="elevated" onPress={() => console.log('Profile')}>
+                <Button variant="elevated" onPress={handlePress}>
                     <Button.Icon name="account" type="material-community" />
                     <Button.Text>Profile</Button.Text>
                     <Button.Icon name="chevron-right" type="material-community" />
