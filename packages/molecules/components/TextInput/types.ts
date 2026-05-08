@@ -83,7 +83,7 @@ export type TextInputOutlineCompoundProps = {
     style?: StyleProp<ViewStyle>;
 };
 
-export type TextInputSize = 'lg' | 'md' | 'sm';
+export type TextInputSize = 'xs' | 'lg' | 'md' | 'sm';
 
 export type TextInputVariant = 'flat' | 'outlined' | 'plain';
 

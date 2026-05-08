@@ -45,12 +45,16 @@ const getInputMinHeightDefault = (variant: string, size: string) => {
             return 56;
         case variant === 'outlined' && size === 'sm':
             return 48;
+        case variant === 'outlined' && size === 'xs':
+            return 40;
         case variant === 'flat' && size === 'lg':
             return 64;
         case variant === 'flat' && size === 'md':
             return 56;
         case variant === 'flat' && size === 'sm':
             return 52;
+        case variant === 'flat' && size === 'xs':
+            return 48;
         default:
             return 0;
     }
@@ -110,6 +114,9 @@ const textInputStylesDefault = StyleSheet.create(theme => ({
                     ...theme.typescale.bodyLarge,
                 },
                 sm: {
+                    ...theme.typescale.bodyMedium,
+                },
+                xs: {
                     ...theme.typescale.bodyMedium,
                 },
             },
@@ -210,6 +217,9 @@ const textInputLabelStylesDefault = StyleSheet.create(theme => ({
                     ...theme.typescale.bodyLarge,
                 },
                 sm: {
+                    ...theme.typescale.bodyMedium,
+                },
+                xs: {
                     ...theme.typescale.bodyMedium,
                 },
             },
