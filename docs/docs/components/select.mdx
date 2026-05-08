@@ -110,4 +110,133 @@ export default function Example() {
 }`}
 />
 
+### Virtualized options with `FlatList`
+
+For large option sets, render your own virtualized container inside `Select.Dropdown`. `Select` keeps search and selection state in context, while `FlatList` owns virtualization.
+
+<LiveCodeExample
+    center={false}
+    code={`import { FlatList } from 'react-native';
+import {
+    Select,
+    useSelectContextValue,
+    useSelectSearchContextValue,
+} from 'react-native-molecules/components/Select';
+
+const options = Array.from({ length: 500 }, (_, i) => ({
+    id: i + 1,
+    label: 'Option ' + (i + 1),
+}));
+
+function VirtualizedOptions() {
+    const options = useSelectSearchContextValue(state => state.options);
+    const isSelectedId = useSelectContextValue(state => state.isSelectedId);
+
+    return (
+        <FlatList
+            data={options}
+            keyExtractor={item => String(item.id)}
+            style={{ maxHeight: 280 }}
+            renderItem={({ item }) => (
+                <Select.Option value={item.id}>
+                    <Text typescale="labelLarge">
+                        {item.label} {isSelectedId(item.id) ? '✓' : ''}
+                    </Text>
+                </Select.Option>
+            )}
+        />
+    );
+}
+
+export default function Example() {
+    return (
+        <Select options={options}>
+            <Select.Trigger>
+                <Select.Value placeholder="Select from 500 options" labelKey="label" />
+            </Select.Trigger>
+            <Select.Dropdown>
+                <Select.SearchInput placeholder="Search options..." />
+                <VirtualizedOptions />
+            </Select.Dropdown>
+        </Select>
+    );
+}`}
+/>
+
+### Grouped options with `SectionList`
+
+Build sections from the filtered options exposed by `useSelectSearchContextValue`, then render rows with `Select.Option`.
+
+<LiveCodeExample
+    center={false}
+    code={`import { SectionList } from 'react-native';
+import {
+    Select,
+    useSelectContextValue,
+    useSelectSearchContextValue,
+} from 'react-native-molecules/components/Select';
+
+const groups = ['Frontend', 'Backend', 'Mobile', 'DevOps'];
+const labels = ['React', 'Vue', 'Node', 'Go', 'Swift', 'Kotlin', 'Docker', 'Kubernetes'];
+
+const options = Array.from({ length: 80 }, (_, i) => ({
+    id: i + 1,
+    label: labels[i % labels.length] + ' ' + (i + 1),
+    group: groups[i % groups.length],
+}));
+
+function buildSections(items) {
+    const map = new Map();
+    for (const item of items) {
+        if (!map.has(item.group)) map.set(item.group, []);
+        map.get(item.group).push(item);
+    }
+    return Array.from(map.entries()).map(([title, data]) => ({
+        title,
+        data,
+    }));
+}
+
+function GroupedOptions() {
+    const options = useSelectSearchContextValue(state => state.options);
+    const isSelectedId = useSelectContextValue(state => state.isSelectedId);
+
+    return (
+        <SectionList
+            sections={buildSections(options)}
+            keyExtractor={item => String(item.id)}
+            style={{ maxHeight: 320 }}
+            renderSectionHeader={({ section }) => (
+                <Text
+                    typescale="titleSmall"
+                    style={{ paddingHorizontal: 16, paddingVertical: 6 }}>
+                    {section.title}
+                </Text>
+            )}
+            renderItem={({ item }) => (
+                <Select.Option value={item.id}>
+                    <Text typescale="labelLarge">
+                        {item.label} {isSelectedId(item.id) ? '✓' : ''}
+                    </Text>
+                </Select.Option>
+            )}
+        />
+    );
+}
+
+export default function Example() {
+    return (
+        <Select options={options} searchKey={['label', 'group']}>
+            <Select.Trigger>
+                <Select.Value placeholder="Select a technology" labelKey="label" />
+            </Select.Trigger>
+            <Select.Dropdown>
+                <Select.SearchInput placeholder="Search technology or group..." />
+                <GroupedOptions />
+            </Select.Dropdown>
+        </Select>
+    );
+}`}
+/>
+
 <ComponentProps name="Select" />

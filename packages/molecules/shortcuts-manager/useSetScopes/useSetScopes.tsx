@@ -1,6 +1,6 @@
+import { keyBy } from '@react-native-molecules/utils/helpers/lodash';
 import { useCallback } from 'react';
 
-import { keyBy } from '../../utils/lodash';
 import { useShortcutsManagerStoreRef } from '../ShortcutsManager/utils';
 import type { Scope } from '../types';
 

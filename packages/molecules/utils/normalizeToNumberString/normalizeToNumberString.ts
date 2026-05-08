@@ -1,4 +1,4 @@
-import { isNil } from '../lodash';
+import { isNil } from '@react-native-molecules/utils/helpers/lodash';
 
 export type NormalizeToNumberStringProps = {
     text: string;

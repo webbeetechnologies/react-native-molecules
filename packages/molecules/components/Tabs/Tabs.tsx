@@ -1,3 +1,5 @@
+import { noop } from '@react-native-molecules/utils/helpers/lodash';
+import { useControlledValue } from '@react-native-molecules/utils/hooks';
 import {
     cloneElement,
     type ComponentType,
@@ -22,9 +24,7 @@ import {
 } from 'react-native';
 
 import { typedMemo } from '../../hocs';
-import { useControlledValue } from '../../hooks';
 import { extractSubcomponents } from '../../utils/extractSubcomponents';
-import { noop } from '../../utils/lodash';
 import type { TabItemProps } from './TabItem';
 import { tabsStyles } from './utils';
 

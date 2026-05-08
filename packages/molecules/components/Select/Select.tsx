@@ -1,4 +1,14 @@
-import { Fragment, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useControlledValue, useToggle } from '@react-native-molecules/utils/hooks';
+import {
+    Fragment,
+    memo,
+    type ReactNode,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import {
     type AccessibilityRole,
     type GestureResponderEvent,
@@ -9,8 +19,7 @@ import {
 } from 'react-native';
 
 import { typedMemo } from '../../hocs';
-import { useActionState, useControlledValue } from '../../hooks';
-import { useToggle } from '../../hooks';
+import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { Chip } from '../Chip';
 import { Icon } from '../Icon';
@@ -85,7 +94,7 @@ const SelectDropdownProvider = memo(
         isOpen: isOpenProp,
         onClose: onCloseProp,
     }: {
-        children: React.ReactNode;
+        children: ReactNode;
         isOpen?: boolean;
         onClose?: () => void;
     }) => {
@@ -677,11 +686,11 @@ export const SelectSearchInput = memo(({ children, ...textInputProps }: SelectSe
             size="sm"
             variant="outlined"
             {...inputProps}>
-            <TextInput.Left>
+            <TextInput.Left tabIndex={-1}>
                 <Icon onPress={onPressLeftIcon} name="magnify" size={20} />
             </TextInput.Left>
             {searchQuery ? (
-                <TextInput.Right>
+                <TextInput.Right tabIndex={-1}>
                     <IconButton name="close" size={20} onPress={onClearSearchQuery} />
                 </TextInput.Right>
             ) : null}

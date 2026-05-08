@@ -1,8 +1,8 @@
+import { isNil } from '@react-native-molecules/utils/helpers/lodash';
 import { Children, cloneElement, forwardRef, memo, type ReactElement, useMemo } from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
 import { extractPropertiesFromStyles } from '../../utils/extractPropertiesFromStyles';
-import { isNil } from '../../utils/lodash';
 import { elementGroupStyles } from './utils';
 
 export enum Orientation {

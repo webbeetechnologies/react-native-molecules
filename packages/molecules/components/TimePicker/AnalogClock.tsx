@@ -1,3 +1,4 @@
+import { useLatest } from '@react-native-molecules/utils/hooks';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import {
     type GestureResponderEvent,
@@ -7,7 +8,6 @@ import {
     type ViewProps,
 } from 'react-native';
 
-import { useLatest } from '../../hooks';
 import AnalogClockHours from './AnalogClockHours';
 import AnalogClockMinutes from './AnalogClockMinutes';
 import AnimatedClockSwitcher from './AnimatedClockSwitcher';

@@ -1,9 +1,9 @@
+import { isNil } from '@react-native-molecules/utils/helpers/lodash';
+import { usePrevious } from '@react-native-molecules/utils/hooks';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
 import { formatNumberWithMask, normalizeToNumberString } from '../utils';
-import { isNil } from '../utils/lodash';
-import usePrevious from './usePrevious';
 
 export type NumberMaskConfig = {
     prefix?: string;

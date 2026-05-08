@@ -1,7 +1,6 @@
+import { resolveContrastColor } from '@react-native-molecules/utils/helpers/resolveContrastColor';
 import { useMemo } from 'react';
 import { useUnistyles } from 'react-native-unistyles';
-
-import { resolveContrastColor } from '../utils/color';
 
 export const useContrastColor = (bgColor: string, lightColor?: string, darkColor?: string) => {
     const isDarkMode = useUnistyles().theme.dark;

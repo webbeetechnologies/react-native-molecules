@@ -1,3 +1,4 @@
+import { useLatest } from '@react-native-molecules/utils/hooks';
 import {
     type CSSProperties,
     memo,
@@ -10,7 +11,6 @@ import {
     useState,
 } from 'react';
 
-import { useLatest } from '../../hooks';
 import AutoSizer from './AutoSizer';
 import { beginOffset, estimatedMonthHeight, getInitialIndex, totalMonths } from './dateUtils';
 import { addMonths, getRealIndex } from './dateUtils';

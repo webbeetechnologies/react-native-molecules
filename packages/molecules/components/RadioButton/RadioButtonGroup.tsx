@@ -1,7 +1,6 @@
+import { useControlledValue } from '@react-native-molecules/utils/hooks';
 import { createContext, memo, type ReactNode, useMemo } from 'react';
 import { View, type ViewProps } from 'react-native';
-
-import { useControlledValue } from '../../hooks';
 
 export type Props = ViewProps & {
     /**

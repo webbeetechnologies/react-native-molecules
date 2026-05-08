@@ -1,0 +1,36 @@
+{
+    "name": "@react-native-molecules/utils",
+    "version": "1.0.0-beta.5",
+    "author": "Thet Aung <thetaung.dev@gmail.com>",
+    "license": "MIT",
+    "main": "index.ts",
+    "files": [
+        "compare",
+        "context-bridge",
+        "fast-context",
+        "hocs",
+        "hooks",
+        "helpers"
+    ],
+    "scripts": {
+        "bundle": "rm -rf dist && mkdir -p dist && npm pack --pack-destination=dist",
+        "do-release": "npm publish ./dist/react-native-molecules-utils-$npm_package_version.tgz --access=public",
+        "release": "pnpm bundle && pnpm do-release",
+        "release:dev": "npm version prerelease --preid=dev && pnpm release --tag=dev",
+        "type-check": "tsc --noEmit -p tsconfig.json"
+    },
+    "dependencies": {
+        "color": "^4.2.3",
+        "use-sync-external-store": "^1.2.0"
+    },
+    "peerDependencies": {
+        "react": ">=18",
+        "@types/react": ">=18"
+    },
+    "devDependencies": {
+        "@types/color": "^3.0.3",
+        "react": "19.1.0",
+        "@types/react": "~19.1.10",
+        "@types/use-sync-external-store": "^1.5.0"
+    }
+}

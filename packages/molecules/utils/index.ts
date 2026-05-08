@@ -1,7 +1,5 @@
 export { addEventListener, addListener } from './addEventListener';
 export { BackgroundContext } from './backgroundContext';
-export { default as color, resolveContrastColor } from './color';
-export * from './compare';
 export { default as composeEventHandlers } from './composeEventHandlers';
 export { createNumberMask, type CreateNumberMaskProps } from './createNumberMask';
 export * from './createSyntheticEvent';
@@ -16,5 +14,4 @@ export {
     normalizeToNumberString,
     type NormalizeToNumberStringProps,
 } from './normalizeToNumberString';
-export { Repository } from './repository';
 export * from './resolveStateVariant';

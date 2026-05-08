@@ -1,10 +1,10 @@
 // @typescript-eslint/no-unused-vars
 // WORK IN PROGRESS
 
+import { useLatest } from '@react-native-molecules/utils/hooks';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { TextInput as TextInputNative, useWindowDimensions, View } from 'react-native';
 
-import { useLatest } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { Text } from '../Text';
 import AmPmSwitcher from './AmPmSwitcher';

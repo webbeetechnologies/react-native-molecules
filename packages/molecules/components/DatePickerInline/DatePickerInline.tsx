@@ -1,7 +1,7 @@
+import { useControlledValue } from '@react-native-molecules/utils/hooks';
 import { memo, useCallback } from 'react';
 import { View, type ViewStyle } from 'react-native';
 
-import { useControlledValue } from '../../hooks';
 import DatePickerDockedHeader from './DatePickerDockedHeader';
 import DatePickerInlineBase from './DatePickerInlineBase';
 import DatePickerInlineHeader from './DatePickerInlineHeader';

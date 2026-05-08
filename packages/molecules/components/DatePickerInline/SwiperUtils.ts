@@ -1,6 +1,6 @@
+import { useLatest } from '@react-native-molecules/utils/hooks';
 import { type RefObject, useEffect } from 'react';
 
-import { useLatest } from '../../hooks';
 import { addMonths, differenceInMonths, getRealIndex, startAtIndex } from './dateUtils';
 
 export type SwiperProps = {

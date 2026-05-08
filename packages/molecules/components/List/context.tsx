@@ -1,4 +1,5 @@
-import { createFastContext } from '../../fast-context';
+import { createFastContext } from '@react-native-molecules/utils/fast-context';
+
 import { registerPortalContext } from '../Portal';
 import type { DefaultListItemT, ListContextValue } from './types';
 

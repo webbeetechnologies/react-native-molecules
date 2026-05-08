@@ -22,4 +22,24 @@ export default function Example() {
 }`}
 />
 
+### Shape and width
+
+Material 3 icon buttons support round or square containers and narrow, default, or wide widths.
+
+<LiveCodeExample
+    code={`import { View } from 'react-native';
+import { IconButton } from 'react-native-molecules/components/IconButton';
+
+export default function Example() {
+    return (
+        <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
+            <IconButton name="heart-outline" variant="contained-tonal" shape="round" width="narrow" />
+            <IconButton name="heart-outline" variant="contained-tonal" shape="square" />
+            <IconButton name="heart-outline" variant="contained-tonal" shape="round" width="wide" />
+            <IconButton name="star-outline" variant="outlined" shape="square" width="wide" size={32} />
+        </View>
+    );
+}`}
+/>
+
 <ComponentProps name="IconButton" />

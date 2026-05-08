@@ -1,7 +1,6 @@
 import { Portal as GorhomPortal } from '@gorhom/portal';
+import { createContextBridge } from '@react-native-molecules/utils/context-bridge';
 import { type ComponentType, type ReactNode } from 'react';
-
-import { createContextBridge } from '../../context-bridge';
 
 const { BridgedComponent: Portal, registerContextToBridge: registerPortalContext } =
     createContextBridge<Omit<any, 'children'> & { children: ReactNode }>(

@@ -1,3 +1,4 @@
+import { noop } from '@react-native-molecules/utils/helpers/lodash';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-molecules/components/Button';
@@ -12,7 +13,6 @@ import { Switch } from 'react-native-molecules/components/Switch';
 import { Tabs } from 'react-native-molecules/components/Tabs';
 import { Text } from 'react-native-molecules/components/Text';
 import { TextInput } from 'react-native-molecules/components/TextInput';
-import { noop } from 'react-native-molecules/utils/lodash';
 
 import styles from './styles.module.css';
 

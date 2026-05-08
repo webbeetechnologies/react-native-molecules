@@ -1,6 +1,6 @@
+import { useLatest } from '@react-native-molecules/utils/hooks';
 import { useCallback } from 'react';
 
-import { useLatest } from '../../hooks';
 import type { CalendarDate, CalendarDates, ValidRangeType } from './types';
 
 export type DisableWeekDaysType = number[];

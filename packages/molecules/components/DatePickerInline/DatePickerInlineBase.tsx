@@ -1,7 +1,7 @@
+import { useLatest } from '@react-native-molecules/utils/hooks';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { useLatest } from '../../hooks';
 import { areDatesOnSameDay, dateToUnix, getEndOfDay, getInitialIndex } from './dateUtils';
 import Month from './Month';
 import MonthPicker from './MonthPicker';

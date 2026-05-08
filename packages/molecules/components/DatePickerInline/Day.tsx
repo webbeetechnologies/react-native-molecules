@@ -1,7 +1,7 @@
 import { memo, useCallback, useMemo } from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 
-import { useActionState } from '../../hooks/useActionState';
+import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { StateLayer } from '../StateLayer';
 import { Text } from '../Text';

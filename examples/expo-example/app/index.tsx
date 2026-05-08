@@ -1,18 +1,19 @@
-import { Switch } from 'react-native-molecules/components/Switch';
+import type { AnchorHTMLAttributes } from 'react';
 import { useContext, useState } from 'react';
 import { ScrollView, View } from 'react-native';
-import { Select } from 'react-native-molecules/components/Select';
-import { List } from 'react-native-molecules/components/List';
-import { Text } from 'react-native-molecules/components/Text';
-import { StyleSheet, withUnistyles } from 'react-native-unistyles';
-import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
 import { Button } from 'react-native-molecules/components/Button';
-import { TextInput, TextInputContext } from 'react-native-molecules/components/TextInput';
-import { getWebProps } from 'react-native-unistyles/web';
-import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
-import { Tabs } from 'react-native-molecules/components/Tabs';
 import { Checkbox } from 'react-native-molecules/components/Checkbox';
 import { IconButton } from 'react-native-molecules/components/IconButton';
+import { List } from 'react-native-molecules/components/List';
+import { LoadingIndicator } from 'react-native-molecules/components/LoadingIndicator';
+import { Select } from 'react-native-molecules/components/Select';
+import { Switch } from 'react-native-molecules/components/Switch';
+import { Tabs } from 'react-native-molecules/components/Tabs';
+import { Text } from 'react-native-molecules/components/Text';
+import { TextInput, TextInputContext } from 'react-native-molecules/components/TextInput';
+import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
+import { StyleSheet, withUnistyles } from 'react-native-unistyles';
+import { getWebProps } from 'react-native-unistyles/web';
 
 // Example demonstrating dynamic tab addition/removal
 const DynamicTabsExample = () => {
@@ -85,19 +86,14 @@ const DynamicTabsExample = () => {
 };
 import { Icon } from 'react-native-molecules/components/Icon';
 
-const Link = ({ style, ...rest }) => {
+type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'style'> & {
+    style?: Parameters<typeof getWebProps>[0];
+};
+
+const Link = ({ style, ...rest }: LinkProps) => {
     const { ref, className } = getWebProps(style);
     // console.log({ className, style });
-    return (
-        <a
-            {...rest}
-            href={rest.href}
-            className={className}
-            ref={ref}
-            accessibilityRole="link"
-            role="link"
-        />
-    );
+    return <a {...rest} className={className} ref={ref} role="link" />;
 };
 
 // Example: custom outline that is dashed when inactive and solid green when active

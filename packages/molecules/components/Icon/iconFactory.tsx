@@ -1,5 +1,6 @@
 // import { textFactory } from '../Text/textFactory';
-import { memoize } from '../../utils/lodash';
+import { memoize } from '@react-native-molecules/utils/helpers/lodash';
+
 import type { IconType } from './types';
 
 const customIcons: any = {};

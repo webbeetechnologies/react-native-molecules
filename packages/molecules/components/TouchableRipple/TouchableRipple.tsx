@@ -1,3 +1,4 @@
+import { noop } from '@react-native-molecules/utils/helpers/lodash';
 import { forwardRef, memo, type ReactNode, useCallback, useRef } from 'react';
 import {
     type GestureResponderEvent,
@@ -10,7 +11,6 @@ import {
 import { StyleSheet } from 'react-native-unistyles';
 
 import { useTheme } from '../../hooks/useTheme';
-import { noop } from '../../utils/lodash';
 import { Slot } from '../Slot';
 import { rippleColorFromBackground } from './rippleFromForegroundColor';
 import { touchableRippleStyles } from './utils';

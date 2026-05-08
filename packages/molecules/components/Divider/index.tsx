@@ -1,11 +1,10 @@
 export {
     Divider,
+    type DividerProps,
     horizontalDividerStyles,
     horizontalDividerStylesDefault,
+    type Props,
     verticalDividerStyles,
     verticalDividerStylesDefault,
-    type DividerProps,
-    type Props,
 } from './Divider';
-
 export { default } from './Divider';

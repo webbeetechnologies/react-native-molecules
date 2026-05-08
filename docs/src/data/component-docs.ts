@@ -517,10 +517,7 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'You want to own filtering, pagination, grouping, and virtualization outside the primitive.',
         ],
         related: ['Menu', 'Select'],
-        subcomponents: [
-            'List.Content',
-            'List.Item',
-        ],
+        subcomponents: ['List.Content', 'List.Item'],
     }),
     createMeta({
         name: 'Menu',
@@ -656,12 +653,7 @@ export const componentDocsMeta: ComponentDocMeta[] = [
             'Integrating with async data and virtualization.',
         ],
         related: ['Chip', 'List'],
-        subcomponents: [
-            'Select.Trigger',
-            'Select.Value',
-            'Select.Content',
-            'Select.Option',
-        ],
+        subcomponents: ['Select.Trigger', 'Select.Value', 'Select.Content', 'Select.Option'],
     }),
     createMeta({
         name: 'StateLayer',

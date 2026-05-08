@@ -1,3 +1,4 @@
+import { useControlledValue } from '@react-native-molecules/utils/hooks';
 import {
     forwardRef,
     memo,
@@ -9,7 +10,6 @@ import {
 } from 'react';
 import { View, type ViewProps } from 'react-native';
 
-import { useControlledValue } from '../../hooks';
 import type { WithElements } from '../../types';
 import { extractSubcomponents } from '../../utils/extractSubcomponents';
 import { AccordionContext } from './Accordion';

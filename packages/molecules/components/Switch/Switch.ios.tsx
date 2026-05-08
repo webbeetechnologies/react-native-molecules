@@ -1,3 +1,4 @@
+import { useControlledValue } from '@react-native-molecules/utils/hooks';
 import { forwardRef, memo } from 'react';
 import {
     Switch as NativeSwitch,
@@ -6,7 +7,6 @@ import {
     type ViewStyle,
 } from 'react-native';
 
-import { useControlledValue } from '../../hooks';
 import type { IconType } from '../Icon';
 
 export type Props = SwitchProps & {

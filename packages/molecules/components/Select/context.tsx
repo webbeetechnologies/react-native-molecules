@@ -1,6 +1,6 @@
+import { createFastContext } from '@react-native-molecules/utils/fast-context';
 import type { View } from 'react-native';
 
-import { createFastContext } from '../../fast-context';
 import {
     ListContext,
     ListContextProvider,

@@ -1,3 +1,4 @@
+import { useToggle } from '@react-native-molecules/utils/hooks';
 import {
     createContext,
     memo,
@@ -9,7 +10,6 @@ import {
     useRef,
 } from 'react';
 
-import { useToggle } from '../../hooks';
 import { extractSubcomponents } from '../../utils/extractSubcomponents';
 
 export type Props = {

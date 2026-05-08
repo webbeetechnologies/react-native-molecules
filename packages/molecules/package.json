@@ -49,6 +49,7 @@
         "perf": "npx reassure"
     },
     "dependencies": {
+        "@react-native-molecules/utils": "workspace:^",
         "@gorhom/portal": "^1.0.14",
         "@radix-ui/react-compose-refs": "^1.1.2",
         "@react-native-vector-icons/feather": "^12.4.0",
@@ -90,30 +91,5 @@
         "test-cases/node_modules",
         "dist",
         "cache"
-    ],
-    "react-native-builder-bob": {
-        "source": "src",
-        "output": "lib",
-        "targets": [
-            [
-                "commonjs",
-                {
-                    "configFile": true
-                }
-            ],
-            [
-                "module",
-                {
-                    "configFile": true
-                }
-            ],
-            [
-                "typescript",
-                {
-                    "project": "tsconfig.build.json",
-                    "rootDir": "src"
-                }
-            ]
-        ]
-    }
+    ]
 }

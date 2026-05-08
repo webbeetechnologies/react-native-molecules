@@ -1,3 +1,4 @@
+import { useControlledValue, useLatest } from '@react-native-molecules/utils/hooks';
 import { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import {
     Animated,
@@ -9,7 +10,7 @@ import {
     type ViewStyle,
 } from 'react-native';
 
-import { useActionState, useControlledValue, useLatest } from '../../hooks';
+import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { Icon, type IconType } from '../Icon';
 import { switchStyles, useSwitchColors } from './utils';

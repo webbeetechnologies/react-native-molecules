@@ -1,3 +1,4 @@
+import { useControlledValue } from '@react-native-molecules/utils/hooks';
 import {
     type ComponentPropsWithRef,
     createContext,
@@ -9,7 +10,6 @@ import {
 } from 'react';
 import { View } from 'react-native';
 
-import { useControlledValue } from '../../hooks';
 import { accordionStyles } from './utils';
 
 export type Props = Omit<ComponentPropsWithRef<typeof View>, 'children'> & {

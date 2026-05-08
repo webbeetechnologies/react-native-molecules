@@ -1,6 +1,5 @@
+import { memoize } from '@react-native-molecules/utils/helpers/lodash';
 import type { TextStyle } from 'react-native';
-
-import { memoize } from './lodash';
 
 const textStyleProps = [
     'color',

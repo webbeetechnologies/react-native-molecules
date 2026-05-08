@@ -1,5 +1,6 @@
+import { isNil } from '@react-native-molecules/utils/helpers/lodash';
+
 import { createNumberMask, type CreateNumberMaskProps } from '../createNumberMask';
-import { isNil } from '../lodash';
 import { formatWithMask } from './formatWithMask';
 
 export type FormatNumberWithMaskProps = CreateNumberMaskProps & {

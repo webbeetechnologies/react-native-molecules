@@ -1,7 +1,7 @@
+import { useControlledValue } from '@react-native-molecules/utils/hooks';
 import { forwardRef, memo, useCallback, useMemo } from 'react';
 import { View } from 'react-native';
 
-import { useControlledValue } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { Text } from '../Text';
 import CheckboxBase from './CheckboxBase';
@@ -50,6 +50,7 @@ const Checkbox = (
             // @ts-ignore // TODO - fix this
             state: state as States,
             isLeading,
+            // @ts-ignore // TODO - fix this
             size,
         });
     }

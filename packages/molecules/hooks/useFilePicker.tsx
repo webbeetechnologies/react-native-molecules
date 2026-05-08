@@ -1,3 +1,4 @@
+import { isNil, omitBy } from '@react-native-molecules/utils/helpers/lodash';
 import { useCallback } from 'react';
 
 import {
@@ -5,7 +6,6 @@ import {
     type DocumentPickerOptions,
     type DocumentResult,
 } from '../utils/DocumentPicker';
-import { isNil, omitBy } from '../utils/lodash';
 
 export const useFilePicker = (options: DocumentPickerOptions) => {
     const openFilePicker = useCallback(

@@ -1,5 +1,5 @@
 import { memo } from 'react';
 
-const typedMemo: <T>(c: T) => T = memo;
+const typedMemo: <T>(component: T) => T = memo;
 
 export default typedMemo;

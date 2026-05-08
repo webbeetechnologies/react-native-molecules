@@ -1,6 +1,6 @@
+import { keyBy } from '@react-native-molecules/utils/helpers/lodash';
 import { memo, useContext, useEffect, useMemo, useRef } from 'react';
 
-import { keyBy } from '../../utils/lodash';
 import EventsManager from '../EventsManager';
 import type { Shortcut } from '../types';
 import {

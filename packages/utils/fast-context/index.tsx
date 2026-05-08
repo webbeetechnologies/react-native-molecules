@@ -11,22 +11,22 @@ import {
 } from 'react';
 import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/with-selector';
 
+import { shallowCompare } from '../helpers/compare';
 import typedMemo from '../hocs/typedMemo';
 import { usePrevious } from '../hooks';
-import { shallowCompare } from '../utils';
 
-type StoreDataType = Record<string, any>;
+export type StoreDataType = Record<string, any>;
 
-type SelectorOutputType<IStore, SelectorOutput> = (store: IStore) => SelectorOutput;
+export type SelectorOutputType<IStore, SelectorOutput> = (store: IStore) => SelectorOutput;
 
-type UseStoreDataReturnType<T> = {
+export type UseStoreDataReturnType<T> = {
     get: () => T;
     set: (value: (prev: T) => Partial<T>) => void;
     store: RefObject<T>;
     subscribe: (callback: () => void) => () => void;
 };
 
-const useStoreData = <IStore extends StoreDataType>(
+export const useStoreData = <IStore extends StoreDataType>(
     value: IStore,
     defaultValue: IStore | null,
     watch: boolean = false,

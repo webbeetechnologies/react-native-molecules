@@ -1,0 +1,12 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "declaration": true,
+        "composite": true,
+        "moduleResolution": "node",
+        "verbatimModuleSyntax": true
+    },
+    "include": ["**/*.ts", "**/*.tsx", "**/*.mdx", "global.d.ts"],
+    "exclude": ["lib/**/*", "example", "packages/**/*", "dist/**/*"]
+}

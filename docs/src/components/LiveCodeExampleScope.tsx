@@ -1,4 +1,5 @@
 // Import commonly used components directly
+import { createFastContext } from '@react-native-molecules/utils/fast-context';
 import * as React from 'react';
 import { FlatList, Image, SectionList, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Accordion, AccordionItem } from 'react-native-molecules/components/Accordion';
@@ -58,7 +59,6 @@ import {
 } from 'react-native-molecules/components/TimePicker';
 import { Tooltip } from 'react-native-molecules/components/Tooltip';
 import { TouchableRipple } from 'react-native-molecules/components/TouchableRipple';
-import { createFastContext } from 'react-native-molecules/fast-context';
 import { useHandleNumberFormat } from 'react-native-molecules/hooks';
 import { ShortcutsManager } from 'react-native-molecules/shortcuts-manager';
 
