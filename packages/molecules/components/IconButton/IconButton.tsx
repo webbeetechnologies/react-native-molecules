@@ -6,16 +6,20 @@ import {
     type ViewProps,
 } from 'react-native';
 
-import { useActionState } from '../../hooks/useActionState';
+import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { Icon, type IconProps, type IconType } from '../Icon';
 import CrossFadeIcon from '../Icon/CrossFadeIcon';
 import { StateLayer } from '../StateLayer';
 import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import type { IconButtonVariant } from './types';
+import type { IconButtonShape, IconButtonVariant, IconButtonWidth } from './types';
 import { defaultStyles, iconButtonSizeToIconSizeMap } from './utils';
 
-const whiteSpace = 12;
+const ICON_BUTTON_MIN_CONTAINER_SIZE = 32;
+const ICON_BUTTON_CONTAINER_PADDING = 16;
+const M3_ICON_BUTTON_NARROW_WIDTH_ADJUSTMENT = -8;
+const M3_ICON_BUTTON_WIDE_WIDTH_ADJUSTMENT = 12;
+const M3_ICON_BUTTON_SQUARE_CORNER_RADIUS = 12;
 
 export type Props = Omit<TouchableRippleProps, 'children' | 'style'> & {
     /**
@@ -26,6 +30,14 @@ export type Props = Omit<TouchableRippleProps, 'children' | 'style'> & {
      * Mode of the icon button. By default there is no specified mode - only pressable icon will be rendered.
      */
     variant?: IconButtonVariant;
+    /**
+     * Container shape. Material 3 supports round and square icon buttons.
+     */
+    shape?: IconButtonShape;
+    /**
+     * Container width option. `default` maps to Material 3's uniform width.
+     */
+    width?: IconButtonWidth;
     /**
      * Whether icon button is selected. A selected button receives alternative combination of icon and container colors.
      */
@@ -85,6 +97,8 @@ const IconButton = (
         selected = false,
         animated = false,
         variant = 'default',
+        shape = 'round',
+        width = 'default',
         style,
         testID,
         stateLayerProps = emptyObject,
@@ -126,33 +140,45 @@ const IconButton = (
     } = useMemo(() => {
         const iconSizeInNum =
             iconButtonSizeToIconSizeMap[size as keyof typeof iconButtonSizeToIconSizeMap] ??
-            (typeof size === 'number' && size ? (size as number) : undefined);
+            (typeof size === 'number' && size ? (size as number) : 24);
+        const containerHeight = Math.max(
+            ICON_BUTTON_MIN_CONTAINER_SIZE,
+            iconSizeInNum + ICON_BUTTON_CONTAINER_PADDING,
+        );
+        const widthAdjustment =
+            width === 'narrow'
+                ? M3_ICON_BUTTON_NARROW_WIDTH_ADJUSTMENT
+                : width === 'wide'
+                ? M3_ICON_BUTTON_WIDE_WIDTH_ADJUSTMENT
+                : 0;
+        const containerWidth = Math.max(iconSizeInNum, containerHeight + widthAdjustment);
+        const borderRadius =
+            shape === 'round' ? containerHeight / 2 : M3_ICON_BUTTON_SQUARE_CORNER_RADIUS;
 
         return {
             iconColor: _iconColor,
             iconSize: iconSizeInNum,
             containerStyle: [
-                iconSizeInNum
-                    ? {
-                          width: iconSizeInNum + whiteSpace,
-                          height: iconSizeInNum + whiteSpace,
-                      }
-                    : {},
                 defaultStyles.root,
+                {
+                    width: containerWidth,
+                    height: containerHeight,
+                    borderRadius,
+                },
                 style,
             ],
             iconStyle: [defaultStyles.icon, iconStyleProp],
             // accessibilityTraits: disabled ? ['button', 'disabled'] : 'button',
             accessibilityState: { disabled },
-            stateLayerStyle: [defaultStyles.stateLayer, stateLayerProps?.style],
+            stateLayerStyle: [defaultStyles.stateLayer, { borderRadius }, stateLayerProps?.style],
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [_iconColor, disabled, size, stateLayerProps?.style, style, state, variant]);
+    }, [_iconColor, disabled, shape, size, stateLayerProps?.style, style, state, variant, width]);
 
     return (
         <TouchableRipple
             borderless
-            centered
+            centered={shape === 'round' && width === 'default'}
             onPress={onPress}
             rippleAlpha={0.12}
             accessibilityLabel={accessibilityLabel}
