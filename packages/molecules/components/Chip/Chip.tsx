@@ -246,6 +246,7 @@ const Chip = (
                 borderless
                 {...rest}
                 disabled={disabled}
+                onPress={onPress}
                 accessibilityLabel={accessibilityLabel}
                 accessibilityState={accessibilityState}
                 ref={actionsRef}
