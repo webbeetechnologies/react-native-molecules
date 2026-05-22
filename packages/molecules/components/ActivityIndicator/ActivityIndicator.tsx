@@ -55,7 +55,7 @@ const mapIndicatorSize = (indicatorSize: 'small' | 'large' | number | undefined)
  */
 const ActivityIndicator = ({
     animating = true,
-    color,
+    color = 'primary',
     hidesWhenStopped = true,
     size: indicatorSize = 'small',
     style: styleProp,
