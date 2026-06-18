@@ -1,0 +1,91 @@
+---
+title: "Radio"
+description: "Composable, cross-platform radio with Material theming."
+sidebar_position: 39
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import ComponentProps from '@site/src/components/ComponentProps';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Radio" />
+
+## Anatomy
+
+`Radio` is a composable compound component:
+
+- **`RadioGroup`** holds the selected value (`value` / `onValueChange`, or uncontrolled `defaultValue`).
+- **`RadioRow`** binds a `value` to a labeled row. The row itself is **not** pressable — only the
+  control and the label are. The label is linked to the control for accessibility (web `aria-labelledby`).
+- **`Radio`** is the control (the circle). Used inside a `RadioRow`, or standalone under a `RadioGroup`
+  with its own `value`.
+- **`Radio.Label`** is the row's label. Pressing it selects the row's value.
+
+## Examples
+
+### Bare radios
+
+<LiveCodeExample
+    code={`import { Radio, RadioGroup } from 'react-native-molecules/components/Radio';
+import { useState } from 'react';
+
+export default function Example() {
+    const [value, setValue] = useState('first');
+
+    return (
+        <RadioGroup value={value} onValueChange={setValue}>
+            <Radio value="first" />
+            <Radio value="second" />
+        </RadioGroup>
+    );
+}`}
+/>
+
+### Labeled group
+
+<LiveCodeExample
+    code={`import { Radio, RadioGroup, RadioRow } from 'react-native-molecules/components/Radio';
+import { useState } from 'react';
+
+export default function Example() {
+    const [value, setValue] = useState('first');
+
+    return (
+        <RadioGroup value={value} onValueChange={setValue}>
+            <RadioRow value="first">
+                <Radio />
+                <Radio.Label>First option</Radio.Label>
+            </RadioRow>
+            <RadioRow value="second">
+                <Radio />
+                <Radio.Label>Second option</Radio.Label>
+            </RadioRow>
+        </RadioGroup>
+    );
+}`}
+/>
+
+### Label-first ordering
+
+Composition controls the layout — put `Radio.Label` before `Radio` to render the control on the trailing edge.
+
+<LiveCodeExample
+    code={`import { Radio, RadioGroup, RadioRow } from 'react-native-molecules/components/Radio';
+
+export default function Example() {
+    return (
+        <RadioGroup defaultValue="second">
+            <RadioRow value="first">
+                <Radio.Label>First option</Radio.Label>
+                <Radio />
+            </RadioRow>
+            <RadioRow value="second">
+                <Radio.Label>Second option</Radio.Label>
+                <Radio />
+            </RadioRow>
+        </RadioGroup>
+    );
+}`}
+/>
+
+<ComponentProps name="Radio" />

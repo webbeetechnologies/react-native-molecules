@@ -1,5 +1,4 @@
-import { forwardRef, memo, type PropsWithoutRef, useCallback, useMemo } from 'react';
-import { type ViewProps } from 'react-native';
+import { forwardRef, memo, useCallback, useMemo } from 'react';
 
 import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
@@ -7,16 +6,10 @@ import { tokenStylesParser } from '../../utils/tokenStylesParser';
 import { Icon } from '../Icon';
 import { StateLayer } from '../StateLayer';
 import { TouchableRipple } from '../TouchableRipple';
-import type { CheckBoxBaseProps, States } from './types';
+import type { CheckboxBaseProps, States } from './types';
 import { iconSizeMap, styles } from './utils';
 
-export type Props = Omit<CheckBoxBaseProps, 'value' | 'defaultValue'> & {
-    value: boolean;
-    /**
-     * props for the stateLayer
-     */
-    stateLayerProps?: PropsWithoutRef<ViewProps>;
-};
+export type Props = CheckboxBaseProps;
 
 const CheckboxAndroid = (
     {

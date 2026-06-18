@@ -1,7 +1,14 @@
 import { getRegisteredComponentWithFallback } from '../../core';
-import CheckboxComponent from './Checkbox';
+// @component ./Checkbox.tsx
+import CheckboxBox, { CheckboxLabel, CheckboxRow as CheckboxRowComponent } from './Checkbox';
 
-export const Checkbox = getRegisteredComponentWithFallback('Checkbox', CheckboxComponent);
+const CheckboxDefault = Object.assign(CheckboxBox, {
+    Label: CheckboxLabel,
+    Row: CheckboxRowComponent,
+});
 
-export type { Props as CheckboxProps } from './Checkbox';
-export { styles as checkboxStyles } from './utils';
+export const Checkbox = getRegisteredComponentWithFallback('Checkbox', CheckboxDefault);
+export const CheckboxRow = CheckboxRowComponent;
+
+export type { CheckboxLabelProps, CheckboxProps, CheckboxRowProps } from './types';
+export { checkboxRowStyles, styles as checkboxStyles } from './utils';

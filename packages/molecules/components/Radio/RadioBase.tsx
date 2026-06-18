@@ -1,52 +1,20 @@
-import { forwardRef, memo, type PropsWithoutRef, useEffect, useMemo, useRef } from 'react';
-import type { ViewProps } from 'react-native';
+import { forwardRef, memo, useEffect, useMemo, useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 import { useActionState } from '../../hooks';
 import { resolveStateVariant } from '../../utils';
 import { tokenStylesParser } from '../../utils/tokenStylesParser';
 import { StateLayer } from '../StateLayer';
-import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
-import { ANIMATION_DURATION, radioButtonStyles } from './utils';
-
-export type Props = Omit<TouchableRippleProps, 'children'> & {
-    /**
-     * Status of radio button.
-     */
-    status?: 'checked' | 'unchecked';
-    /**
-     * Whether radio is disabled.
-     */
-    disabled?: boolean;
-    /**
-     * Custom color for unchecked radio.
-     */
-    uncheckedColor?: string;
-    /**
-     * Custom color for radio.
-     */
-    color?: string;
-    /**
-     * testID to be used on tests.
-     */
-    testID?: string;
-    /**
-     * passed from RadioButton component
-     */
-    checked: boolean;
-    onPress: (() => void) | undefined;
-    /**
-     * props for the stateLayer
-     */
-    stateLayerProps?: PropsWithoutRef<ViewProps>;
-};
+import { TouchableRipple } from '../TouchableRipple';
+import type { RadioBaseProps } from './types';
+import { ANIMATION_DURATION, radioStyles } from './utils';
 
 const BORDER_WIDTH = 2;
 
-const RadioButtonAndroid = (
+const RadioBaseAndroid = (
     {
         disabled = false,
-        status,
+        size = 'md',
         testID,
         color: colorProp,
         uncheckedColor: uncheckedColorProp,
@@ -55,14 +23,12 @@ const RadioButtonAndroid = (
         onPress,
         stateLayerProps = {},
         ...rest
-    }: Props,
+    }: RadioBaseProps,
     ref: any,
 ) => {
     const { actionsRef, hovered } = useActionState({ ref, actionsToListen: ['hover'] });
     const { current: borderAnim } = useRef<Animated.Value>(new Animated.Value(BORDER_WIDTH));
-
     const { current: radioAnim } = useRef<Animated.Value>(new Animated.Value(1));
-
     const isFirstRendering = useRef<boolean>(true);
 
     const state = resolveStateVariant({
@@ -72,36 +38,33 @@ const RadioButtonAndroid = (
         hovered,
     });
 
-    radioButtonStyles.useVariants({
+    radioStyles.useVariants({
         state: state as any,
+        size: size as any,
     });
 
-    const { containerStyles, radioStyles, dotStyles, dotContainerStyles, stateLayerStyle } =
+    const { containerStyles, radioStyle, dotStyles, dotContainerStyles, stateLayerStyle } =
         useMemo(() => {
             return {
-                containerStyles: [radioButtonStyles.container, radioButtonStyles.root, style],
-                radioStyles: [
-                    radioButtonStyles.radio,
-                    {
-                        borderWidth: borderAnim,
-                    },
+                containerStyles: [radioStyles.container, radioStyles.root, style],
+                radioStyle: [
+                    radioStyles.radio,
+                    { borderWidth: borderAnim },
                     tokenStylesParser.getColor(
                         checked ? colorProp : uncheckedColorProp,
                         'borderColor',
                     ),
                 ],
-                dotContainerStyles: [StyleSheet.absoluteFill, radioButtonStyles.radioContainer],
+                dotContainerStyles: [StyleSheet.absoluteFill, radioStyles.radioContainer],
                 dotStyles: [
-                    radioButtonStyles.dot,
-                    {
-                        transform: [{ scale: radioAnim }],
-                    },
+                    radioStyles.dot,
+                    { transform: [{ scale: radioAnim }] },
                     tokenStylesParser.getColor(
                         checked ? colorProp : uncheckedColorProp,
                         'backgroundColor',
                     ),
                 ],
-                stateLayerStyle: [radioButtonStyles.stateLayer, stateLayerProps?.style],
+                stateLayerStyle: [radioStyles.stateLayer, stateLayerProps?.style],
             };
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [
@@ -113,18 +76,18 @@ const RadioButtonAndroid = (
             uncheckedColorProp,
             style,
             state,
+            size,
         ]);
 
     useEffect(() => {
-        // Do not run animation on very first rendering
+        // Do not run animation on the very first render.
         if (isFirstRendering.current) {
             isFirstRendering.current = false;
             return;
         }
 
-        if (status === 'checked') {
+        if (checked) {
             radioAnim.setValue(1.2);
-
             Animated.timing(radioAnim, {
                 toValue: 1,
                 duration: ANIMATION_DURATION,
@@ -132,24 +95,25 @@ const RadioButtonAndroid = (
             }).start();
         } else {
             borderAnim.setValue(10);
-
             Animated.timing(borderAnim, {
                 toValue: BORDER_WIDTH,
                 duration: ANIMATION_DURATION,
                 useNativeDriver: false,
             }).start();
         }
-    }, [status, borderAnim, radioAnim]);
+    }, [checked, borderAnim, radioAnim]);
 
     return (
         <TouchableRipple
             {...rest}
             ref={actionsRef}
             onPress={onPress}
+            disabled={disabled}
+            borderless
             style={containerStyles}
             testID={testID}>
             <>
-                <Animated.View style={radioStyles}>
+                <Animated.View style={radioStyle}>
                     {checked ? (
                         <View style={dotContainerStyles}>
                             <Animated.View style={dotStyles} />
@@ -167,6 +131,6 @@ const RadioButtonAndroid = (
     );
 };
 
-RadioButtonAndroid.displayName = 'RadioButton_Android';
+RadioBaseAndroid.displayName = 'Radio_Base';
 
-export default memo(forwardRef(RadioButtonAndroid));
+export default memo(forwardRef(RadioBaseAndroid));

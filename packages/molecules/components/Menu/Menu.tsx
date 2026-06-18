@@ -22,14 +22,11 @@ import {
 import { Popover, type PopoverProps } from '../Popover';
 import { MenuContext, MenuRootContext, menuStyles } from './utils';
 
-type MenuBaseProps = Omit<
-    PopoverProps,
-    'setIsOpen' | 'onClose' | 'isOpen' | 'triggerRef' | 'children'
-> & {
-    style?: ViewStyle;
-    closeOnSelect?: boolean;
+type MenuBaseProps = {
     children: ReactElement | ReactElement[];
+    closeOnSelect?: boolean;
     disabled?: boolean;
+    error?: boolean;
     allowDeselect?: boolean;
 };
 
@@ -59,23 +56,16 @@ export type Props = MenuBaseProps & (SingleMenuProps | MultipleMenuProps);
 
 const Menu = ({
     children,
-    style: styleProp,
     closeOnSelect = true,
     value,
     defaultValue,
     onChange,
     multiple,
     disabled,
+    error,
     allowDeselect,
-    ...rest
 }: Props) => {
-    const { isOpen, onClose, triggerRef } = useContext(MenuRootContext);
-
-    const { style } = useMemo(() => {
-        return {
-            style: [menuStyles.root, styleProp] as unknown as ViewStyle,
-        };
-    }, [styleProp]);
+    const { onClose } = useContext(MenuRootContext);
 
     const contextValue = useMemo(
         () => ({
@@ -91,15 +81,14 @@ const Menu = ({
         defaultValue,
         onChange,
         disabled,
+        error,
         allowDeselect,
     } as ListProps<DefaultListItemT>;
 
     return (
-        <Popover isOpen={isOpen} onClose={onClose} style={style} triggerRef={triggerRef} {...rest}>
-            <List {...listProps}>
-                <MenuContext.Provider value={contextValue}>{children}</MenuContext.Provider>
-            </List>
-        </Popover>
+        <List {...listProps}>
+            <MenuContext.Provider value={contextValue}>{children}</MenuContext.Provider>
+        </List>
     );
 };
 
@@ -123,6 +112,28 @@ export const MenuRoot = memo(({ children }: MenuRootProps) => {
 });
 
 MenuRoot.displayName = 'Menu_Root';
+
+export type MenuPopoverProps = Omit<PopoverProps, 'isOpen' | 'onClose' | 'triggerRef'> & {
+    isOpen?: boolean;
+    onClose?: () => void;
+};
+
+export const MenuPopover = memo(({ children, style: styleProp, ...rest }: MenuPopoverProps) => {
+    const { isOpen, onClose, triggerRef } = useContext(MenuRootContext);
+    const { style } = useMemo(() => {
+        return {
+            style: [menuStyles.root, styleProp] as unknown as ViewStyle,
+        };
+    }, [styleProp]);
+
+    return (
+        <Popover isOpen={isOpen} onClose={onClose} triggerRef={triggerRef} style={style} {...rest}>
+            {children}
+        </Popover>
+    );
+});
+
+MenuPopover.displayName = 'Menu_Popover';
 
 export type MenuTriggerProps = {
     children: ReactElement;

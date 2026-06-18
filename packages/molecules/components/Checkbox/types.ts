@@ -1,46 +1,45 @@
-import type { StyleProp, TextProps, TextStyle, ViewStyle } from 'react-native';
+import type { PropsWithoutRef, ReactNode } from 'react';
+import type { TextProps, ViewProps } from 'react-native';
 
 import type { TouchableRippleProps } from '../TouchableRipple';
 
 export type Size = 'sm' | 'md' | 'lg';
 export type States = 'disabled' | 'checked' | 'hovered' | 'checkedAndHovered';
 
-export type CheckBoxBaseProps = Omit<TouchableRippleProps, 'children'> & {
+/**
+ * Internal props for the platform control (CheckboxBase).
+ */
+export type CheckboxBaseProps = Omit<TouchableRippleProps, 'children'> & {
     /**
-     * value of checkbox.
+     * Whether the checkbox is checked.
      */
-    value?: boolean;
+    value: boolean;
     /**
-     * defaultValue of checkbox.
-     */
-    defaultValue?: boolean;
-    /**
-     * function execute when the value change i.e checkbox is press
+     * Called when the checkbox is pressed.
      */
     onChange?: (newValue: boolean) => void;
     /**
-     * Whether or not if it's in the indeterminate state, if true, it will override the value
+     * Whether the checkbox is in the indeterminate state (overrides `value`).
      */
     indeterminate?: boolean;
     /**
-     * Whether checkbox is disabled.
+     * Whether the checkbox is disabled.
      */
     disabled?: boolean;
     /**
-     * Size of the icon.
-     * Should be a number or a Design Token
+     * Size of the checkbox.
      */
     size?: Size;
     /**
-     * Custom color for unchecked checkbox.
-     */
-    uncheckedColor?: string;
-    /**
-     * Custom color for checkbox.
+     * Custom color for the checked checkbox.
      */
     color?: string;
     /**
-     * Accessibility label for the touchable. This is read by the screen reader when the user taps the touchable.
+     * Custom color for the unchecked checkbox.
+     */
+    uncheckedColor?: string;
+    /**
+     * Accessibility label for the touchable.
      */
     accessibilityLabel?: string;
     /**
@@ -48,25 +47,60 @@ export type CheckBoxBaseProps = Omit<TouchableRippleProps, 'children'> & {
      */
     testID?: string;
     /**
-     * Label to be displayed next to the checkbox.
+     * Props for the state layer.
      */
-    label?: string;
-    /**
-     * Style that is passed to Label element.
-     */
-    labelStyle?: StyleProp<TextStyle>;
-    /**
-     * Style that is passed to Container element (when label is provided).
-     */
-    containerStyle?: ViewStyle;
-    /**
-     * Props for the label text element.
-     */
-    labelProps?: Omit<TextProps, 'children' | 'style'>;
-    /**
-     * Checkbox control position relative to label.
-     */
-    position?: 'leading' | 'trailing';
+    stateLayerProps?: PropsWithoutRef<ViewProps>;
+};
 
-    style?: StyleProp<TextStyle>;
+/**
+ * The checkbox control (the box). Use inside a CheckboxRow, or standalone with `value`/`onValueChange`.
+ */
+export type CheckboxProps = Omit<CheckboxBaseProps, 'value' | 'onChange'> & {
+    /**
+     * Whether the checkbox is checked (controlled).
+     */
+    value?: boolean;
+    /**
+     * Default checked state (uncontrolled).
+     */
+    defaultValue?: boolean;
+    /**
+     * Called when the checked state changes.
+     */
+    onValueChange?: (newValue: boolean) => void;
+};
+
+export type CheckboxRowProps = ViewProps & {
+    /**
+     * Whether the checkbox is checked (controlled).
+     */
+    value?: boolean;
+    /**
+     * Default checked state (uncontrolled).
+     */
+    defaultValue?: boolean;
+    /**
+     * Called when the checked state changes.
+     */
+    onValueChange?: (newValue: boolean) => void;
+    /**
+     * Whether the checkbox is in the indeterminate state.
+     */
+    indeterminate?: boolean;
+    /**
+     * Disables the row (control + label).
+     */
+    disabled?: boolean;
+    /**
+     * Size applied to the checkbox.
+     */
+    size?: Size;
+    /**
+     * Checkbox control and Checkbox.Label, in any order.
+     */
+    children: ReactNode;
+};
+
+export type CheckboxLabelProps = TextProps & {
+    children: ReactNode;
 };

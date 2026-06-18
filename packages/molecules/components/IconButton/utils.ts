@@ -4,6 +4,7 @@ import {
     getRegisteredComponentStylesWithFallback,
     getRegisteredComponentUtilsWithFallback,
 } from './../../core/componentsRegistry';
+import type { IconButtonDefaultProps } from './types';
 
 export type States =
     | 'selectedAndDisabled'
@@ -17,6 +18,22 @@ const iconButtonSizeToIconSizeMapDefault = {
     sm: 18,
     md: 22,
     lg: 26,
+};
+
+const iconButtonConstantsDefault = {
+    minContainerSize: 32,
+    containerPadding: 16,
+    narrowWidthAdjustment: -8,
+    wideWidthAdjustment: 12,
+    squareCornerRadius: 12,
+};
+
+const iconButtonDefaultPropsDefault: IconButtonDefaultProps = {
+    size: 24,
+    variant: 'default',
+    shape: 'round',
+    width: 'default',
+    animated: false,
 };
 
 const iconButtonStylesDefault = StyleSheet.create(theme => ({
@@ -427,3 +444,11 @@ export const iconButtonSizeToIconSizeMap = getRegisteredComponentUtilsWithFallba
     iconButtonSizeToIconSizeMapDefault,
     'iconButtonSizeToIconSizeMap',
 );
+export const iconButtonConstants = {
+    ...iconButtonConstantsDefault,
+    ...getRegisteredComponentUtilsWithFallback('IconButton', {}, 'iconButtonConstants'),
+};
+export const iconButtonDefaultProps: IconButtonDefaultProps = {
+    ...iconButtonDefaultPropsDefault,
+    ...getRegisteredComponentUtilsWithFallback('IconButton', {}, 'iconButtonDefaultProps'),
+};

@@ -10,7 +10,7 @@ import { Backdrop } from 'react-native-molecules/components/Backdrop';
 import { Badge } from 'react-native-molecules/components/Badge';
 import { Button, ButtonContext } from 'react-native-molecules/components/Button';
 import { Card } from 'react-native-molecules/components/Card';
-import { Checkbox } from 'react-native-molecules/components/Checkbox';
+import { Checkbox, CheckboxRow } from 'react-native-molecules/components/Checkbox';
 import { Chip } from 'react-native-molecules/components/Chip';
 import { DateField } from 'react-native-molecules/components/DateField';
 import {
@@ -40,7 +40,7 @@ import { NavigationStack } from 'react-native-molecules/components/NavigationSta
 import { Popover } from 'react-native-molecules/components/Popover';
 import { Portal, registerPortalContext } from 'react-native-molecules/components/Portal';
 import { PortalProvider } from 'react-native-molecules/components/Portal';
-import { RadioButton } from 'react-native-molecules/components/RadioButton';
+import { Radio, RadioGroup, RadioRow } from 'react-native-molecules/components/Radio';
 import { Rating } from 'react-native-molecules/components/Rating';
 import {
     Select,
@@ -93,6 +93,7 @@ export const defaultScope = {
     Badge,
     Button,
     Checkbox,
+    CheckboxRow,
     Text,
     Icon,
     IconButton,
@@ -115,7 +116,9 @@ export const defaultScope = {
     NavigationStack,
     Popover,
     Portal,
-    RadioButton,
+    Radio,
+    RadioGroup,
+    RadioRow,
     Slot,
     Surface,
     TextInputWithMask,

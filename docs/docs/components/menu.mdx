@@ -33,30 +33,32 @@ export default function Example() {
             <Menu.Trigger>
                 <Button>Toggle</Button>
             </Menu.Trigger>
-            <Menu style={styles.menu}>
-                <Menu.Item
-                    left={<Icon name="content-cut" size={22} />}
-                    right={<Text>⌘X</Text>}
-                    onPress={() => console.log('cut')}>
-                    <Text typescale="labelLarge">Cut</Text>
-                </Menu.Item>
-                <Menu.Item
-                    left={<Icon name="content-copy" size={22} />}
-                    right={<Text>⌘C</Text>}
-                    onPress={() => console.log('copy')}>
-                    <Text typescale="labelLarge">Copy</Text>
-                </Menu.Item>
-                <Menu.Item
-                    left={<Icon name="content-paste" size={22} />}
-                    right={<Text>⌘V</Text>}
-                    onPress={() => console.log('paste')}>
-                    <Text typescale="labelLarge">Paste</Text>
-                </Menu.Item>
-                <Divider />
-                <Menu.Item left={<Icon name="cloud" size={22} />} onPress={() => console.log('web-clipboard')}>
-                    <Text typescale="labelLarge">Web Clipboard</Text>
-                </Menu.Item>
-            </Menu>
+            <Menu.Popover>
+                <Menu style={styles.menu}>
+                    <Menu.Item
+                        left={<Icon name="content-cut" size={22} />}
+                        right={<Text>⌘X</Text>}
+                        onPress={() => console.log('cut')}>
+                        <Text typescale="labelLarge">Cut</Text>
+                    </Menu.Item>
+                    <Menu.Item
+                        left={<Icon name="content-copy" size={22} />}
+                        right={<Text>⌘C</Text>}
+                        onPress={() => console.log('copy')}>
+                        <Text typescale="labelLarge">Copy</Text>
+                    </Menu.Item>
+                    <Menu.Item
+                        left={<Icon name="content-paste" size={22} />}
+                        right={<Text>⌘V</Text>}
+                        onPress={() => console.log('paste')}>
+                        <Text typescale="labelLarge">Paste</Text>
+                    </Menu.Item>
+                    <Divider />
+                    <Menu.Item left={<Icon name="cloud" size={22} />} onPress={() => console.log('web-clipboard')}>
+                        <Text typescale="labelLarge">Web Clipboard</Text>
+                    </Menu.Item>
+                </Menu>
+            </Menu.Popover>
         </Menu.Root>
     );
 }`}
@@ -116,23 +118,25 @@ export default function Example() {
                     <Text>Right-click anywhere here</Text>
                 </Surface>
             </ContextMenuTrigger>
-            <Menu style={styles.menu} position="bottom" align="start" offset={0}>
-                <Menu.Item
-                    left={<Icon name="content-cut" size={20} />}
-                    onPress={() => console.log('cut')}>
-                    <Text typescale="labelLarge">Cut</Text>
-                </Menu.Item>
-                <Menu.Item
-                    left={<Icon name="content-copy" size={20} />}
-                    onPress={() => console.log('copy')}>
-                    <Text typescale="labelLarge">Copy</Text>
-                </Menu.Item>
-                <Menu.Item
-                    left={<Icon name="content-paste" size={20} />}
-                    onPress={() => console.log('paste')}>
-                    <Text typescale="labelLarge">Paste</Text>
-                </Menu.Item>
-            </Menu>
+            <Menu.Popover>
+                <Menu style={styles.menu} position="bottom" align="start" offset={0}>
+                    <Menu.Item
+                        left={<Icon name="content-cut" size={20} />}
+                        onPress={() => console.log('cut')}>
+                        <Text typescale="labelLarge">Cut</Text>
+                    </Menu.Item>
+                    <Menu.Item
+                        left={<Icon name="content-copy" size={20} />}
+                        onPress={() => console.log('copy')}>
+                        <Text typescale="labelLarge">Copy</Text>
+                    </Menu.Item>
+                    <Menu.Item
+                        left={<Icon name="content-paste" size={20} />}
+                        onPress={() => console.log('paste')}>
+                        <Text typescale="labelLarge">Paste</Text>
+                    </Menu.Item>
+                </Menu>
+            </Menu.Popover>
         </Menu.Root>
     );
 }`}

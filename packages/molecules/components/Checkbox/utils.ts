@@ -21,17 +21,14 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
                 sm: {
                     padding: PADDING,
                     borderRadius: 16,
-                    // iconSize: iconSizeMap.sm,
                 },
                 md: {
                     padding: PADDING,
                     borderRadius: 18,
-                    // iconSize: iconSizeMap.md,
                 },
                 lg: {
                     padding: PADDING,
                     borderRadius: 20,
-                    // iconSize: iconSizeMap.lg,
                 },
             },
         },
@@ -81,57 +78,6 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
-    itemContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    label: {
-        flexShrink: 1,
-        flexGrow: 1,
-        variants: {
-            variant: {
-                item: {
-                    color: theme.colors.onSurface,
-                },
-            },
-            isLeading: {
-                true: {
-                    textAlign: 'right',
-                    paddingLeft: 0,
-                    paddingRight: theme.spacings['2'],
-                },
-                false: {
-                    textAlign: 'left',
-                    paddingLeft: theme.spacings['2'],
-                    paddingRight: 0,
-                },
-            },
-        },
-        compoundVariants: [
-            {
-                variant: 'item',
-                size: 'sm',
-                styles: {
-                    ...theme.typescale.bodyMedium,
-                },
-            },
-            {
-                variant: 'item',
-                size: 'md',
-                styles: {
-                    ...theme.typescale.bodyMedium,
-                },
-            },
-            {
-                variant: 'item',
-                size: 'lg',
-                styles: {
-                    ...theme.typescale.bodyLarge,
-                },
-            },
-        ],
-    },
     icon: {
         color: theme.colors.onSurfaceVariant,
 
@@ -150,36 +96,32 @@ const checkboxStylesDefault = StyleSheet.create(theme => ({
             },
         },
     },
-    // compoundVariantStyles: (variant: 'android' | 'ios' | 'item', size: Size, state: States) => {
-    //     if (variant === 'android') {
-    //         return {
-    //             root: {
-    //                 ...(size === 'sm' && { width: 32, height: 32 }),
-    //                 ...(size === 'md' && { width: 36, height: 36 }),
-    //                 ...(size === 'lg' && { width: 40, height: 40 }),
-    //             },
-    //             stateLayer: {
-    //                 ...(state === 'hovered' && {
-    //                     backgroundColor: theme.colors.stateLayer.hover.onSurface,
-    //                 }),
-    //                 ...(state === 'checkedAndHovered' && {
-    //                     backgroundColor: theme.colors.stateLayer.hover.primary,
-    //                 }),
-    //             },
-    //         } as any;
-    //     }
+}));
 
-    //     if (variant === 'item') {
-    //         return {
-    //             root: {
-    //                 labelColor: 'colors.onSurface',
-    //                 ...(size === 'sm' && { labelTypeScale: theme.typescale.bodyMedium }),
-    //                 ...(size === 'md' && { labelTypeScale: theme.typescale.bodyLarge }),
-    //                 ...(size === 'lg' && { labelTypeScale: theme.typescale.bodyLarge }),
-    //             },
-    //         };
-    //     }
-    // },
+const checkboxRowStylesDefault = StyleSheet.create(theme => ({
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    label: {
+        flexShrink: 1,
+        flexGrow: 1,
+        color: theme.colors.onSurface,
+        ...theme.typescale.bodyLarge,
+
+        variants: {
+            state: {
+                checked: {},
+                checkedAndHovered: {},
+                hovered: {},
+                disabled: { color: theme.colors.onSurfaceDisabled },
+            },
+        },
+    },
 }));
 
 export const styles = getRegisteredComponentStylesWithFallback('Checkbox', checkboxStylesDefault);
+export const checkboxRowStyles = getRegisteredComponentStylesWithFallback(
+    'Checkbox_Row',
+    checkboxRowStylesDefault,
+);

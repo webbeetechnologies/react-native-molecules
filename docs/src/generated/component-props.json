@@ -314,869 +314,7 @@
   {
     "name": "Checkbox",
     "sourcePath": "react-native-molecules/components/Checkbox",
-    "props": [
-      {
-        "name": "hitSlop",
-        "type": "number | Insets | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "needsOffscreenAlphaCompositing",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onLayout",
-        "type": "((event: LayoutChangeEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "pointerEvents",
-        "type": "\"box-none\" | \"none\" | \"box-only\" | \"auto\" | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "removeClippedSubviews",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "style",
-        "type": "(((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)) & (false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>>)) & (false | \"\" | TextStyle | RegisteredStyle<TextStyle> | RecursiveArray<Falsy | TextStyle | RegisteredStyle<TextStyle>>)) | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "nativeID",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "collapsable",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "collapsableChildren",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onBlur",
-        "type": "((event: NativeSyntheticEvent<TargetedEvent>) => void) | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onFocus",
-        "type": "((event: NativeSyntheticEvent<TargetedEvent>) => void) | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "renderToHardwareTextureAndroid",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "focusable",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "tabIndex",
-        "type": "0 | -1 | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "shouldRasterizeIOS",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "isTVSelectable",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "hasTVPreferredFocus",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "tvParallaxShiftDistanceX",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "tvParallaxShiftDistanceY",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "tvParallaxTiltAngle",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "tvParallaxMagnification",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onStartShouldSetResponder",
-        "type": "((event: GestureResponderEvent) => boolean) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onMoveShouldSetResponder",
-        "type": "((event: GestureResponderEvent) => boolean) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderEnd",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderGrant",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderReject",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderMove",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderRelease",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderStart",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderTerminationRequest",
-        "type": "((event: GestureResponderEvent) => boolean) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onResponderTerminate",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onStartShouldSetResponderCapture",
-        "type": "((event: GestureResponderEvent) => boolean) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onMoveShouldSetResponderCapture",
-        "type": "((event: GestureResponderEvent) => boolean) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onTouchStart",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onTouchMove",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onTouchEnd",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onTouchCancel",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onTouchEndCapture",
-        "type": "((event: GestureResponderEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerEnter",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerEnterCapture",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerLeave",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerLeaveCapture",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerMove",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerMoveCapture",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerCancel",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerCancelCapture",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerDown",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerDownCapture",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerUp",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPointerUpCapture",
-        "type": "((event: PointerEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessible",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityActions",
-        "type": "readonly Readonly<{ name: AccessibilityActionName | string; label?: string | undefined; }>[] | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityLabel",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-label",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityRole",
-        "type": "AccessibilityRole | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityState",
-        "type": "AccessibilityState | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-busy",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-checked",
-        "type": "boolean | \"mixed\" | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-disabled",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-expanded",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-selected",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityHint",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityValue",
-        "type": "AccessibilityValue | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-valuemax",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-valuemin",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-valuenow",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-valuetext",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onAccessibilityAction",
-        "type": "((event: AccessibilityActionEvent) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "importantForAccessibility",
-        "type": "\"auto\" | \"yes\" | \"no\" | \"no-hide-descendants\" | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-hidden",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-modal",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "role",
-        "type": "Role | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityLabelledBy",
-        "type": "string | string[] | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-labelledby",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityLiveRegion",
-        "type": "\"none\" | \"polite\" | \"assertive\" | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-live",
-        "type": "\"polite\" | \"assertive\" | \"off\" | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "screenReaderFocusable",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityElementsHidden",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityViewIsModal",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onAccessibilityEscape",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onAccessibilityTap",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onMagicTap",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityIgnoresInvertColors",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityLanguage",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityShowsLargeContentViewer",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityLargeContentTitle",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "accessibilityRespondsToUserInteraction",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPress",
-        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPressIn",
-        "type": "((event: GestureResponderEvent) => void) | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onPressOut",
-        "type": "((event: GestureResponderEvent) => void) | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onLongPress",
-        "type": "(((event: GestureResponderEvent) => void) & ((e: GestureResponderEvent) => void)) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "pressRetentionOffset",
-        "type": "number | Insets | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "asChild",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onHoverIn",
-        "type": "((event: MouseEvent) => void) | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onHoverOut",
-        "type": "((event: MouseEvent) => void) | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "cancelable",
-        "type": "boolean | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "delayHoverIn",
-        "type": "number | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "delayHoverOut",
-        "type": "number | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "delayLongPress",
-        "type": "number | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "android_disableSound",
-        "type": "boolean | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "android_ripple",
-        "type": "PressableAndroidRippleConfig | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "testOnly_pressed",
-        "type": "boolean | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "unstable_pressDelay",
-        "type": "number | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "borderless",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "background",
-        "type": "Object | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "centered",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "rippleColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "underlayColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "value",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "defaultValue",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onChange",
-        "type": "((newValue: boolean) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "indeterminate",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "size",
-        "type": "Size | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "uncheckedColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "color",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "label",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "labelStyle",
-        "type": "StyleProp<TextStyle>",
-        "optional": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "containerStyle",
-        "type": "ViewStyle | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "labelProps",
-        "type": "Omit<TextProps, \"children\" | \"style\"> | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "position",
-        "type": "\"leading\" | \"trailing\" | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ]
+    "props": []
   },
   {
     "name": "Chip",
@@ -2336,6 +1474,20 @@
         "defaultValue": null
       },
       {
+        "name": "shape",
+        "type": "IconButtonShape | undefined",
+        "optional": true,
+        "description": "Container shape. Material 3 supports round and square icon buttons.",
+        "defaultValue": null
+      },
+      {
+        "name": "width",
+        "type": "IconButtonWidth | undefined",
+        "optional": true,
+        "description": "Container width option. `default` maps to Material 3's uniform width.",
+        "defaultValue": null
+      },
+      {
         "name": "selected",
         "type": "boolean | undefined",
         "optional": true,
@@ -2489,27 +1641,6 @@
     "sourcePath": "react-native-molecules/components/Menu",
     "props": [
       {
-        "name": "style",
-        "type": "((false | \"\" | ViewStyle | RegisteredStyle<ViewStyle> | RecursiveArray<Falsy | ViewStyle | RegisteredStyle<ViewStyle>> | null) & ViewStyle) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "closeOnSelect",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onClose",
-        "type": "() => void",
-        "optional": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "children",
         "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]",
         "optional": false,
@@ -2517,42 +1648,7 @@
         "defaultValue": null
       },
       {
-        "name": "backdropStyles",
-        "type": "ViewStyle | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "items",
-        "type": "DefaultListItemT[] | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "value",
-        "type": "string | number | (string | number)[] | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "defaultValue",
-        "type": "string | number | (string | number)[] | null | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onChange",
-        "type": "((value: DefaultListItemT[\"id\"] | DefaultListItemT[\"id\"][] | null, item: DefaultListItemT) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "multiple",
+        "name": "closeOnSelect",
         "type": "boolean | undefined",
         "optional": true,
         "description": "",
@@ -2566,29 +1662,43 @@
         "defaultValue": null
       },
       {
-        "name": "labelKey",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "searchKey",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onSearchChange",
-        "type": "((query: string) => void) | undefined",
-        "optional": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "hideSelected",
+        "name": "error",
         "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "allowDeselect",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "multiple",
+        "type": "boolean | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "value",
+        "type": "ListItemId | ListItemId[] | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "defaultValue",
+        "type": "ListItemId | ListItemId[] | null | undefined",
+        "optional": true,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "onChange",
+        "type": "((value: ListValue<false>, item: DefaultListItemT, event?: GestureResponderEvent) => void) | ((value: ListValue<true>, item: DefaultListItemT, event?: GestureResponderEvent) => void) | undefined",
         "optional": true,
         "description": "",
         "defaultValue": null
@@ -2729,59 +1839,9 @@
     "props": []
   },
   {
-    "name": "RadioButton",
-    "sourcePath": "react-native-molecules/components/RadioButton",
-    "props": [
-      {
-        "name": "value",
-        "type": "string",
-        "optional": false,
-        "description": "Value of the radio button",
-        "defaultValue": null
-      },
-      {
-        "name": "status",
-        "type": "\"checked\" | \"unchecked\" | undefined",
-        "optional": true,
-        "description": "Status of radio button.",
-        "defaultValue": null
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "optional": true,
-        "description": "Whether radio is disabled.",
-        "defaultValue": null
-      },
-      {
-        "name": "onPress",
-        "type": "(() => void) | undefined",
-        "optional": true,
-        "description": "Function to execute on press.",
-        "defaultValue": null
-      },
-      {
-        "name": "uncheckedColor",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "Custom color for unchecked radio.",
-        "defaultValue": null
-      },
-      {
-        "name": "color",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "Custom color for radio.",
-        "defaultValue": null
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "optional": true,
-        "description": "testID to be used on tests.",
-        "defaultValue": null
-      }
-    ]
+    "name": "Radio",
+    "sourcePath": "react-native-molecules/components/Radio",
+    "props": []
   },
   {
     "name": "Rating",
@@ -4061,6 +3121,13 @@
         "type": "string | undefined",
         "optional": true,
         "description": "Color of the underlay for the highlight effect (Android < 5.0 and iOS).",
+        "defaultValue": null
+      },
+      {
+        "name": "rippleAlpha",
+        "type": "number | undefined",
+        "optional": true,
+        "description": "Alpha used for auto-derived ripple color when `rippleColor` is not provided.",
         "defaultValue": null
       },
       {

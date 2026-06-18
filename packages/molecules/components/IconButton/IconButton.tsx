@@ -13,13 +13,12 @@ import CrossFadeIcon from '../Icon/CrossFadeIcon';
 import { StateLayer } from '../StateLayer';
 import { TouchableRipple, type TouchableRippleProps } from '../TouchableRipple';
 import type { IconButtonShape, IconButtonVariant, IconButtonWidth } from './types';
-import { defaultStyles, iconButtonSizeToIconSizeMap } from './utils';
-
-const ICON_BUTTON_MIN_CONTAINER_SIZE = 32;
-const ICON_BUTTON_CONTAINER_PADDING = 16;
-const M3_ICON_BUTTON_NARROW_WIDTH_ADJUSTMENT = -8;
-const M3_ICON_BUTTON_WIDE_WIDTH_ADJUSTMENT = 12;
-const M3_ICON_BUTTON_SQUARE_CORNER_RADIUS = 12;
+import {
+    defaultStyles,
+    iconButtonConstants,
+    iconButtonDefaultProps,
+    iconButtonSizeToIconSizeMap,
+} from './utils';
 
 export type Props = Omit<TouchableRippleProps, 'children' | 'style'> & {
     /**
@@ -88,17 +87,17 @@ const emptyObject = {};
 const IconButton = (
     {
         name,
-        size = 24,
+        size = iconButtonDefaultProps.size,
         color: _iconColor,
         type,
         accessibilityLabel,
         disabled = false,
         onPress,
         selected = false,
-        animated = false,
-        variant = 'default',
-        shape = 'round',
-        width = 'default',
+        animated = iconButtonDefaultProps.animated,
+        variant = iconButtonDefaultProps.variant,
+        shape = iconButtonDefaultProps.shape,
+        width = iconButtonDefaultProps.width,
         style,
         testID,
         stateLayerProps = emptyObject,
@@ -142,18 +141,18 @@ const IconButton = (
             iconButtonSizeToIconSizeMap[size as keyof typeof iconButtonSizeToIconSizeMap] ??
             (typeof size === 'number' && size ? (size as number) : 24);
         const containerHeight = Math.max(
-            ICON_BUTTON_MIN_CONTAINER_SIZE,
-            iconSizeInNum + ICON_BUTTON_CONTAINER_PADDING,
+            iconButtonConstants.minContainerSize,
+            iconSizeInNum + iconButtonConstants.containerPadding,
         );
         const widthAdjustment =
             width === 'narrow'
-                ? M3_ICON_BUTTON_NARROW_WIDTH_ADJUSTMENT
+                ? iconButtonConstants.narrowWidthAdjustment
                 : width === 'wide'
-                ? M3_ICON_BUTTON_WIDE_WIDTH_ADJUSTMENT
+                ? iconButtonConstants.wideWidthAdjustment
                 : 0;
         const containerWidth = Math.max(iconSizeInNum, containerHeight + widthAdjustment);
         const borderRadius =
-            shape === 'round' ? containerHeight / 2 : M3_ICON_BUTTON_SQUARE_CORNER_RADIUS;
+            shape === 'round' ? containerHeight / 2 : iconButtonConstants.squareCornerRadius;
 
         return {
             iconColor: _iconColor,

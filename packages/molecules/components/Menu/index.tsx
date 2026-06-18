@@ -1,6 +1,6 @@
 import { getRegisteredComponentWithFallback } from '../../core';
 import { List } from '../List';
-import MenuComponent, { MenuItem, MenuRoot, MenuTrigger } from './Menu';
+import MenuComponent, { MenuItem, MenuPopover, MenuRoot, MenuTrigger } from './Menu';
 import { MenuRootContext } from './utils';
 
 export const MenuDefault = Object.assign(MenuComponent, {
@@ -9,6 +9,7 @@ export const MenuDefault = Object.assign(MenuComponent, {
     Item: MenuItem,
     Content: List.Content,
     RootContext: MenuRootContext,
+    Popover: MenuPopover,
 });
 
 export const Menu = getRegisteredComponentWithFallback('Menu', MenuDefault);

@@ -1,6 +1,6 @@
 ---
 title: "Checkbox"
-description: "Cross-platform checkbox with Material states for Android and iOS variants."
+description: "Composable, cross-platform checkbox with Material states for Android and iOS variants."
 sidebar_position: 9
 ---
 
@@ -10,25 +10,80 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 
 <ComponentDoc name="Checkbox" />
 
+## Anatomy
+
+`Checkbox` is a composable compound component:
+
+- **`CheckboxRow`** owns the checked state (`value` / `onValueChange`, or uncontrolled `defaultValue`) and binds
+  it to a `Checkbox` + `Checkbox.Label`. The row itself is **not** pressable — only the control and the label
+  are. The label is linked to the control for accessibility (web `aria-labelledby`).
+- **`Checkbox`** is the control (the box). Used inside a `CheckboxRow`, or standalone with its own
+  `value` / `onValueChange`.
+- **`Checkbox.Label`** is the row's label. Pressing it toggles the checkbox.
+
 ## Examples
 
-### Default
+### Bare checkbox
 
 <LiveCodeExample
     code={`import { Checkbox } from 'react-native-molecules/components/Checkbox';
+import { useState } from 'react';
 
 export default function Example() {
-    return <Checkbox indeterminate={false} defaultValue />;
+    const [value, setValue] = useState(true);
+
+    return <Checkbox value={value} onValueChange={setValue} />;
 }`}
 />
 
-### Checkbox with Label
+### Labeled checkbox
+
+<LiveCodeExample
+    code={`import { Checkbox, CheckboxRow } from 'react-native-molecules/components/Checkbox';
+import { useState } from 'react';
+
+export default function Example() {
+    const [value, setValue] = useState(false);
+
+    return (
+        <CheckboxRow value={value} onValueChange={setValue}>
+            <Checkbox />
+            <Checkbox.Label>Accept terms and conditions</Checkbox.Label>
+        </CheckboxRow>
+    );
+}`}
+/>
+
+### Label-first ordering
+
+Composition controls the layout — put `Checkbox.Label` before `Checkbox` to render the control on the trailing edge.
+
+<LiveCodeExample
+    code={`import { Checkbox, CheckboxRow } from 'react-native-molecules/components/Checkbox';
+
+export default function Example() {
+    return (
+        <CheckboxRow defaultValue>
+            <Checkbox.Label>Subscribe to newsletter</Checkbox.Label>
+            <Checkbox />
+        </CheckboxRow>
+    );
+}`}
+/>
+
+### Indeterminate
+
+Use the `indeterminate` prop to represent a mixed / partial selection state (for example, "select all" when only
+some items are checked).
 
 <LiveCodeExample
     code={`import { Checkbox } from 'react-native-molecules/components/Checkbox';
+import { useState } from 'react';
 
 export default function Example() {
-    return <Checkbox indeterminate={false} defaultValue label="Label" />;
+    const [value, setValue] = useState(false);
+
+    return <Checkbox value={value} onValueChange={setValue} indeterminate />;
 }`}
 />
 

@@ -4,12 +4,10 @@ import { View } from 'react-native';
 import { resolveStateVariant } from '../../utils';
 import { Icon } from '../Icon';
 import { TouchableRipple } from '../TouchableRipple';
-import type { CheckBoxBaseProps, States } from './types';
+import type { CheckboxBaseProps, States } from './types';
 import { iconSizeMap, styles } from './utils';
 
-export type Props = Omit<CheckBoxBaseProps, 'uncheckedColor' | 'value' | 'defaultValue'> & {
-    value: boolean;
-};
+export type Props = Omit<CheckboxBaseProps, 'uncheckedColor'>;
 
 const CheckboxIOS = (
     {

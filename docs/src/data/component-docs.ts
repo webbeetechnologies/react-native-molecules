@@ -177,12 +177,15 @@ export const componentDocsMeta: ComponentDocMeta[] = [
         category: 'Inputs & Controls',
         description: 'Cross-platform checkbox with Material states for Android and iOS variants.',
         usage: 'Collect true/false responses or build multi-select lists.',
-        highlights: ['Platform-specific rendering', 'Supports indeterminate visual state'],
+        highlights: [
+            'Composable Checkbox.Row / Checkbox.Label slots',
+            'Label-to-control linking (web aria-labelledby), supports indeterminate state',
+        ],
         whenToUse: [
             'Users can toggle multiple options in filters.',
             'You must represent tri-state data (checked, unchecked, mixed).',
         ],
-        related: ['RadioButton', 'Switch'],
+        related: ['Radio', 'Switch'],
     }),
     createMeta({
         name: 'Chip',
@@ -618,14 +621,17 @@ export const componentDocsMeta: ComponentDocMeta[] = [
         related: ['Modal', 'Popover', 'ActionSheet'],
     }),
     createMeta({
-        name: 'RadioButton',
+        name: 'Radio',
         category: 'Inputs & Controls',
-        description: 'Cross-platform radio button with Material theming.',
-        usage: 'Offer mutually exclusive options within a list.',
-        highlights: ['Android/iOS specific drawings', 'Supports horizontal groups'],
+        description: 'Composable, cross-platform radio with Material theming.',
+        usage: 'Offer mutually exclusive options within a group.',
+        highlights: [
+            'Composable RadioGroup / RadioRow / Radio.Label slots',
+            'Label-to-control linking (web aria-labelledby); only control + label are pressable',
+        ],
         whenToUse: [
             'Only one option may be selected.',
-            'You need accessible labeling via List rows.',
+            'You want accessible, composable labeled rows.',
         ],
         related: ['Checkbox', 'Select'],
     }),

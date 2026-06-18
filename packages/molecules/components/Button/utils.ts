@@ -210,7 +210,7 @@ const buttonStylesDefault = StyleSheet.create(theme => {
                     shape: 'square',
                     size: 'xs',
                     styles: {
-                        borderRadius: theme.shapes.corner.medium,
+                        borderRadius: theme.shapes.corner.small,
                     },
                 },
                 {
