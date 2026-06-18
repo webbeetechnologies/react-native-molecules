@@ -14,7 +14,7 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 
 `Radio` is a composable compound component:
 
-- **`RadioGroup`** holds the selected value (`value` / `onValueChange`, or uncontrolled `defaultValue`).
+- **`RadioGroup`** holds the selected value (`value` / `onChange`, or uncontrolled `defaultValue`).
 - **`RadioRow`** binds a `value` to a labeled row. The row itself is **not** pressable — only the
   control and the label are. The label is linked to the control for accessibility (web `aria-labelledby`).
 - **`Radio`** is the control (the circle). Used inside a `RadioRow`, or standalone under a `RadioGroup`
@@ -33,7 +33,7 @@ export default function Example() {
     const [value, setValue] = useState('first');
 
     return (
-        <RadioGroup value={value} onValueChange={setValue}>
+        <RadioGroup value={value} onChange={setValue}>
             <Radio value="first" />
             <Radio value="second" />
         </RadioGroup>
@@ -51,7 +51,7 @@ export default function Example() {
     const [value, setValue] = useState('first');
 
     return (
-        <RadioGroup value={value} onValueChange={setValue}>
+        <RadioGroup value={value} onChange={setValue}>
             <RadioRow value="first">
                 <Radio />
                 <Radio.Label>First option</Radio.Label>

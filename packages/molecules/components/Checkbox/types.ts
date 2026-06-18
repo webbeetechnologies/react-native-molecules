@@ -53,7 +53,7 @@ export type CheckboxBaseProps = Omit<TouchableRippleProps, 'children'> & {
 };
 
 /**
- * The checkbox control (the box). Use inside a CheckboxRow, or standalone with `value`/`onValueChange`.
+ * The checkbox control (the box). Use inside a CheckboxRow, or standalone with `value`/`onChange`.
  */
 export type CheckboxProps = Omit<CheckboxBaseProps, 'value' | 'onChange'> & {
     /**
@@ -67,7 +67,7 @@ export type CheckboxProps = Omit<CheckboxBaseProps, 'value' | 'onChange'> & {
     /**
      * Called when the checked state changes.
      */
-    onValueChange?: (newValue: boolean) => void;
+    onChange?: (newValue: boolean) => void;
 };
 
 export type CheckboxRowProps = ViewProps & {
@@ -82,7 +82,7 @@ export type CheckboxRowProps = ViewProps & {
     /**
      * Called when the checked state changes.
      */
-    onValueChange?: (newValue: boolean) => void;
+    onChange?: (newValue: boolean) => void;
     /**
      * Whether the checkbox is in the indeterminate state.
      */

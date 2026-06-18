@@ -39,7 +39,7 @@ const Radio = (
         if (item) {
             item.onSelect();
         } else if (value !== undefined) {
-            group?.onValueChange(value);
+            group?.onChange(value);
         }
     }, [disabled, item, group, value]);
 
@@ -119,7 +119,7 @@ export const RadioRow = memo(
 
             const onSelect = useCallback(() => {
                 if (disabled) return;
-                group?.onValueChange(value);
+                group?.onChange(value);
             }, [disabled, group, value]);
 
             const contextValue = useMemo(
@@ -144,7 +144,7 @@ RadioRow.displayName = 'Radio_Row';
  * Controls a group of radios, holding the selected value.
  *
  * ```tsx
- * <RadioGroup value={value} onValueChange={setValue}>
+ * <RadioGroup value={value} onChange={setValue}>
  *   <RadioRow value="first">
  *     <Radio />
  *     <Radio.Label>First option</Radio.Label>
@@ -156,21 +156,21 @@ export const RadioGroup = memo(
     ({
         value: valueProp,
         defaultValue,
-        onValueChange: onChange,
+        onChange,
         disabled,
         size,
         children,
         ...rest
     }: RadioGroupProps) => {
-        const [value, onValueChange] = useControlledValue({
+        const [value, setValue] = useControlledValue({
             value: valueProp,
             defaultValue,
             onChange,
         });
 
         const contextValue = useMemo(
-            () => ({ value, onValueChange, disabled, size }),
-            [value, onValueChange, disabled, size],
+            () => ({ value, onChange: setValue, disabled, size }),
+            [value, setValue, disabled, size],
         );
 
         return (

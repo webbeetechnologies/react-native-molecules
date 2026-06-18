@@ -54,8 +54,8 @@ const CheckboxAndroid = (
     }, [checked, colorProp, uncheckedColorProp, style, size, state]);
 
     const onChange = useCallback(() => {
-        onChangeProp?.(!checked);
-    }, [checked, onChangeProp]);
+        onChangeProp?.(indeterminate ? true : !checked);
+    }, [checked, indeterminate, onChangeProp]);
 
     const icon = indeterminate
         ? 'minus-box'
@@ -63,7 +63,10 @@ const CheckboxAndroid = (
         ? 'checkbox-marked'
         : 'checkbox-blank-outline';
 
-    const accessibilityState = useMemo(() => ({ disabled, checked }), [checked, disabled]);
+    const accessibilityState = useMemo(
+        () => ({ disabled, checked: indeterminate ? false : checked }),
+        [checked, disabled, indeterminate],
+    );
 
     return (
         <TouchableRipple

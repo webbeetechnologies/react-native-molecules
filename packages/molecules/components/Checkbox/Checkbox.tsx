@@ -10,13 +10,13 @@ import type { CheckboxLabelProps, CheckboxProps, CheckboxRowProps } from './type
 import { checkboxRowStyles } from './utils';
 
 /**
- * The checkbox control (the box). Use inside a CheckboxRow, or standalone with `value`/`onValueChange`.
+ * The checkbox control (the box). Use inside a CheckboxRow, or standalone with `value`/`onChange`.
  */
 const Checkbox = (
     {
         value: valueProp,
         defaultValue,
-        onValueChange,
+        onChange: onChangeProp,
         indeterminate,
         disabled: disabledProp,
         size: sizeProp,
@@ -30,7 +30,7 @@ const Checkbox = (
     const [value, setValue] = useControlledValue({
         value: valueProp,
         defaultValue,
-        onChange: onValueChange,
+        onChange: onChangeProp,
         disabled: disabledProp,
     });
 
@@ -114,7 +114,7 @@ export const CheckboxRow = memo(
             {
                 value: valueProp,
                 defaultValue,
-                onValueChange,
+                onChange,
                 indeterminate,
                 disabled,
                 size,
@@ -129,7 +129,7 @@ export const CheckboxRow = memo(
             const [value, setValue] = useControlledValue({
                 value: valueProp,
                 defaultValue,
-                onChange: onValueChange,
+                onChange,
                 disabled,
             });
 
@@ -137,8 +137,8 @@ export const CheckboxRow = memo(
 
             const onToggle = useCallback(() => {
                 if (disabled) return;
-                setValue(!checked);
-            }, [disabled, setValue, checked]);
+                setValue(indeterminate ? true : !checked);
+            }, [disabled, setValue, checked, indeterminate]);
 
             const contextValue = useMemo(
                 () => ({ checked, onToggle, disabled, indeterminate, size, labelId }),

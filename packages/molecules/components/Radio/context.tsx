@@ -4,7 +4,7 @@ import type { Size } from './types';
 
 export type RadioGroupContextType = {
     value?: string;
-    onValueChange: (value: string) => void;
+    onChange: (value: string) => void;
     disabled?: boolean;
     size?: Size;
 };

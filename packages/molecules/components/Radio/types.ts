@@ -18,7 +18,7 @@ export type RadioGroupProps = ViewProps & {
     /**
      * Called when the selected value changes.
      */
-    onValueChange?: (value: string) => void;
+    onChange?: (value: string) => void;
     /**
      * Disables every radio in the group.
      */

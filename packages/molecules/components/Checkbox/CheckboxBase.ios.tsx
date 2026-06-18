@@ -45,8 +45,8 @@ const CheckboxIOS = (
     }, [checked, colorProp, indeterminate, style, state, size, checkedColor]);
 
     const onChange = useCallback(() => {
-        onChangeProp?.(!checked);
-    }, [checked, onChangeProp]);
+        onChangeProp?.(indeterminate ? true : !checked);
+    }, [checked, indeterminate, onChangeProp]);
 
     const icon = indeterminate ? 'minus' : 'check';
 
@@ -57,7 +57,7 @@ const CheckboxIOS = (
             onPress={onChange}
             disabled={disabled}
             accessibilityRole="checkbox"
-            accessibilityState={{ disabled, checked }}
+            accessibilityState={{ disabled, checked: indeterminate ? false : checked }}
             accessibilityLiveRegion="polite"
             style={rippleContainerStyles}
             testID={testID}

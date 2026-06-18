@@ -14,11 +14,11 @@ import LiveCodeExample from '@site/src/components/LiveCodeExample';
 
 `Checkbox` is a composable compound component:
 
-- **`CheckboxRow`** owns the checked state (`value` / `onValueChange`, or uncontrolled `defaultValue`) and binds
+- **`CheckboxRow`** owns the checked state (`value` / `onChange`, or uncontrolled `defaultValue`) and binds
   it to a `Checkbox` + `Checkbox.Label`. The row itself is **not** pressable — only the control and the label
   are. The label is linked to the control for accessibility (web `aria-labelledby`).
 - **`Checkbox`** is the control (the box). Used inside a `CheckboxRow`, or standalone with its own
-  `value` / `onValueChange`.
+  `value` / `onChange`.
 - **`Checkbox.Label`** is the row's label. Pressing it toggles the checkbox.
 
 ## Examples
@@ -32,7 +32,7 @@ import { useState } from 'react';
 export default function Example() {
     const [value, setValue] = useState(true);
 
-    return <Checkbox value={value} onValueChange={setValue} />;
+    return <Checkbox value={value} onChange={setValue} />;
 }`}
 />
 
@@ -46,7 +46,7 @@ export default function Example() {
     const [value, setValue] = useState(false);
 
     return (
-        <CheckboxRow value={value} onValueChange={setValue}>
+        <CheckboxRow value={value} onChange={setValue}>
             <Checkbox />
             <Checkbox.Label>Accept terms and conditions</Checkbox.Label>
         </CheckboxRow>
@@ -73,8 +73,8 @@ export default function Example() {
 
 ### Indeterminate
 
-Use the `indeterminate` prop to represent a mixed / partial selection state (for example, "select all" when only
-some items are checked).
+`indeterminate` is controlled by the parent. Clear it in `onChange` when the user interacts — otherwise the
+minus icon keeps showing even after `value` updates. Clicking while indeterminate selects the checkbox.
 
 <LiveCodeExample
     code={`import { Checkbox } from 'react-native-molecules/components/Checkbox';
@@ -82,8 +82,18 @@ import { useState } from 'react';
 
 export default function Example() {
     const [value, setValue] = useState(false);
+    const [indeterminate, setIndeterminate] = useState(true);
 
-    return <Checkbox value={value} onValueChange={setValue} indeterminate />;
+    return (
+        <Checkbox
+            value={value}
+            indeterminate={indeterminate}
+            onChange={next => {
+                setValue(next);
+                setIndeterminate(false);
+            }}
+        />
+    );
 }`}
 />
 
