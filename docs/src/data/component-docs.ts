@@ -664,7 +664,8 @@ export const componentDocsMeta: ComponentDocMeta[] = [
     createMeta({
         name: 'Slot',
         category: 'Utilities',
-        description: 'Composition primitive that merges props, event handlers, styles, and refs onto a child.',
+        description:
+            'Composition primitive that merges props, event handlers, styles, and refs onto a child.',
         usage: 'Build asChild APIs or wrapper-free composition points without adding extra native views.',
         highlights: [
             'Merges React Native styles as arrays',
