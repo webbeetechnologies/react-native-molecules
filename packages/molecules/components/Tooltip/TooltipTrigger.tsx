@@ -22,13 +22,10 @@ const TooltipTrigger = memo(({ children }: { children: ReactElement }) => {
     const isWeb = Platform.OS === 'web';
     const { onOpen, onClose, triggerRef } = useContext(TooltipContext);
     const { hovered, actionsRef } = useActionState({ ref: triggerRef, actionsToListen: ['hover'] });
+    const childRef = (children.props as { ref?: RefAttributes<any>['ref'] }).ref;
 
     // this will make sure children's ref is not overwritten by the triggerRef
-    useImperativeHandle(
-        // @ts-ignore
-        (children as ReactElement & RefAttributes<any>)?.ref,
-        () => triggerRef?.current,
-    );
+    useImperativeHandle(childRef, () => triggerRef?.current);
 
     const onLongPress = useCallback(
         (e: unknown) => {

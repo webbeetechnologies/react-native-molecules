@@ -39,7 +39,7 @@
         "jest-transform-stub": "^2.0.0",
         "prettier": "^2.7.1",
         "react-docgen-typescript-plugin": "^1.0.8",
-        "react-test-renderer": "^18.2.0",
+        "react-test-renderer": "^19.1.0",
         "reassure": "^0.7.1",
         "ts-jest": "^29.0.3",
         "ts-morph": "^27.0.2",

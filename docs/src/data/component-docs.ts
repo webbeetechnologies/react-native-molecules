@@ -662,6 +662,28 @@ export const componentDocsMeta: ComponentDocMeta[] = [
         subcomponents: ['Select.Trigger', 'Select.Value', 'Select.Content', 'Select.Option'],
     }),
     createMeta({
+        name: 'Slot',
+        category: 'Utilities',
+        description: 'Composition primitive that merges props, event handlers, styles, and refs onto a child.',
+        usage: 'Build asChild APIs or wrapper-free composition points without adding extra native views.',
+        highlights: [
+            'Merges React Native styles as arrays',
+            'Composes matching event handlers with child-first order',
+            'Preserves forwarded refs and child refs',
+        ],
+        whenToUse: [
+            'A component should pass behavior to a custom child element.',
+            'You need an asChild escape hatch for flexible composition.',
+        ],
+        related: ['TouchableRipple', 'Surface', 'Button'],
+        subcomponents: [
+            {
+                name: 'Slot.Slottable',
+                description: 'Marks the nested child that should receive merged slot props.',
+            },
+        ],
+    }),
+    createMeta({
         name: 'StateLayer',
         category: 'Utilities',
         description: 'Material state-layer implementation for hover, pressed, and focused visuals.',

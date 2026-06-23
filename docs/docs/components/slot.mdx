@@ -1,0 +1,124 @@
+---
+title: 'Slot'
+description: 'Composition primitive for merging props onto a child element.'
+sidebar_position: 43
+---
+
+import ComponentDoc from '@site/src/components/ComponentDoc';
+import LiveCodeExample from '@site/src/components/LiveCodeExample';
+
+<ComponentDoc name="Slot" />
+
+`Slot` renders its child directly and merges the props from `Slot` onto that child. It is the primitive behind `asChild` APIs in components like `Button`, `Surface`, and `TouchableRipple`.
+
+Use it when you want one component to provide behavior, style, or refs without adding another wrapper element to the native view tree.
+
+## Examples
+
+### Merge Props Onto A Child
+
+The child keeps its own props, while `Slot` contributes additional props such as `style` and press handlers.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Pressable, View } from 'react-native';
+import { Slot } from 'react-native-molecules/components/Slot';
+import { Text } from 'react-native-molecules/components/Text';
+
+export default function Example() {
+    const [pressCount, setPressCount] = useState(0);
+
+    return (
+        <View style={{ gap: 12 }}>
+            <Slot
+                onPress={() => setPressCount(count => count + 1)}
+                style={{
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    backgroundColor: '#6750A4',
+                }}>
+                <Pressable>
+                    <Text style={{ color: '#fff' }}>
+                        Pressed {pressCount} times
+                    </Text>
+                </Pressable>
+            </Slot>
+        </View>
+    );
+}`}
+/>
+
+### Compose Event Handlers
+
+When both `Slot` and the child provide the same event handler, the child handler runs first and the slot handler runs after it.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Pressable, View } from 'react-native';
+import { Slot } from 'react-native-molecules/components/Slot';
+import { Text } from 'react-native-molecules/components/Text';
+
+export default function Example() {
+    const [childCount, setChildCount] = useState(0);
+    const [slotCount, setSlotCount] = useState(0);
+
+    return (
+        <View style={{ gap: 12 }}>
+            <Slot
+                onPress={() => setSlotCount(count => count + 1)}
+                style={{
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    borderWidth: 1,
+                    borderColor: '#6750A4',
+                }}>
+                <Pressable onPress={() => setChildCount(count => count + 1)}>
+                    <Text>Child handler: {childCount}</Text>
+                    <Text>Slot handler: {slotCount}</Text>
+                </Pressable>
+            </Slot>
+        </View>
+    );
+}`}
+/>
+
+### Use Slottable
+
+`Slot.Slottable` marks which child should receive the slot props. This is useful when a component has decoration around the actual interactive element.
+
+<LiveCodeExample
+    code={`import { useState } from 'react';
+import { Pressable } from 'react-native';
+import { Slot } from 'react-native-molecules/components/Slot';
+import { Text } from 'react-native-molecules/components/Text';
+
+export default function Example() {
+    const [pressCount, setPressCount] = useState(0);
+
+    return (
+        <Slot
+            onPress={() => setPressCount(count => count + 1)}
+            style={{
+                width: 240,
+                padding: 16,
+                borderRadius: 16,
+                backgroundColor: '#EADDFF',
+            }}>
+            <Text variant="titleMedium">Card action</Text>
+            <Slot.Slottable>
+                <Pressable>
+                    <Text>Slottable pressed {pressCount} times</Text>
+                </Pressable>
+            </Slot.Slottable>
+        </Slot>
+    );
+}`}
+/>
+
+## Usage Notes
+
+`Slot` expects a single valid React element as its effective child. If you need surrounding text, icons, or layout, wrap them in a component and use `Slot.Slottable` to choose the element that receives the merged props.
+
+Styles are merged as a React Native style array, with the child's style applied after the slot style. Event handlers named like `onPress` are composed, with the child handler running first.

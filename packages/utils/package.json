@@ -24,8 +24,8 @@
         "use-sync-external-store": "^1.2.0"
     },
     "peerDependencies": {
-        "react": ">=18",
-        "@types/react": ">=18"
+        "react": ">=19",
+        "@types/react": ">=19"
     },
     "devDependencies": {
         "@types/color": "^3.0.3",

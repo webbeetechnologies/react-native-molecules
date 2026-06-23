@@ -1,7 +1,15 @@
 // Import commonly used components directly
 import { createFastContext } from '@react-native-molecules/utils/fast-context';
 import * as React from 'react';
-import { FlatList, Image, SectionList, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+    FlatList,
+    Image,
+    Pressable,
+    SectionList,
+    StyleSheet,
+    useWindowDimensions,
+    View,
+} from 'react-native';
 import { Accordion, AccordionItem } from 'react-native-molecules/components/Accordion';
 import { ActivityIndicator } from 'react-native-molecules/components/ActivityIndicator';
 import { Appbar } from 'react-native-molecules/components/Appbar';
@@ -158,6 +166,7 @@ export const defaultScope = {
     useSelectSearchContextValue,
     useSelectSearchStoreRef,
     useSelectStoreRef,
+    Pressable,
 };
 
 if ((defaultScope as any).default) {
