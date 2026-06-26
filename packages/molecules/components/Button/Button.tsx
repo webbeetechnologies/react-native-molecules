@@ -220,7 +220,7 @@ export const ButtonIcon = memo(
                 type={type}
                 name={name}
                 size={iconSizeResolved}
-                color={disabled ? undefined : colorResolved}
+                color={disabled ? 'onSurfaceDisabled' : colorResolved}
                 style={[buttonIconStyles.root, textRelatedStyle, style]}
                 {...rest}
             />
@@ -268,7 +268,7 @@ export const ButtonActivityIndicator = memo(
         style,
         ...rest
     }: Omit<ActivityIndicatorProps, 'animating'>) => {
-        const { iconSize, variant, state } = useContext(ButtonContext);
+        const { iconSize, variant, state, disabled } = useContext(ButtonContext);
 
         const sizeResolved = sizeProp ?? iconSize;
         // Default to onPrimary for contained variants, primary for others
@@ -287,7 +287,7 @@ export const ButtonActivityIndicator = memo(
         return (
             <ActivityIndicator
                 size={sizeResolved}
-                color={colorResolved}
+                color={disabled ? 'onSurfaceDisabled' : colorResolved}
                 style={activityIndicatorStyle}
                 {...rest}
             />
