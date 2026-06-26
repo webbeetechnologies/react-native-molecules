@@ -2,22 +2,35 @@ import { memo, useId } from 'react';
 import { View } from 'react-native';
 
 import {
-    cookie4Path,
-    cookie9Path,
-    expressFastSpatial,
-    loadingIndicatorStyles as componentStyles,
-    ovalPath,
-    pentagonPath,
-    pillPath,
-    type Props,
-    softBurstPath,
-    sunnyPath,
-    useProcessProps,
-} from './utils';
+    normalizedCookie4Path,
+    normalizedCookie9Path,
+    normalizedOvalPath,
+    normalizedPentagonPath,
+    normalizedPillPath,
+    normalizedSoftBurstPath,
+    normalizedSunnyPath,
+} from './pathNormalize';
+import { loadingIndicatorStyles as componentStyles, type Props, useProcessProps } from './utils';
+
+// 8 evenly-spaced keyframe beats matching the original CSS animation.
+const SMIL_KEY_TIMES = '0; 0.1428; 0.2857; 0.4285; 0.5714; 0.7142; 0.8571; 1';
+// Approximation of cubic-bezier(0.42, 1.67, 0.21, 0.90) clamped to [0,1]
+// because SMIL keySplines does not allow y-values outside that range.
+const SMIL_KEY_SPLINES = Array(7).fill('0.42 1 0.21 0.90').join('; ');
+
+const SHAPE_ROTATION_VALUES =
+    '0 19 19; 154.29 19 19; 308.57 19 19; 462.86 19 19; 617.14 19 19; 771.43 19 19; 925.71 19 19; 1080 19 19';
 
 /**
  * Material 3 Expressive Loading Indicator for Web.
- * Uses CSS 'd' attribute transitions for true shape morphing.
+ *
+ * Uses pure SMIL animations so both shape morphing and rotation work in Safari:
+ * - <animate attributeName="d"> for shape morphing
+ * - <animateTransform type="rotate"> with explicit center (19 19) for rotation
+ *
+ * CSS `d` property animation in @keyframes is not supported in Safari, and mixing
+ * CSS transform with SMIL on the same element causes the rotation pivot to shift
+ * as fill-box dimensions change during morphing.
  */
 const LoadingIndicator = ({
     animating = true,
@@ -39,6 +52,17 @@ const LoadingIndicator = ({
     });
 
     if (!animating) return null;
+
+    const shapeValues = [
+        normalizedSoftBurstPath,
+        normalizedCookie9Path,
+        normalizedPentagonPath,
+        normalizedPillPath,
+        normalizedSunnyPath,
+        normalizedCookie4Path,
+        normalizedOvalPath,
+        normalizedSoftBurstPath,
+    ].join('; ');
 
     return (
         <View
@@ -66,66 +90,33 @@ const LoadingIndicator = ({
                     width={size}
                     height={size}
                     viewBox="0 0 38 38">
-                    <path className={`m3-expressive-path-${id}`} fill={strokeColor} />
+                    <path d={normalizedSoftBurstPath} fill={strokeColor}>
+                        <animate
+                            attributeName="d"
+                            dur="4.55s"
+                            repeatCount="indefinite"
+                            calcMode="spline"
+                            keyTimes={SMIL_KEY_TIMES}
+                            keySplines={SMIL_KEY_SPLINES}
+                            values={shapeValues}
+                        />
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            dur="4.55s"
+                            repeatCount="indefinite"
+                            calcMode="spline"
+                            keyTimes={SMIL_KEY_TIMES}
+                            keySplines={SMIL_KEY_SPLINES}
+                            values={SHAPE_ROTATION_VALUES}
+                        />
+                    </path>
                 </svg>
             </View>
             <style>
                 {`
                 .m3-expressive-svg-${id} {
-                    transform-origin: center;
                     display: block;
-                }
-
-                .m3-expressive-path-${id} {
-                    animation: m3-expressive-combined 4.55s linear infinite;
-                    transform-origin: center;
-                }
-
-                @keyframes m3-expressive-pulse-${id} {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.1); }
-                }
-
-                @keyframes m3-expressive-combined {
-                    0% {
-                        animation-timing-function: ${expressFastSpatial};
-                        transform: rotate(0deg);
-                        d: path('${softBurstPath}');
-                    }
-                    14.28% {
-                        animation-timing-function: ${expressFastSpatial};
-                        transform: rotate(154.29deg);
-                        d: path('${cookie9Path}');
-                    }
-                    28.57% {
-                        animation-timing-function: ${expressFastSpatial};
-                        transform: rotate(308.57deg);
-                        d: path('${pentagonPath}');
-                    }
-                    42.85% {
-                        animation-timing-function: ${expressFastSpatial};
-                        transform: rotate(462.86deg);
-                        d: path('${pillPath}');
-                    }
-                    57.14% {
-                        animation-timing-function: ${expressFastSpatial};
-                        transform: rotate(617.14deg);
-                        d: path('${sunnyPath}');
-                    }
-                    71.42% {
-                        animation-timing-function: ${expressFastSpatial};
-                        transform: rotate(771.43deg);
-                        d: path('${cookie4Path}');
-                    }
-                    85.71% {
-                        animation-timing-function: ${expressFastSpatial};
-                        transform: rotate(925.71deg);
-                        d: path('${ovalPath}');
-                    }
-                    100% {
-                        transform: rotate(1080deg);
-                        d: path('${softBurstPath}');
-                    }
                 }
                 `}
             </style>
