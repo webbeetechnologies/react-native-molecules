@@ -12,11 +12,18 @@ import {
 } from 'react';
 
 import AutoSizer from './AutoSizer';
-import { beginOffset, estimatedMonthHeight, getInitialIndex, totalMonths } from './dateUtils';
+import {
+    beginOffset,
+    estimatedMonthHeight,
+    getGridCount,
+    getInitialIndex,
+    totalMonths,
+} from './dateUtils';
 import { addMonths, getRealIndex } from './dateUtils';
 import { getIndexFromVerticalOffset, getMonthHeight, getVerticalMonthsOffset } from './Month';
 import { useDatePickerInlineStore } from './store';
 import type { SwiperProps } from './SwiperUtils';
+import { weekSize } from './utils';
 import { montHeaderHeight } from './utils';
 
 function Swiper({ scrollMode, renderItem, renderHeader, renderFooter, initialIndex }: SwiperProps) {
@@ -59,7 +66,6 @@ const visibleHorizontalArray = (i: number) => [i - 1, i, i + 1];
 
 function HorizontalScroller({
     width,
-    height,
     initialIndex,
     renderItem,
 }: {
@@ -152,9 +158,10 @@ function HorizontalScroller({
     );
 
     const { containerStyle, innerContainerStyle, itemContainerStyle } = useMemo(() => {
+        const currentHeight = getGridCount(visibleIndexes[1]) * weekSize;
         return {
             containerStyle: {
-                height,
+                height: currentHeight,
                 width,
                 overflowX: 'auto',
                 overflowY: 'hidden',
@@ -165,7 +172,7 @@ function HorizontalScroller({
             },
             innerContainerStyle: {
                 width: width * 3,
-                height,
+                height: currentHeight,
                 position: 'relative',
             },
             itemContainerStyle: (vi: number) => ({
@@ -177,7 +184,7 @@ function HorizontalScroller({
                 scrollSnapAlign: 'start',
             }),
         };
-    }, [height, width]);
+    }, [visibleIndexes, width]);
 
     return (
         <div ref={parentRef} style={containerStyle as CSSProperties} onScroll={onScroll}>

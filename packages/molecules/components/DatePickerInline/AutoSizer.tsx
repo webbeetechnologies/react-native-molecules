@@ -41,6 +41,6 @@ export default function AutoSizer({
 const styles = StyleSheet.create({
     autoSizer: {
         flex: 1,
-        overflow: 'hidden',
+        overflow: 'visible',
     },
 });
