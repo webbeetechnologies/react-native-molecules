@@ -106,68 +106,62 @@ function splitCubic(p0x: number, p0y: number, a: number[]): [number[], number[]]
     ];
 }
 
-function splitAll(cmds: Cmd[]): Cmd[] {
-    const out: Cmd[] = [];
+// Angular span of a bezier endpoint-to-endpoint from center (cx, cy).
+// Returns the shorter arc [0, π] so no single segment exceeds a half-circle.
+function angularSpan(x0: number, y0: number, x1: number, y1: number, cx = 19, cy = 19): number {
+    const a0 = Math.atan2(y0 - cy, x0 - cx);
+    const a1 = Math.atan2(y1 - cy, x1 - cx);
+    let diff = a1 - a0;
+    while (diff > Math.PI) diff -= 2 * Math.PI;
+    while (diff < -Math.PI) diff += 2 * Math.PI;
+    return Math.abs(diff);
+}
+
+// Expand a path to `target` C commands by always splitting the segment with the
+// largest angular span. This keeps the angular distribution approximately uniform
+// so that command i in any two shapes always corresponds to the same arc around
+// the center — the key requirement for smooth SMIL/worklet morphing.
+function expandToCount(cmds: Cmd[], target: number): Cmd[] {
+    type Seg = { x0: number; y0: number; cmd: Cmd; span: number };
+
     let cx = 0,
         cy = 0;
+    const segs: Seg[] = [];
     for (const cmd of cmds) {
         if (cmd.t === 'M') {
             cx = cmd.a[0];
             cy = cmd.a[1];
-            out.push(cmd);
         } else if (cmd.t === 'C') {
-            const [l, ri] = splitCubic(cx, cy, cmd.a);
-            out.push({ t: 'C', a: l }, { t: 'C', a: ri });
-            cx = cmd.a[4];
-            cy = cmd.a[5];
-        } else {
-            out.push(cmd);
+            const x3 = cmd.a[4],
+                y3 = cmd.a[5];
+            segs.push({ x0: cx, y0: cy, cmd, span: angularSpan(cx, cy, x3, y3) });
+            cx = x3;
+            cy = y3;
         }
     }
-    return out;
-}
 
-function splitN(cmds: Cmd[], n: number): Cmd[] {
-    const total = cmds.filter(c => c.t === 'C').length;
-    const stride = total / n;
-    const toSplit = new Set<number>();
-    for (let i = 0; i < n; i++) {
-        toSplit.add(Math.round(i * stride));
-    }
-    const out: Cmd[] = [];
-    let cx = 0,
-        cy = 0,
-        idx = 0;
-    for (const cmd of cmds) {
-        if (cmd.t === 'M') {
-            cx = cmd.a[0];
-            cy = cmd.a[1];
-            out.push(cmd);
-        } else if (cmd.t === 'C') {
-            if (toSplit.has(idx)) {
-                const [l, ri] = splitCubic(cx, cy, cmd.a);
-                out.push({ t: 'C', a: l }, { t: 'C', a: ri });
-            } else {
-                out.push(cmd);
-            }
-            cx = cmd.a[4];
-            cy = cmd.a[5];
-            idx++;
-        } else {
-            out.push(cmd);
+    while (segs.length < target) {
+        let maxIdx = 0;
+        for (let i = 1; i < segs.length; i++) {
+            if (segs[i].span > segs[maxIdx].span) maxIdx = i;
         }
+        const { x0, y0, cmd } = segs[maxIdx];
+        const [left, right] = splitCubic(x0, y0, cmd.a);
+        const mx = left[4],
+            my = left[5];
+        const ex = cmd.a[4],
+            ey = cmd.a[5];
+        segs.splice(
+            maxIdx,
+            1,
+            { x0, y0, cmd: { t: 'C', a: left }, span: angularSpan(x0, y0, mx, my) },
+            { x0: mx, y0: my, cmd: { t: 'C', a: right }, span: angularSpan(mx, my, ex, ey) },
+        );
     }
-    return out;
-}
 
-function expandToCount(cmds: Cmd[], target: number): Cmd[] {
-    let cur = cmds;
-    while (true) {
-        const count = cur.filter(c => c.t === 'C').length;
-        if (count >= target) return cur;
-        const needed = target - count;
-        cur = needed >= count ? splitAll(cur) : splitN(cur, needed);
-    }
+    const M = cmds.find(c => c.t === 'M')!;
+    const Z = cmds.find(c => c.t === 'Z');
+    return [M, ...segs.map(s => s.cmd), ...(Z ? [Z] : [])];
 }
 
 function serialize(cmds: Cmd[]): string {
@@ -212,7 +206,12 @@ function alignToAngle(cmds: Cmd[], targetAngle: number, cx = 19, cy = 19): Cmd[]
  */
 export function normalizePaths(paths: string[]): string[] {
     const allCubic = paths.map(p => lToC(tokenize(p)));
-    const max = Math.max(...allCubic.map(c => c.filter(x => x.t === 'C').length));
+    const naturalMax = Math.max(...allCubic.map(c => c.filter(x => x.t === 'C').length));
+    // Expand to 3× the natural maximum so each original segment is subdivided at least 3×.
+    // At lower targets (e.g. 16), greedy bisection leaves 2 cookie9 segments at 40° while
+    // the rest are at 20° — a 17.5° angular mismatch with softBurst's 22.5° commands that
+    // produces visible unevenness. At 3× (48), the mismatch shrinks to ~2.5°.
+    const max = naturalMax * 3;
     const expanded = allCubic.map(c => expandToCount(c, max));
     return expanded.map(c => serialize(alignToAngle(c, -Math.PI / 2)));
 }
