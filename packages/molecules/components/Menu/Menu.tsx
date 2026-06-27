@@ -1,9 +1,11 @@
 import {
     Children,
     cloneElement,
+    type Dispatch,
     memo,
     type ReactElement,
     type ReactNode,
+    type SetStateAction,
     useCallback,
     useContext,
     useMemo,
@@ -92,24 +94,38 @@ const Menu = ({
     );
 };
 
-export type MenuRootProps = {
-    children: ReactNode;
+type UncontrolledMenuRootProps = {
+    isOpen?: never;
+    setIsOpen?: never;
 };
 
-export const MenuRoot = memo(({ children }: MenuRootProps) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const triggerRef = useRef(null);
+type ControlledMenuRootProps = {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-    const onOpen = useCallback(() => setIsOpen(true), []);
-    const onClose = useCallback(() => setIsOpen(false), []);
+export type MenuRootProps = {
+    children: ReactNode;
+} & (UncontrolledMenuRootProps | ControlledMenuRootProps);
 
-    const contextValue = useMemo(
-        () => ({ isOpen, onOpen, onClose, triggerRef }),
-        [isOpen, onOpen, onClose],
-    );
+export const MenuRoot = memo(
+    ({ children, isOpen: isOpenProp, setIsOpen: setIsOpenProp }: MenuRootProps) => {
+        const [internalIsOpen, setInternalIsOpen] = useState(false);
+        const triggerRef = useRef(null);
+        const isOpen = isOpenProp ?? internalIsOpen;
+        const setIsOpen = setIsOpenProp ?? setInternalIsOpen;
 
-    return <MenuRootContext.Provider value={contextValue}>{children}</MenuRootContext.Provider>;
-});
+        const onOpen = useCallback(() => setIsOpen(true), [setIsOpen]);
+        const onClose = useCallback(() => setIsOpen(false), [setIsOpen]);
+
+        const contextValue = useMemo(
+            () => ({ isOpen, onOpen, onClose, triggerRef }),
+            [isOpen, onOpen, onClose],
+        );
+
+        return <MenuRootContext.Provider value={contextValue}>{children}</MenuRootContext.Provider>;
+    },
+);
 
 MenuRoot.displayName = 'Menu_Root';
 

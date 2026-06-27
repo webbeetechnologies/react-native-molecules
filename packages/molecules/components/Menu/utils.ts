@@ -3,6 +3,7 @@ import type { View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { getRegisteredComponentStylesWithFallback } from '../../core';
+import { registerPortalContext } from '../Portal';
 
 export const MenuContext = createContext({
     closeOnSelect: true,
@@ -39,3 +40,5 @@ const menuStylesDefault = StyleSheet.create(theme => ({
 }));
 
 export const menuStyles = getRegisteredComponentStylesWithFallback('Menu', menuStylesDefault);
+
+registerPortalContext([MenuRootContext, MenuContext]);
